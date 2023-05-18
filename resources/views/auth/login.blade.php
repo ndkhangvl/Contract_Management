@@ -9,25 +9,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-fluid vh-100" style="margin-top:300px">
-        <div class="" style="margin-top:200px">
+    <div class="container-fluid vh-100">
+        <div class="" style="margin-top:100px">
             <div class="rounded d-flex justify-content-center">
                 <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
                     <div class="text-center">
                         <h3 class="text-primary">Quản Lý Hợp Đồng</h3>
                     </div>
-                    <form action="">
+                    <form action="{{route('user-login')}}" method="POST">
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">{{Session::get('success')}}
+                        @endif
+                        @if(Session::has('fail'))
+                        <div class="alert alert-danger">{{Session::get('fail')}}
+                        @endif
+                        @csrf
                         <div class="p-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i
                                         class="bi bi-person-plus-fill text-white"></i></span>
-                                <input type="text" class="form-control" placeholder="Tên tài khoản">
+                                <input type="text" class="form-control" name="ma_nd" placeholder="Tên tài khoản"
+                                value="{{old('ma_nd')}}">
                             </div>
+                            <span class="text-danger">@error('ma_nd') {{$message}} @enderror</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i
                                         class="bi bi-key-fill text-white"></i></span>
-                                <input type="password" class="form-control" placeholder="Mật khẩu">
+                                <input type="password" class="form-control" name="matkhau" placeholder="Mật khẩu">
                             </div>
+                            <span class="text-danger">@error('matkhau') {{$message}} @enderror</span>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
