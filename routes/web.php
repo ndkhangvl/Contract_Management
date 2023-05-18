@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoaiKhachHangController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::resource('/loaikhachhang', LoaiKhachHangController::class);

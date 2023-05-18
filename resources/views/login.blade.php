@@ -28,6 +28,11 @@
                                         class="bi bi-key-fill text-white"></i></span>
                                 <input type="password" class="form-control" placeholder="Mật khẩu">
                             </div>
+                            <div class="input-group mb-3">
+                                @csrf
+                                <input type="text" name="captcha">
+                                <img src="{{ captcha_img($captcha['key']) }}" alt="CAPTCHA">
+                            </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
