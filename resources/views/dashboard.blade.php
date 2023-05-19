@@ -25,7 +25,12 @@
                             <td>{{ $data -> ten_nd }}</td>
                             <td>{{ $data -> ma_nd }}</td>
                             <td>{{ $data -> matkhau }}</td>
-                            <td><a href="logout">Logout</a></td>
+                            <td>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit">Logout</button>
+                                </form>     
+                            </td>
                         </tr>
                     </tbody>
                 </table>

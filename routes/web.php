@@ -38,5 +38,5 @@ Route::get('/dashboard', function(){
 Route::get('/dashboard', [UserAuthController::class, 'dashboard']);
 Route::get('/login', [UserAuthController::class,'login']);
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
-
+Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
 

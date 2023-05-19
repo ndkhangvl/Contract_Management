@@ -25,6 +25,7 @@ class UserAuthController extends Controller
     //}
 
     public function userLogin(Request $request) {
+        
         $captchaData = $request->input('captcha');
         $isCaptchaValid = Captcha::check($captchaData);
 
@@ -56,5 +57,10 @@ class UserAuthController extends Controller
         }
         //return view('dashboard', compact('data'));
         return view('dashboard', compact('data'));
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/login');
     }
 }
