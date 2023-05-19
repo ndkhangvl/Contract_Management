@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\LoaiKhachHangController;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\UserAuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +21,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+//Route::get('/login', function () {
+//    return view('login');
+//});
 
-Route::resource('/loaikhachhang', LoaiKhachHangController::class);
+//Route::resource('/loaikhachhang', LoaiKhachHangController::class);
+// Route::get('/login', function () {
+//     $users = \DB::table('LOAI_KHACHHANG')->get();
+//     //return view('login');
+//     return dd($users);
+// });
+
+Route::get('/dashboard', function(){
+    return view('dashboard');
+});
+Route::get('/dashboard', [UserAuthController::class, 'dashboard']);
+Route::get('/login', [UserAuthController::class,'login']);
+Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
+
+
