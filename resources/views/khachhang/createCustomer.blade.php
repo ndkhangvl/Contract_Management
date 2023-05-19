@@ -7,6 +7,13 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        .otp-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
     @include('header')
@@ -60,13 +67,33 @@
               <input type="text" class="form-control" id="email" placeholder="Nhập tên người đại diện" name="email">
             </div>
             <div class="mb-3">
+                <label for="masothue" class="form-label fw-bold">Mã số thuế:</label>
+                <div class="row justify-content-left">
+                    <div class="col-auto">
+                      <div class="input-group">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            <div class="mb-3">
               <label for="ngayhdong" class="form-label fw-bold">Ngày hoạt động:</label>
               <input type="date" class="form-control" id="pwd" placeholder="Chọn ngày hoạt động" name="pswd">
             </div>
-            <div class="mb-3">
-                <label for="masothue" class="form-label fw-bold">Mã số thuế:</label>
-                <input type="text" class="form-control" id="pwd" placeholder="Nhập mã số thuế" name="pswd">
-              </div>
             <div class="mb-3 mt-3 pb-2">
                 <button type="submit" class="btn btn-lg btn-success mx-auto d-block mb-3 mt-3">Thêm mới</button>
             </div>
