@@ -40,7 +40,7 @@
               </div>
               <div class="row mb-3 mt-3">
                 <div class="col">
-                    <label for="sdt" class="form-label fw-bold">SĐT:</label>
+                    <label for="sdt" class="form-label fw-bold">Số điện thoại:</label>
                     <input type="text" class="form-control" placeholder="Nhập số điện thoại" name="email">
                 </div>
                 <div class="col">
