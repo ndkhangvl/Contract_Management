@@ -18,7 +18,7 @@ use App\Http\Controllers\UserAuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 })->name('routeName');;
 
 //Route::get('/login', function () {
@@ -39,8 +39,20 @@ Route::get('/header', function () {
     //$value = Session::get('loginId');
     return view('header');
 });
+
+Route::get('/test', function () {
+    //$value = Session::get('loginId');
+    return view('khachhang.createCustomer');
+});
+
+Route::get('login/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'vi'])) {
+        App::setLocale($locale);
+    }
+    return Redirect::back();
+})->name('setlocale');
+
 Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
 Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::get('/logout', [UserAuthController::class, 'logout']);
-

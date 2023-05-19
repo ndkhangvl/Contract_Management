@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+  <h1>{{ Session::get('infoUser') }}</h1>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="javascript:void(0)">Logo</a>

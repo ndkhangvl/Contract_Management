@@ -57,6 +57,7 @@ class UserAuthController extends Controller
         $data = array();
         if(Session::has('loginId')) {
             $data = TaiKhoan::where('nguoidung_id','=', Session::get('loginId'))->first();
+            $information = Session::put('infoUser', $data);
         }
         //return view('dashboard', compact('data'));
         return view('dashboard', compact('data'));
@@ -66,6 +67,7 @@ class UserAuthController extends Controller
         //Auth::logout();
         if(Session::has('loginId')) {
             Session::pull('loginId');
+            Session::pull('infoUser');
             return redirect('login');
         }
     }

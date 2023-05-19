@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        a.imgvi { 
+            background: no-repeat top left;
+            display: block;
+            width: 25px;
+            height: 25px;
+            text-indent: -9999px;
+            float: left;
+            margin-left: 10px;
+        }
+        a.imgen { 
+            background: no-repeat top left;
+            display: block;
+            width: 25px;
+            height: 25px;
+            text-indent: -9999px;
+            float: left;
+            margin-left: 10px;
+        };
+    </style>
+    {{-- <script src="/Scripts/jquery-3.3.1.min.js"></script> --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -63,10 +84,18 @@
                                     Ghi nhớ tôi
                                 </label>
                             </div>
-                            <button class="btn btn-primary text-center mt-2 mx-auto" type="submit">
+                            <button class="btn btn-primary text-center mx-auto d-block" type="submit">
                                 Đăng nhập
                             </button>
-                            <p class="text-center text-primary">Quên mật khẩu?</p>
+                            <p class="text-center text-primary">{{ __('msg.forgotpassword')}}</p>
+                            {{-- <div class="mx-auto d-flex justify-content-center">
+                                <a href="javascript:void(0)" onclick="changeLanguage('vi')" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
+                                <a href="javascript:void(0)" onclick="changeLanguage('en')" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
+                            </div> --}}
+                            <div class="mx-auto d-flex justify-content-center">
+                                <a href="{{ route('setlocale', 'vi') }}" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
+                                <a href="{{ route('setlocale', 'en') }}" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -74,4 +103,25 @@
         </div>
     </div>
 </body>
+{{-- <script>
+    function changeLanguage(locale) {
+        // Gửi yêu cầu AJAX để thay đổi ngôn ngữ
+        $.ajax({
+            url: '{{ route('change-language') }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                locale: locale
+            },
+            success: function(response) {
+                // Tải lại trang để cập nhật ngôn ngữ
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Xử lý lỗi nếu có
+                console.error(error);
+            }
+        });
+    }
+</script> --}}
 </html>
