@@ -28,31 +28,31 @@ session_start();
             </select>
         </div> --}}
 
-    Tên KH: <input class="form-control" 
+    /Tên KH: <input class="form-control" 
             type="text" name="khachhang_ten" 
             placeholder="Tên KH">
-    Địa chỉ: <input class="form-control" 
+    /Địa chỉ: <input class="form-control" 
             type="text" name="khachhang_diachi" 
             placeholder="Địa chỉ"><br>
-    SĐT: <input class="form-control" 
+    /SĐT: <input class="form-control" 
             type="text" name="khachhang_sdt" 
             placeholder="SĐT">
-    Email: <input class="form-control" 
+    /Email: <input class="form-control" 
             type="text" name="khachhang_email" 
             placeholder="Email"><br>
-    Chủ sỡ hữu: <input class="form-control" 
+    /Chủ sỡ hữu: <input class="form-control" 
             type="text" name="khachhang_chusohuu" 
             placeholder="Chủ sỡ hữu"><br>
     Người đại diện: <input class="form-control" 
             type="text" name="khachhang_nguoidaidien" 
             placeholder="Người đại diện"><br>
-    CMND: <input class="form-control" 
+    /CMND: <input class="form-control" 
             type="text" name="khachhang_cmnd" 
             placeholder="CMND">
-    Ngày cấp CMND: <input class="form-control" 
+    /Ngày cấp CMND: <input class="form-control" 
             type="date" name="khachhang_ngaycapcmnd" 
             placeholder="Ngày cấp CMND"><br>
-    Ngày sinh: <input class="form-control" 
+    /Ngày sinh: <input class="form-control" 
             type="date" name="khachhang_ngaysinhndd" 
             placeholder="Ngày Sinh (YYYY/MM/DD)"><br>
     Ngày hoạt động: <input class="form-control" 

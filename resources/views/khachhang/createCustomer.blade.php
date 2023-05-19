@@ -10,7 +10,7 @@
 </head>
 <body>
     @include('header')
-    <div class="container">
+    <div class="container shadow">
         <form action="/action_page.php">
             <h1 class="text-success">Thêm mới khách hàng</h1>
             <div class="mb-3 mt-3">
@@ -67,8 +67,9 @@
                 <label for="masothue" class="form-label fw-bold">Mã số thuế:</label>
                 <input type="text" class="form-control" id="pwd" placeholder="Nhập mã số thuế" name="pswd">
               </div>
+            <div class="mb-3 mt-3 pb-2">
+                <button type="submit" class="btn btn-lg btn-success mx-auto d-block mb-3 mt-3">Thêm mới</button>
             </div>
-            <button type="submit" class="btn btn-lg btn-success mx-auto d-block mb-3 mt-3">Thêm mới</button>
           </form>
     </div>
 </body>
