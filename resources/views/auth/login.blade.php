@@ -32,13 +32,13 @@
                                 <input type="text" class="form-control" name="ma_nd" placeholder="Tên tài khoản"
                                 value="{{old('ma_nd')}}">
                             </div>
-                            <span class="text-danger">@error('ma_nd') {{$message}} @enderror</span>
+                            <span class="invalid-feedback">@error('ma_nd') {{$message}} @enderror</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i
                                         class="bi bi-key-fill text-white"></i></span>
                                 <input type="password" class="form-control" name="matkhau" placeholder="Mật khẩu">
                             </div>
-                            <span class="text-danger">@error('matkhau') {{$message}} @enderror</span>
+                            <span class="invalid-feedback">@error('matkhau') {{$message}} @enderror</span>
                             <div class="form-group">
                                 <div class="captcha">
                                     <span>{!! Captcha::img() !!}</span>

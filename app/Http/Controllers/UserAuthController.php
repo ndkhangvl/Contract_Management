@@ -36,16 +36,19 @@ class UserAuthController extends Controller
 
         //$taikhoan = $request->only('ma_nd','matkhau');
         if (!$isCaptchaValid) {
-            return back()->with('fail', 'mã xác nhận sai');
+            return back()->with('fail', 'Mã xác nhận sai');
             return false;
         }
         $user = TaiKhoan::where('ma_nd','=', $request-> ma_nd)->first();
         $puser = TaiKhoan::where('matkhau', '=', $request->matkhau)->first();
+        if($user && !$puser) {
+            return back()->with('fail', 'Mật khẩu không đúng.');
+        }
         if($user && $puser) {
             $request->session()->put('loginId', $user->nguoidung_id);
             return redirect('dashboard');
         } else {
-            return back()->with('fail', 'This username is not register');
+            return back()->with('fail', 'Tên đăng nhập không tồn tại.');
         }
     }
     
@@ -60,7 +63,10 @@ class UserAuthController extends Controller
     }
 
     public function logout(){
-        Auth::logout();
-        return redirect('/login');
+        //Auth::logout();
+        if(Session::has('loginId')) {
+            Session::pull('loginId');
+            return redirect('login');
+        }
     }
 }

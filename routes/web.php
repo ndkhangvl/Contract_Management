@@ -19,7 +19,7 @@ use App\Http\Controllers\UserAuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('routeName');;
 
 //Route::get('/login', function () {
 //    return view('login');
@@ -32,11 +32,15 @@ Route::get('/', function () {
 //     return dd($users);
 // });
 
-Route::get('/dashboard', function(){
-    return view('dashboard');
+// Route::get('/dashboard', function(){
+//     return view('dashboard');
+// });
+Route::get('/header', function () {
+    //$value = Session::get('loginId');
+    return view('header');
 });
-Route::get('/dashboard', [UserAuthController::class, 'dashboard']);
-Route::get('/login', [UserAuthController::class,'login']);
+Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
+Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
-Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [UserAuthController::class, 'logout']);
 
