@@ -6,6 +6,10 @@ use App\Http\Controllers\LoaiKhachHangController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserAuthController;
 
+use App\Http\Controllers\KhachHangController;
+use App\Http\Controllers\HopDongController;
+use App\Http\Controllers\HoaDonController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,3 +60,8 @@ Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('
 Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::get('/logout', [UserAuthController::class, 'logout']);
+
+Route::resource('/loaikhachhangs', LoaiKhachHangController::class);
+Route::resource('/khachhang', KhachHangController::class);
+Route::resource('/hopdong', HopDongController::class);
+Route::resource('/hoadon', HoaDonController::class);
