@@ -20,7 +20,7 @@
           <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('routeName') }}">Khách Hàng</a>
+                <a class="nav-link" href="/khachhang">Khách Hàng</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">Hợp Đồng</a>

@@ -43,7 +43,7 @@ class KhachHangController extends Controller
 
     public function create() {
         $loaikhachhang = LoaiKhachHang::all();
-        return view('khachhang.create',[
+        return view('khachhang.createCustomer',[
             'loaikhachhang' => $loaikhachhang,
         ]);
     }

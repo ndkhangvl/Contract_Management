@@ -23,7 +23,7 @@ use App\Http\Controllers\HoaDonController;
 
 Route::get('/', function () {
     return view('auth.login');
-})->name('routeName');;
+});
 
 //Route::get('/login', function () {
 //    return view('login');
