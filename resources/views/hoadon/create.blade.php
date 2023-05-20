@@ -34,19 +34,22 @@
             placeholder="Số hóa đơn">
     File: <input class="form-control" 
             type="file" name="filehoadon">
-    Thuế (%): <input class="form-control" 
+    Thuế (%): <button class="btn btn-primary" onclick="myFunction()" type="button">
+        Tính toán
+    </button>
+    <input class="form-control" id="thuesuat"
             type="number" name="thuesuat" value=0 min="0">
     Tổng tiền (VNĐ): 
     <input class="form-control" 
-            type="text" name="tongtien" 
+            type="text" name="tongtien" id="tongtien"
             readonly>
     Tiền thuế (VNĐ): 
     <input class="form-control" 
-            type="text" name="tienthue" 
+            type="text" name="tienthue" id="tienthue"
             readonly>
     Tổng tiền có thuế (VNĐ): 
     <input class="form-control" 
-            type="text" name="tongtiencothue" 
+            type="text" name="tongtiencothue" id="tongtiencothue"
             readonly>
     Số tiền (bằng chữ): <input class="form-control" 
             type="text" name="sotienbangchu">
@@ -71,7 +74,7 @@
     <hr>
     Số lượng loại sản phẩm:
     <input class="form-control" 
-            type="number" name="soluongchitiet" value=0 min="0" max="10"><hr>
+            type="number" name="soluongchitiet" value=0 min="0" max="10" id="slct"><hr>
     <table>
         <tr>
             <th width="10%" color="blue">STT</th>
@@ -85,10 +88,10 @@
              <tr>
                 <td><input type="text" name="stt{{$i}}" value="{{$i}}" readonly></td>
                 <td><input type="text" name="noidung{{$i}}" ></td>
-                <td><input type="text" name="soluong{{$i}}" ></td>
+                <td><input type="text" name="soluong{{$i}}" id="soluong{{$i}}"></td>
                 <td><input type="text" name="donvitinh{{$i}}" ></td>
-                <td><input type="text" name="dongia{{$i}}" ></td>
-                <td><input type="text" name="thanhtien{{$i}}" readonly></td>
+                <td><input type="text" name="dongia{{$i}}" id="dongia{{$i}}"></td>
+                <td><input type="text" name="thanhtien{{$i}}" readonly id="thanhtien{{$i}}"></td>
             </tr>
         @endfor     
     </table>
@@ -96,6 +99,36 @@
     <button class="btn btn-primary" type="submit">
         Tạo hóa đơn
     </button>
+    <button class="btn btn-primary" onclick="myFunction()" type="button">
+        Tính toán
+    </button><hr>
+        <script>
+        function myFunction() {
+                $cnt = document.getElementById("slct").value;
+                $thue = document.getElementById("thuesuat").value;
+                $tongtien = 0;
+                $tienthue = 0;
+                $tongtiencothue = 0;
+                for($i = 1; $i <= $cnt; $i++){
+                        $sluong = "soluong"+$i;
+                        $dgia = "dongia"+$i;
+                        $ttien = "thanhtien"+$i;
+                        $sl = document.getElementById($sluong).value;
+                        $dg = document.getElementById($dgia).value;
+                        $cal = parseInt($sl) * parseInt($dg);
+                        document.getElementById($ttien).value = $cal;
+                        $tongtien = $tongtien + $cal;
+                        //console.log($i);
+                }
+                $tienthue = $tongtien/100*$thue;
+                $tongtiencothue = $tongtien+$tienthue;
+                document.getElementById("tongtien").value= $tongtien;
+                document.getElementById("tienthue").value= $tienthue;
+                document.getElementById("tongtiencothue").value= $tongtiencothue;
+                
+        }
+        </script>
+
 
 
 </form>
