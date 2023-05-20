@@ -43,7 +43,7 @@ Route::get('/header', function () {
 Route::get('/test', function () {
     //$value = Session::get('loginId');
     return view('khachhang.createCustomer');
-});
+})->middleware('isLogin');
 
 Route::get('login/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'vi'])) {

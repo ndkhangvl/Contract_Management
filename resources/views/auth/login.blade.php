@@ -69,7 +69,7 @@
                                         </span>
                                     </button>
                                 </div>
-                                <input id="captcha" type="text" class="form-control mt-2 @error('captcha') is-invalid @enderror" placeholder="{{ __('Nhập mã') }}" name="captcha" required>
+                                <input id="captcha" type="text" class="form-control mt-2" placeholder="{{ __('Nhập mã') }}" name="captcha" required>
                             </div>
                             <span class="text-danger">@error('captcha') {{$message}} @enderror</span>
                             <script>
