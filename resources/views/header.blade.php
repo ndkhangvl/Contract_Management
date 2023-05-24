@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="x-index">
         <div class="container-fluid">
           <a class="navbar-brand" href="javascript:void(0)">CTU-Contract</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -29,10 +29,12 @@
                 <a class="nav-link" href="javascript:void(0)">Hóa Đơn</a>
               </li>
             </ul>
-            <form class="d-flex">
+            {{-- <form class="d-flex">
               <h2 class="text-primary mb-2 mt-2 me-2">Hello, {{ Session::get('infoUser')['ma_nd'] }}</h2>
+              <h2 class="text-primary mb-2 mt-2 me-2">Hello, {{ Session::get('infoUser')['nguoidung_id'] }}</h2>
+              <h2 class="text-primary mb-2 mt-2 me-2">Hello, {{ Session::get('infoUser')['trangthai'] }}</h2>
               <button class="btn btn-primary" type="button">Logout</button>
-            </form>
+            </form> --}}
           </div>
         </div>
       </nav>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
 <style>
     table, th, td {
         border: 1px solid black;
@@ -9,6 +9,9 @@
         padding-right: 10px;
     }
 </style>
+<body>
+@include('header2')
+@include('header')
 <h1>Danh sách Khách Hàng</h1>
 <a href="/loaikhachhangs">
     <button type="button" class="btn btn-info">
@@ -53,3 +56,4 @@
     
     @endforeach
 </table>
+</body>

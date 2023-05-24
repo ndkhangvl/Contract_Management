@@ -44,6 +44,11 @@ Route::get('/header', function () {
     return view('header');
 });
 
+Route::get('/header2', function () {
+    //$value = Session::get('loginId');
+    return view('header2');
+});
+
 Route::get('/test', function () {
     //$value = Session::get('loginId');
     return view('khachhang.createCustomer');

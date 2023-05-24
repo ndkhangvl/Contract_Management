@@ -28,7 +28,7 @@
                             <td>
                                 {{-- <form action="{{ route('logout') }}" method="POST">
                                     @csrf --}}
-                                    <button><a href="logout">Logout</a></button>
+                                    <button><a href="khachhang">Khách Hàng</a></button>
                                 {{-- </form>      --}}
                             </td>
                         </tr>
