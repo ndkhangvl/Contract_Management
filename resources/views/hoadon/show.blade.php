@@ -18,7 +18,7 @@
 
     <h4>Thuộc về hợp đồng số: {{$hoadon->HOPDONG_SO}}</h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>
-    <h4>File: {{$hoadon->HOADON_FILE}}</h4>
+    <h4>File: </h4> <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a>
     @if ($hoadon->HOADON_TRANGTHAI == 1)
         <h4>Trạng thái: Đã thanh toán</h4>
     @elseif ($hoadon->HOADON_TRANGTHAI == 0)

@@ -66,7 +66,7 @@ Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLo
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::get('/logout', [UserAuthController::class, 'logout']);
 
-Route::resource('/loaikhachhangs', LoaiKhachHangController::class);
-Route::resource('/khachhang', KhachHangController::class);
-Route::resource('/hopdong', HopDongController::class);
-Route::resource('/hoadon', HoaDonController::class);
+Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
+Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
+Route::resource('/hopdong', HopDongController::class)->middleware('isLogin');
+Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin');
