@@ -16,6 +16,7 @@
     </style>
 </head>
 <body>
+    @include('header2')
     @include('header')
     <div class="container shadow">
         <form action="/khachhang" method="POST" id="cusForm">
@@ -122,6 +123,7 @@
             </div>
           </form>
     </div>
+    @include('footer')
 </body>
 <script>
 function getData() {

@@ -28,7 +28,7 @@
                           <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
                         </ul>
                       </div>
-                      <a href="https://testing.ctu.edu.vn/user/profile.php?id=10541" class="d-inline-block mr-2">
+                      <a href="/khachhang" class="d-inline-block mr-2">
                         <img src="https://testing.ctu.edu.vn/theme/image.php/lambda/core/1684852385/u/f1" class="d-inline-block" width="80" height="80" alt="" data-selected="true" data-label-id="0" data-metatip="true">
                     </a>
                 </div>

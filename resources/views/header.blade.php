@@ -23,10 +23,10 @@
                 <a class="nav-link" href="/khachhang">Khách Hàng</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Hợp Đồng</a>
+                <a class="nav-link" href="/hopdong">Hợp Đồng</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Hóa Đơn</a>
+                <a class="nav-link" href="/hoadon">Hóa Đơn</a>
               </li>
             </ul>
             {{-- <form class="d-flex">
