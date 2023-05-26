@@ -7,14 +7,21 @@
         table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
-       
-
-    }  
+        }  
     
     th {
         background: #337ab7; 
         color:white;
         text-align:center;
+    }
+
+    td {
+        background: #cce0df;
+        padding: 5px;
+        
+    }
+    .inputstt {
+        width: 30px;
     }
     
     table {
@@ -101,22 +108,22 @@
     <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
     <table id='tablechitiet'>
         <tr>
-            <th width="10%" color="blue">STT</th>
-            <th width="20%">Nội dung</th>
-            <th width="10%">Số lượng</th>
-            <th width="10%">Đơn vị tính</th>
-            <th width="15%">Đơn giá</th>
-            <th width="25%">Thành tiền</th>
-            <th width="10%">Xóa</th>
+            <th>STT</th>
+            <th>Nội dung</th>
+            <th>Số lượng</th>
+            <th>Đơn vị tính</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+            <th>Xóa</th>
         </tr>
         
         @for ($i = 1; $i <= old('soluongchitiet'); $i++)
              <tr>
-                <td><input type="text" name="stt{{$i}}" id="stt{{$i}}" value="{{$i}}" readonly></td>
+                <td><input type="text" name="stt{{$i}}" id="stt{{$i}}" value="{{$i}}" readonly class="inputstt"></td>
                 <td><input type="text" name="noidung{{$i}}" id="noidung{{$i}}" value="{{ old('noidung'.$i) }}"></td>
-                <td><input type="text" name="soluong{{$i}}" id="soluong{{$i}}" value="{{ old('soluong'.$i) }}"></td>
+                <td><input type="number" name="soluong{{$i}}" id="soluong{{$i}}" value="{{ old('soluong'.$i) }}" min="0"></td>
                 <td><input type="text" name="donvitinh{{$i}}" id="donvitinh{{$i}}" value="{{ old('donvitinh'.$i) }}"></td>
-                <td><input type="text" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}"></td>
+                <td><input type="number" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}" min="0"></td>
                 <td><input type="text" name="thanhtien{{$i}}" readonly id="thanhtien{{$i}}" value="{{ old('thanhtien'.$i) }}"></td>
                 <td><button type="button" name="btnxoa{{$i}}" id="btnxoa{{$i}}" class="btn btn-danger" onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
             </tr>
@@ -143,16 +150,15 @@
                         $sl = document.getElementById($sluong).value;
                         $dg = document.getElementById($dgia).value;
                         $cal = parseInt($sl) * parseInt($dg);
+                        if(isNaN($cal)) $cal=0;
                         document.getElementById($ttien).value = $cal;
                         $tongtien = $tongtien + $cal;
-                        //console.log($i);
                 }
                 $tienthue = $tongtien/100*$thue;
                 $tongtiencothue = $tongtien+$tienthue;
                 document.getElementById("tongtien").value= $tongtien;
                 document.getElementById("tienthue").value= $tienthue;
                 document.getElementById("tongtiencothue").value= $tongtiencothue;
-                
         }
 
         function addRow(){
@@ -168,6 +174,7 @@
                 $stt.type = "text";
                 $stt.name = "stt"+$length;
                 $stt.id = "stt"+$length;
+                $stt.className = "inputstt";
                 $cell1.appendChild($stt);
                 
                 $cell2 = $row.insertCell(1);
@@ -179,7 +186,8 @@
 
                 $cell3 = $row.insertCell(2);
                 $soluong = document.createElement('input');
-                $soluong.type = "text";
+                $soluong.type = "number";
+                $soluong.min = 0;
                 $soluong.name = "soluong"+$length;
                 $soluong.id = "soluong"+$length;
                 $cell3.appendChild($soluong);
@@ -193,7 +201,8 @@
 
                 $cell5 = $row.insertCell(4);
                 $dongia = document.createElement('input');
-                $dongia.type = "text";
+                $dongia.type = "number";
+                $dongia.min = "0";
                 $dongia.name = "dongia"+$length;
                 $dongia.id = "dongia"+$length;
                 $cell5.appendChild($dongia);
@@ -212,7 +221,7 @@
                 $xoa.name = "btnxoa"+$length;
                 $xoa.innerHTML = "Xóa";
                 $xoa.className = 'btn btn-danger';
-                //$xoa.setAttribute('onclick', "delRow($stringgg)");
+                
                 $xoa.setAttribute('onclick', 'delRow(this.id.replace("btnxoa",""))');
                 $xoa.setAttribute('type', 'button');
                 $cell7.appendChild($xoa);
@@ -222,16 +231,9 @@
         }
 
         function delRow(x){
-                //alert("Xóa hàng thứ " + x);
+                
                 $table = document.getElementById("tablechitiet");
                 $length = document.getElementById("tablechitiet").rows.length;
-                /*
-                $sohang = parseInt($i);
-                        $sohangsau = parseInt($i)+1;
-                        $currentcell = document.getElementById("stt"+$sohang);
-                        $saucell = document.getElementById("stt"+$sohangsau);
-                        $currentcell.value = $saucell.value;
-                */
                 
                 for($i = parseInt(x); $i< $length-1; $i++){
                         $sohang = parseInt($i);
@@ -249,8 +251,6 @@
                 calHoaDon();
         }
         </script>
-
-
 
 </form>
 
