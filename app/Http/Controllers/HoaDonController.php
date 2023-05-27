@@ -160,4 +160,75 @@ class HoaDonController extends Controller
     public function index(){
         return view('hoadon/index');
     }
+
+    public function edit($id)
+    {
+        
+        $hoadon = DB::select("select * from hoadon join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID where HOADON_SO=:id;",
+        [
+            'id' => $id,
+        ])[0];
+        
+        $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
+        [
+            'id' => $hoadon->HOADON_ID,
+
+        ]);
+        
+        //return dd($hoadon);
+        return view('hoadon.edit', [
+            'hoadon' => $hoadon,
+            'chitiethoadon' => $chitiethoadon,
+            'error' => '',
+            'cnt' => count($chitiethoadon),
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        //$request->validated();
+        $hoadon = HoaDon::where('HOADON_ID', $id)  
+                ->update([
+                    'HOADON_THUESUAT' => $request->input('thuesuat'),
+                    'HOADON_TONGTIEN' => $request->input('tongtien'),
+                    'HOADON_TIENTHUE' => $request->input('tienthue'),
+                    'HOADON_TONGTIEN_COTHUE' => $request->input('tongtiencothue'),
+                    'HOADON_SOTIENBANGCHU' => $request->input('sotienbangchu'),
+                    'HOADON_NGUOITAO' => $request->input('nguoitao'),
+                    'HOADON_NGUOIMUAHANG' => $request->input('nguoimuahang'),
+                    'HOADON_TRANGTHAI' => $request->input('trangthaihoadon'),
+                ]);
+        
+        ChiTietHoaDon::where('HOADON_ID', $id)->delete();
+        
+        $soluongchitiet = $request->soluongchitiet;
+        for ($i = 1; $i <= $soluongchitiet; $i++){
+            $nd = "noidung".$i;
+            $sl = "soluong".$i;
+            $dvt = "donvitinh".$i;
+            $dg = "dongia".$i;
+            $tt = "thanhtien".$i;
+            
+            DB::insert("insert into CHITIET_HOADON(HOADON_ID,STT,NOIDUNG,SOLUONG,DVT,DONGIA,THANHTIEN)
+                values(
+                   ?,
+                   ?,
+                   ?,
+                   ?,
+                   ?,
+                   ?,
+                   ?
+                );",
+            [
+                $id,
+                $i,
+                $request->$nd,
+                $request->$sl,
+                $request->$dvt,
+                $request->$dg,
+                $request->$tt,
+            ]);
+        }
+        return redirect('/hoadon/'.$request->sohoadon);
+    }
 }

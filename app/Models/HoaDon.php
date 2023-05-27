@@ -9,4 +9,6 @@ class HoaDon extends Model
 {
     use HasFactory;
     public $table = 'HOADON';
+    public $primaryKey = 'HOADON_ID';
+    public $timestamps = false;
 }

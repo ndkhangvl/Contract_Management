@@ -15,6 +15,11 @@
 
 <h1>Chi tiết hóa đơn</h1>
 <hr>
+    <a href="/hoadon/{{$hoadon->HOADON_SO}}/edit">
+        <button type="button" class="btn btn-primary">
+            Cập nhật Thông tin
+        </button>
+    </a>
 
     <h4>Thuộc về hợp đồng số: {{$hoadon->HOPDONG_SO}}</h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>
