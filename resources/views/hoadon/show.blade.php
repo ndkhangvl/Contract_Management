@@ -21,7 +21,7 @@
         </button>
     </a>
 
-    <h4>Thuộc về hợp đồng số: {{$hoadon->HOPDONG_SO}}</h4>
+    <h4>Thuộc về hợp đồng số: <a href="/hopdong/{{$hoadon->HOPDONG_SO}}">{{$hoadon->HOPDONG_SO}}</a></h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>
     <h4>File: </h4> <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a>
     @if ($hoadon->HOADON_TRANGTHAI == 1)

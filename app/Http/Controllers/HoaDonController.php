@@ -157,8 +157,15 @@ class HoaDonController extends Controller
         //return dd($idhopdong->HOPDONG_ID);
     }
 
-    public function index(){
-        return view('hoadon/index');
+    public function index() {
+        $hoadons = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID order by HOADON_ID desc");
+        //return dd($hoadons);
+        $hopdongs = DB::select("select * from HOPDONG");
+        return view('hoadon.index', [
+            'hoadons' => $hoadons,
+            'hopdongs' => $hopdongs,
+        ]);
+        
     }
 
     public function edit($id)
