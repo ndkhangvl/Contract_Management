@@ -70,3 +70,10 @@ Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('
 Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
 Route::resource('/hopdong', HopDongController::class)->middleware('isLogin');
 Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin');
+
+/* Danh cho loai khach hang
+Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database');
+Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert');
+Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete');
+Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update');
+*/
