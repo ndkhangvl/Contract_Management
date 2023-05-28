@@ -16,7 +16,7 @@
     <select name="sohopdong" id="sohopdong">
         <option value="-1">
             --Chọn hợp đồng--
-        </opton>
+        </option>
     @foreach ($hopdongs as $hd)
         <option value="{{ $hd->HOPDONG_SO }}">
         {{ $hd->HOPDONG_SO }}

@@ -78,13 +78,13 @@
                                     captchaImg.src = captchaImg.src + '?' + Date.now();
                                 });
                             </script>
-                            <div class="form-check">
+                            {{-- <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Ghi nhớ tôi
                                 </label>
-                            </div>
-                            <button class="btn btn-primary text-center mx-auto d-block" type="submit">
+                            </div> --}}
+                            <button class="btn btn-primary text-center mx-auto d-block mt-2" type="submit">
                                 Đăng nhập
                             </button>
                             <p class="text-center text-primary">{{ __('msg.forgotpassword')}}</p>
@@ -103,25 +103,4 @@
         </div>
     </div>
 </body>
-{{-- <script>
-    function changeLanguage(locale) {
-        // Gửi yêu cầu AJAX để thay đổi ngôn ngữ
-        $.ajax({
-            url: '{{ route('change-language') }}',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                locale: locale
-            },
-            success: function(response) {
-                // Tải lại trang để cập nhật ngôn ngữ
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Xử lý lỗi nếu có
-                console.error(error);
-            }
-        });
-    }
-</script> --}}
 </html>
