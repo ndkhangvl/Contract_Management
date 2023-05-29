@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoaiKhachHangController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserAuthController;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\HopDongController;
 use App\Http\Controllers\HoaDonController;
@@ -70,6 +72,7 @@ Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('
 Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
 Route::resource('/hopdong', HopDongController::class)->middleware('isLogin');
 Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin');
+
 
 /* Danh cho loai khach hang
 Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database');

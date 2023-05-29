@@ -23,8 +23,9 @@
         @csrf
             <h1 class="text-success">Thêm mới khách hàng</h1>
               <div>
-                <label>Loại KH:</label>
-                <select name="loaikhachhang_id" class="form-select form-select-sm">
+                <label for="owner" class="form-label fw-bold">Loại KH:</label>
+                <select name="loaikhachhang_id" class="form-select form-select-sm" required>
+                  <option value="" disabled selected> -- Chọn loại khách hàng  -- </option>
                   @foreach ($loaikhachhang as $loai)
                     <option value="{{ $loai->LOAIKHACHHANG_ID }}">
                       {{ $loai->LOAIKHACHHANG_TEN }}
@@ -34,66 +35,66 @@
             </div>
             <div class="mb-3 mt-3">
                 <label for="owner" class="form-label fw-bold">Chủ sỡ hữu:</label>
-                <input type="text" class="form-control" id="email" placeholder="Nhập vào chủ sỡ hữu" name="khachhang_chusohuu">
+                <input type="text" class="form-control" id="email" placeholder="Nhập vào chủ sỡ hữu" name="khachhang_chusohuu" required>
               </div>
             <div class="row mb-3 mt-3">
                 <div class="col">
                     <label for="tenkhang" class="form-label fw-bold">Tên khách hàng:</label>
-                    <input type="text" class="form-control" placeholder="Nhập tên" name="khachhang_ten">
+                    <input type="text" class="form-control" placeholder="Nhập tên" name="khachhang_ten" required>
                 </div>
                 <div class="col">
                     <label for="diachi" class="form-label fw-bold">Địa chỉ:</label>
-                    <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="khachhang_diachi">
+                    <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="khachhang_diachi" required>
                 </div>
               </div>
               <div class="row mb-3 mt-3">
                 <div class="col">
                     <label for="sdt" class="form-label fw-bold">Số điện thoại:</label>
-                    <input type="text" class="form-control" placeholder="Nhập số điện thoại" name="khachhang_sdt">
+                    <input type="text" class="form-control" placeholder="Nhập số điện thoại" name="khachhang_sdt" required>
                 </div>
                 <div class="col">
                     <label for="email" class="form-label fw-bold">Email:</label>
-                    <input type="email" class="form-control" placeholder="Nhập email" name="khachhang_email">
+                    <input type="email" class="form-control" placeholder="Nhập email" name="khachhang_email" required>
                 </div>
               </div>
               <div class="row mb-3 mt-3">
                 <div class="col">
                     <label for="ngaysinh" class="form-label fw-bold">Ngày sinh:</label>
-                    <input type="date" class="form-control" placeholder="Nhập tên" name="khachhang_ngaysinhndd">
+                    <input type="date" class="form-control" placeholder="Nhập tên" name="khachhang_ngaysinhndd" required>
                 </div>
                 <div class="col">
                     <label for="cccd" class="form-label fw-bold">CCCD:</label>
-                    <input type="text" pattern="[0-9]+" class="form-control" placeholder="Nhập số diện thoại" name="khachhang_cmnd">
+                    <input type="text" pattern="[0-9]+" class="form-control" placeholder="Nhập số diện thoại" name="khachhang_cmnd" required>
                 </div>
                 <div class="col">
                     <label for="ngaycap" class="form-label fw-bold">Ngày cấp:</label>
-                    <input type="date" class="form-control" placeholder="Nhập số diện thoại" name="khachhang_ngaycapcmnd">
+                    <input type="date" class="form-control" placeholder="Nhập số diện thoại" name="khachhang_ngaycapcmnd" required>
                 </div>
               </div>
             <div class="mb-3 mt-3">
               <label for="ngdaidien" class="form-label fw-bold">Người đại diện:</label>
-              <input type="text" class="form-control" id="email" placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien">
+              <input type="text" class="form-control" id="email" placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien" required>
             </div>
             <div class="mb-3">
                 <label for="masothue" class="form-label fw-bold">Mã số thuế:</label>
                 <div class="row justify-content-left">
                     <div class="col-auto">
                       <div class="input-group" id="otp-input-group">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
-                        <input type="text" class="otp-input" maxlength="1">
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
                       </div>
                       <script>
                         var inputs = document.getElementsByClassName('otp-input');
@@ -116,7 +117,7 @@
               </div>
             <div class="mb-3">
               <label for="ngayhdong" class="form-label fw-bold">Ngày hoạt động:</label>
-              <input type="date" class="form-control" id="pwd" placeholder="Chọn ngày hoạt động" name="khachhang_ngayhoatdong">
+              <input type="date" class="form-control" id="pwd" placeholder="Chọn ngày hoạt động" name="khachhang_ngayhoatdong" required>
             </div>
             <div class="mb-3 mt-3 pb-2">
                 <button type="submit" onclick="getData()" class="btn btn-lg btn-success mx-auto d-block mb-3 mt-3">Thêm mới</button>
