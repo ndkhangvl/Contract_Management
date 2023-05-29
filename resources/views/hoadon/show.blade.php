@@ -11,6 +11,11 @@
     table {
         width:90%;
     }
+    body{
+        max-width: 900px;
+        margin: auto;
+        padding:20px;
+    }
 </style>
 
 <h1>Chi tiết hóa đơn</h1>

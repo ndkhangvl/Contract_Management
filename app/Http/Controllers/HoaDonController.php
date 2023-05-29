@@ -194,17 +194,36 @@ class HoaDonController extends Controller
     public function update(Request $request, $id)
     {
         //$request->validated();
-        $hoadon = HoaDon::where('HOADON_ID', $id)  
-                ->update([
-                    'HOADON_THUESUAT' => $request->input('thuesuat'),
-                    'HOADON_TONGTIEN' => $request->input('tongtien'),
-                    'HOADON_TIENTHUE' => $request->input('tienthue'),
-                    'HOADON_TONGTIEN_COTHUE' => $request->input('tongtiencothue'),
-                    'HOADON_SOTIENBANGCHU' => $request->input('sotienbangchu'),
-                    'HOADON_NGUOITAO' => $request->input('nguoitao'),
-                    'HOADON_NGUOIMUAHANG' => $request->input('nguoimuahang'),
-                    'HOADON_TRANGTHAI' => $request->input('trangthaihoadon'),
-                ]);
+        if($request->filehoadon == null){
+            $hoadon = HoaDon::where('HOADON_ID', $id)  
+            ->update([
+                'HOADON_THUESUAT' => $request->input('thuesuat'),
+                'HOADON_TONGTIEN' => $request->input('tongtien'),
+                'HOADON_TIENTHUE' => $request->input('tienthue'),
+                'HOADON_TONGTIEN_COTHUE' => $request->input('tongtiencothue'),
+                'HOADON_SOTIENBANGCHU' => $request->input('sotienbangchu'),
+                'HOADON_NGUOITAO' => $request->input('nguoitao'),
+                'HOADON_NGUOIMUAHANG' => $request->input('nguoimuahang'),
+                'HOADON_TRANGTHAI' => $request->input('trangthaihoadon'),
+            ]);
+        }else{
+            $imageUrl = $this->storeImage($request);
+            $fileUrl = $imageUrl;
+
+            $hoadon = HoaDon::where('HOADON_ID', $id)  
+            ->update([
+                'HOADON_THUESUAT' => $request->input('thuesuat'),
+                'HOADON_TONGTIEN' => $request->input('tongtien'),
+                'HOADON_TIENTHUE' => $request->input('tienthue'),
+                'HOADON_TONGTIEN_COTHUE' => $request->input('tongtiencothue'),
+                'HOADON_SOTIENBANGCHU' => $request->input('sotienbangchu'),
+                'HOADON_NGUOITAO' => $request->input('nguoitao'),
+                'HOADON_NGUOIMUAHANG' => $request->input('nguoimuahang'),
+                'HOADON_TRANGTHAI' => $request->input('trangthaihoadon'),
+                'HOADON_FILE' => $fileUrl = $imageUrl,
+            ]);
+        }
+        
         
         ChiTietHoaDon::where('HOADON_ID', $id)->delete();
         
