@@ -78,12 +78,12 @@
                                     captchaImg.src = captchaImg.src + '?' + Date.now();
                                 });
                             </script>
-                            {{-- <div class="form-check">
+                            {{--<div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Ghi nhớ tôi
                                 </label>
-                            </div> --}}
+                            </div>--}}
                             <button class="btn btn-primary text-center mx-auto d-block mt-2" type="submit">
                                 Đăng nhập
                             </button>
@@ -95,6 +95,7 @@
                             <div class="mx-auto d-flex justify-content-center">
                                 <a href="{{ route('setlocale', 'vi') }}" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
                                 <a href="{{ route('setlocale', 'en') }}" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
+                            </div>    
                             </div>
                         </div>
                     </form>
