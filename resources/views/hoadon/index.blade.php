@@ -1,4 +1,6 @@
-<style>
+@include('header2')
+@include('header')
+{{-- <style>
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
@@ -7,7 +9,7 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-</style>
+</style> --}}
 <h1>Danh sách Hóa đơn</h1>
 <hr/>
 
@@ -31,7 +33,7 @@
 
 <hr/>
 
-<table>
+<table class="table table-striped table-hover">
     <tr>
         <th>Hóa đơn số</th>
         <th>Thuộc hợp đồng</th>
@@ -73,3 +75,4 @@
     }
     
 </script>
+@include('footer')

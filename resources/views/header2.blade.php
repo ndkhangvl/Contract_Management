@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="logo-header">
-                    <a class="logo" href="https://127.0.0.1:8000/khachhang" title="Trang chủ">
+                    <a class="logo" href="/khachhang" title="Trang chủ">
                         <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" class="logo-img" alt="logo"></a>
                 </div>
             </div>

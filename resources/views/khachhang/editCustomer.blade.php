@@ -11,8 +11,9 @@
         .otp-input {
             width: 40px;
             text-align: center;
+            color: red;
             border: 1px solid #ccc;
-        }
+        };
     </style>
 </head>
 <body>
@@ -23,8 +24,8 @@
         @csrf
         @method('PUT')
             <h1 class="text-success">Cập nhật thông tin khách hàng</h1>
-              <div>
-                <label>Loại KH:</label>
+              <div class="mt-3 mb-3">
+                <label class="form-label fw-bold">Loại khách hàng:</label>
                 <select name="loaikhachhang_id" class="form-select form-select-sm">
                     @foreach ($loaikhachhang as $loai)
                     @if ($loai->LOAIKHACHHANG_ID == $khhang->LOAIKHACHHANG_ID)
@@ -39,9 +40,9 @@
                   @endforeach                                  
                 </select>
             </div>
-            <div>
-                <label>Trạng thái:</label>
-                <select name="khachhang_trangthai">
+            <div class="mt-3 mb-3">
+                <label class="form-label fw-bold">Trạng thái:</label>
+                <select name="khachhang_trangthai" class="form-select form-select-sm">
                   @foreach ($trangthaikh as $trangthai)
                     @if ($trangthai->TRANGTHAI_ID == $khhang->KHACHHANG_TRANGTHAI)
                     <option value="{{ $trangthai->TRANGTHAI_ID }}" selected>
@@ -95,28 +96,9 @@
               </div>
             <div class="mb-3 mt-3">
               <label for="ngdaidien" class="form-label fw-bold">Người đại diện:</label>
-              <input type="text" class="form-control" id="email" value="{{$khhang->KHACHHANG_NGUOIDAIDIEN}}" placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien">
+              <input type="text" class="form-control" value="{{$khhang->KHACHHANG_NGUOIDAIDIEN}}" placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien">
             </div>
-            <div class="mb-3 mt-3">
-                <label for="ngdaidien" class="form-label fw-bold">Người đại diện:</label>
-                <input type="text" class="form-control" id="email" value="{{$khhang->KHACHHANG_MASOTHUE}}" placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien">
-              </div>
             <div class="mb-3">
-                <script>
-                    var masothue = "{{$khhang->KHACHHANG_MASOTHUE}}";
-                    var masothueStr = masothue.toString();
-                    var masothueArr = masothueStr.split("");
-                    console.log(masothueArr);
-                    var inputs = document.getElementsByClassName("otp-input");
-                    console.log(inputs[1]);
-                    for (var i = 0; i < inputs.length; i++) {
-                        if (masothue[i]) {
-                            inputs[i].type = "number";
-                            console.log(inputs[i]);
-                            inputs[i].value = masothue[i];
-                        }
-            };
-                </script>
                 <label for="masothue" class="form-label fw-bold">Mã số thuế:</label>
                 <div class="row justify-content-left">
                     <div class="col-auto">
@@ -137,6 +119,20 @@
                         <input type="text" class="otp-input" maxlength="1">
                         <input type="text" class="otp-input" maxlength="1">
                       </div>
+                      <script>
+                        var masothue = "{{$khhang->KHACHHANG_MASOTHUE}}";
+                        var masothueStr = masothue.toString();
+                        var masothueArr = masothueStr.split("");
+                        console.log(masothueArr);
+                        var inputs = document.getElementsByClassName("otp-input");
+                        for (var i = 0; i < inputs.length; i++) {
+                          if (masothueArr[i]) {
+                            inputs[i].type = "text";
+                            console.log(masothueArr[1]);
+                            inputs[i].value = masothueArr[i];
+                          }
+                        }
+                      </script>
                       <script>
                         var inputs = document.getElementsByClassName('otp-input');
                         for (var i = 0; i < inputs.length; i++) {
@@ -161,7 +157,7 @@
               <input type="date" class="form-control" id="pwd" value="{{$khhang->KHACHHANG_NGAYHOATDONG}}" placeholder="Chọn ngày hoạt động" name="khachhang_ngayhoatdong">
             </div>
             <div class="mb-3 mt-3 pb-2">
-                <button type="submit" onclick="getData()" class="btn btn-lg btn-success mx-auto d-block mb-3 mt-3">Thêm mới</button>
+                <button type="submit" onclick="getData()" class="btn btn-success mx-auto d-block mb-3 mt-3"><i class="fas fa-pen me-2"></i>Cập nhật</button>
             </div>
           </form>
     </div>

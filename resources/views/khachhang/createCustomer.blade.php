@@ -11,6 +11,7 @@
         .otp-input {
             width: 40px;
             text-align: center;
+            color: red;
             border: 1px solid #ccc;
         }
     </style>
@@ -118,8 +119,9 @@
               <label for="ngayhdong" class="form-label fw-bold">Ngày hoạt động:</label>
               <input type="date" class="form-control" id="pwd" placeholder="Chọn ngày hoạt động" name="khachhang_ngayhoatdong">
             </div>
-            <div class="mb-3 mt-3 pb-2">
-                <button type="submit" onclick="getData()" class="btn btn-lg btn-success mx-auto d-block mb-3 mt-3">Thêm mới</button>
+            <div class="mb-3 mt-3 pb-2 text-center">
+                <button type="submit" onclick="getData()" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
+                <button type="reset" class="btn btn-secondary btn-block mb-3 mt-3"><i class="fas fa-redo me-2"></i>Soạn lại</button>
             </div>
           </form>
     </div>

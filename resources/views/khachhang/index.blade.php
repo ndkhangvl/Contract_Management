@@ -26,7 +26,8 @@
 </a>
 <hr/>
 <div class="table-responsive">
-    <table class="table table-auto">
+    <table class="table table-auto table-striped table-hover">
+        <thead>
         <tr>
             <th class="text-center text-nowrap">Mã KH</th>
             <th class="text-center text-nowrap">Loại KH</th>
@@ -37,6 +38,7 @@
             <th class="text-center text-nowrap">Xem chi tiết</th>
             <th class="text-center text-nowrap">Trạng thái</th>
         </tr>
+        </thead>
         @foreach ($khachhangs as $khachhang)
         
             <tr>
@@ -60,4 +62,5 @@
     </table>
 </div>
 </div>
+@include('footer')
 </body>

@@ -12,7 +12,7 @@ class LoaiKhachHangController extends Controller
     {
         $loaikhachhangs = DB::select("SELECT * FROM LOAI_KHACHHANG ORDER BY LOAIKHACHHANG_ID ASC;");
 
-        return view('database', [
+        return view('loaikhachhang/index', [
             'loaikhachhangs' => $loaikhachhangs,
         ]);
     }

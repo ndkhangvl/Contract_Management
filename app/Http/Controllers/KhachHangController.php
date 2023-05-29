@@ -56,7 +56,7 @@ class KhachHangController extends Controller
         $trangthaikh = TrangThaiKH::all();
         //dd($food);
         //return view('khachhang.edit')->with('khhang', $khhang);
-        return view('khachhang.edit',[
+        return view('khachhang.editCustomer',[
             'khhang' => $khhang,
             'loaikhachhang' => $loaikhachhang,
             'trangthaikh' => $trangthaikh,

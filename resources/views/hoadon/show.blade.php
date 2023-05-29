@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+@include('header2')
+@include('header')
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
 <style>
     table, th, td {
         border: 1px solid black;
@@ -42,7 +44,8 @@
 <h1>Danh sách</h1>
 <hr>
 
-<table>
+<table class="table table-striped table-hover">
+    <thead>
     <tr>
         <th>STT</th>
         <th>Nội dung</th>
@@ -51,6 +54,7 @@
         <th>Đơn giá (VNĐ)</th>
         <th>Thành tiền (VNĐ)</th>
     </tr>
+    </thead>
     @foreach ($chitiethoadon as $cthd)
     <tr>
         <td>{{$cthd->STT}}</td>
@@ -64,3 +68,4 @@
 </table>
 
 <hr>
+@include('footer')
