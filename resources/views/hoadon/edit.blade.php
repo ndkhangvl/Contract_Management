@@ -45,10 +45,21 @@
     Hóa đơn số: <input class="form-control" 
             type="text" name="sohoadon" required
             value="{{$hoadon->HOADON_SO}}" readonly>
-    <h4>File: </h4> <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a><br>
+
+    File: <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a><br>
+    <div id="wrapper">
+        <label>Bạn có muốn cập nhật file mới?</label>
+        <p>
+        <input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input>
+        </p>
+        <p>
+        <input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input>
+        </p>
+    </div>
     File mới: <input class="form-control" 
-            type="file" name="filehoadon"
+            type="file" name="filehoadon" id="filehoadon" disabled
             >
+
     Thuế (%): <button class="btn btn-primary" onclick="calHoaDon()" type="button">
         Tính toán
     </button>
@@ -251,6 +262,21 @@
                 document.getElementById("slct").value = $length-2;
                 calHoaDon();
         }
+
+        $radButtons = document.querySelectorAll("input[name=fileadd_yes_no]");
+        $radButtons.forEach(rb=>rb.addEventListener("change",function(){
+                //alert("Change");
+                //console.log("value of rad: " + document.querySelector('input[name="fileadd_yes_no"]:checked').value);
+                if(document.querySelector('input[name="fileadd_yes_no"]:checked').value == "1"){
+                        document.getElementById("filehoadon").removeAttribute("disabled");
+                        console.log("Cho phep them file");
+                }
+                else if (document.querySelector('input[name="fileadd_yes_no"]:checked').value == "0"){
+                        document.getElementById("filehoadon").setAttribute("disabled", "disabled");
+                        console.log("KHONG cho phep them file");
+                        document.getElementById('filehoadon').value = null;
+                }
+        }))
         </script>
 
 </form>

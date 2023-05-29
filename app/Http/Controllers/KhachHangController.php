@@ -19,8 +19,7 @@ class KhachHangController extends Controller
         join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
         return view('khachhang.index', [
             'khachhangs' => $khachhangs,
-        ]);
-        
+        ]); 
     }
 
     public function show($id) {
@@ -28,8 +27,7 @@ class KhachHangController extends Controller
         join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID where KHACHHANG_ID=:id;",
         [
             'id' => $id
-        ]
-        );
+        ]);
         $hopdongs = DB::select("select * from HOPDONG where KHACHHANG_ID=:id;",
         [
             'id' => $id
@@ -84,8 +82,7 @@ class KhachHangController extends Controller
         $khhang->KHACHHANG_TRANGTHAI = 2; 
         $khhang->KHACHHANG_MASOTHUE = $request->khachhang_masothue; 
         $khhang->NGAYTAOLAP = $today; 
-        
-
+    
         $khhang->save();
         return redirect('/khachhang');
     }

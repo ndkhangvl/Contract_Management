@@ -1,19 +1,22 @@
-@include('header2')
-@include('header')
-{{-- <style>
-    table, th, td {
+<style>
+    /* table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
     }
     th, td {
         padding-left: 10px;
         padding-right: 10px;
+    } */
+    body{
+        max-width: 900px;
+        margin: auto;
+        padding:20px;
     }
-</style> --}}
+</style>
 <h1>Danh sách Hóa đơn</h1>
 <hr/>
 
-<div>
+<div id="selecthopdong" onclick="selectHopDong()">
     <label>Số hợp đồng:</label>
     <select name="sohopdong" id="sohopdong">
         <option value="-1">
@@ -33,7 +36,7 @@
 
 <hr/>
 
-<table class="table table-striped table-hover">
+<table id="danhsachhoadon" class="table table-striped table-hover">
     <tr>
         <th>Hóa đơn số</th>
         <th>Thuộc hợp đồng</th>
@@ -45,7 +48,7 @@
     @foreach ($hoadons as $hdd)
     <tr>
         <td>{{$hdd->HOADON_SO}}</td>
-        <td><a href="/hopdong/{{$hdd->HOPDONG_SO}}">{{$hdd->HOPDONG_SO}}</a></td>
+        <td>{{$hdd->HOPDONG_SO}}</td>
         @if ($hdd->HOADON_TRANGTHAI == 1)
             <td>Đã thanh toán</td>
         @else
@@ -71,6 +74,27 @@
         else {
             document.getElementById("errorsohopdong").innerHTML = document.getElementById("sohopdong").value;
             window.location = '/hoadon/create?hopdong='+ document.getElementById("sohopdong").value;
+        }
+    }
+    
+    function selectHopDong(){
+        //console.log(document.getElementById("sohopdong").value);
+        $tab = document.getElementById("danhsachhoadon");
+        $length = document.getElementById("danhsachhoadon").rows.length;
+        if(document.getElementById("sohopdong").value == -1)
+            document.getElementById("errorsohopdong").innerHTML = "";
+        else {
+            document.getElementById("errorsohopdong").innerHTML = 'Danh sách hóa đơn cho hợp đồng số: ' + document.getElementById("sohopdong").value;
+        }
+        for($i=1;$i<$length;$i++){
+            //console.log($tab.rows[$i].cells[1].innerHTML);
+            if(document.getElementById("sohopdong").value != "-1"){
+                if($tab.rows[$i].cells[1].innerHTML == document.getElementById("sohopdong").value){
+                    $tab.rows[$i].removeAttribute("hidden");
+                } else $tab.rows[$i].setAttribute("hidden", "hidden");
+            }
+            else $tab.rows[$i].removeAttribute("hidden");
+            
         }
     }
     
