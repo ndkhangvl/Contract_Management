@@ -7,12 +7,14 @@
         padding-left: 10px;
         padding-right: 10px;
     } */
-    body{
+    /* body{
         max-width: 900px;
         margin: auto;
         padding:20px;
-    }
+    } */
 </style>
+@include('header2')
+@include('header')
 <h1>Danh sách Hóa đơn</h1>
 <hr/>
 
