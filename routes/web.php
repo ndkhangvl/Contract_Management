@@ -80,7 +80,7 @@ Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.
 Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete');
 Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update');
 */
-Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database');
-Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert');
-Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete');
-Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update');
+Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin');
+Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin');
+Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin');
+Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin');
