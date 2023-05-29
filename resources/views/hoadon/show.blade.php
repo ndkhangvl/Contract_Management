@@ -25,6 +25,13 @@
             Cập nhật Thông tin
         </button>
     </a>
+<form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post">
+      @csrf
+      @method('delete')
+      <button type="submit" class="btn btn-danger">
+        Xóa
+      </button>
+</form>
 
     <h4>Thuộc về hợp đồng số: <a href="/hopdong/{{$hoadon->HOPDONG_SO}}">{{$hoadon->HOPDONG_SO}}</a></h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>

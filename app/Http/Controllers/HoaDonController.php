@@ -257,4 +257,13 @@ class HoaDonController extends Controller
         }
         return redirect('/hoadon/'.$request->sohoadon);
     }
+
+    public function destroy($id)
+    {
+        ChiTietHoaDon::where('HOADON_ID', $id)->delete();
+        $hoadon = HoaDon::find($id);
+        $hoadon->delete();
+        //dd($id);
+        return redirect('/hoadon');
+    }
 }
