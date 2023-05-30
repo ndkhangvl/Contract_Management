@@ -12,24 +12,29 @@
         margin: auto;
         padding:20px;
     } */
+    .content {
+        text-align: center;
+    }
 </style>
 @include('header2')
 @include('header')
 <h1>Danh sách Hóa đơn</h1>
 <hr/>
 
-<div id="selecthopdong" onclick="selectHopDong()">
+<div class="content">
     <label>Số hợp đồng:</label>
-    <select name="sohopdong" id="sohopdong">
-        <option value="-1">
-            --Chọn hợp đồng--
-        </option>
-    @foreach ($hopdongs as $hd)
-        <option value="{{ $hd->HOPDONG_SO }}">
-        {{ $hd->HOPDONG_SO }}
-        </option>    
-    @endforeach                                
-    </select>
+    <span  id="selecthopdong" onclick="selectHopDong()">
+        <select name="sohopdong" id="sohopdong">
+            <option value="-1">
+                --Chọn hợp đồng--
+            </option>
+        @foreach ($hopdongs as $hd)
+            <option value="{{ $hd->HOPDONG_SO }}">
+            {{ $hd->HOPDONG_SO }}
+            </option>    
+        @endforeach                                
+        </select>
+    </span>
     <button  type="button" class="btn btn-primary" onclick="moveToCreate()">
         Thêm mới hóa đơn
     </button>
@@ -69,12 +74,17 @@
     @endforeach
 </table>
 
+<hr>
+<div class="content" >
+    
+</div>
+
 <script>
     function moveToCreate(){
-        if(document.getElementById("sohopdong").value == -1)
+        if(document.getElementById("sohopdong").value == "-1")
             document.getElementById("errorsohopdong").innerHTML = 'Chưa chọn hợp đồng cần tạo hóa đơn';
         else {
-            document.getElementById("errorsohopdong").innerHTML = document.getElementById("sohopdong").value;
+            //document.getElementById("errorsohopdong").innerHTML = document.getElementById("sohopdong").value;
             window.location = '/hoadon/create?hopdong='+ document.getElementById("sohopdong").value;
         }
     }
@@ -83,7 +93,7 @@
         //console.log(document.getElementById("sohopdong").value);
         $tab = document.getElementById("danhsachhoadon");
         $length = document.getElementById("danhsachhoadon").rows.length;
-        if(document.getElementById("sohopdong").value == -1)
+        if(document.getElementById("sohopdong").value == "-1")
             document.getElementById("errorsohopdong").innerHTML = "";
         else {
             document.getElementById("errorsohopdong").innerHTML = 'Danh sách hóa đơn cho hợp đồng số: ' + document.getElementById("sohopdong").value;
