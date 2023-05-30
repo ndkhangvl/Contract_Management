@@ -1,8 +1,9 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<h1>Thêm mới Hoá đơn</h1>
+@include('header2')
+@include('header')
+
 <style>
         form {
-                width: 80%;
+                justify-content: center;
         }
         table, th, td {
         border: 1px solid black;
@@ -25,10 +26,16 @@
     }
     
     table {
-        width:90%;
+       width: 70%;
+    }
+    .bodyfake{
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
     }
 </style>
-
+<div class="bodyfake">
+<h1>Thêm mới Hoá đơn</h1>
 <form action="/hoadon" method="post" enctype="multipart/form-data">
 @csrf
     <!--<h3>Hợp đồng số: {{$hopdongso}}</h3>-->
@@ -264,3 +271,5 @@
         @endforeach
       </div>
     @endif
+
+</div>

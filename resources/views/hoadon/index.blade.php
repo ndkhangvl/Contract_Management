@@ -13,19 +13,20 @@
         padding:20px;
     } */
     .content {
+        margin:15px;
+        font-weight: bold;
         text-align: center;
     }
     .pagination {
         justify-content: center;
     }
+    
 </style>
 @include('header2')
 @include('header')
-<h1>Danh sách Hóa đơn</h1>
-<hr/>
 
 <div class="content">
-    <h5>Chọn hợp đồng cần tạo hóa đơn </h5>
+    <label>Chọn hợp đồng cần tạo hóa đơn</label>
     <span  id="selecthopdong" onclick="">
         <select name="sohopdong" id="sohopdong">
             <option value="-1">
@@ -45,7 +46,19 @@
 </div>
 
 <hr/>
+<h1>Danh sách Hóa đơn</h1>
+<hr/>
 
+
+<form action="">
+    <div class="content">
+        <h5>Nhập số hợp đồng cần tìm</h5>
+        <input class="" name="find" placeholder="Số hợp đồng...">
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
 <table id="danhsachhoadon" class="table table-striped table-hover">
     <tr>
         <th>Hóa đơn số</th>

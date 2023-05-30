@@ -1,8 +1,9 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<h1>Cập nhật Hoá đơn</h1>
+@include('header2')
+@include('header')
+
 <style>
         form {
-                width: 80%;
+                justify-content: center;
         }
         table, th, td {
         border: 1px solid black;
@@ -25,10 +26,16 @@
     }
     
     table {
-        width:90%;
+        width: 70%;
+    }
+    .bodyfake{
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
     }
 </style>
-
+<div class="bodyfake">
+<h1>Cập nhật Hoá đơn</h1>
 <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post" enctype="multipart/form-data">
 @csrf
 @method('PUT')
@@ -48,7 +55,7 @@
 
     File: <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a><br>
     <div id="wrapper">
-        <label>Bạn có muốn cập nhật file mới?</label>
+        <label>Bạn có muốn cập nhật file mới không?</label>
         <p>
         <input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input>
         </p>
@@ -291,3 +298,5 @@
         @endforeach
       </div>
     @endif
+
+</div>

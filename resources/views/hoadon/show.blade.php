@@ -13,28 +13,37 @@
     table {
         width:90%;
     }
-    body{
+    .bodyfake{
         max-width: 900px;
         margin: auto;
-        padding:20px;
+        padding: 20px;
+    }
+    
+    .cthdso {
+        text-align: center;
+    }
+    .contentright {
+        text-align: right;
     }
 </style>
-
-<h1>Chi tiết hóa đơn</h1>
-<hr>
+<div class="bodyfake">
+<h2 class="cthdso">Chi tiết hóa đơn {{$hoadon->HOADON_SO}}</h2>
+<div class="contentright">
     <a href="/hoadon/{{$hoadon->HOADON_SO}}/edit">
         <button type="button" class="btn btn-primary">
             Cập nhật Thông tin
         </button>
     </a>
-<form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post">
-      @csrf
-      @method('delete')
-      <button type="submit" class="btn btn-danger">
-        Xóa
-      </button>
-</form>
-
+    <br>
+    <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post">
+        @csrf
+        @method('delete')
+        <button type="submit" class="btn btn-danger">
+            Xóa
+        </button>
+    </form>
+</div>
+<hr>
     <h4>Thuộc về hợp đồng số: <a href="/hopdong/{{$hoadon->HOPDONG_SO}}">{{$hoadon->HOPDONG_SO}}</a></h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>
     <h4>File: </h4> <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a>
@@ -54,7 +63,7 @@
 
 
 <h1>Danh sách</h1>
-<hr>
+
 
 <table class="table table-striped table-hover">
     <thead>
@@ -80,4 +89,5 @@
 </table>
 
 <hr>
+</div>
 @include('footer')
