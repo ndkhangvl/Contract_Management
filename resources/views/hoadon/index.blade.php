@@ -15,6 +15,9 @@
     .content {
         text-align: center;
     }
+    .pagination {
+        justify-content: center;
+    }
 </style>
 @include('header2')
 @include('header')
@@ -22,8 +25,8 @@
 <hr/>
 
 <div class="content">
-    <label>Số hợp đồng:</label>
-    <span  id="selecthopdong" onclick="selectHopDong()">
+    <h5>Chọn hợp đồng cần tạo hóa đơn </h5>
+    <span  id="selecthopdong" onclick="">
         <select name="sohopdong" id="sohopdong">
             <option value="-1">
                 --Chọn hợp đồng--
@@ -75,8 +78,8 @@
 </table>
 
 <hr>
-<div class="content" >
-    
+<div>
+{{ $hoadons->appends(request()->all())->links() }}
 </div>
 
 <script>

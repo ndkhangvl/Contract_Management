@@ -158,7 +158,8 @@ class HoaDonController extends Controller
     }
 
     public function index() {
-        $hoadons = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID order by HOADON_ID desc");
+        //$hoadons = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID order by HOADON_ID desc");
+        $hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->orderBy('HOADON_ID','desc')->paginate(10);
         //return dd($hoadons);
         $hopdongs = DB::select("select * from HOPDONG");
         return view('hoadon.index', [
