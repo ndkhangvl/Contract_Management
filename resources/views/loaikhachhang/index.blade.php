@@ -84,6 +84,14 @@
     {{-- Sửa lại CSS với boostrap5 để đồng bộ --}}
     <h1>Loại khách hàng</h1>
     <div class="container shadow">
+        {{-- <form>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" id="timkiem" name="timkiem">
+              </div>
+              <div class="text-center">
+                <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
+            </div>
+        </form> --}}
         <form id="infoForm" action="{{ route('testconnect.insert') }}" method="POST">
             @csrf
             <div class="mb-3 mt-3">
@@ -120,6 +128,7 @@
             <table class="table table-striped table-hover" id="dataTable">
                 <thead>
                 <tr>
+                    {{-- <th class="text-center text-nowrap">STT</th> --}}
                     <th class="text-center text-nowrap">ID</th>
                     <th class="text-center text-nowrap">Mã</th>
                     <th class="text-center text-nowrap">Tên loại khách hàng</th>
@@ -129,6 +138,7 @@
                 <tbody>
                 @foreach ($loaikhachhangs as $loaikhachhang)
                     <tr id="row{{ $loaikhachhang->LOAIKHACHHANG_ID }}">
+                        {{-- <td class="text-center align-middle">{{++$i}}</td> --}}
                         <td class="text-center align-middle"> {{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
                         <td class="text-center align-middle"> {{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
                         <td>{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
@@ -137,6 +147,9 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {{$loaikhachhangs->appends(request()->all())->links()}}
         </div>
 </div>
 

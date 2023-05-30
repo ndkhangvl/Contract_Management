@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\LoaiKhachHangController;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\HopDongController;
 use App\Http\Controllers\HoaDonController;
+use App\Mail\ForgotPasswordMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +48,9 @@ Route::get('/header', function () {
     return view('header');
 });
 
-Route::get('/header2', function () {
+Route::get('/forgotpass', function () {
     //$value = Session::get('loginId');
-    return view('header2');
+    return view('mail.indexforgotpass');
 });
 
 Route::get('/test', function () {
@@ -66,6 +68,7 @@ Route::get('login/{locale}', function ($locale) {
 Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
 Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
+Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass']) -> name('forgot-pass');
 Route::get('/logout', [UserAuthController::class, 'logout']);
 
 Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
@@ -84,3 +87,8 @@ Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->mi
 Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin');
 Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin');
 Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin');
+
+// Route::get('/forgotpasswd', function () {
+//     Mail::to('khangb1910654@student.ctu.edu.vn')
+//         ->send(new ForgotPasswordMail());
+// });

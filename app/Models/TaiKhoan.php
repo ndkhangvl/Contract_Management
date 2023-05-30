@@ -11,6 +11,7 @@ class TaiKhoan extends Model implements AuthenticatableContract
 {
     use HasFactory;
     use Authenticatable;
+    public $timestamps = false;
     public $table = 'TAIKHOAN';
     public $primaryKey = 'NGUOIDUNG_ID';
 }

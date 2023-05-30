@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //use Auth;
+
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\TaiKhoan;
+use App\Mail\ForgotPasswordMail;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -17,11 +21,25 @@ class UserAuthController extends Controller
         return view("auth.login");
     }
 
-
+    public function forgotPass(Request $request) {
+        $user = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
+        if(!$user) {
+            return back()->with('fail', 'Tài khoản không tồn tại với thông tin email.');
+        } else {
+            $newpass = Str::random(8);
+            TaiKhoan::where('nguoidung_email', $request->nd_email)  
+                ->update([
+                    'MATKHAU' => $newpass,
+                ]);
+            $user_after = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
+            Mail::to($request->nd_email)->send(new ForgotPasswordMail($user_after));
+        }
+        return redirect('/login');
+    }
     //public function getLogin()
     //{
     //    $captcha = Captcha::create('default');
-    //    return view('auth.login', compact('captcha'));
+    //    return view('auth.login', compact('captcha'));s
     //}
 
     public function userLogin(Request $request) {
