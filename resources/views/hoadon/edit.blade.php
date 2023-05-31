@@ -64,7 +64,7 @@
         </p>
     </div>
     File mới: <input class="form-control" 
-            type="file" name="filehoadon" id="filehoadon" disabled
+            type="file" name="filehoadon" id="filehoadon" disabled required
             >
 
     Thuế (%): <button class="btn btn-primary" onclick="calHoaDon()" type="button">
