@@ -27,7 +27,7 @@
 
 <div class="content">
     <label>Chọn hợp đồng cần tạo hóa đơn</label>
-    <span  id="selecthopdong" onclick="">
+    <span  id="selecthopdong" onclick="selectHopDong()">
         <select name="sohopdong" id="sohopdong">
             <option value="-1">
                 --Chọn hợp đồng--
@@ -53,7 +53,7 @@
 <form action="">
     <div class="content">
         <h5>Nhập số hợp đồng cần tìm</h5>
-        <input class="" name="find" placeholder="Số hợp đồng...">
+        <input class="" name="find" id="find" placeholder="Số hợp đồng...">
         <button type="submit" class="btn btn-primary">
             <i class="fas fa-search"></i>
         </button>
@@ -107,6 +107,7 @@
     
     function selectHopDong(){
         //console.log(document.getElementById("sohopdong").value);
+        /*
         $tab = document.getElementById("danhsachhoadon");
         $length = document.getElementById("danhsachhoadon").rows.length;
         if(document.getElementById("sohopdong").value == "-1")
@@ -123,7 +124,10 @@
             }
             else $tab.rows[$i].removeAttribute("hidden");
             
-        }
+        }*/
+        if(document.getElementById("sohopdong").value == "-1"){
+            document.getElementById("find").value = "";
+        }else document.getElementById("find").value = document.getElementById("sohopdong").value;
     }
     
 </script>
