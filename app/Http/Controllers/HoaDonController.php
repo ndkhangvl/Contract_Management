@@ -19,7 +19,8 @@ class HoaDonController extends Controller
         [
             'id' => $id,
         ])[0];
-        
+        $timestamp = strtotime($hoadon->HOADON_NGAYTAO); 
+        $hoadon->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
         $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
         [
             'id' => $hoadon->HOADON_ID,

@@ -28,7 +28,7 @@
     }
 
     @media print {
-        .navbar-brand, footer, .notprint, .container{
+        .navbar-brand, footer, .notprint, .container, .nav-item{
             display:none;
         }
         
