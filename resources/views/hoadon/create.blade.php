@@ -55,9 +55,7 @@
     File: <input class="form-control" required
             type="file" name="filehoadon"
             >
-    Thuế (%): <button class="btn btn-primary" onclick="calHoaDon()" type="button">
-        Tính toán
-    </button>
+    Thuế (%):
     <input class="form-control" id="thuesuat" required
             type="number" name="thuesuat" min="0"
             value="{{ old('thuesuat') }}">
@@ -126,11 +124,11 @@
         
         @for ($i = 1; $i <= old('soluongchitiet'); $i++)
              <tr>
-                <td><input type="text" name="stt{{$i}}" id="stt{{$i}}" value="{{$i}}" readonly class="inputstt"></td>
+                <td><input type="text" class="inputstt" name="stt{{$i}}" id="stt{{$i}}" value="{{$i}}" readonly class="inputstt"></td>
                 <td><input type="text" name="noidung{{$i}}" id="noidung{{$i}}" value="{{ old('noidung'.$i) }}"></td>
-                <td><input type="number" name="soluong{{$i}}" id="soluong{{$i}}" value="{{ old('soluong'.$i) }}" min="0"></td>
+                <td><input type="number" class="soluong" name="soluong{{$i}}" id="soluong{{$i}}" value="{{ old('soluong'.$i) }}" min="0"></td>
                 <td><input type="text" name="donvitinh{{$i}}" id="donvitinh{{$i}}" value="{{ old('donvitinh'.$i) }}"></td>
-                <td><input type="number" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}" min="0"></td>
+                <td><input type="number" class="dongia" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}" min="0"></td>
                 <td><input type="text" name="thanhtien{{$i}}" readonly id="thanhtien{{$i}}" value="{{ old('thanhtien'.$i) }}"></td>
                 <td><button type="button" name="btnxoa{{$i}}" id="btnxoa{{$i}}" class="btn btn-danger" onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
             </tr>
@@ -140,9 +138,7 @@
     <button class="btn btn-primary" type="submit">
         Tạo hóa đơn
     </button>
-    <button class="btn btn-primary" onclick="calHoaDon()" type="button">
-        Tính toán
-    </button><hr>
+    <hr>
         <script>
         function calHoaDon() {
                 $cnt = document.getElementById("slct").value;
@@ -167,7 +163,13 @@
                 document.getElementById("tienthue").value= $tienthue;
                 document.getElementById("tongtiencothue").value= $tongtiencothue;
         }
-
+        document.getElementById("thuesuat").addEventListener('input', calHoaDon);
+        var soluongs = document.getElementsByClassName('soluong');
+        var dongias = document.getElementsByClassName('dongia');
+        for (var i = 0; i < soluongs.length; i++) {
+                soluongs[i].addEventListener('input', calHoaDon);
+                dongias[i].addEventListener('input', calHoaDon);
+        }
         function addRow(){
                 $table = document.getElementById("tablechitiet");
                 $length = document.getElementById("tablechitiet").rows.length;
@@ -197,6 +199,8 @@
                 $soluong.min = 0;
                 $soluong.name = "soluong"+$length;
                 $soluong.id = "soluong"+$length;
+                $soluong.className = "soluong";
+                $soluong.addEventListener('input', calHoaDon);
                 $cell3.appendChild($soluong);
 
                 $cell4 = $row.insertCell(3);
@@ -212,6 +216,8 @@
                 $dongia.min = "0";
                 $dongia.name = "dongia"+$length;
                 $dongia.id = "dongia"+$length;
+                $dongia.className = "dongia";
+                $dongia.addEventListener('input', calHoaDon);
                 $cell5.appendChild($dongia);
 
                 $cell6 = $row.insertCell(5);

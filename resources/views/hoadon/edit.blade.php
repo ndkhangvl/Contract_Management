@@ -67,9 +67,7 @@
             type="file" name="filehoadon" id="filehoadon" disabled required
             >
 
-    Thuế (%): <button class="btn btn-primary" onclick="calHoaDon()" type="button">
-        Tính toán
-    </button>
+    Thuế (%):
     <input class="form-control" id="thuesuat" required
             type="number" name="thuesuat" min="0"
             value="{{$hoadon->HOADON_THUESUAT}}">
@@ -138,11 +136,11 @@
         
         @foreach ($chitiethoadon as $cthd)
              <tr>
-                <td><input type="text" name="stt{{$cthd->STT}}" id="stt{{$cthd->STT}}" value="{{$cthd->STT}}" readonly class="inputstt"></td>
+                <td><input type="text" class="inputstt" name="stt{{$cthd->STT}}" id="stt{{$cthd->STT}}" value="{{$cthd->STT}}" readonly class="inputstt"></td>
                 <td><input type="text" name="noidung{{$cthd->STT}}" id="noidung{{$cthd->STT}}" value="{{$cthd->NOIDUNG}}"></td>
-                <td><input type="number" name="soluong{{$cthd->STT}}" id="soluong{{$cthd->STT}}" value="{{$cthd->SOLUONG}}" min="0"></td>
+                <td><input type="number" class="soluong" name="soluong{{$cthd->STT}}" id="soluong{{$cthd->STT}}" value="{{$cthd->SOLUONG}}" min="0"></td>
                 <td><input type="text" name="donvitinh{{$cthd->STT}}" id="donvitinh{{$cthd->STT}}" value="{{$cthd->DVT}}"></td>
-                <td><input type="number" name="dongia{{$cthd->STT}}" id="dongia{{$cthd->STT}}" value="{{$cthd->DONGIA}}" min="0"></td>
+                <td><input type="number" class="dongia" name="dongia{{$cthd->STT}}" id="dongia{{$cthd->STT}}" value="{{$cthd->DONGIA}}" min="0"></td>
                 <td><input type="text" name="thanhtien{{$cthd->STT}}" readonly id="thanhtien{{$cthd->STT}}" value="{{$cthd->THANHTIEN}}"></td>
                 <td><button type="button" name="btnxoa{{$cthd->STT}}" id="btnxoa{{$cthd->STT}}" class="btn btn-danger" onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
             </tr>
@@ -152,9 +150,7 @@
     <button class="btn btn-primary" type="submit">
         Cập nhật hóa đơn
     </button>
-    <button class="btn btn-primary" onclick="calHoaDon()" type="button">
-        Tính toán
-    </button><hr>
+    <hr>
         <script>
         function calHoaDon() {
                 $cnt = document.getElementById("slct").value;
@@ -179,7 +175,13 @@
                 document.getElementById("tienthue").value= $tienthue;
                 document.getElementById("tongtiencothue").value= $tongtiencothue;
         }
-
+        document.getElementById("thuesuat").addEventListener('input', calHoaDon);
+        var soluongs = document.getElementsByClassName('soluong');
+        var dongias = document.getElementsByClassName('dongia');
+        for (var i = 0; i < soluongs.length; i++) {
+                soluongs[i].addEventListener('input', calHoaDon);
+                dongias[i].addEventListener('input', calHoaDon);
+        }
         function addRow(){
                 $table = document.getElementById("tablechitiet");
                 $length = document.getElementById("tablechitiet").rows.length;
@@ -209,6 +211,8 @@
                 $soluong.min = 0;
                 $soluong.name = "soluong"+$length;
                 $soluong.id = "soluong"+$length;
+                $soluong.className = "soluong";
+                $soluong.addEventListener('input', calHoaDon);
                 $cell3.appendChild($soluong);
 
                 $cell4 = $row.insertCell(3);
@@ -224,6 +228,8 @@
                 $dongia.min = "0";
                 $dongia.name = "dongia"+$length;
                 $dongia.id = "dongia"+$length;
+                $dongia.className = "dongia";
+                $dongia.addEventListener('input', calHoaDon);
                 $cell5.appendChild($dongia);
 
                 $cell6 = $row.insertCell(5);

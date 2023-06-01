@@ -25,9 +25,26 @@
     .contentright {
         text-align: right;
     }
+
+    @media print {
+        .navbar-brand, footer, .notprint, .container{
+            display:none;
+        }
+        
+        #xuatpdf {
+            display: block;
+        }
+}
 </style>
 <div class="bodyfake">
-<h2 class="cthdso">Chi tiết hóa đơn {{$hoadon->HOADON_SO}}</h2>
+<div class="notprint">
+<div class="contentleft">
+    
+    <button type="button" class="btn btn-primary" onclick="window.print()">
+        Xuất hóa đơn
+    </button>
+    
+</div>
 <div class="contentright">
     <a href="/hoadon/{{$hoadon->HOADON_SO}}/edit">
         <button type="button" class="btn btn-primary">
@@ -43,7 +60,11 @@
         </button>
     </form>
 </div>
+</div>
+<div id="xuatpdf">
+<img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
 <hr>
+<h2 class="cthdso">Chi tiết hóa đơn {{$hoadon->HOADON_SO}}</h2>
     <h4>Thuộc về hợp đồng số: <a href="/hopdong/{{$hoadon->HOPDONG_SO}}">{{$hoadon->HOPDONG_SO}}</a></h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>
     <h4>File: </h4> <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a>
@@ -89,5 +110,6 @@
 </table>
 
 <hr>
+</div>
 </div>
 @include('footer')
