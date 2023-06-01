@@ -1,3 +1,4 @@
+<title>Chi tiết hóa đơn | {{$hoadon->HOADON_SO}}</title>
 @include('header2')
 @include('header')
 {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
@@ -64,10 +65,12 @@
 <div id="xuatpdf">
 <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
 <hr>
-<h2 class="cthdso">Chi tiết hóa đơn {{$hoadon->HOADON_SO}}</h2>
+<h2 class="cthdso">Hóa đơn {{$hoadon->HOADON_SO}}</h2>
     <h4>Thuộc về hợp đồng số: <a href="/hopdong/{{$hoadon->HOPDONG_SO}}">{{$hoadon->HOPDONG_SO}}</a></h4>
     <h4>Hóa đơn số: {{$hoadon->HOADON_SO}}</h4>
+    <div class="notprint">
     <h4>File: </h4> <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a>
+    </div>
     @if ($hoadon->HOADON_TRANGTHAI == 1)
         <h4>Trạng thái: Đã thanh toán</h4>
     @elseif ($hoadon->HOADON_TRANGTHAI == 0)

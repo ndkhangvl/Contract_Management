@@ -1,3 +1,4 @@
+<title>Thêm mới hóa đơn | hợp đồng số {{$hopdongso}}</title>
 @include('header2')
 @include('header')
 

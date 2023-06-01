@@ -1,3 +1,4 @@
+<title>Cập nhật hóa đơn | {{$hoadon->HOADON_SO}}</title>
 @include('header2')
 @include('header')
 

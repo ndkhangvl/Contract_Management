@@ -22,6 +22,7 @@
     }
     
 </style>
+<title>Hóa đơn</title>
 @include('header2')
 @include('header')
 
