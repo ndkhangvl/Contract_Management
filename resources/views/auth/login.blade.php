@@ -48,6 +48,10 @@
     </script>
     {{-- <script src="/Scripts/jquery-3.3.1.min.js"></script> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -62,67 +66,8 @@
                         <div class="mg-2">
                             <img src="/img/ctu.png" class="img-fluid custom-width mb-1"/>
                         </div>
-                        <h2 class="fw-bold" style="color: #004F9E">Quản Lý Hợp Đồng</h2>
-                    </div>
-                    <form action="{{route('user-login')}}" method="POST">
-                        @if(Session::has('success'))
-                        <div class="alert alert-success">{{Session::get('success')}}
-                        @endif
-                        @if(Session::has('fail'))
-                        <div class="alert alert-danger">{{Session::get('fail')}}
-                        @endif
-                        @csrf
-                        <div class="p-4">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text bg-primary"><i class="fas fa-user-alt" style="color: #ffffff;"></i></span>
-                                <input type="text" class="form-control" name="ma_nd" placeholder="Tên tài khoản" value="{{old('ma_nd')}}" required>
-                            </div>
-                            <span class="invalid-feedback">@error('ma_nd') {{$message}} @enderror</span>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text bg-primary"><i class="fas fa-key" style="color: #ffffff;"></i></span>
-                                <input type="password" class="form-control" id="password" name="matkhau" placeholder="Mật khẩu" required>
-                                <span class="input-group-text" onclick="password_show_hide();">
-                                    <i class="fas fa-eye" id="show_eye"></i>
-                                    <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                                  </span>
-                            </div>
-                            <span class="invalid-feedback">@error('matkhau') {{$message}} @enderror</span>
-                            <div class="form-group">
-                                <div class="captcha">
-                                    <span>{!! Captcha::img() !!}</span>
-                                    <button type="button" id="refresh">
-                                        <span class="material-symbols-outlined">
-                                            refresh
-                                        </span>
-                                    </button>
-                                </div>
-                                <input id="captcha" type="text" class="form-control mt-2" placeholder="{{ __('Nhập mã') }}" name="captcha" required>
-                            </div>
-                            <span class="text-danger">@error('captcha') {{$message}} @enderror</span>
-                            <script>
-                                document.getElementById('refresh').addEventListener('click', function() {
-                                    var captchaImg = document.querySelector('.captcha img');
-                                    captchaImg.src = captchaImg.src + '?' + Date.now();
-                                });
-                            </script>
-                            {{--<div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Ghi nhớ tôi
-                                </label>
-                            </div>--}}
-                            <button class="btn btn-primary text-center mx-auto d-block mt-2" type="submit">
-                                Đăng nhập
-                            </button>
-                            <a href="/forgotpass" class="text-center text-primary text-decoration-none fw-bold">{{ __('msg.forgotpassword')}}</a>
-                            {{-- <div class="mx-auto d-flex justify-content-center">
-                                <a href="javascript:void(0)" onclick="changeLanguage('vi')" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
-                                <a href="javascript:void(0)" onclick="changeLanguage('en')" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
-                            </div> --}}
-                            <div class="mx-auto d-flex justify-content-center">
-                                <a href="{{ route('setlocale', 'vi') }}" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
-                                <a href="{{ route('setlocale', 'en') }}" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
-                            </div>    
+                        <h2 class="fw-bold" style="color: #004F9E; font-family: 'Be Vietnam Pro', sans-serif;">Quản Lý Hợp Đồng</h2>
+                    </div> 
                     <div class="py-2">
                         <form action="{{route('user-login')}}" method="POST">
                             @if(Session::has('success'))
@@ -174,7 +119,7 @@
                                 <button class="btn btn-primary text-center mx-auto d-block mt-2" type="submit">
                                     Đăng nhập
                                 </button>
-                                <a href="/forgotpass" class="text-center text-primary text-decoration-none fw-bold">{{ __('msg.forgotpassword')}}</a>
+                                <a href="/forgotpass" class="text-center text-primary text-decoration-none fw-bold">{{ trans('msg.forgotpassword') }}</a>
                                 {{-- <div class="mx-auto d-flex justify-content-center">
                                     <a href="javascript:void(0)" onclick="changeLanguage('vi')" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
                                     <a href="javascript:void(0)" onclick="changeLanguage('en')" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
@@ -182,15 +127,16 @@
                                 <div class="mx-auto d-flex justify-content-center">
                                     {{-- <a href="{{ route('setlocale', 'vi') }}" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
                                     <a href="{{ route('setlocale', 'en') }}" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a> --}}
-                                    <a href="#" class="imgvi" data-locale="vi" style="background-image: url({{ asset('img/vi.png') }});"></a>
-                                    <a href="#" class="imgen" data-locale="en" style="background-image: url({{ asset('img/en.png') }});"></a>
-                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                    <a href="javascript:void(0)" class="imgvi" data-locale="vi" style="background-image: url({{ asset('img/vi.png') }});"></a>
+                                    <a href="javascript:void(0)" class="imgen" data-locale="en" style="background-image: url({{ asset('img/en.png') }});"></a>
                                     <script>
                                         $(document).ready(function() {
                                             var csrfToken = $('meta[name="csrf-token"]').attr('content');
                                             $('.imgvi, .imgen').click(function(e) {
                                                 e.preventDefault();
-                                                var selectedLocale = $(this).data('locale');
+                                                // var selectedLocale = $(this).data('locale');
+                                                var selectedLocale = $(e.target).data('locale');
+                                                console.log(selectedLocale);
                                     
                                                 $.ajax({
                                                     url: "{{ route('updateLocale') }}",
@@ -204,7 +150,8 @@
 
                                                     if (response && response.success) {
                                                         console.log('Locale updated successfully');
-                                                        location.reload();
+                                                        //App.setLocale(response.test);
+                                                        //window.location.reload();
                                                     } else {
                                                         console.log('Locale update failed');
                                                     }
@@ -228,7 +175,7 @@
 </body>
 <script>
 function password_show_hide() {
-  var x = document.getElementById("password");
+  var x = document.getElementById("matkhau");
   var show_eye = document.getElementById("show_eye");
   var hide_eye = document.getElementById("hide_eye");
   hide_eye.classList.remove("d-none");

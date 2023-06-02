@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //use Auth;
-
+use App;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -24,18 +25,18 @@ class UserAuthController extends Controller
     public function updateLocale(Request $request)
     {
         $locale = $request->input('locale');
-        // $locale = 'vi';
-        // Log::info($locale);
-        //App()->setLocale('vi');
-        //App::setLocale('vi');
-        //return response()->json(['success' => true]);
         if (in_array($locale, ['en', 'vi'])) {
-            App::setLocale($locale);
-            //app()->setLocale($locale);
-            return response()->json(['success' => true]);
+            App::setlocale($locale);
+            return response()->json(['success' => true, 'test' => $locale]);
         }
         return response()->json(['success' => false]);
     }
+
+    // public function updateLocale()
+    // {
+    //     App::setlocale('en');
+    //     return view('auth.login');
+    // }
 
     public function forgotPass(Request $request) {
         $user = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
