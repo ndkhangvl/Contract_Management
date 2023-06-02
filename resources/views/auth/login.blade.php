@@ -64,6 +64,65 @@
                         </div>
                         <h2 class="fw-bold" style="color: #004F9E">Quản Lý Hợp Đồng</h2>
                     </div>
+                    <form action="{{route('user-login')}}" method="POST">
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">{{Session::get('success')}}
+                        @endif
+                        @if(Session::has('fail'))
+                        <div class="alert alert-danger">{{Session::get('fail')}}
+                        @endif
+                        @csrf
+                        <div class="p-4">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-primary"><i class="fas fa-user-alt" style="color: #ffffff;"></i></span>
+                                <input type="text" class="form-control" name="ma_nd" placeholder="Tên tài khoản" value="{{old('ma_nd')}}" required>
+                            </div>
+                            <span class="invalid-feedback">@error('ma_nd') {{$message}} @enderror</span>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-primary"><i class="fas fa-key" style="color: #ffffff;"></i></span>
+                                <input type="password" class="form-control" id="password" name="matkhau" placeholder="Mật khẩu" required>
+                                <span class="input-group-text" onclick="password_show_hide();">
+                                    <i class="fas fa-eye" id="show_eye"></i>
+                                    <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                  </span>
+                            </div>
+                            <span class="invalid-feedback">@error('matkhau') {{$message}} @enderror</span>
+                            <div class="form-group">
+                                <div class="captcha">
+                                    <span>{!! Captcha::img() !!}</span>
+                                    <button type="button" id="refresh">
+                                        <span class="material-symbols-outlined">
+                                            refresh
+                                        </span>
+                                    </button>
+                                </div>
+                                <input id="captcha" type="text" class="form-control mt-2" placeholder="{{ __('Nhập mã') }}" name="captcha" required>
+                            </div>
+                            <span class="text-danger">@error('captcha') {{$message}} @enderror</span>
+                            <script>
+                                document.getElementById('refresh').addEventListener('click', function() {
+                                    var captchaImg = document.querySelector('.captcha img');
+                                    captchaImg.src = captchaImg.src + '?' + Date.now();
+                                });
+                            </script>
+                            {{--<div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Ghi nhớ tôi
+                                </label>
+                            </div>--}}
+                            <button class="btn btn-primary text-center mx-auto d-block mt-2" type="submit">
+                                Đăng nhập
+                            </button>
+                            <a href="/forgotpass" class="text-center text-primary text-decoration-none fw-bold">{{ __('msg.forgotpassword')}}</a>
+                            {{-- <div class="mx-auto d-flex justify-content-center">
+                                <a href="javascript:void(0)" onclick="changeLanguage('vi')" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
+                                <a href="javascript:void(0)" onclick="changeLanguage('en')" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
+                            </div> --}}
+                            <div class="mx-auto d-flex justify-content-center">
+                                <a href="{{ route('setlocale', 'vi') }}" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
+                                <a href="{{ route('setlocale', 'en') }}" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a>
+                            </div>    
                     <div class="py-2">
                         <form action="{{route('user-login')}}" method="POST">
                             @if(Session::has('success'))
