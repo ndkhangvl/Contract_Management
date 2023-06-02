@@ -21,6 +21,22 @@ class UserAuthController extends Controller
         return view("auth.login");
     }
 
+    public function updateLocale(Request $request)
+    {
+        $locale = $request->input('locale');
+        // $locale = 'vi';
+        // Log::info($locale);
+        //App()->setLocale('vi');
+        //App::setLocale('vi');
+        //return response()->json(['success' => true]);
+        if (in_array($locale, ['en', 'vi'])) {
+            App::setLocale($locale);
+            //app()->setLocale($locale);
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+    }
+
     public function forgotPass(Request $request) {
         $user = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
         if(!$user) {
@@ -44,13 +60,14 @@ class UserAuthController extends Controller
 
     public function userLogin(Request $request) {
         
-        $captchaData = $request->input('captcha');
-        $isCaptchaValid = Captcha::check($captchaData);
-
         $request->validate([
             'ma_nd' => 'required',
-            'matkhau' => 'required|min:5|max:12'
+            'matkhau' => 'required|min:5|max:12',
+            'captcha' => 'required'
         ]);
+
+        $captchaData = $request->input('captcha');
+        $isCaptchaValid = Captcha::check($captchaData);
 
         //$taikhoan = $request->only('ma_nd','matkhau');
         if (!$isCaptchaValid) {

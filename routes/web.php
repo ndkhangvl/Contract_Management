@@ -58,18 +58,20 @@ Route::get('/test', function () {
     return view('khachhang.createCustomer');
 })->middleware('isLogin');
 
-Route::get('login/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'vi'])) {
-        App::setLocale($locale);
-    }
-    return Redirect::back();
-})->name('setlocale');
+// Route::get('login/{locale}', function ($locale) {
+//     if (in_array($locale, ['en', 'vi'])) {
+//         app()->setLocale($locale);
+//         Log::info(app()->getLocale());
+//     }
+//     return Redirect::back();
+// })->name('setlocale');
 
 Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
 Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass']) -> name('forgot-pass');
 Route::get('/logout', [UserAuthController::class, 'logout']);
+Route::post('/update-locale', [UserAuthController::class, 'updateLocale'])->name('updateLocale');
 
 Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
 Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
