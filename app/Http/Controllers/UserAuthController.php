@@ -57,6 +57,7 @@ class UserAuthController extends Controller
             return back()->with('fail', 'Mã xác nhận sai');
             return false;
         }
+
         $user = TaiKhoan::where('ma_nd','=', $request-> ma_nd)->first();
         $puser = TaiKhoan::where('matkhau', '=', $request->matkhau)->first();
         if($user && !$puser) {

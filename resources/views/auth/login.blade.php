@@ -50,12 +50,12 @@
                         <div class="p-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i class="fas fa-user-alt" style="color: #ffffff;"></i></span>
-                                <input type="text" class="form-control" name="ma_nd" placeholder="Tên tài khoản" value="{{old('ma_nd')}}">
+                                <input type="text" class="form-control" name="ma_nd" placeholder="Tên tài khoản" value="{{old('ma_nd')}}" required>
                             </div>
                             <span class="invalid-feedback">@error('ma_nd') {{$message}} @enderror</span>
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i class="fas fa-key" style="color: #ffffff;"></i></span>
-                                <input type="password" class="form-control" id="password" name="matkhau" placeholder="Mật khẩu">
+                                <input type="password" class="form-control" id="password" name="matkhau" placeholder="Mật khẩu" required>
                                 <span class="input-group-text" onclick="password_show_hide();">
                                     <i class="fas fa-eye" id="show_eye"></i>
                                     <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
