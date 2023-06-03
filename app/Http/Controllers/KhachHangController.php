@@ -15,10 +15,12 @@ class KhachHangController extends Controller
 {
     //
     public function index() {
+        $loaikhachhang = LoaiKhachHang::all();
         $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
         join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
         return view('khachhang.index', [
             'khachhangs' => $khachhangs,
+            'loaikhachhang' => $loaikhachhang,
         ]); 
     }
 
@@ -65,6 +67,12 @@ class KhachHangController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'loaikhachhang_id' => 'required',
+            'khachhang_ten' => 'required|min:5|max:12',
+            'khachhang_diachi' => 'required'
+        ]);
+        
         $today = Carbon::today();
 
         $khhang = new KhachHang;

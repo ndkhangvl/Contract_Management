@@ -5,13 +5,13 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\LoaiKhachHangController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\UserAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\HopDongController;
 use App\Http\Controllers\HoaDonController;
+use App\Http\Controllers\UserAuthController;
 use App\Mail\ForgotPasswordMail;
 
 /*
@@ -58,19 +58,17 @@ Route::get('/test', function () {
     return view('khachhang.createCustomer');
 })->middleware('isLogin');
 
-Route::get('login/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'vi'])) {
-        App::setLocale($locale);
-    }
-    return Redirect::back();
-})->name('setlocale');
-
+// Route::get('test2/{lang}', function($lang) {
+//     App::setlocale($lang);
+//     return view('auth.login');
+// });
 Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
 Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass']) -> name('forgot-pass');
 Route::get('/logout', [UserAuthController::class, 'logout']);
 Route::get('/user/{id}', [UserAuthController::class, 'getUser']);
+Route::post('/updatelocale', [UserAuthController::class, 'updateLocale'])->name('updateLocale');
 
 Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
 Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');

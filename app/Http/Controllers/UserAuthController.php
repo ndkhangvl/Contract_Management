@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //use Auth;
-
+use Illuminate\Support\Facades\App;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +28,22 @@ class UserAuthController extends Controller
         return response()->json($user);
     }
 
+
+    public function updateLocale(Request $request)
+    {
+        $locale = $request->input('locale');
+        if (in_array($locale, ['en', 'vi'])) {
+            App::setlocale($locale);
+            return response()->json(['success' => true, 'test' => $locale]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+    // public function updateLocale()
+    // {
+    //     App::setlocale('en');
+    //     return view('auth.login');
+    // }
 
     public function forgotPass(Request $request) {
         $user = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
@@ -51,13 +68,14 @@ class UserAuthController extends Controller
 
     public function userLogin(Request $request) {
         
-        $captchaData = $request->input('captcha');
-        $isCaptchaValid = Captcha::check($captchaData);
-
         $request->validate([
             'ma_nd' => 'required',
-            'matkhau' => 'required|min:5|max:12'
+            'matkhau' => 'required|min:5|max:12',
+            'captcha' => 'required'
         ]);
+
+        $captchaData = $request->input('captcha');
+        $isCaptchaValid = Captcha::check($captchaData);
 
         //$taikhoan = $request->only('ma_nd','matkhau');
         if (!$isCaptchaValid) {
