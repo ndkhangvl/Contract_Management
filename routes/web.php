@@ -70,6 +70,7 @@ Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLo
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass']) -> name('forgot-pass');
 Route::get('/logout', [UserAuthController::class, 'logout']);
+Route::get('/user/{id}', [UserAuthController::class, 'getUser']);
 
 Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
 Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
@@ -92,3 +93,5 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 //     Mail::to('khangb1910654@student.ctu.edu.vn')
 //         ->send(new ForgotPasswordMail());
 // });
+
+

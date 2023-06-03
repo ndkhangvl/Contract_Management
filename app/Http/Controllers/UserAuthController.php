@@ -14,12 +14,19 @@ use GuzzleHttp\Psr7\Message;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Mews\Captcha\Facades\Captcha;
+use Illuminate\Support\Facades\DB;
 
 class UserAuthController extends Controller
 {
     public function login(){
         return view("auth.login");
     }
+    public function getUser($ma_nd)
+    {
+        $user = TaiKhoan::where('ma_nd', $ma_nd)->first();
+        return response()->json($user);
+    }
+
 
     public function forgotPass(Request $request) {
         $user = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
@@ -90,4 +97,5 @@ class UserAuthController extends Controller
             return redirect('login');
         }
     }
+
 }
