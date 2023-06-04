@@ -161,32 +161,6 @@
         <div id="pagination-links">
             {{$loaikhachhangs->appends(request()->all())->links()}}
         </div>
-        <script>
-            $(document).ready(function() {
-                // Xử lý sự kiện khi chọn một trang phân trang
-                $(document).on('click', '.pagination a', function(e) {
-                    e.preventDefault();
-                    var url = $(this).attr('href');
-                    fetch_data(url);
-                });
-
-                // Hàm gửi yêu cầu Ajax và cập nhật dữ liệu và liên kết phân trang
-                function fetch_data(url) {
-                    $.ajax({
-                        url: url,
-                        success: function(data) {
-                            $('#data-container').html(data.data);
-                            $('#pagination-links').html(data.links);
-                        },
-                        error: function(xhr, ajaxOptions, thrownError) {
-                            // Xử lý lỗi nếu có
-                        }
-                    });
-                }
-                // Gọi hàm fetch_data để tải dữ liệu ban đầu
-                fetch_data('{{ route("loaikhachhangs") }}');
-            });
-        </script>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

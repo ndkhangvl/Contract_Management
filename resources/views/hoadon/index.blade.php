@@ -43,6 +43,11 @@
     <button  type="button" class="btn btn-primary" onclick="moveToCreate()">
         Thêm mới hóa đơn
     </button>
+    <a href="/ExportHoaDon">
+        <button type="button" class="btn btn-info">
+            Tải về Excel
+        </button>
+    </a>
     <div id="errorsohopdong"></div>
 </div>
 
@@ -87,6 +92,18 @@
             </button>
         </a>
         </td>
+        <script>
+            function exportSelectedInvoices() {
+                // Lấy danh sách các hợp đồng đã chọn
+                var selectedInvoices = [];
+                var checkboxes = document.getElementsByName('selected_invoices[]');
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        selectedInvoices.push(checkboxes[i].value);
+                    }
+                }
+            }
+        </script>
     </tr>
     @endforeach
 </table>
