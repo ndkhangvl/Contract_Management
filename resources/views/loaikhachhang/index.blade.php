@@ -110,12 +110,22 @@
                 <label for="cssid" class="form-label fw-bold">ID CSS: </label>
                 <input type="text" class="form-control" id="cssId" name="loaikhachhangidcss">
             </div>
-            <select id="codeDropdown">
-                <option value="">All Codes</option>
-                @foreach ($loaikhachhangs as $loaikhachhang)
-                    <option value="{{ $loaikhachhang->LOAIKHACHHANG_MA }}">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</option>
-                @endforeach
-            </select>
+            <table>
+                <tr>
+                    <td>
+                        <label for="name" class="form-label fw-bold">Lọc theo mã: </label>
+                    </td>
+                    <td style="padding-left: 10px;">
+                        <select id="codeDropdown">
+                            <option value="" disabled selected>Chọn mã</option>
+                            @foreach ($loaikhachhangs as $loaikhachhang)
+                                <option value="{{ $loaikhachhang->LOAIKHACHHANG_MA }}">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            
             <div class="text-center">
                 <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
                 <button type="button" id="editButton" class="btn btn-warning btn-block mb-3 mt-3"><i class="fas fa-edit me-2"></i>Sửa</button>
