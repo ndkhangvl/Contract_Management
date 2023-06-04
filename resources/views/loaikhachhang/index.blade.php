@@ -110,12 +110,22 @@
                 <label for="cssid" class="form-label fw-bold">ID CSS: </label>
                 <input type="text" class="form-control" id="cssId" name="loaikhachhangidcss">
             </div>
-            <select id="codeDropdown">
-                <option value="">All Codes</option>
-                @foreach ($loaikhachhangs as $loaikhachhang)
-                    <option value="{{ $loaikhachhang->LOAIKHACHHANG_MA }}">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</option>
-                @endforeach
-            </select>
+            <table>
+                <tr>
+                    <td>
+                        <label for="name" class="form-label fw-bold">Lọc theo mã: </label>
+                    </td>
+                    <td style="padding-left: 10px;">
+                        <select id="codeDropdown">
+                            <option value="" disabled selected>Chọn mã</option>
+                            @foreach ($loaikhachhangs as $loaikhachhang)
+                                <option value="{{ $loaikhachhang->LOAIKHACHHANG_MA }}">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            
             <div class="text-center">
                 <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
                 <button type="button" id="editButton" class="btn btn-warning btn-block mb-3 mt-3"><i class="fas fa-edit me-2"></i>Sửa</button>
@@ -124,7 +134,7 @@
         </form>
     </div>
 <hr/>
-        <div class="table-responsive">
+        <div id="data-container">
             <table class="table table-striped table-hover" id="dataTable">
                 <thead>
                 <tr>
@@ -148,11 +158,36 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-center mt-3">
+        <div id="pagination-links">
             {{$loaikhachhangs->appends(request()->all())->links()}}
         </div>
-</div>
+        <script>
+            $(document).ready(function() {
+                // Xử lý sự kiện khi chọn một trang phân trang
+                $(document).on('click', '.pagination a', function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr('href');
+                    fetch_data(url);
+                });
 
+                // Hàm gửi yêu cầu Ajax và cập nhật dữ liệu và liên kết phân trang
+                function fetch_data(url) {
+                    $.ajax({
+                        url: url,
+                        success: function(data) {
+                            $('#data-container').html(data.data);
+                            $('#pagination-links').html(data.links);
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            // Xử lý lỗi nếu có
+                        }
+                    });
+                }
+                // Gọi hàm fetch_data để tải dữ liệu ban đầu
+                fetch_data('{{ route("loaikhachhangs") }}');
+            });
+        </script>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function () {

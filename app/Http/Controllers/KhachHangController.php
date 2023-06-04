@@ -25,6 +25,9 @@ class KhachHangController extends Controller
     }
 
     public function show($id) {
+        /*$khachhang = DB::select("EXEC GetKhachHangByID @KhachHangID = :id", [
+            'id' => $id
+        ]);*/
         $khachhang = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
         join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID where KHACHHANG_ID=:id;",
         [

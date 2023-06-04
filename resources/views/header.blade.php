@@ -14,20 +14,20 @@
 <body>
   <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #077DCE;">
     <div class="container">
-        <a class="navbar-brand" href="/khachhang">CTU-Contract</a>
+        <a class="navbar-brand fw-bold" href="/khachhang">CTU-Contract</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }}" href="/khachhang">Khách Hàng</a>
+                    <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }} fw-bold" href="/khachhang">Khách Hàng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('hopdong') ? 'active' : '' }}" href="/hopdong">Hợp Đồng</a>
+                    <a class="nav-link {{ request()->is('hopdong') ? 'active' : '' }} fw-bold" href="/hopdong">Hợp Đồng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('hoadon') ? 'active' : '' }}" href="/hoadon">Hóa Đơn</a>
+                    <a class="nav-link {{ request()->is('hoadon') ? 'active' : '' }} fw-bold" href="/hoadon">Hóa Đơn</a>
                 </li>
             </ul>
         </div>
