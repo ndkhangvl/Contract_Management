@@ -57,7 +57,7 @@ Route::get('/test', function () {
     //$value = Session::get('loginId');
     return view('khachhang.createCustomer');
 })->middleware('isLogin');
-
+Route::get('/test2', [KhachHangController::class, 'create'])->middleware('isLogin');
 // Route::get('test2/{lang}', function($lang) {
 //     App::setlocale($lang);
 //     return view('auth.login');

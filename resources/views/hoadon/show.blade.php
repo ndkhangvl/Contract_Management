@@ -7,6 +7,15 @@
         border: 1px solid black;
         border-collapse: collapse;
     }
+    
+    /* .info-border {
+    border: none;
+    }
+
+    .info-border .info-td {
+        border-bottom: none;
+    } */
+
     th, td {
         padding-left: 10px;
         padding-right: 10px;
@@ -100,5 +109,90 @@
         </table>
         <hr>
     </div>
+    {{-- <div class="container-fluid">
+            <div class="border">
+              <div class="">
+                <div class="mt-2">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
+                      </div>
+                      <div class="col text-center">
+                        <h4 class="fs-2">Hóa Đơn Bán Hàng</h4>
+                      </div>
+                    </div>
+                  </div>
+                    <hr style="border-top: 2px dashed black;"/>
+              </div>
+              <div class="">
+                <table class="table mt-4 info-border border-0">
+                    <tbody>
+                        <tr>
+                            <td class="info-td col-4">Thuộc về hợp đồng số</td>
+                            <td class="info-td col-8 fw-bold"><a href="/hopdong/{{$hoadon->HOPDONG_SO}}">{{$hoadon->HOPDONG_SO}}</a></td>
+                        </tr>
+                        <tr>
+                            <td class="info-td col-4">Hóa đơn số</td>
+                            <td class="info-td col-8 fw-bold">{{$hoadon->HOADON_SO}}</td>
+                        </tr>
+                        <tr>
+                            <td class="info-td col-4">File</td>
+                            <td class="info-td col-8"><a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a></td>
+                        </tr>
+                        <tr>
+                            <td class="info-td col-4">Người tạo</td>
+                            <td class="info-td col-8 fw-bold text-uppercase">{{$hoadon->HOADON_NGUOITAO}}</td>
+                        </tr>
+                        <tr>
+                            <td class="info-td col-4">Ngày tạo</td>
+                            <td class="info-td col-8 fw-bold">{{$hoadon->HOADON_NGAYTAO}}</td>
+                        </tr>
+                        <tr>
+                            <td class="info-td col-4">Người mua hàng</td>
+                            <td class="info-td col-8 fw-bold text-uppercase">{{$hoadon->HOADON_NGUOIMUAHANG}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered mt-4">
+                  <thead>
+                    <tr>
+                        <th class="text-center text-nowrap">STT</th>
+                        <th class="text-center text-nowrap">Nội dung</th>
+                        <th class="text-center text-nowrap">Số lượng</th>
+                        <th class="text-center text-nowrap">Đơn vị tính</th>
+                        <th class="text-center text-nowrap">Đơn giá (VNĐ)</th>
+                        <th class="text-center text-nowrap">Thành tiền (VNĐ)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($chitiethoadon as $cthd)
+                    <tr>
+                        <td>{{$cthd->STT}}</td>
+                        <td>{{$cthd->NOIDUNG}}</td>
+                        <td>{{$cthd->SOLUONG}}</td>
+                        <td>{{$cthd->DVT}}</td>
+                        <td>{{$cthd->DONGIA}}</td>
+                        <td>{{$cthd->THANHTIEN}}</td>
+                    </tr>
+                    @endforeach
+                    <tr>
+                      <td colspan="5" class="text-end">Cộng tiền hàng hóa dịch vụ:</td>
+                      <td>{{$hoadon->HOADON_TONGTIEN}} VNĐ</td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" class="text-end">Thuế {{$hoadon->HOADON_THUESUAT}} %:</td>
+                      <td>{{$hoadon->HOADON_TIENTHUE}} VNĐ</td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" class="text-end">Tổng cộng tiền thanh toán:</td>
+                      <td>{{$hoadon->HOADON_TONGTIEN_COTHUE}} VNĐ</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> --}}
 </div>
 @include('footer')

@@ -1,5 +1,14 @@
-{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Khách hàng</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+  <style>
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
@@ -14,7 +23,18 @@
         color: red;
         border: 1px solid #ccc;
     }
-</style>
+    .select2-container {
+      max-width: 100%;
+    }
+    /* .select2-dropdown {
+      max-width: 100%;
+      overflow: auto;
+    } */
+    .select2-selection--single .select2-selection__rendered {
+     max-width: 100%;
+    }
+  </style>
+</head>
 <body>
 @include('header2')
 @include('header')
@@ -29,7 +49,7 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Thêm mới</button>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -47,17 +67,27 @@
                         </div>
                     @endif
                 @csrf
+                <label for="owner" class="form-label fw-bold">Loại KH:</label>
                       <div>
-                        <label for="owner" class="form-label fw-bold">Loại KH:</label>
-                        <select name="loaikhachhang_id" class="form-select form-select-sm">
-                          <option value="" disabled selected> -- Chọn loại khách hàng  -- </option>
+                        <select id="loaiKH" name="loaikhachhang_id" style="width: 100%;" class="js-example-placeholder-single js-states form-control form-select form-select-sm">
+                          {{-- <option value="" disabled selected> -- Chọn loại khách hàng  -- </option> --}}
                           @foreach ($loaikhachhang as $loai)
                             <option value="{{ $loai->LOAIKHACHHANG_ID }}">
                               {{ $loai->LOAIKHACHHANG_TEN }}
                             </option>    
                           @endforeach                                
                         </select>
-                    </div>
+                      </div>
+                      <script>    
+                        $(document).ready(function() {
+                          $('#loaiKH').select2({
+                          placeholder: "Chọn loại khách hàng",
+                          dropdownParent: $("#staticBackdrop"),
+                          matcher: matchCustom,
+                          allowClear: true
+                        });
+                      });
+                      </script>
                     <div class="mb-3 mt-3">
                         <label for="owner" class="form-label fw-bold">Chủ sỡ hữu:</label>
                         <input type="text" class="form-control" id="email" placeholder="Nhập vào chủ sỡ hữu" name="khachhang_chusohuu" >
@@ -185,20 +215,20 @@
         @foreach ($khachhangs as $khachhang)
         
             <tr>
-                <td class="text-center align-middle">{{ $khachhang->KHACHHANG_ID }}</td>
-                <td>{{ $khachhang->LOAIKHACHHANG_TEN }}</td>
-                <td>{{ $khachhang->KHACHHANG_TEN }}</td>
-                <td>{{ $khachhang->KHACHHANG_DIACHI }}</td>
-                <td>{{ $khachhang->KHACHHANG_SDT }}</td>
-                <td>{{ $khachhang->KHACHHANG_EMAIL }}</td>
-                <td class="text-center">
+                <td class="text-center align-middle w-auto">{{ $khachhang->KHACHHANG_ID }}</td>
+                <td class="w-auto">{{ $khachhang->LOAIKHACHHANG_TEN }}</td>
+                <td class="w-auto">{{ $khachhang->KHACHHANG_TEN }}</td>
+                <td class="w-auto">{{ $khachhang->KHACHHANG_DIACHI }}</td>
+                <td class="w-auto">{{ $khachhang->KHACHHANG_SDT }}</td>
+                <td class="w-auto">{{ $khachhang->KHACHHANG_EMAIL }}</td>
+                <td class="text-center w-auto">
                     <a href="/khachhang/{{$khachhang->KHACHHANG_ID}}">
                         <button type="button" class="btn btn-info">
                             Chi tiết
                         </button>
                     </a>
                 </td>
-                <td class="text-success text-nowrap">{{ $khachhang->TRANGTHAI_TEN }}</td>
+                <td class="@if($khachhang->TRANGTHAI_TEN == 'Đang hoạt động') text-success @elseif($khachhang->TRANGTHAI_TEN == 'Bị khóa') text-danger @elseif($khachhang->TRANGTHAI_TEN == 'Tạm ngưng hoạt động') text-warning @elseif($khachhang->TRANGTHAI_TEN == 'Đã giải thể') text-gray-500 @endif fw-bold text-nowrap text-center w-auto">{{ $khachhang->TRANGTHAI_TEN }}</td>
             </tr>
         
         @endforeach
@@ -207,6 +237,24 @@
 </div>
 @include('footer')
 <script>
+    function matchCustom(params, data) {
+    if ($.trim(params.term) === '') {
+      return data;
+    }
+
+    if (typeof data.text === 'undefined') {
+      return null;
+    }
+
+    if (data.text.indexOf(params.term) > -1) {
+      var modifiedData = $.extend({}, data, true);
+      modifiedData.text += ' (matched)';
+
+      return modifiedData;
+    }
+
+    return null;
+  }
     function getData() {
       var inputGroup = document.getElementById('otp-input-group');
       var inputs = inputGroup.getElementsByClassName('otp-input');
@@ -225,3 +273,4 @@
     }
 </script>
 </body>
+</html>

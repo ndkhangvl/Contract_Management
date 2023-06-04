@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\TaiKhoan;
 use App\Mail\ForgotPasswordMail;
+use App\Models\LoaiKhachHang;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -90,7 +91,19 @@ class UserAuthController extends Controller
         }
         if($user && $puser) {
             $request->session()->put('loginId', $user->nguoidung_id);
-            return redirect('dashboard');
+            $data = array();
+            if(Session::has('loginId')) {
+                $data = TaiKhoan::where('nguoidung_id','=', Session::get('loginId'))->first();
+                $information = Session::put('infoUser', $data);
+            }
+            $loaikhachhang = LoaiKhachHang::orderBy('LOAIKHACHHANG_TEN', 'asc')->get();
+            $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
+            join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
+            // return view('khachhang.index', compact('data'));
+            return view('khachhang.index', compact('data'), [
+                'khachhangs' => $khachhangs,
+                'loaikhachhang' => $loaikhachhang,
+            ]);
         } else {
             return back()->with('fail', 'Tên đăng nhập không tồn tại.');
         }
