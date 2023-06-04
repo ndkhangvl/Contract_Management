@@ -18,7 +18,7 @@
             <div class="col-6 d-inline">
                 <div class="d-flex float-end">
                     <div class="dropdown d-inline-block mr-2">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" style="margin-top: 25%" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Session::get('infoUser')['ma_nd'] }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="userMenuDropdown">
@@ -28,9 +28,9 @@
                             <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
                         </ul>
                     </div>
-                    <a href="/khachhang" class="d-inline-block mr-2">
-                        <img src="https://testing.ctu.edu.vn/theme/image.php/lambda/core/1684852385/u/f1" class="d-inline-block" width="80" height="80" alt="" data-selected="true" data-label-id="0" data-metatip="true">
-                    </a>
+                    <a href="/khachhang" class="d-inline-block mr-2" style="margin-left: 25%">
+                        <img src="https://testing.ctu.edu.vn/theme/image.php/lambda/core/1684852385/u/f1" class="d-inline-block rounded-circle" width="80" height="80" alt="" data-selected="true" data-label-id="0" data-metatip="true">
+                    </a>                    
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                                 infoModalInstance.show();
                             })
                             .catch(error => {
-                                console.error('Lỗi truy vấn dữ liệu:', error);
+                                console.error('Error', error);
                             });
                     });
                 });
