@@ -11,12 +11,14 @@ class LoaiKhachHangController extends Controller
 {
     public function index()
     {
+        // $loaikhachhangss = DB::table('LOAI_KHACHHANG')->orderBy('LOAIKHACHHANG_ID','asc');
         $loaikhachhangs = DB::table('LOAI_KHACHHANG')->orderBy('LOAIKHACHHANG_ID','asc')->paginate(10);
-        //$loaikhachhangs = DB::select("SELECT * FROM LOAI_KHACHHANG ORDER BY LOAIKHACHHANG_ID ASC;")->paginate(5);
+        // $loaikhachhangss = DB::select("SELECT * FROM LOAI_KHACHHANG ORDER BY LOAIKHACHHANG_ID ASC;");
         // $loaikhachhangs = collect($loaikhachhangs)->paginate(5);
 
         return view('loaikhachhang/index', [
             'loaikhachhangs' => $loaikhachhangs,
+            // 'loaikhachhangss' => $loaikhachhangss,
         ]);
         // return view('loaikhachhang/index', compact('loaikhachhangs'))->with('i', (request()->input('page', 1) -1) *5);
     }
