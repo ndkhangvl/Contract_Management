@@ -36,8 +36,8 @@ class HoaDonController extends Controller
         ]);
     }
 
-    public function create(Request $request){
-        $urlfull = $request->fullUrl();
+    public function create(){
+        $urlfull  = url()->full();
         $url  = url()->current();
         $hds = ltrim($urlfull,$url);
         $hds = ltrim($hds,'?hopdong=');
