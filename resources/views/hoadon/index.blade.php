@@ -42,6 +42,11 @@
     </span>
     <button  type="button" class="btn btn-primary" onclick="moveToCreate()">Thêm mới (trang mới)</button>
     <button type="button" class="btn btn-primary" id="btnCreateHDon" onclick="openCreateHDon()">Thêm mới hóa đơn (Modal)</button>
+    <a href="/ExportHoaDon">
+        <button type="button" class="btn btn-info">
+            Tải về Excel
+        </button>
+    </a>
     <div id="errorsohopdong"></div>
 </div>
 <!--Modal-->
@@ -166,7 +171,13 @@
         @endif
         <td>{{$hdd->HOADON_TONGTIEN_COTHUE}} VNĐ</td>
         <td>{{$hdd->HOADON_NGAYTAO}}</td>
-        <td><a href="/hoadon/{{$hdd->HOADON_SO}}"><button type="button" class="btn btn-info">Chi tiết</button></a></td>
+        <td>
+        <a href="/hoadon/{{$hdd->HOADON_SO}}">
+            <button type="button" class="btn btn-info">
+                Chi tiết
+            </button>
+        </a>
+        </td>
     </tr>
     @endforeach
 </table>

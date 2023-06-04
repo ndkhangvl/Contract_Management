@@ -74,7 +74,7 @@ Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('
 Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
 Route::resource('/hopdong', HopDongController::class)->middleware('isLogin');
 Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin');
-
+Route::get('/ExportHoaDon', [HoaDonController::class, 'exportInvoices']);
 
 /* Danh cho loai khach hang
 Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database');

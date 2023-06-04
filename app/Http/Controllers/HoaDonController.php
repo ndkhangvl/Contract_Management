@@ -8,6 +8,8 @@ use App\Models\ChiTietHoaDon;
 use App\Models\HoaDon;
 use App\Models\HopDong;
 use Carbon\Carbon;
+use App\Exports\InvoiceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\URL;
 class HoaDonController extends Controller
@@ -271,4 +273,11 @@ class HoaDonController extends Controller
         //dd($id);
         return redirect('/hoadon');
     }
+        
+
+    public function exportInvoices()
+    {
+        return Excel::download(new InvoiceExport, 'HoaDon.xlsx');
+    }
+
 }
