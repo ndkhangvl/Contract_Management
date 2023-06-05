@@ -12,6 +12,8 @@ use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\HopDongController;
 use App\Http\Controllers\HoaDonController;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\ReportController;
+
 use App\Mail\ForgotPasswordMail;
 
 /*
@@ -91,5 +93,7 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 //     Mail::to('khangb1910654@student.ctu.edu.vn')
 //         ->send(new ForgotPasswordMail());
 // });
+
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 
 

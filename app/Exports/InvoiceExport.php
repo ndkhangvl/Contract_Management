@@ -18,12 +18,20 @@ class InvoiceExport implements FromCollection, WithHeadings, WithStyles
 
     public function map($invoice): array
     {
+        /*$trangthai = "";
+        if($invoice->HOADON_TRANGTHAI == 0){
+            $trangthai = 'Ngừng hoạt động';
+        }else{
+            $trangthai = 'Đang hoạt động';
+        }*/
+
         return [
             $invoice->HOADON_ID,
             $invoice->HOPDONG_ID,
             $invoice->HOADON_SO,
             $invoice->HOADON_FILE,
             $invoice->HOADON_TRANGTHAI,
+            //$trangthai,
             $invoice->HOADON_TONGTIEN,
             $invoice->HOADON_THUESUAT,
             $invoice->HOADON_TIENTHUE,

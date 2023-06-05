@@ -29,6 +29,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('hoadon') ? 'active' : '' }} fw-bold" href="/hoadon">Hóa Đơn</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('reports') ? 'active' : '' }} fw-bold" href="/reports">Thống Kê</a>
+                </li>
             </ul>
         </div>
     </div>
