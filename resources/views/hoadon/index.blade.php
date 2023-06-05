@@ -185,7 +185,6 @@
 <div>
     {{ $hoadons->appends(request()->all())->links() }}
 </div>
-
 <script>
     function moveToCreate(){
         if(document.getElementById("sohopdongsl").value == "-1")

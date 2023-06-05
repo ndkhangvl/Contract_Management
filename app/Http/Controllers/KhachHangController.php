@@ -72,8 +72,31 @@ class KhachHangController extends Controller
         //
         $request->validate([
             'loaikhachhang_id' => 'required',
-            'khachhang_ten' => 'required|min:5|max:12',
-            'khachhang_diachi' => 'required'
+            'khachhang_ten' => 'required|min:5',
+            'khachhang_diachi' => 'required',
+            'khachhang_sdt' => 'required',
+            'khachhang_email' => 'required',
+            'khachhang_chusohuu' => 'required',
+            'khachhang_nguoidaidien' => 'required',
+            'khachhang_cmnd' => 'required',
+            'khachhang_ngaycapcmnd' => 'required',
+            'khachhang_ngaysinhdd' => 'required',
+            'khachhang_ngayhoatdong' => 'required',
+            'khachhang_masothue' => 'required',
+        ], [
+            'loaikhachhang_id.required' => 'Trường loại khách hàng là bắt buộc.',
+            'khachhang_ten.required' => 'Trường tên khách hàng là bắt buộc.',
+            'khachhang_ten.min' => 'Trường tên khách hàng phải có ít nhất :min ký tự.',
+            'khachhang_diachi.required' => 'Trường địa chỉ khách hàng là bắt buộc.',
+            'khachhang_sdt.required' => 'Trường số điện thoại là bắt buộc.',
+            'khachhang_email.required' => 'Trường email là bắt buộc.',
+            'khachhang_chusohuu.required' => 'Trường chủ sở hữu là bắt buộc.',
+            'khachhang_nguoidaidien.required' => 'Trường người đại diện là bắt buộc.',
+            'khachhang_cmnd.required' => 'Trường CCCD là bắt buộc.',
+            'khachhang_ngaycapcmnd.required' => 'Chọn ngày cấp CCCD là bắt buộc.',
+            'khachhang_ngaysinhdd.required' => 'Chọn ngày sinh là bắt buộc.',
+            'khachhang_ngayhoatdong.required' => 'Chọn ngày hoạt động là bắt buộc.',
+            'khachhang_masothue.required' => 'Trường mã số thuế là bắt buộc.',
         ]);
         
         $today = Carbon::today();
@@ -95,7 +118,12 @@ class KhachHangController extends Controller
         $khhang->NGAYTAOLAP = $today; 
     
         $khhang->save();
-        return redirect('/khachhang');
+        return response()->json([
+            'success' => true,
+            // 'errors' => $validator->errors(),
+            'input' => $request->all()
+        ]);
+        // return redirect('/khachhang');
     }
 
     public function update(Request $request, $id)

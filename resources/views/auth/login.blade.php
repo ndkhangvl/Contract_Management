@@ -66,7 +66,7 @@
                         <div class="mg-2">
                             <img src="/img/ctu.png" class="img-fluid custom-width mb-1"/>
                         </div>
-                        <h2 class="fw-bold" style="color: #004F9E; font-family: 'Be Vietnam Pro', sans-serif;">Quản Lý Hợp Đồng</h2>
+                        <h2 class="fw-bold" style="color: #004F9E; font-family: 'Be Vietnam Pro', sans-serif;">{{trans('msg.title-login')}}</h2>
                     </div> 
                     <div class="py-2">
                         <form action="{{route('user-login')}}" method="POST">
@@ -80,12 +80,12 @@
                             <div class="p-4">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text bg-primary"><i class="fas fa-user-alt" style="color: #ffffff;"></i></span>
-                                    <input type="text" class="form-control" id="ma_nd" name="ma_nd" placeholder="Tên tài khoản" value="{{old('ma_nd')}}">
+                                    <input type="text" class="form-control" id="ma_nd" name="ma_nd" placeholder="{{trans('msg.username')}}" value="{{old('ma_nd')}}">
                                 </div>
                                 <span class="invalid-feedback">@error('ma_nd') {{$message}} @enderror</span>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text bg-primary"><i class="fas fa-key" style="color: #ffffff;"></i></span>
-                                    <input type="password" class="form-control" id="matkhau" name="matkhau" placeholder="Mật khẩu">
+                                    <input type="password" class="form-control" id="matkhau" name="matkhau" placeholder="{{trans('msg.passwd')}}">
                                     <span class="input-group-text" onclick="password_show_hide();">
                                         <i class="fas fa-eye" id="show_eye"></i>
                                         <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
@@ -101,7 +101,7 @@
                                             </span>
                                         </button>
                                     </div>
-                                    <input id="captcha" type="text" class="form-control mt-2" placeholder="{{ __('Nhập mã') }}" name="captcha">
+                                    <input id="captcha" type="text" class="form-control mt-2" placeholder="{{trans('msg.captcha')}}" name="captcha">
                                 </div>
                                 <span class="text-danger">@error('captcha') {{$message}} @enderror</span>
                                 <script>
@@ -117,7 +117,7 @@
                                     </label>
                                 </div>--}}
                                 <button class="btn btn-primary text-center mx-auto d-block mt-2" type="submit">
-                                    Đăng nhập
+                                    {{trans('msg.btnLogin')}}
                                 </button>
                                 <a href="/forgotpass" class="text-center text-primary text-decoration-none fw-bold">{{ trans('msg.forgotpassword') }}</a>
                                 {{-- <div class="mx-auto d-flex justify-content-center">
@@ -127,41 +127,58 @@
                                 <div class="mx-auto d-flex justify-content-center">
                                     {{-- <a href="{{ route('setlocale', 'vi') }}" class="imgvi" style="background-image: url({{ asset('img/vi.png') }});"></a>
                                     <a href="{{ route('setlocale', 'en') }}" class="imgen" style="background-image: url({{ asset('img/en.png') }});"></a> --}}
-                                    <a href="javascript:void(0)" class="imgvi" data-locale="vi" style="background-image: url({{ asset('img/vi.png') }});"></a>
-                                    <a href="javascript:void(0)" class="imgen" data-locale="en" style="background-image: url({{ asset('img/en.png') }});"></a>
+                                    <a href="javascript:void(0)" class="imgvi" onclick="changeLanguage('vi')" data-locale="vi" style="background-image: url({{ asset('img/vi.png') }});"></a>
+                                    <a href="javascript:void(0)" class="imgen" onclick="changeLanguage('en')" data-locale="en" style="background-image: url({{ asset('img/en.png') }});"></a>
                                     <script>
-                                        $(document).ready(function() {
-                                            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                                            $('.imgvi, .imgen').click(function(e) {
-                                                e.preventDefault();
-                                                // var selectedLocale = $(this).data('locale');
-                                                var selectedLocale = $(e.target).data('locale');
-                                                console.log(selectedLocale);
+                                        // function changeLanguage(culture) {
+                                        //     var jsondata = { culture: culture };
+                                        //     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                                        //     $.ajax({
+                                        //         type: "POST",
+                                        //         url: "/updatelocale",
+                                        //         headers: {
+                                        //                 'X-CSRF-TOKEN': csrfToken
+                                        //             },
+                                        //         data: jsondata,
+                                        //         success: function (response) {
+                                        //             if (response.success) {
+                                        //                 console.log('Locale updated successfully');
+                                        //                 window.location.reload();
+                                        //             }
+                                        //         }
+                                        //     });
+                                        // }
+                                        // $(document).ready(function() {
+                                        //     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                                        //     $('.imgvi, .imgen').click(function(e) {
+                                        //         e.preventDefault();
+                                        //         // var selectedLocale = $(this).data('locale');
+                                        //         var selectedLocale = $(e.target).data('locale');
+                                        //         console.log(selectedLocale);
                                     
-                                                $.ajax({
-                                                    url: "{{ route('updateLocale') }}",
-                                                    method: 'POST',
-                                                    headers: {
-                                                        'X-CSRF-TOKEN': csrfToken
-                                                    },
-                                                    data: { locale: selectedLocale },
-                                                    success: function(response) {
-                                                    console.log('AJAX Response:', response);
+                                        //         $.ajax({
+                                        //             url: "{{ route('updateLocale') }}",
+                                        //             method: 'POST',
+                                        //             headers: {
+                                        //                 'X-CSRF-TOKEN': csrfToken
+                                        //             },
+                                        //             data: { locale: selectedLocale },
+                                        //             success: function(response) {
+                                        //             console.log('AJAX Response:', response);
 
-                                                    if (response && response.success) {
-                                                        console.log('Locale updated successfully');
-                                                        //App.setLocale(response.test);
-                                                        //window.location.reload();
-                                                    } else {
-                                                        console.log('Locale update failed');
-                                                    }
-                                                },
-                                                    error: function(response) {
-                                                    console.log(response.success);
-                                                }
-                                                });
-                                            });
-                                        });
+                                        //             if (response && response.success) {
+                                        //                 console.log('Locale updated successfully');
+                                        //                 window.location.reload();
+                                        //             } else {
+                                        //                 console.log('Locale update failed');
+                                        //             }
+                                        //         },
+                                        //             error: function(response) {
+                                        //             console.log(response.success);
+                                        //         }
+                                        //         });
+                                        //     });
+                                        // });
                                     </script>
                                 </div>    
                                 </div>
@@ -188,6 +205,25 @@ function password_show_hide() {
     show_eye.style.display = "block";
     hide_eye.style.display = "none";
   }
+}
+function changeLanguage(culture) {
+    var jsondata = { culture: culture };
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            url: "/updatelocale",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: jsondata,
+            success: function (response) {
+            if (response.success) {
+                // console.log(response.test);
+                // console.log('Locale updated successfully');
+                window.location.reload();
+                }
+            }
+        });
 }
 </script>
 </html>

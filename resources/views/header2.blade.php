@@ -22,10 +22,12 @@
                             {{ Session::get('infoUser')['ma_nd'] }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="userMenuDropdown">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#infoModal" id="infoBtn">Thông tin</a></li>
-                            <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#infoModal" id="infoBtn">{{trans('msg.info')}}</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" onclick="changeLanguage('en')">{{ trans('msg.english') }}</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" onclick="changeLanguage('vi')">{{ trans('msg.vietnamese') }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout">{{__('msg.logout')}}</a></li>
                         </ul>
                     </div>
                     <a href="/khachhang" class="d-inline-block mr-2" style="margin-left: 25%">
@@ -35,6 +37,8 @@
             </div>
         </div>
     </div>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </header>
 
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
@@ -87,6 +91,25 @@
     </div>
 </div>
 <script>
+    function changeLanguage(culture) {
+    var jsondata = { culture: culture };
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            url: "/updatelocale",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            data: jsondata,
+            success: function (response) {
+            if (response.success) {
+                // console.log(response.test);
+                // console.log('Locale updated successfully');
+                window.location.reload();
+                }
+            }
+        });
+}
     document.addEventListener('DOMContentLoaded', function () {
         var closeButton = document.querySelector('#infoModal .modal-footer button[data-dismiss="modal"]');
         closeButton.addEventListener('click', function () {

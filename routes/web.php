@@ -65,17 +65,17 @@ Route::get('/test2', [KhachHangController::class, 'create'])->middleware('isLogi
 //     return view('auth.login');
 // });
 Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
-Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn');
+Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn', 'switchLanguage');
+Route::post('/updatelocale', [UserAuthController::class, 'updateLocale'])->name('updateLocale');
 Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
 Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass']) -> name('forgot-pass');
 Route::get('/logout', [UserAuthController::class, 'logout']);
 Route::get('/user/{id}', [UserAuthController::class, 'getUser']);
-Route::post('/updatelocale', [UserAuthController::class, 'updateLocale'])->name('updateLocale');
 
 Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
-Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin');
-Route::resource('/hopdong', HopDongController::class)->middleware('isLogin');
-Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin');
+Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin', 'switchLanguage');
+Route::resource('/hopdong', HopDongController::class)->middleware('isLogin', 'switchLanguage');
+Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin', 'switchLanguage');
 Route::get('/ExportHoaDon', [HoaDonController::class, 'exportInvoices']);
 
 /* Danh cho loai khach hang
@@ -94,6 +94,6 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 //         ->send(new ForgotPasswordMail());
 // });
 
-Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::get('/baocao', [ReportController::class, 'index'])->name('reports.index');
 
 

@@ -59,13 +59,14 @@
         <div class="modal-body">
             <div class="container-fluid">
                 <form action="/khachhang" method="POST" id="cusForm">
-                    @if ($errors->any())
-                        <div class="alert alert-danger text-center">
-                            @foreach ($errors->all() as $error)
-                                <p>{{$error}}</p>
-                            @endforeach
-                        </div>
-                    @endif
+                    {{-- @if ($errors->any())
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+                    @endif --}}
                 @csrf
                 <label for="owner" class="form-label fw-bold">Loại KH:</label>
                       <div>
@@ -91,45 +92,53 @@
                     <div class="mb-3 mt-3">
                         <label for="owner" class="form-label fw-bold">Chủ sỡ hữu:</label>
                         <input type="text" class="form-control" id="email" placeholder="Nhập vào chủ sỡ hữu" name="khachhang_chusohuu" >
-                        <span class="invalid-feedback">@error('khachhang_chusohuu') {{$message}} @enderror</span>
+                        <span class="invalid-feedback" id="khachhang_chusohuu_error"></span>
                     </div>
                     <div class="row mb-3 mt-3">
                         <div class="col">
                             <label for="tenkhang" class="form-label fw-bold">Tên khách hàng:</label>
                             <input type="text" class="form-control" placeholder="Nhập tên" name="khachhang_ten">
+                            <span class="invalid-feedback" id="khachhang_ten_error"></span>
                         </div>
                         <div class="col">
                             <label for="diachi" class="form-label fw-bold">Địa chỉ:</label>
                             <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="khachhang_diachi">
+                            <span class="invalid-feedback" id="khachhang_diachi_error"></span>
                         </div>
                       </div>
                       <div class="row mb-3 mt-3">
                         <div class="col">
                             <label for="sdt" class="form-label fw-bold">Số điện thoại:</label>
                             <input type="text" class="form-control" placeholder="Nhập số điện thoại" name="khachhang_sdt">
+                            <span class="invalid-feedback" id="khachhang_sdt_error"></span>
                         </div>
                         <div class="col">
                             <label for="email" class="form-label fw-bold">Email:</label>
                             <input type="email" class="form-control" placeholder="Nhập email" name="khachhang_email">
+                            <span class="invalid-feedback" id="khachhang_email_error"></span>
                         </div>
                       </div>
                       <div class="row mb-3 mt-3">
                         <div class="col">
                             <label for="ngaysinh" class="form-label fw-bold">Ngày sinh:</label>
                             <input type="date" class="form-control" placeholder="Nhập tên" name="khachhang_ngaysinhndd">
+                            <span class="invalid-feedback" id="khachhang_ngaysinhdd_error"></span>
                         </div>
                         <div class="col">
                             <label for="cccd" class="form-label fw-bold">CCCD:</label>
                             <input type="text" pattern="[0-9]+" class="form-control" placeholder="Nhập CMND/CCCD" name="khachhang_cmnd">
+                            <span class="invalid-feedback" id="khachhang_cmnd_error"></span>
                         </div>
                         <div class="col">
                             <label for="ngaycap" class="form-label fw-bold">Ngày cấp:</label>
                             <input type="date" class="form-control" placeholder="Nhập số diện thoại" name="khachhang_ngaycapcmnd">
+                            <span class="invalid-feedback" id="khachhang_ngaycapcmnd_error"></span>
                         </div>
                       </div>
                     <div class="mb-3 mt-3">
                       <label for="ngdaidien" class="form-label fw-bold">Người đại diện:</label>
                       <input type="text" class="form-control" id="email" placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien">
+                      <span class="invalid-feedback" id="khachhang_nguoidaidien_error"></span>
                     </div>
                     <div class="mb-3">
                         <label for="masothue" class="form-label fw-bold">Mã số thuế:</label>
@@ -170,15 +179,17 @@
                               </script>
                             </div>
                           </div>
+                          <span class="invalid-feedback" id="khachhang_masothue_error"></span>
                       </div>
                     <div class="mb-3">
                       <label for="ngayhdong" class="form-label fw-bold">Ngày hoạt động:</label>
                       <input type="date" class="form-control" id="pwd" placeholder="Chọn ngày hoạt động" name="khachhang_ngayhoatdong">
+                      <span class="invalid-feedback" id="khachhang_ngayhoatdong_error"></span>
                     </div>
                     <div class="mb-3 mt-3 pb-2 text-center">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetForm()">Close</button>
                         <button type="submit" id="btnSubmit" onclick="getData()" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
-                        <button type="reset" class="btn btn-secondary btn-block mb-3 mt-3"><i class="fas fa-redo me-2"></i>Soạn lại</button>
+                        <button type="reset" class="btn btn-secondary btn-block mb-3 mt-3" onclick="clearForm()"><i class="fas fa-redo me-2"></i>Soạn lại</button>
                     </div>
                   </form>
             </div>
@@ -216,7 +227,7 @@
         
             <tr>
                 <td class="text-center align-middle w-auto">{{ $khachhang->KHACHHANG_ID }}</td>
-                <td class="w-auto">{{ $khachhang->LOAIKHACHHANG_TEN }}</td>
+                <td class="align-middle text-truncate" style="max-width: 250px;">{{ $khachhang->LOAIKHACHHANG_TEN }}</td>
                 <td class="w-auto">{{ $khachhang->KHACHHANG_TEN }}</td>
                 <td class="w-auto">{{ $khachhang->KHACHHANG_DIACHI }}</td>
                 <td class="w-auto">{{ $khachhang->KHACHHANG_SDT }}</td>
@@ -236,6 +247,49 @@
 </div>
 </div>
 @include('footer')
+<script>
+  $(document).ready(function () {
+     $('#cusForm').on('submit', function (e) {
+         e.preventDefault();
+         var formData = $(this).serialize();
+         $.ajax({
+             url: $(this).attr('action'),
+             type: 'POST',
+             data: formData,
+             success: function (success) {
+                 if (success) {
+                  alert('Thêm mới khách hàng thành công');
+                  $('#cusForm input').val('');
+                  location.reload();
+                 } else {
+                    alert('Thất bại');
+                 }
+             },
+             error: function (xhr) {
+              if (xhr.status === 422) {
+                $('.invalid-feedback').empty();
+                var response = JSON.parse(xhr.responseText);
+                var errors = response.errors;
+                // console.log(response);
+                // console.log(errors);
+                // console.log($('#khachhang_diachi_error'));
+                // if (errors.hasOwnProperty('khachhang_diachi')) {
+                //     var errorMessage = errors['khachhang_diachi'][0];
+                //     console.log(errorMessage);
+                //     $('#khachhang_diachi_error').text(errorMessage).show();
+                // }
+                for (var field in errors) {
+                  if (errors.hasOwnProperty(field)) {
+                      var errorMessage = errors[field][0];
+                      $('#' + field + '_error').text(errorMessage).show();
+                  }
+                }
+    }
+             }
+         });
+     });
+ });
+</script>
 <script>
     function matchCustom(params, data) {
     if ($.trim(params.term) === '') {
@@ -270,6 +324,13 @@
         var form = document.getElementById('cusForm');
           form.appendChild(targetInput);
           //form.submit();
+    }
+    function resetForm() {
+      $('#cusForm')[0].reset();
+      $('.invalid-feedback').empty();
+    }
+    function clearForm() {
+      $('.invalid-feedback').empty();
     }
 </script>
 </body>

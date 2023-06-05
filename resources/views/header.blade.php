@@ -21,16 +21,19 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }} fw-bold" href="/khachhang">Khách Hàng</a>
+                    <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }} fw-bold" href="/khachhang">{{ Session::get('locale') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('hopdong') ? 'active' : '' }} fw-bold" href="/hopdong">Hợp Đồng</a>
+                    <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }} fw-bold" href="/khachhang">{{trans('msg.customer')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('hoadon') ? 'active' : '' }} fw-bold" href="/hoadon">Hóa Đơn</a>
+                    <a class="nav-link {{ request()->is('hopdong') ? 'active' : '' }} fw-bold" href="/hopdong">{{trans('msg.contract')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('reports') ? 'active' : '' }} fw-bold" href="/reports">Thống Kê</a>
+                    <a class="nav-link {{ request()->is('hoadon') ? 'active' : '' }} fw-bold" href="/hoadon">{{trans('msg.bill')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('baocao') ? 'active' : '' }} fw-bold" href="/baocao">{{trans('msg.statistical')}}</a>
                 </li>
             </ul>
         </div>

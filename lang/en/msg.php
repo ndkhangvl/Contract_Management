@@ -1,7 +1,18 @@
 <?php
 
 return [
-    'forgotpassword' => 'Forgot password?',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'forgotpassword' => 'Forgot Password?',
+    'title-login' => 'Contract Management',
+    'username' => 'Username',
+    'passwd' => 'Password',
+    'captcha' => 'Captcha',
+    'btnLogin' => 'Sign In',
+    'customer' => 'Customer',
+    'contract' => 'Contract',
+    'bill' => 'Bill',
+    'statistical' => 'Statistical',
+    'info' => 'Information',
+    'english' => 'English',
+    'vietnamese' => 'Vietnamese',
+    'logout' => 'Log Out',
 ];

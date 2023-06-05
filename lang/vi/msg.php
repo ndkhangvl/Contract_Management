@@ -14,7 +14,17 @@ return [
     */
 
     'forgotpassword' => 'Quên mật khẩu?',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'title-login' => 'Quản Lý Hợp Đồng',
+    'username' => 'Tên tài khoản',
+    'passwd' => 'Mật khẩu',
+    'captcha' => 'Mã xác thực',
+    'btnLogin' => 'Đăng nhập',
+    'customer' => 'Khách Hàng',
+    'contract' => 'Hợp đồng',
+    'bill' => 'Hóa đơn',
+    'statistical' => 'Thống kê',
+    'info' => 'Thông tin',
+    'english' => 'Tiếng Anh',
+    'vietnamese' => 'Tiếng Việt',
+    'logout' => 'Đăng xuất'
 ];
