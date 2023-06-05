@@ -46,10 +46,12 @@ class HoaDonController extends Controller
         if($hopdong == null) {
             return redirect()->back();
         }
-        
+        $hoadons = DB::select("select HOADON_SO from hoadon;");
         return view('hoadon.create',[
             'hopdongso' => $hds,
             'error' => $error,
+            'dssohoadon' => $hoadons,
+            'cnt' => count($hoadons)
         ]);
         //dd($hopdong);
     }

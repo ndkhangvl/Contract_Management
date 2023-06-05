@@ -36,6 +36,12 @@
         }
 </style>
 <div class="bodyfake">
+        <div style="display: none">
+                Danh sách số hóa đơn đã có
+                @for ($i = 0; $i < $cnt; $i++)
+                        <div class="shdexists" id="{{$dssohoadon[$i]->HOADON_SO}}">{{$dssohoadon[$i]->HOADON_SO}}</div>
+                @endfor
+        </div>
         <h1>Thêm mới Hoá đơn</h1>
         <form action="/hoadon" method="post" enctype="multipart/form-data">
                 @csrf
@@ -45,10 +51,11 @@
                                 {{ session('error') }}
                         </div>
                 @endif
+                <div class="alert alert-danger" id="error_" style="display: none"></div>
                 Hợp đồng số: 
                 <input class="form-control" type="text" name="sohopdong" required value="{{$hopdongso}}" readonly>
                 Hóa đơn số:
-                <input class="form-control" type="text" name="sohoadon" required placeholder="Số hóa đơn">
+                <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" required placeholder="Số hóa đơn">
                 File: 
                 <input class="form-control" required type="file" name="filehoadon">
                 Thuế (%):
@@ -108,7 +115,7 @@
                         @endfor
                 </table>
                 <hr>
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" type="submit" id="btnsubmithd">
                         Tạo hóa đơn
                 </button>
                 <hr>
@@ -238,6 +245,22 @@
                 document.getElementById("slct").value = $length-2;
                 calHoaDon();
         }
+
+        function checkSHDExists() {
+                var hoadontontai = document.getElementsByClassName('shdexists');
+                $shd = document.getElementById("inputsohoadon").value;
+                document.getElementById("error_").setAttribute('style','display: none');
+                document.getElementById("error_").innerHTML = "";
+                document.getElementById("btnsubmithd").removeAttribute('disabled', 'true');
+                for(var i=0; i < hoadontontai.length; i++){
+                        if ($shd == hoadontontai[i].id){
+                                document.getElementById("error_").removeAttribute('style','display: none');
+                                document.getElementById("error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
+                                document.getElementById("btnsubmithd").setAttribute('disabled', 'true');
+                        }
+                }
+        }
+        document.getElementById("inputsohoadon").addEventListener('input', checkSHDExists);
 </script>
 
 @if ($errors->any())
