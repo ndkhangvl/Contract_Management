@@ -57,9 +57,7 @@
                         <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
                 </div>
                 File mới:
-                {{-- <input class="form-control" type="file" name="filehoadon" id="filehoadon" disabled required>
-                Thuế (%): --}}
-                <input class="form-control" required type="file" name="filehoadon">
+                <input class="form-control" type="file" name="filehoadon" id="filehoadon" disabled required>
                 Thuế (%):
                 <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" value="{{$hoadon->HOADON_THUESUAT}}">
                 Tổng tiền (VNĐ): 
@@ -69,7 +67,7 @@
                 Tổng tiền có thuế (VNĐ): 
                 <input class="form-control" required type="text" name="tongtiencothue" id="tongtiencothue" value="{{$hoadon->HOADON_TONGTIEN_COTHUE}}" readonly>
                 Số tiền (bằng chữ):
-                <input class="form-control" required value="{{ old('sotienbangchu') }}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
+                <input class="form-control" required value="{{$hoadon->HOADON_SOTIENBANGCHU}}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
                 Người tạo:
                 <input class="form-control" required value="{{$hoadon->HOADON_NGUOITAO}}" type="text" name="nguoitao">
                 Người mua hàng:
@@ -253,11 +251,11 @@
                 //console.log("value of rad: " + document.querySelector('input[name="fileadd_yes_no"]:checked').value);
                 if(document.querySelector('input[name="fileadd_yes_no"]:checked').value == "1"){
                         document.getElementById("filehoadon").removeAttribute("disabled");
-                        console.log("Cho phep them file");
+                        //console.log("Cho phep them file");
                 }
                 else if (document.querySelector('input[name="fileadd_yes_no"]:checked').value == "0"){
                         document.getElementById("filehoadon").setAttribute("disabled", "disabled");
-                        console.log("KHONG cho phep them file");
+                        //console.log("KHONG cho phep them file");
                         document.getElementById('filehoadon').value = null;
                 }
         }));
