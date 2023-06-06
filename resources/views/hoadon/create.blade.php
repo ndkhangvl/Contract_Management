@@ -1,126 +1,191 @@
-<title>Thêm mới hóa đơn | hợp đồng số {{$hopdongso}}</title>
+<head>
+        <title>Thêm mới hóa đơn | hợp đồng số {{$hopdongso}}</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <style>
+                form {
+                        justify-content: center;
+                }
+                table, th, td {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                }  
+        
+                th {
+                        background: #337ab7; 
+                        color:white;
+                        text-align:center;
+                }
+
+                td {
+                        background: #cce0df;
+                        padding: 5px;
+                        
+                }
+                .inputstt {
+                        width: 30px;
+                }
+                
+                table {
+                width: 70%;
+                }
+                .bodyfake{
+                        max-width: 1000px;
+                        margin: auto;
+                        padding: 20px;
+                }
+        </style>
+</head>
+<body>
 @include('header2')
 @include('header')
-
-<style>
-        form {
-                justify-content: center;
-        }
-        table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-        }  
-    
-        th {
-                background: #337ab7; 
-                color:white;
-                text-align:center;
-        }
-
-        td {
-                background: #cce0df;
-                padding: 5px;
-                
-        }
-        .inputstt {
-                width: 30px;
-        }
-        
-        table {
-        width: 70%;
-        }
-        .bodyfake{
-                max-width: 1000px;
-                margin: auto;
-                padding: 20px;
-        }
-</style>
-<div class="bodyfake">
-        <div style="display: none">
-                Danh sách số hóa đơn đã có
-                @for ($i = 0; $i < $cnt; $i++)
-                        <div class="shdexists" id="{{$dssohoadon[$i]->HOADON_SO}}">{{$dssohoadon[$i]->HOADON_SO}}</div>
-                @endfor
-        </div>
-        <h1>Thêm mới Hoá đơn</h1>
-        <form action="/hoadon" method="post" enctype="multipart/form-data">
-                @csrf
-                <h4>{{$error}}</h4>
-                @if (session('error'))
-                        <div class="alert alert-danger">
-                                {{ session('error') }}
-                        </div>
-                @endif
-                <div class="alert alert-danger" id="error_" style="display: none"></div>
-                Hợp đồng số: 
-                <input class="form-control" type="text" name="sohopdong" required value="{{$hopdongso}}" readonly>
-                Hóa đơn số:
-                <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" required placeholder="Số hóa đơn">
-                File: 
-                <input class="form-control" required type="file" name="filehoadon">
-                Thuế (%):
-                <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" value="{{ old('thuesuat') }}">
-                Tổng tiền (VNĐ): 
-                <input class="form-control" required type="text" name="tongtien" id="tongtien" value="{{ old('tongtien') }}" readonly>
-                Tiền thuế (VNĐ): 
-                <input class="form-control" required type="text" name="tienthue" id="tienthue" value="{{ old('tienthue') }}" readonly>
-                Tổng tiền có thuế (VNĐ): 
-                <input class="form-control" required type="text" name="tongtiencothue" id="tongtiencothue" value="{{ old('tongtiencothue') }}" readonly>
-                Số tiền (bằng chữ): 
-                <input class="form-control" required value="{{ old('sotienbangchu') }}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
-                Người tạo: 
-                <input class="form-control" required value="{{ old('nguoitao') }}" type="text" name="nguoitao">
-                Người mua hàng: 
-                <input class="form-control" required value="{{ old('nguoimuahang') }}" type="text" name="nguoimuahang">
-                <div>
-                        <hr>
-                        <label>Trạng thái hóa đơn:</label>
-                        <select name="trangthaihoadon">
-                                @if(old('trangthaihoadon') == 0)
-                                        <option value=0 selected>Chưa thanh toán</option>  
-                                        <option value=1>Đã thanh toán</option> 
-                                @elseif (old('trangthaihoadon') == 1)
-                                        <option value=0>Chưa thanh toán</option>  
-                                        <option value=1 selected>Đã thanh toán</option> 
-                                @endif       
-                        </select>
-                        <hr>
-                </div>
-                <h1>Danh sách chi tiết</h1>
-                <hr>
-                Số lượng loại sản phẩm:
-                <input class="form-control" type="number" name="soluongchitiet" value="{{ old('soluongchitiet') }}" min="0" id="slct" required readonly><hr>
-                <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
-                <table id='tablechitiet'>
-                        <tr>
-                                <th>STT</th>
-                                <th>Nội dung</th>
-                                <th>Số lượng</th>
-                                <th>Đơn vị tính</th>
-                                <th>Đơn giá</th>
-                                <th>Thành tiền</th>
-                                <th>Xóa</th>
-                        </tr>
-                
-                        @for ($i = 1; $i <= old('soluongchitiet'); $i++)
-                        <tr>
-                                <td><input type="text" class="inputstt" name="stt{{$i}}" id="stt{{$i}}" value="{{$i}}" readonly class="inputstt"></td>
-                                <td><input type="text" name="noidung{{$i}}" id="noidung{{$i}}" value="{{ old('noidung'.$i) }}"></td>
-                                <td><input type="number" class="soluong" name="soluong{{$i}}" id="soluong{{$i}}" value="{{ old('soluong'.$i) }}" min="0"></td>
-                                <td><input type="text" name="donvitinh{{$i}}" id="donvitinh{{$i}}" value="{{ old('donvitinh'.$i) }}"></td>
-                                <td><input type="number" class="dongia" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}" min="0"></td>
-                                <td><input type="text" name="thanhtien{{$i}}" readonly id="thanhtien{{$i}}" value="{{ old('thanhtien'.$i) }}"></td>
-                                <td><button type="button" name="btnxoa{{$i}}" id="btnxoa{{$i}}" class="btn btn-danger" onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
-                        </tr>
+        <div class="bodyfake">
+                <div style="display: none">
+                        Danh sách số hóa đơn đã có
+                        @for ($i = 0; $i < $cnt; $i++)
+                                <div class="shdexists" id="{{$dssohoadon[$i]->HOADON_SO}}">{{$dssohoadon[$i]->HOADON_SO}}</div>
                         @endfor
-                </table>
-                <hr>
-                <button class="btn btn-primary" type="submit" id="btnsubmithd">
-                        Tạo hóa đơn
-                </button>
-                <hr>
-        </form>
-</div>
+                </div>
+                <h1>Thêm mới Hoá đơn</h1>
+                <form action="/hoadon" method="post" enctype="multipart/form-data" id="hoaDonForm">
+                        @csrf
+                        <h4>{{$error}}</h4>
+                        @if (session('error'))
+                                <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                </div>
+                        @endif
+                        <div class="alert alert-danger" id="error_" style="display: none"></div>
+                        Hợp đồng số: 
+                        <input class="form-control" type="text" name="sohopdong" required value="{{$hopdongso}}" readonly>
+                        <span class="invalid-feedback" id="sohopdong_error"></span>
+                        <br/>
+                        Hóa đơn số:
+                        <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" required placeholder="Số hóa đơn">
+                        <span class="invalid-feedback" id="sohoadon_error"></span>
+                        <br/>
+                        File: 
+                        <input class="form-control" required type="file" name="filehoadon">
+                        <span class="invalid-feedback" id="filehoadon_error"></span>
+                        <br/>
+                        Thuế (%):
+                        <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" value="{{ old('thuesuat') }}">
+                        <span class="invalid-feedback" id="thuesuat_error"></span>
+                        <br/>
+                        Tổng tiền (VNĐ): 
+                        <input class="form-control" required type="text" name="tongtien" id="tongtien" value="{{ old('tongtien') }}" readonly>
+                        <span class="invalid-feedback" id="tongtien_error"></span>
+                        <br/>
+                        Tiền thuế (VNĐ): 
+                        <input class="form-control" required type="text" name="tienthue" id="tienthue" value="{{ old('tienthue') }}" readonly>
+                        <span class="invalid-feedback" id="tienthue_error"></span>
+                        <br/>
+                        Tổng tiền có thuế (VNĐ): 
+                        <input class="form-control" required type="text" name="tongtiencothue" id="tongtiencothue" value="{{ old('tongtiencothue') }}" readonly>
+                        <span class="invalid-feedback" id="tongtiencothue_error"></span>
+                        <br/>
+                        Số tiền (bằng chữ): 
+                        <input class="form-control" required value="{{ old('sotienbangchu') }}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
+                        <span class="invalid-feedback" id="sotienbangchu_error"></span>
+                        <br/>
+                        Người tạo: 
+                        <input class="form-control" required value="{{ old('nguoitao') }}" type="text" name="nguoitao">
+                        <span class="invalid-feedback" id="nguoitao_error"></span>
+                        <br/>
+                        Người mua hàng: 
+                        <input class="form-control" required value="{{ old('nguoimuahang') }}" type="text" name="nguoimuahang">
+                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
+                        <br/>
+                        <div>
+                                <hr>
+                                <label>Trạng thái hóa đơn:</label>
+                                <select name="trangthaihoadon">
+                                        @if(old('trangthaihoadon') == 0)
+                                                <option value=0 selected>Chưa thanh toán</option>  
+                                                <option value=1>Đã thanh toán</option> 
+                                        @elseif (old('trangthaihoadon') == 1)
+                                                <option value=0>Chưa thanh toán</option>  
+                                                <option value=1 selected>Đã thanh toán</option> 
+                                        @endif       
+                                </select>
+                                <hr>
+                        </div>
+                        <h1>Danh sách chi tiết</h1>
+                        <hr>
+                        Số lượng loại sản phẩm:
+                        <input class="form-control" type="number" name="soluongchitiet" value="{{ old('soluongchitiet') }}" min="0" id="slct" required readonly><hr>
+                        <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
+                        <table id='tablechitiet'>
+                                <tr>
+                                        <th>STT</th>
+                                        <th>Nội dung</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn vị tính</th>
+                                        <th>Đơn giá</th>
+                                        <th>Thành tiền</th>
+                                        <th>Xóa</th>
+                                </tr>
+                        
+                                @for ($i = 1; $i <= old('soluongchitiet'); $i++)
+                                <tr>
+                                        <td><input type="text" class="inputstt" name="stt{{$i}}" id="stt{{$i}}" value="{{$i}}" readonly class="inputstt"></td>
+                                        <td><input type="text" name="noidung{{$i}}" id="noidung{{$i}}" value="{{ old('noidung'.$i) }}"></td>
+                                        <td><input type="number" class="soluong" name="soluong{{$i}}" id="soluong{{$i}}" value="{{ old('soluong'.$i) }}" min="0"></td>
+                                        <td><input type="text" name="donvitinh{{$i}}" id="donvitinh{{$i}}" value="{{ old('donvitinh'.$i) }}"></td>
+                                        <td><input type="number" class="dongia" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}" min="0"></td>
+                                        <td><input type="text" name="thanhtien{{$i}}" readonly id="thanhtien{{$i}}" value="{{ old('thanhtien'.$i) }}"></td>
+                                        <td><button type="button" name="btnxoa{{$i}}" id="btnxoa{{$i}}" class="btn btn-danger" onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
+                                </tr>
+                                @endfor
+                        </table>
+                        <hr>
+                        <button class="btn btn-primary" type="submit" id="btnsubmithd">
+                                Tạo hóa đơn
+                        </button>
+                        <hr>
+                </form>
+        </div>
+</body>
+<script>
+        /*
+        $(document).ready(function () {
+                $('#hoaDonForm').on('submit', function (e) {
+                        e.preventDefault();
+                        var formData = $(this).serialize();
+                        $.ajax({
+                                url: $(this).attr('action'),
+                                type: 'POST',
+                                data: formData,
+                                success: function (success) {
+                                        if (success) {
+                                        alert('Thêm mới hóa đơn thành công');
+                                        //$('#hoaDonForm input').val('');
+                                        location.reload();
+                                        } else {
+                                        alert('Thất bại');
+                                        }
+                                },
+                                error: function (xhr) {
+                                        if (xhr.status === 422) {
+                                                $('.invalid-feedback').empty();
+                                                var response = JSON.parse(xhr.responseText);
+                                                var errors = response.errors;
+                                                
+                                                for (var field in errors) {
+                                                        if (errors.hasOwnProperty(field)) {
+                                                                var errorMessage = errors[field][0];
+                                                                $('#' + field + '_error').text(errorMessage).show();
+                                                        }
+                                                }
+                                        }
+                                }
+                        });
+                });
+        });
+        */
+</script>
 <script>
         function calHoaDon() {
                 $cnt = document.getElementById("slct").value;

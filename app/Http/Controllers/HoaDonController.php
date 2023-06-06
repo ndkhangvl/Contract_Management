@@ -71,6 +71,30 @@ class HoaDonController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'sohopdong' => 'required',
+            'sohoadon' => 'required',
+            //'filehoadon' => 'required',
+            'thuesuat' => 'required',
+            'tongtien' => 'required',
+            'tienthue' => 'required',
+            'tongtiencothue' => 'required',
+            'sotienbangchu' => 'required',
+            'nguoitao' => 'required',
+            'nguoimuahang' => 'required',
+        ], [
+            'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
+            'sohoadon.required' => 'Trường số hóa đơn là bắt buộc.',
+            //'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
+            'thuesuat.required' => 'Trường thuế là bắt buộc.',
+            'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
+            'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
+            'tongtiencothue.required' => 'Trường tổng tiền (có thuế) là bắt buộc.',
+            'sotienbangchu.required' => 'Trường số tiền bằng chữ là bắt buộc.',
+            'nguoitao.required' => 'Trường người tạo là bắt buộc.',
+            'nguoimuahang.required' => 'Trường người mua hàng là bắt buộc.',
+        ]);
+
         //
         $today = Carbon::today();
         $hoadon = new HoaDon;
@@ -144,6 +168,13 @@ class HoaDonController extends Controller
                 ]);
             }
             return redirect('/hopdong/'.$request->sohopdong);
+            /*
+            return response()->json([
+                'success' => true,
+                // 'errors' => $validator->errors(),
+                'input' => $request->all()
+            ]);
+            */
         } else {
             $error = "Lỗi: Số hóa đơn đã tồn tại, vui lòng nhập số hóa đơn khác!";
             /*return view('/hoadon/create',[
