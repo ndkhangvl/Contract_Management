@@ -20,6 +20,8 @@ class ReportController extends Controller
             ->selectRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)) AS Thang, YEAR(CONVERT(date, HOADON_NGAYTAO)) AS Nam, COUNT(*) AS SoLuongHoaDon')
             ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
             ->get();
+
+            
         return view('reports.index', compact('TongHopDong', 'TongHoaDon', 'HopDongHoatDong', 'HopDongNgungHoatDong', 'HoaDonTheoThang'));
     }
 }
