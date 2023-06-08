@@ -245,20 +245,22 @@
                 calHoaDon();
         }
 
-        $radButtons = document.querySelectorAll("input[name=fileadd_yes_no]");
-        $radButtons.forEach(rb=>rb.addEventListener("change",function(){
-                //alert("Change");
-                //console.log("value of rad: " + document.querySelector('input[name="fileadd_yes_no"]:checked').value);
-                if(document.querySelector('input[name="fileadd_yes_no"]:checked').value == "1"){
-                        document.getElementById("filehoadon").removeAttribute("disabled");
-                        //console.log("Cho phep them file");
+        function checkSHDExists() {
+                var hoadontontai = document.getElementsByClassName('shdexists');
+                $shd = document.getElementById("inputsohoadon").value;
+                document.getElementById("error_").setAttribute('style','display: none');
+                document.getElementById("error_").innerHTML = "";
+                document.getElementById("btnsubmithd").removeAttribute('disabled', 'true');
+                for(var i=0; i < hoadontontai.length; i++){
+                        if ($shd == hoadontontai[i].id){
+                                document.getElementById("error_").removeAttribute('style','display: none');
+                                document.getElementById("error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
+                                document.getElementById("btnsubmithd").setAttribute('disabled', 'true');
+                        }
                 }
-                else if (document.querySelector('input[name="fileadd_yes_no"]:checked').value == "0"){
-                        document.getElementById("filehoadon").setAttribute("disabled", "disabled");
-                        //console.log("KHONG cho phep them file");
-                        document.getElementById('filehoadon').value = null;
-                }
-        }));
+        }
+        
+
 
         /*************************** */
         /*Test tiền sang tiền chữ VND*/
