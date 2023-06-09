@@ -57,8 +57,9 @@ Route::get('/forgotpass', function () {
 
 Route::get('/test', function () {
     //$value = Session::get('loginId');
-    return view('khachhang.createCustomer');
-})->middleware('isLogin');
+    return view('sidebar');
+});
+
 Route::get('/test2', [KhachHangController::class, 'create'])->middleware('isLogin');
 // Route::get('test2/{lang}', function($lang) {
 //     App::setlocale($lang);
@@ -67,15 +68,30 @@ Route::get('/test2', [KhachHangController::class, 'create'])->middleware('isLogi
 Route::get('/dashboard', [UserAuthController::class, 'dashboard'])->middleware('isLogin');
 Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLoggedIn', 'switchLanguage');
 Route::post('/updatelocale', [UserAuthController::class, 'updateLocale'])->name('updateLocale');
-Route::post('/user-login', [UserAuthController::class, 'userLogin']) -> name('user-login');
-Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass']) -> name('forgot-pass');
+Route::post('/user-login', [UserAuthController::class, 'userLogin'])-> name('user-login');
+Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass'])->middleware('switchLanguage')-> name('forgot-pass');
 Route::get('/logout', [UserAuthController::class, 'logout']);
-Route::get('/user/{id}', [UserAuthController::class, 'getUser']);
+Route::get('/user/{id}', [UserAuthController::class, 'getUser'])->middleware('switchLanguage');
 
-Route::resource('/loaikhachhangs', LoaiKhachHangController::class)->middleware('isLogin');
-Route::resource('/khachhang', KhachHangController::class)->middleware('isLogin', 'switchLanguage');
-Route::resource('/hopdong', HopDongController::class)->middleware('isLogin', 'switchLanguage');
-Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin', 'switchLanguage');
+Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
+    Route::resource('/loaikhachhangs', LoaiKhachHangController::class);
+});
+
+Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
+    Route::resource('/khachhang', KhachHangController::class);
+});
+
+Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
+    Route::resource('/hopdong', HopDongController::class);
+});
+
+Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
+    Route::resource('/hoadon', HoaDonController::class);
+});
+
+
+// Route::resource('/hopdong', HopDongController::class)->middleware('isLogin', 'switchLanguage');
+// Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin', 'switchLanguage');
 Route::get('/ExportHoaDon', [HoaDonController::class, 'exportInvoices']);
 
 /* Danh cho loai khach hang
@@ -84,16 +100,16 @@ Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.
 Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete');
 Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update');
 */
-Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin');
-Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin');
-Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin');
-Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin');
+Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin', 'switchLanguage');
+Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin', 'switchLanguage');
+Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin', 'switchLanguage');
+Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin', 'switchLanguage');
 
 // Route::get('/forgotpasswd', function () {
 //     Mail::to('khangb1910654@student.ctu.edu.vn')
 //         ->send(new ForgotPasswordMail());
 // });
 
-Route::get('/baocao', [ReportController::class, 'index'])->name('reports.index');
+Route::get('/baocao', [ReportController::class, 'index'])->middleware('switchLanguage')->name('reports.index');
 
 

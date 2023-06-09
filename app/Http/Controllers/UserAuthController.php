@@ -104,10 +104,11 @@ class UserAuthController extends Controller
             $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
             join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
             // return view('khachhang.index', compact('data'));
-            return view('khachhang.index', compact('data'), [
-                'khachhangs' => $khachhangs,
-                'loaikhachhang' => $loaikhachhang,
-            ]);
+            return redirect('/khachhang');
+            // return view('khachhang.index', compact('data'), [
+            //     'khachhangs' => $khachhangs,
+            //     'loaikhachhang' => $loaikhachhang,
+            // ]);
         } else {
             return back()->with('fail', 'Tên đăng nhập không tồn tại.');
         }

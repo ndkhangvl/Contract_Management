@@ -122,7 +122,7 @@
                         <div class="col">
                             <label for="ngaysinh" class="form-label fw-bold">Ngày sinh:</label>
                             <input type="date" class="form-control" placeholder="Nhập tên" name="khachhang_ngaysinhndd">
-                            <span class="invalid-feedback" id="khachhang_ngaysinhdd_error"></span>
+                            <span class="invalid-feedback" id="khachhang_ngaysinhndd_error"></span>
                         </div>
                         <div class="col">
                             <label for="cccd" class="form-label fw-bold">CCCD:</label>

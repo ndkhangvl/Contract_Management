@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
 <style>
     table, th, td {
         border: 1px solid black;
@@ -12,6 +12,8 @@
         width:90%;
     }
 </style>
+@include('header2')
+@include('header')
 <h1>Chi tiết Khách Hàng</h1>
 
 @foreach ($khachhang as $khachhang)

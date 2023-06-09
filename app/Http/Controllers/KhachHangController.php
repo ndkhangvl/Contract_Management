@@ -80,7 +80,7 @@ class KhachHangController extends Controller
             'khachhang_nguoidaidien' => 'required',
             'khachhang_cmnd' => 'required',
             'khachhang_ngaycapcmnd' => 'required',
-            'khachhang_ngaysinhdd' => 'required',
+            'khachhang_ngaysinhndd' => 'required',
             'khachhang_ngayhoatdong' => 'required',
             'khachhang_masothue' => 'required',
         ], [
@@ -94,7 +94,7 @@ class KhachHangController extends Controller
             'khachhang_nguoidaidien.required' => 'Trường người đại diện là bắt buộc.',
             'khachhang_cmnd.required' => 'Trường CCCD là bắt buộc.',
             'khachhang_ngaycapcmnd.required' => 'Chọn ngày cấp CCCD là bắt buộc.',
-            'khachhang_ngaysinhdd.required' => 'Chọn ngày sinh là bắt buộc.',
+            'khachhang_ngaysinhndd.required' => 'Chọn ngày sinh là bắt buộc.',
             'khachhang_ngayhoatdong.required' => 'Chọn ngày hoạt động là bắt buộc.',
             'khachhang_masothue.required' => 'Trường mã số thuế là bắt buộc.',
         ]);
