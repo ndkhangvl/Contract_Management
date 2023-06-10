@@ -315,4 +315,112 @@ class HoaDonController extends Controller
         return Excel::download(new InvoiceExport, 'HoaDon.xlsx');
     }
 
+    public function storeModal(Request $request)
+    {
+        $validatedData = $request->validate([
+            'sohopdong' => 'required',
+            'sohoadon' => 'required',
+            //'filehoadon' => 'required',
+            'thuesuat' => 'required',
+            'tongtien' => 'required',
+            'tienthue' => 'required',
+            'tongtiencothue' => 'required',
+            'sotienbangchu' => 'required',
+            'nguoitao' => 'required',
+            'nguoimuahang' => 'required',
+        ], [
+            'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
+            'sohoadon.required' => '(Modal) Trường số hóa đơn là bắt buộc.',
+            //'filehoadon.required' => 'Trường file (Modal) hóa đơn là bắt buộc.',
+            'thuesuat.required' => 'Trường thuế là bắt buộc.',
+            'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
+            'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
+            'tongtiencothue.required' => 'Trường tổng tiền (có thuế) là bắt buộc.',
+            'sotienbangchu.required' => 'Trường số tiền bằng chữ là bắt buộc.',
+            'nguoitao.required' => 'Trường người tạo là bắt buộc.',
+            'nguoimuahang.required' => 'Trường người mua hàng là bắt buộc.',
+        ]);
+
+        //
+        $today = Carbon::today();
+        $hoadon = new HoaDon;
+        $chitiethoadon = new ChiTietHoaDon;
+        
+
+        $idhopdong = HopDong::where('HOPDONG_SO', '=', $request->sohopdong)->first();
+        $tthoadontontai = HoaDon::where('HOADON_SO','=',$request->sohoadon)->first();
+        if($tthoadontontai == null) {
+            //$this->validator($request->all())->validate();
+            $imageUrl = $this->storeImage($request);
+            $fileUrl = $imageUrl;
+            DB::insert("insert into hoadon(HOPDONG_ID,hoadon_so,HOADON_TRANGTHAI,HOADON_TONGTIEN,HOADON_THUESUAT,HOADON_TIENTHUE,HOADON_TONGTIEN_COTHUE,HOADON_SOTIENBANGCHU,HOADON_NGUOITAO,HOADON_NGAYTAO,HOADON_NGUOIMUAHANG,HOADON_FILE)
+            values(
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?,
+               ?
+            );",
+            [
+                $idhopdong->HOPDONG_ID,
+                $request->sohoadon,
+                $request->trangthaihoadon,
+                $request->tongtien,
+                $request->thuesuat,
+                $request->tienthue,
+                $request->tongtiencothue,
+                $request->sotienbangchu,
+                $request->nguoitao,
+                $today,
+                $request->nguoimuahang,
+                $fileUrl,
+            ]);
+            
+            $newid = DB::select(" select max(HOADON_ID) as maxid from HOADON;")[0];
+    
+            $soluongchitiet = $request->soluongchitiet;
+            for ($i = 1; $i <= $soluongchitiet; $i++){
+                $nd = "noidung".$i;
+                $sl = "soluong".$i;
+                $dvt = "donvitinh".$i;
+                $dg = "dongia".$i;
+                $tt = "thanhtien".$i;
+                
+                DB::insert("insert into CHITIET_HOADON(HOADON_ID,STT,NOIDUNG,SOLUONG,DVT,DONGIA,THANHTIEN)
+                values(
+                   ?,
+                   ?,
+                   ?,
+                   ?,
+                   ?,
+                   ?,
+                   ?
+                );",
+                [
+                    $newid->maxid,
+                    $i,
+                    $request->$nd,
+                    $request->$sl,
+                    $request->$dvt,
+                    $request->$dg,
+                    $request->$tt,
+                ]);
+            }
+            
+            return response()->json([
+                'success' => true,
+                // 'errors' => $validator->errors(),
+                'input' => $request->all()
+            ]);
+            
+            
+        }
+    }
 }

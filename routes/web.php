@@ -112,4 +112,4 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 
 Route::get('/baocao', [ReportController::class, 'index'])->middleware('switchLanguage')->name('reports.index');
 
-
+Route::post('/createHoaDonModal', [HoaDonController::class, 'storeModal'])->middleware('switchLanguage');
