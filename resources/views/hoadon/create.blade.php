@@ -57,46 +57,67 @@
                                         {{ session('error') }}
                                 </div>
                         @endif
-                        <div class="alert alert-danger" id="error_" style="display: none"></div>
+
                         Hợp đồng số: 
-                        <input class="form-control" type="text" name="sohopdong" required value="{{$hopdongso}}" readonly>
-                        <span class="invalid-feedback" id="sohopdong_error"></span>
+                        <input class="form-control" type="text" name="sohopdong" value="{{$hopdongso}}" readonly>
+                        @error('sohopdong')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Hóa đơn số:
-                        <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" required placeholder="Số hóa đơn">
-                        <span class="invalid-feedback" id="sohoadon_error"></span>
+                        <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" placeholder="Số hóa đơn"  value="{{ old('sohoadon') }}">
+                        <div class="alert alert-danger" id="error_" style="display: none"></div>
+                        @error('sohoadon')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         File: 
-                        <input class="form-control" required type="file" name="filehoadon">
-                        <span class="invalid-feedback" id="filehoadon_error"></span>
+                        <input class="form-control" type="file" name="filehoadon">
+                        @error('filehoadon')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Thuế (%):
-                        <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" value="{{ old('thuesuat') }}">
-                        <span class="invalid-feedback" id="thuesuat_error"></span>
+                        <input class="form-control" id="thuesuat" type="number" name="thuesuat" min="0" value="{{ old('thuesuat') }}">
+                        @error('thuesuat')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Tổng tiền (VNĐ): 
-                        <input class="form-control" required type="text" name="tongtien" id="tongtien" value="{{ old('tongtien') }}" readonly>
-                        <span class="invalid-feedback" id="tongtien_error"></span>
+                        <input class="form-control" type="text" name="tongtien" id="tongtien" value="{{ old('tongtien') }}" readonly>
+                        @error('tongtien')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Tiền thuế (VNĐ): 
-                        <input class="form-control" required type="text" name="tienthue" id="tienthue" value="{{ old('tienthue') }}" readonly>
-                        <span class="invalid-feedback" id="tienthue_error"></span>
+                        <input class="form-control" type="text" name="tienthue" id="tienthue" value="{{ old('tienthue') }}" readonly>
+                        @error('tienthue')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Tổng tiền có thuế (VNĐ): 
-                        <input class="form-control" required type="text" name="tongtiencothue" id="tongtiencothue" value="{{ old('tongtiencothue') }}" readonly>
-                        <span class="invalid-feedback" id="tongtiencothue_error"></span>
+                        <input class="form-control" type="text" name="tongtiencothue" id="tongtiencothue" value="{{ old('tongtiencothue') }}" readonly>
+                        @error('tongtiencothue')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Số tiền (bằng chữ): 
-                        <input class="form-control" required value="{{ old('sotienbangchu') }}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
-                        <span class="invalid-feedback" id="sotienbangchu_error"></span>
+                        <input class="form-control" value="{{ old('sotienbangchu') }}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
+                        @error('sotienbangchu')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Người tạo: 
-                        <input class="form-control" required value="{{ old('nguoitao') }}" type="text" name="nguoitao">
-                        <span class="invalid-feedback" id="nguoitao_error"></span>
+                        <input class="form-control" value="{{ old('nguoitao') }}" type="text" name="nguoitao">
+                        @error('nguoitao')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         Người mua hàng: 
-                        <input class="form-control" required value="{{ old('nguoimuahang') }}" type="text" name="nguoimuahang">
-                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
+                        <input class="form-control" value="{{ old('nguoimuahang') }}" type="text" name="nguoimuahang">
+                        @error('nguoimuahang')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <br/>
                         <div>
                                 <hr>
@@ -418,13 +439,5 @@
        
 </script>
 
-@if ($errors->any())
-        <div>
-        @foreach ($errors->all() as $error)
-          <p class="text-danger">
-            {{ $error }}
-          </p>
-        @endforeach
-      </div>
-@endif
+
 

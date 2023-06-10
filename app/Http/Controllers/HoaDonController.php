@@ -71,10 +71,10 @@ class HoaDonController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'sohopdong' => 'required',
             'sohoadon' => 'required',
-            //'filehoadon' => 'required',
+            'filehoadon' => 'required',
             'thuesuat' => 'required',
             'tongtien' => 'required',
             'tienthue' => 'required',
@@ -85,7 +85,7 @@ class HoaDonController extends Controller
         ], [
             'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
             'sohoadon.required' => 'Trường số hóa đơn là bắt buộc.',
-            //'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
+            'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
             'thuesuat.required' => 'Trường thuế là bắt buộc.',
             'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
             'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
@@ -167,7 +167,9 @@ class HoaDonController extends Controller
                     $request->$tt,
                 ]);
             }
-            return redirect('/hopdong/'.$request->sohopdong);
+
+            //return redirect('/hopdong/'.$request->sohopdong);
+            return redirect('/hoadon');
             /*
             return response()->json([
                 'success' => true,
