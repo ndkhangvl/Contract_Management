@@ -87,6 +87,7 @@ Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
 
 Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
     Route::resource('/hoadon', HoaDonController::class);
+    Route::post('/createHoaDonModal', [HoaDonController::class, 'storeModal']);
 });
 
 
@@ -112,4 +113,4 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 
 Route::get('/baocao', [ReportController::class, 'index'])->middleware('switchLanguage')->name('reports.index');
 
-Route::post('/createHoaDonModal', [HoaDonController::class, 'storeModal'])->middleware('switchLanguage');
+

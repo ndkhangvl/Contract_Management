@@ -317,10 +317,10 @@ class HoaDonController extends Controller
 
     public function storeModal(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'sohopdong' => 'required',
             'sohoadon' => 'required',
-            //'filehoadon' => 'required',
+            'filehoadon' => 'required',
             'thuesuat' => 'required',
             'tongtien' => 'required',
             'tienthue' => 'required',
@@ -331,7 +331,7 @@ class HoaDonController extends Controller
         ], [
             'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
             'sohoadon.required' => '(Modal) Trường số hóa đơn là bắt buộc.',
-            //'filehoadon.required' => 'Trường file (Modal) hóa đơn là bắt buộc.',
+            'filehoadon.required' => 'Trường file (Modal) hóa đơn là bắt buộc.',
             'thuesuat.required' => 'Trường thuế là bắt buộc.',
             'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
             'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
@@ -413,14 +413,11 @@ class HoaDonController extends Controller
                     $request->$tt,
                 ]);
             }
-            
             return response()->json([
                 'success' => true,
                 // 'errors' => $validator->errors(),
                 'input' => $request->all()
             ]);
-            
-            
         }
     }
 }

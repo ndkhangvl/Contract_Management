@@ -1,6 +1,11 @@
 <title>Hóa đơn</title>
 @include('header2')
 @include('header')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
     .content {
@@ -151,7 +156,7 @@
 <hr/>
 <h1>Danh sách Hóa đơn</h1>
 <hr/>
-<form action="">
+<form>
     <div class="content">
         <h5>Nhập số hợp đồng cần tìm</h5>
         <input class="" name="find" id="find" placeholder="Số hợp đồng...">
@@ -198,10 +203,17 @@
             $('#hoaDonForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
+                var form = $('#hoaDonForm')[0];
+                // Create an FormData object 
+                var data = new FormData(form);
+
                 $.ajax({
-                    url: $(this).attr('action'),
+                    url: $(this).attr("action"),
                     type: 'POST',
-                    data: formData,
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false,  // Important!
+                    contentType: false,
                     success: function(success) {
                         if (success) {
                             alert('Thêm mới hóa đơn thành công');
