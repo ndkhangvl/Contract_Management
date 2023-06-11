@@ -10,6 +10,7 @@ use App\Models\HopDong;
 use Carbon\Carbon;
 use App\Exports\InvoiceExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
 
 use Illuminate\Support\Facades\URL;
 class HoaDonController extends Controller
@@ -23,11 +24,19 @@ class HoaDonController extends Controller
         ])[0];
         $timestamp = strtotime($hoadon->HOADON_NGAYTAO); 
         $hoadon->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
+        $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.');
+        $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.');
+        $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.');
+        
         $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
         [
             'id' => $hoadon->HOADON_ID,
 
         ]);
+        for ($i = 0 ; $i < count($chitiethoadon); $i++){
+            $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.');
+            $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.');
+        }
         
         //return dd($hoadon);
         return view('hoadon.show', [
@@ -419,5 +428,54 @@ class HoaDonController extends Controller
                 'input' => $request->all()
             ]);
         }
+    }
+
+    public function pdf($id) 
+    {
+        /*
+        $ds_sanpham = Sanpham::all();
+        $ds_loai    = Loai::all();
+        $data = [
+            'danhsachsanpham' => $ds_sanpham,
+            'danhsachloai'    => $ds_loai,
+        ];
+        */
+
+        /* Code dành cho việc debug
+        - Khi debug cần hiển thị view để xem trước khi Export PDF
+        */
+        $hoadon = DB::select("select * from hoadon join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID join KHACHHANG on HOPDONG.KHACHHANG_ID = KHACHHANG.KHACHHANG_ID where HOADON_ID=:id;",
+        [
+            'id' => $id,
+        ])[0];
+        $timestamp = strtotime($hoadon->HOADON_NGAYTAO); 
+        $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.');
+        $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.');
+        $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.');
+        
+        $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
+        [
+            'id' => $hoadon->HOADON_ID,
+
+        ]);
+        for ($i = 0 ; $i < count($chitiethoadon); $i++){
+            $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.');
+            $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.');
+        }
+        
+        
+        /*
+        return view('hoadon.pdf')
+            ->with('hoadon', $hoadon)
+            ->with('chitiethoadon', $chitiethoadon);
+        */
+        $data = [
+            'hoadon' => $hoadon,
+            'chitiethoadon'    => $chitiethoadon,
+        ];
+        $pdf = LaravelMpdf::loadView('hoadon.pdf', $data);
+        $sohoadon = $hoadon->HOADON_SO;
+        $ngayxuat = Carbon::now()->day."-".Carbon::now()->month."-".Carbon::now()->year."_".Carbon::now()->hour."-".Carbon::now()->minute."-".Carbon::now()->second;
+        return $pdf->download($sohoadon."_".$ngayxuat.'.pdf');
     }
 }

@@ -20,9 +20,7 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-    table {
-        width:90%;
-    }
+    
     .bodyfake{
         max-width: 900px;
         margin: auto;
@@ -57,7 +55,8 @@
 <div class="bodyfake">
     <div class="notprint">
         <div class="contentleft">
-            <button type="button" class="btn btn-primary" onclick="window.print()">Xuất hóa đơn</button>
+            {{--<button type="button" class="btn btn-primary" onclick="window.print()">Xuất hóa đơn</button>--}}
+            <a href="/hoadon/{{$hoadon->HOADON_ID}}/pdf" class="btn btn-primary">Xuất hóa đơn</a>
         </div>
         <div class="contentright">
             <a href="/hoadon/{{$hoadon->HOADON_SO}}/edit"><button type="button" class="btn btn-primary">Cập nhật Thông tin</button></a>
