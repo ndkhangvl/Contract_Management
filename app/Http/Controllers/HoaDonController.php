@@ -24,9 +24,9 @@ class HoaDonController extends Controller
         ])[0];
         $timestamp = strtotime($hoadon->HOADON_NGAYTAO); 
         $hoadon->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
-        $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.');
-        $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.');
-        $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.');
+        $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.','.');
+        $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.','.');
+        $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.','.');
         
         $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
         [
@@ -34,8 +34,8 @@ class HoaDonController extends Controller
 
         ]);
         for ($i = 0 ; $i < count($chitiethoadon); $i++){
-            $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.');
-            $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.');
+            $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.','.');
+            $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.','.');
         }
         
         //return dd($hoadon);
@@ -450,9 +450,9 @@ class HoaDonController extends Controller
         ])[0];
         $timestamp = strtotime($hoadon->HOADON_NGAYTAO); 
         $hoadon->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
-        $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.');
-        $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.');
-        $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.');
+        $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.','.');
+        $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.','.');
+        $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.','.');
         
         $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
         [
@@ -460,8 +460,8 @@ class HoaDonController extends Controller
 
         ]);
         for ($i = 0 ; $i < count($chitiethoadon); $i++){
-            $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.');
-            $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.');
+            $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.','.');
+            $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.','.');
         }
         
         
