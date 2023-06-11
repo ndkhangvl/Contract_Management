@@ -449,6 +449,7 @@ class HoaDonController extends Controller
             'id' => $id,
         ])[0];
         $timestamp = strtotime($hoadon->HOADON_NGAYTAO); 
+        $hoadon->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
         $hoadon->HOADON_TONGTIEN = number_format(round($hoadon->HOADON_TONGTIEN),0,'.');
         $hoadon->HOADON_TIENTHUE = number_format(round($hoadon->HOADON_TIENTHUE),0,'.');
         $hoadon->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon->HOADON_TONGTIEN_COTHUE),0,'.');
