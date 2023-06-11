@@ -87,6 +87,13 @@
                     </div>
                         <div class="contentright">Số: <b style="color: red; padding-right:20px">{{$hoadon->HOADON_SO}}</b></div>
                     </div>
+                    <div class="col text-center">
+                        @if ($hoadon->HOADON_TRANGTHAI == 1)
+                            <b style="color: green">Đã thanh toán</b>
+                        @else
+                            <b style="color: red">Chưa thanh toán</b>
+                        @endif
+                    </div>
               </div>
               <div class="">
                 <table class="table mt-4 info-border border-0">
