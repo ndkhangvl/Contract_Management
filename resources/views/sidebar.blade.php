@@ -29,35 +29,43 @@
                     </div>
                 </div>
             </div>
-            <h3 class="text-center text-white fw-bold" style="font-size: 25px">{{trans('msg.title-login')}}</h3>
+            <h3 class="text-center text-white fw-bold" style="font-size: 25px">{{ trans('msg.title-login') }}</h3>
             <hr style="height: 3px; background-color: white;">
             <div class="sidebar-menu">
                 <ul class="menu">
-                    <li class="sidebar-item active ">
-                        <a href="/khachhang" class='sidebar-link'>
+                    <li class="sidebar-item has-sub {{ request()->is('khachhang') || request()->is('loaikhachhangs') ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
-                            <span>{{trans('msg.customer')}}</span>
+                            <span>{{ trans('msg.customer') }}</span>
                         </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a class="text-decoration-none text-white" href="/khachhang">{{ trans('msg.info') }}</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a class="text-decoration-none text-white" href="/loaikhachhangs">{{ trans('msg.listcus') }}</a>
+                            </li>
+                        </ul>
                     </li>
 
-                    <li class="sidebar-item  ">
+                    <li class="sidebar-item {{ Str::startsWith(request()->path(), 'hopdong') ? 'active' : '' }} ">
                         <a href="/hopdong" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
-                            <span>{{trans('msg.contract')}}</span>
+                            <span>{{ trans('msg.contract') }}</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item  ">
+                    <li class="sidebar-item {{ Str::startsWith(request()->path(), 'hoadon') ? 'active' : '' }} ">
                         <a href="/hoadon" class='sidebar-link'>
                             <i class="bi bi-grid-1x2-fill"></i>
-                            <span>{{trans('msg.bill')}}</span>
+                            <span>{{ trans('msg.bill') }}</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item  ">
+                    <li class="sidebar-item {{ Str::startsWith(request()->path(), 'baocao') ? 'active' : '' }} ">
                         <a href="/baocao" class='sidebar-link'>
                             <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                            <span>{{trans('msg.statistical')}}</span>
+                            <span>{{ trans('msg.statistical') }}</span>
                         </a>
                     </li>
                 </ul>
@@ -67,12 +75,69 @@
     </div>
 </body>
 <script>
+    //Script use by @JohnDucky
+    function slideToggle(t, e, o) {
+        0 === t.clientHeight ? j(t, e, o, !0) : j(t, e, o)
+    }
+
+    function slideUp(t, e, o) {
+        j(t, e, o)
+    }
+
+    function slideDown(t, e, o) {
+        j(t, e, o, !0)
+    }
+
+    function j(t, e, o, i) {
+        void 0 === e && (e = 400), void 0 === i && (i = !1), t.style.overflow = "hidden", i && (t.style.display =
+            "block");
+        var p, l = window.getComputedStyle(t),
+            n = parseFloat(l.getPropertyValue("height")),
+            a = parseFloat(l.getPropertyValue("padding-top")),
+            s = parseFloat(l.getPropertyValue("padding-bottom")),
+            r = parseFloat(l.getPropertyValue("margin-top")),
+            d = parseFloat(l.getPropertyValue("margin-bottom")),
+            g = n / e,
+            y = a / e,
+            m = s / e,
+            u = r / e,
+            h = d / e;
+        window.requestAnimationFrame(function l(x) {
+            void 0 === p && (p = x);
+            var f = x - p;
+            i ? (t.style.height = g * f + "px", t.style.paddingTop = y * f + "px", t.style.paddingBottom = m *
+                f + "px", t.style.marginTop = u * f + "px", t.style.marginBottom = h * f + "px") : (t.style
+                .height = n - g * f + "px", t.style.paddingTop = a - y * f + "px", t.style.paddingBottom =
+                s - m * f + "px", t.style.marginTop = r - u * f + "px", t.style.marginBottom = d - h * f +
+                "px"), f >= e ? (t.style.height = "", t.style.paddingTop = "", t.style.paddingBottom = "", t
+                .style.marginTop = "", t.style.marginBottom = "", t.style.overflow = "", i || (t.style
+                    .display = "none"), "function" == typeof o && o()) : window.requestAnimationFrame(l)
+        })
+    }
+
+    let sidebarItems = document.querySelectorAll('.sidebar-item.has-sub');
+    for (var i = 0; i < sidebarItems.length; i++) {
+        let sidebarItem = sidebarItems[i];
+        sidebarItems[i].querySelector('.sidebar-link').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            let submenu = sidebarItem.querySelector('.submenu');
+            if (submenu.classList.contains('active')) submenu.style.display = "block"
+
+            if (submenu.style.display == "none") submenu.classList.add('active')
+            else submenu.classList.remove('active')
+            slideToggle(submenu, 300)
+        })
+    }
+
     window.addEventListener('DOMContentLoaded', (event) => {
         var w = window.innerWidth;
         if (w < 1200) {
             document.getElementById('sidebar').classList.remove('active');
         }
     });
+
+
     window.addEventListener('resize', (event) => {
         var w = window.innerWidth;
         if (w < 1200) {
@@ -81,7 +146,6 @@
             document.getElementById('sidebar').classList.add('active');
         }
     });
-
 </script>
 
 </html>

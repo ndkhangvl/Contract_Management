@@ -110,7 +110,12 @@
                                                 placeholder: "Chọn loại khách hàng",
                                                 dropdownParent: $("#staticBackdrop"),
                                                 matcher: matchCustom,
-                                                allowClear: true
+                                                allowClear: true,
+                                                language: {
+                                                    noResults: function() {
+                                                        return "Không tìm thấy kết quả";
+                                                    }
+                                                }
                                             });
                                         });
                                     </script>
@@ -428,6 +433,7 @@
 
         })
     </script>
+@include('footer')
 </body>
 
 </html>

@@ -91,14 +91,14 @@
     position: relative
 }
 
-/* .sidebar-wrapper .menu .sidebar-item.has-sub .sidebar-link:after {
-    content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><path stroke="gray" stroke-width="1" d="M6 9l6 6 6-6"/></svg>');
+.sidebar-wrapper .menu .sidebar-item.has-sub .sidebar-link:after {
+    content: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><path stroke="white" stroke-width="1" d="M6 9l6 6 6-6"/></svg>');
     position: absolute;
-    color: #ccc;
+    color: white;
     right: 15px;
     top: 12px;
     display: block
-} */
+}
 
 .sidebar-wrapper .menu .sidebar-item.active .sidebar-link {
     background-color: #78A1B4
@@ -139,7 +139,7 @@
 }
 
 .sidebar-wrapper .menu .submenu .submenu-item a {
-    padding: .7rem 2rem;
+    padding: .7rem 1rem;
     display: block;
     color: #25396f;
     font-size: .85rem;
@@ -160,5 +160,9 @@
 
     .sidebar-wrapper .sidebar-toggler.x {
         display: block
+    }
+
+    .footer {
+        margin-left: 0px;
     }
 }

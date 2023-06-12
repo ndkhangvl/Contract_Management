@@ -26,5 +26,7 @@ return [
     'info' => 'Thông tin',
     'english' => 'Tiếng Anh',
     'vietnamese' => 'Tiếng Việt',
-    'logout' => 'Đăng xuất'
+    'logout' => 'Đăng xuất',
+    'info' => 'Thông Tin',
+    'listcus' => 'Loại Khách Hàng',
 ];
