@@ -58,17 +58,18 @@
         <div class="container bg-white shadow rounded-1">
             {{-- <h1>Danh sách Khách Hàng</h1> --}}
             <div class="d-flex p-2">
-              <div class="me-1">
-                  <a href="/loaikhachhangs" class="btn text-white" style="background-color: #435EBE;">
-                    <i class="fas fa-list" style="margin-right: 5px;"></i>Loại khách hàng
-                  </a>
-              </div>
-              <div class="mb-2 ms-1">
-                  <button type="button" class="btn text-white" style="background-color: #435EBE;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
-                  </button>
-              </div>
-          </div>
+                <div class="me-1">
+                    <a href="/loaikhachhangs" class="btn text-white" style="background-color: #435EBE;">
+                        <i class="fas fa-list" style="margin-right: 5px;"></i>Loại khách hàng
+                    </a>
+                </div>
+                <div class="mb-2 ms-1">
+                    <button type="button" class="btn text-white" style="background-color: #435EBE;"
+                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
+                    </button>
+                </div>
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -331,24 +332,54 @@
         });
     </script>
     <script>
+        function removeVietnameseTones(str) {
+            //Source from hu2di
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+            str = str.replace(/Đ/g, "D");
+            // Some system encode vietnamese combining accent as individual utf-8 characters
+            // Một vài bộ encode coi các dấu mũ, dấu chữ như một kí tự riêng biệt nên thêm hai dòng này
+            str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
+            str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
+            // Remove extra spaces
+            // Bỏ các khoảng trắng liền nhau
+            str = str.replace(/ + /g, " ");
+            str = str.trim();
+            // Remove punctuations
+            // Bỏ dấu câu, kí tự đặc biệt
+            str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
+                " ");
+            return str;
+        }
+
         function matchCustom(params, data) {
             if ($.trim(params.term) === '') {
                 return data;
             }
 
-            if (typeof data.text === 'undefined') {
-                return null;
-            }
+            var txtSelect = removeVietnameseTones(params.term.toLowerCase());
+            var txtDataSelect = removeVietnameseTones(data.text.toLowerCase());
 
-            if (data.text.indexOf(params.term) > -1) {
+            if (txtDataSelect.indexOf(txtSelect) > -1) {
                 var modifiedData = $.extend({}, data, true);
-                modifiedData.text += ' (matched)';
-
+                modifiedData.text += ' (phù hợp)';
                 return modifiedData;
             }
 
             return null;
         }
+
 
         function getData() {
             var inputGroup = document.getElementById('otp-input-group');
