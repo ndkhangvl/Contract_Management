@@ -9,4 +9,5 @@ class HopDong extends Model
 {
     use HasFactory;
     public $table = 'HOPDONG';
+    public $timestamps = false;
 }

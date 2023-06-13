@@ -13,8 +13,10 @@
     }
 </style>
 @include('header2')
-@include('header')
-<h1>Chi tiết Khách Hàng</h1>
+@include('sidebar')
+<div id="main">
+    <div class="container bg-white shadow">
+        <h1>Chi tiết Khách Hàng</h1>
 
 @foreach ($khachhang as $khachhang)
 
@@ -82,3 +84,5 @@
 </table>
 
 <br><br><br>
+    </div>
+</div>

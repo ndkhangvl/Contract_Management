@@ -81,9 +81,12 @@ Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
     Route::resource('/khachhang', KhachHangController::class);
 });
 
-Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
-    Route::resource('/hopdong', HopDongController::class);
-});
+// Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
+//     Route::resource('/hopdong', HopDongController::class);
+// });
+Route::get('/hopdong', [HopDongController::class, 'index'])->middleware('isLogin', 'switchLanguage');
+Route::get('/hopdong/{id}', [HopDongController::class, 'show'])->middleware('isLogin', 'switchLanguage');
+Route::post('/hopdong', [HopDongController::class, 'store'])->middleware('isLogin', 'switchLanguage');
 
 Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
     Route::resource('/hoadon', HoaDonController::class);
