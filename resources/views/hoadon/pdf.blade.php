@@ -59,7 +59,7 @@
                     </div>
                         <hr style="border-top: 2px dashed black;"/>
                         <div class="contentcenter">
-                            Ngày tạo: <b>{{$hoadon->HOADON_NGAYTAO}}</b>
+                            Ngày tạo: {{$hoadon->HOADON_NGAYTAO}}
                         </div>
                             <div class="contentright">Số: <b style="padding-right:20px">{{$hoadon->HOADON_SO}}</b></div>
                         </div>
@@ -123,12 +123,12 @@
                     <tbody>
                         @foreach ($chitiethoadon as $cthd)
                         <tr>
-                            <td>{{$cthd->STT}}</td>
+                            <td class="contentcenter">{{$cthd->STT}}</td>
                             <td>{{$cthd->NOIDUNG}}</td>
-                            <td>{{$cthd->SOLUONG}}</td>
+                            <td class="contentright">{{$cthd->SOLUONG}}</td>
                             <td>{{$cthd->DVT}}</td>
-                            <td>{{$cthd->DONGIA}}</td>
-                            <td>{{$cthd->THANHTIEN}}</td>
+                            <td class="contentright">{{$cthd->DONGIA}}</td>
+                            <td class="contentright">{{$cthd->THANHTIEN}}</td>
                         </tr>
                         @endforeach
                         <tr>
@@ -152,6 +152,8 @@
                         </tr>
                     </tbody>
                     </table>
+                    <hr style="border-top: 2px dashed black;"/>
+                    <div class="contentright"><i>*Ngày in: {{$ngayin}}</i></div>
                 </div>
                 </div>
             </div>

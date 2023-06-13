@@ -464,7 +464,7 @@ class HoaDonController extends Controller
             $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.','.');
         }
         
-        
+        $ngayxuat = Carbon::now('Asia/Ho_Chi_Minh')->year."-".Carbon::now('Asia/Ho_Chi_Minh')->month."-".Carbon::now('Asia/Ho_Chi_Minh')->day."_".Carbon::now('Asia/Ho_Chi_Minh')->hour."-".Carbon::now('Asia/Ho_Chi_Minh')->minute."-".Carbon::now('Asia/Ho_Chi_Minh')->second;
         /*
         return view('hoadon.pdf')
             ->with('hoadon', $hoadon)
@@ -473,10 +473,10 @@ class HoaDonController extends Controller
         $data = [
             'hoadon' => $hoadon,
             'chitiethoadon'    => $chitiethoadon,
+            'ngayin' => Carbon::now('Asia/Ho_Chi_Minh')->day."-".Carbon::now('Asia/Ho_Chi_Minh')->month."-".Carbon::now('Asia/Ho_Chi_Minh')->year." ".Carbon::now('Asia/Ho_Chi_Minh')->hour.":".Carbon::now('Asia/Ho_Chi_Minh')->minute.":".Carbon::now('Asia/Ho_Chi_Minh')->second,
         ];
         $pdf = LaravelMpdf::loadView('hoadon.pdf', $data);
         $sohoadon = $hoadon->HOADON_SO;
-        $ngayxuat = Carbon::now()->day."-".Carbon::now()->month."-".Carbon::now()->year."_".Carbon::now()->hour."-".Carbon::now()->minute."-".Carbon::now()->second;
         return $pdf->download($sohoadon."_".$ngayxuat.'.pdf');
     }
 }
