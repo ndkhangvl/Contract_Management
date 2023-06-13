@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use App\Models\LoaiHopDong;
 use App\Models\TaiKhoan;
 use App\Models\KhachHang;
 use App\Models\HopDong;
 use App\Models\TrangThaiHD;
+use Illuminate\Support\Facades\Session;
 
 class HopDongController extends Controller
 {
@@ -101,7 +103,7 @@ class HopDongController extends Controller
         $hdong->HOPDONG_NOIDUNG = $request->hopdong_noidung; 
         $hdong->HOPDONG_DAIDIENBEN_A = $request->hopdong_daidienben_a; 
         $hdong->HOPDONG_DAIDIENBEN_B = $request->hopdong_daidienben_b; 
-        $hdong->HOPDONG_NGUOILAP = 1; 
+        $hdong->HOPDONG_NGUOILAP = Session::get('infoUser.nguoidung_id'); 
         $hdong->HOPDONG_THOIGIANTHUCHIEN = $request->hopdong_thoigianthuchien; 
         $hdong->HOPDONG_TONGGIATRI = $request->hopdong_tonggiatri; 
         $hdong->HOPDONG_HINHTHUCTHANHTOAN = $request->hopdong_hinhthucthanhtoan;
