@@ -41,7 +41,7 @@ class LoaiKhachHangController extends Controller
 
         return redirect('/')->with('success', 'Data inserted successfully!');
     }
-    public function delete(Request $request)
+    /*public function delete(Request $request)
     {
         $validatedData = $request->validate([
             'loaikhachhangid' => 'required'
@@ -50,7 +50,24 @@ class LoaiKhachHangController extends Controller
         DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $validatedData['loaikhachhangid'])->delete();
 
         return redirect('/')->with('success', 'Data deleted successfully!');
+    }*/
+    public function delete(Request $request)
+    {
+        $validatedData = $request->validate([
+            'loaikhachhangid' => 'required'
+        ]);
+    
+        $khachHangCount = DB::table('KHACHHANG')->where('LOAIKHACHHANG_ID', $validatedData['loaikhachhangid'])->count();
+    
+        if ($khachHangCount > 0) {
+            return response()->json(['message' => 'Cannot delete the Loai Khach Hang because there are associated records in the Khach Hang table.'], 422);
+        }
+    
+        DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $validatedData['loaikhachhangid'])->delete();
+
+        return redirect('/')->with('success', 'Data deleted successfully!');
     }
+
     public function update(Request $request)
     {
         $validatedData = $request->validate([
