@@ -30,7 +30,7 @@
                 </div>
             </div>
             <h3 class="text-center text-white fw-bold" style="font-size: 25px">{{ trans('msg.title-login') }}</h3>
-            <hr style="height: 3px; background-color: white;">
+            <hr class="text-white bg-white" style="height: 3px; background-color: white !important;">
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-item has-sub {{ request()->is('khachhang') || request()->is('loaikhachhangs') ? 'active' : '' }}">
