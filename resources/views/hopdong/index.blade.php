@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,16 +53,8 @@
     @include('sidebar')
     @include('header2')
     <div id="main">
-
-        {{-- @include('header') --}}
         <div class="container bg-white shadow rounded-1">
-            {{-- <h1>Danh sách Khách Hàng</h1> --}}
             <div class="d-flex p-2">
-                {{-- <div class="me-1">
-                    <a href="/loaikhachhangs" class="btn text-white" style="background-color: #435EBE;">
-                        <i class="fas fa-list" style="margin-right: 5px;"></i>Loại khách hàng
-                    </a>
-                </div> --}}
                 <div class="mb-2 ms-1">
                     <button type="button" class="btn text-white" style="background-color: #435EBE;"
                         data-bs-toggle="modal" data-bs-target="#hoadonModal">
@@ -82,49 +75,9 @@
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <form action="/hopdong" method="POST" id="contractForm">
-                                    {{-- @if ($errors->any())
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-                    @endif --}}
                                     @csrf
-                                    {{-- <label for="owner" class="form-label fw-bold">Loại KH:</label>
                                     <div>
-                                        <select id="loaiKH" name="loaikhachhang_id" style="width: 100%;"
-                                            class="js-example-placeholder-single js-states form-control form-select form-select-sm">
-                                            @foreach ($loaikhachhang as $loai)
-                                                <option value="{{ $loai->LOAIKHACHHANG_ID }}">
-                                                    {{ $loai->LOAIKHACHHANG_TEN }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <script>
-                                        $(document).ready(function() {
-                                            $('#loaiKH').select2({
-                                                placeholder: "Chọn loại khách hàng",
-                                                dropdownParent: $("#hoadonModal"),
-                                                matcher: matchCustom,
-                                                allowClear: true,
-                                                language: {
-                                                    noResults: function() {
-                                                        return "Không tìm thấy kết quả";
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    </script> --}}
-                                    <div class="mb-3 mt-3">
-                                        <label for="owner" class="form-label fw-bold">Hợp đồng số:</label>
-                                        <input type="text" class="form-control" id="email"
-                                            placeholder="Nhập vào số hợp đồng" name="hopdong_so">
-                                        <span class="invalid-feedback" id="hopdong_so_error"></span>
-                                    </div>
-                                    <div>
-                                        <label>Loại hợp đồng:</label>
+                                        <label class="form-label fw-bold">Loại hợp đồng:</label>
                                         <select name="loaihopdong_id">
                                             @if (old('loaihopdong_id') == 0)
                                                 <option value=1 selected>Đặt mới</option>
@@ -134,6 +87,12 @@
                                                 <option value=1 selected>Gia hạn</option>
                                             @endif
                                         </select>
+                                    </div>
+                                    <div class="mb-3 mt-3">
+                                        <label for="owner" class="form-label fw-bold">Hợp đồng số:</label>
+                                        <input type="text" class="form-control" id="email"
+                                            placeholder="Nhập vào số hợp đồng" name="hopdong_so">
+                                        <span class="invalid-feedback" id="hopdong_so_error"></span>
                                     </div>
                                     <label for="owner" class="form-label fw-bold">Khách hàng:</label>
                                     <div>
@@ -149,20 +108,19 @@
                                     <div class="row mb-3 mt-3">
                                         <div class="col">
                                             <label for="ngaysinh" class="form-label fw-bold">Ngày ký:</label>
-                                            <input type="date" class="form-control"
-                                                name="hopdong_ngayky">
+                                            <input type="date" class="form-control" name="hopdong_ngayky">
                                             <span class="invalid-feedback" id="hopdong_ngayky_error"></span>
                                         </div>
                                         <div class="col">
                                             <label for="cccd" class="form-label fw-bold">Ngày hiệu lực:</label>
-                                            <input type="date" class="form-control"
-                                                placeholder="Nhập CMND/CCCD" name="hopdong_ngayhieuluc">
+                                            <input type="date" class="form-control" placeholder="Nhập CMND/CCCD"
+                                                name="hopdong_ngayhieuluc">
                                             <span class="invalid-feedback" id="hopdong_ngayhieuluc_error"></span>
                                         </div>
                                         <div class="col">
                                             <label for="ngaycap" class="form-label fw-bold">Ngày kết thúc:</label>
-                                            <input type="date" class="form-control"
-                                                placeholder="Nhập số diện thoại" name="hopdong_ngayketthuc">
+                                            <input type="date" class="form-control" placeholder="Nhập số diện thoại"
+                                                name="hopdong_ngayketthuc">
                                             <span class="invalid-feedback" id="hopdong_ngayketthuc_error"></span>
                                         </div>
                                     </div>
@@ -182,40 +140,42 @@
                                     </div>
                                     <div class="row mb-3 mt-3">
                                         <div class="col">
-                                            <label for="sdt" class="form-label fw-bold">Nội dung:</label>
-                                            <input type="text" class="form-control" placeholder="Nội dung"
+                                            <label for="ndung" class="form-label fw-bold">Nội dung:</label>
+                                            <input type="text" class="form-control" placeholder="Nhập nội dung"
                                                 name="hopdong_noidung">
                                             <span class="invalid-feedback" id="hopdong_noidung_error"></span>
                                         </div>
                                         <div class="col">
-                                            <label for="email" class="form-label fw-bold">Thời gian thực hiện:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập số thời gian"
+                                            <label for="tgthien" class="form-label fw-bold">Thời gian thực
+                                                hiện:</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="Nhập số thời gian, ví dụ: 1 tháng, 1 năm,.."
                                                 name="hopdong_thoigianthuchien">
                                             <span class="invalid-feedback" id="hopdong_thoigianthuchien_error"></span>
                                         </div>
                                     </div>
                                     <div class="row mb-3 mt-3">
                                         <div class="col">
-                                            <label for="ngaysinh" class="form-label fw-bold">Bên A:</label>
+                                            <label for="bena" class="form-label fw-bold">Bên A:</label>
                                             <input type="text" class="form-control" placeholder="Nhập tên bên A"
                                                 name="hopdong_daidienben_a">
                                             <span class="invalid-feedback" id="hopdong_daidienben_a_error"></span>
                                         </div>
                                         <div class="col">
-                                            <label for="cccd" class="form-label fw-bold">Bên B:</label>
+                                            <label for="benb" class="form-label fw-bold">Bên B:</label>
                                             <input type="text" class="form-control" placeholder="Nhập tên bên B"
                                                 name="hopdong_daidienben_b">
                                             <span class="invalid-feedback" id="hopdong_daidienben_b_error"></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 mt-3">
-                                        <label for="ngdaidien" class="form-label fw-bold">Tổng giá trị:</label>
+                                        <label for="tgtri" class="form-label fw-bold">Tổng giá trị:</label>
                                         <input type="number" class="form-control" id="email"
                                             placeholder="Nhập tổng giá trị" name="hopdong_tonggiatri">
                                         <span class="invalid-feedback" id="hopdong_tonggiatri_error"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="ngayhdong" class="form-label fw-bold">Hình thức thanh toán:</label>
+                                        <label for="httoan" class="form-label fw-bold">Hình thức thanh toán:</label>
                                         <select name="hopdong_hinhthucthanhtoan">
                                             @if (old('hopdong_hinhthucthanhtoan') == 0)
                                                 <option value="Chuyển khoản" selected>Chuyển khoản ngân hàng</option>
@@ -225,25 +185,25 @@
                                                 <option value="Tiền mặt" selected>Tiền mặt</option>
                                             @endif
                                         </select>
-                                        {{-- <input type="text" class="form-control" id="pwd"
-                                            placeholder="Nhập hình thức thanh toán" name="hopdong_hinhthucthanhtoan"> --}}
                                         <span class="invalid-feedback" id="hopdong_hinhthucthanhtoan_error"></span>
                                     </div>
-                                    <label for="owner" class="form-label fw-bold">Trạng thái:</label>
-                                    <div>
-                                        <select id="tenKH" name="hopdong_trangthai" style="width: 100%;"
-                                            class="js-example-placeholder-single js-states form-control form-select form-select-sm">
-                                            @foreach ($trangthaihopdongs as $tthdong)
-                                                <option value="{{ $tthdong->TRANGTHAI_ID }}">
-                                                    {{ $tthdong->TRANGTHAI_TEN }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <div class="mb-3 mt-3">
+                                        <label for="tthai" class="form-label fw-bold">Trạng thái:</label>
+                                        <div>
+                                            <select id="tenKH" name="hopdong_trangthai" style="width: 100%;"
+                                                class="js-example-placeholder-single js-states form-control form-select form-select-sm">
+                                                @foreach ($trangthaihopdongs as $tthdong)
+                                                    <option value="{{ $tthdong->TRANGTHAI_ID }}">
+                                                        {{ $tthdong->TRANGTHAI_TEN }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="ngayhdong" class="form-label fw-bold">Ghi chú:</label>
+                                        <label for="gchu" class="form-label fw-bold">Ghi chú:</label>
                                         <input type="text" class="form-control" id="pwd"
-                                            placeholder="Chọn ngày hoạt động" name="hopdong_ghichu">
+                                            placeholder="Điền vào ghi chú" name="hopdong_ghichu">
                                         <span class="invalid-feedback" id="hopdong_ghichu_error"></span>
                                     </div>
                                     <div class="mb-3 mt-3 pb-2 text-center">
@@ -273,6 +233,27 @@
 </a> --}}
 
             <hr />
+
+            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="errorModalLabel">Thông báo lỗi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="errorMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-auto table-striped table-hover">
                     <thead>
@@ -303,9 +284,11 @@
                                 {{ $hopdong->HOPDONG_SO }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_NGAYKY }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_NGAYHIEULUC }}</td>
-                            <td class="w-auto text-truncate" style="max-width: 100px;">{{ $hopdong->HOPDONG_TENGOITHAU }}</td>
+                            <td class="w-auto text-truncate" style="max-width: 100px;">
+                                {{ $hopdong->HOPDONG_TENGOITHAU }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_TENDUAN }}</td>
-                            <td class="align-middle text-truncate" style="max-width: 250px;">{{ $hopdong->HOPDONG_NOIDUNG }}</td>
+                            <td class="align-middle text-truncate" style="max-width: 250px;">
+                                {{ $hopdong->HOPDONG_NOIDUNG }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_DAIDIENBEN_A }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_DAIDIENBEN_B }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}</td>
@@ -316,11 +299,23 @@
                             <td class="w-auto text-truncate">{{ $hopdong->ten_nd }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->TRANGTHAI_TEN }}</td>
                             <td class="text-center w-auto">
-                                <a href="/hopdong/{{ $hopdong->HOPDONG_SO }}">
-                                    <button type="button" class="btn btn-info">
-                                        Chi tiết
-                                    </button>
-                                </a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="/hopdong/{{ $hopdong->HOPDONG_SO }}"
+                                        class="btn btn-success btn-icon-only me-2" aria-label="Xem chi tiết"
+                                        title="Xem chi tiết"><i class="fas fa-file-signature"
+                                            style="color: #000000;"></i></a>
+                                    <a href="/hopdong/{{ $hopdong->HOPDONG_SO }}"
+                                        class="btn btn-info btn-icon-only me-2" aria-label="Sửa"
+                                        title="Sửa hợp đồng"><i class="fas fa-edit"></i></a>
+                                    <form id="deleteForm" action="/hopdong/delete/{{ $hopdong->HOPDONG_ID }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" id="submitDel" class="btn btn-warning btn-icon-only">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    {{-- <a onclick="event.preventDefault(); document.getElementById('deleteForm').submit();" class="btn btn-warning btn-icon-only" aria-label="Xóa" title="Xóa hợp đồng"><i class="fas fa-trash"></i></a> --}}
+                                </div>
                             </td>
                             {{-- <td
                                 class="@if ($khachhang->TRANGTHAI_TEN == 'Đang hoạt động') text-success @elseif($khachhang->TRANGTHAI_TEN == 'Bị khóa') text-danger @elseif($khachhang->TRANGTHAI_TEN == 'Tạm ngưng hoạt động') text-warning @elseif($khachhang->TRANGTHAI_TEN == 'Đã giải thể') text-gray-500 @endif fw-bold text-nowrap text-center w-auto">
@@ -375,7 +370,6 @@
         });
     </script>
     <script>
-
         function matchCustom(params, data) {
             if ($.trim(params.term) === '') {
                 return data;
@@ -423,7 +417,32 @@
             document.getElementById('sidebar').classList.toggle('active');
 
         })
+
+        $(document).ready(function() {
+            $('#deleteForm').on('submit', function(e) {
+                e.preventDefault(); // Ngăn chặn sự kiện mặc định của form
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(response) {
+                        alert('Xóa hợp đồng thành công');
+                        console.log(response);
+                        // Xử lý kết quả thành công (nếu cần)
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Xóa hợp đồng thất bại');
+                        // Xử lý lỗi
+                    }
+                });
+            });
+        });
     </script>
-@include('footer')
+    @include('footer')
 </body>
+
 </html>
