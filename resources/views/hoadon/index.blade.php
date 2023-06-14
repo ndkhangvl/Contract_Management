@@ -103,7 +103,7 @@
                                 <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn">
                                 <span class="invalid-feedback" id="sohoadon_error"></span></br>
                                 File:
-                                <input class="form-control" required type="file" name="filehoadon">
+                                <input class="form-control" type="file" name="filehoadon">
                                 <span class="invalid-feedback" id="filehoadon_error"></span></br>
                                 Thuế (%):
                                 <input class="form-control" id="thuesuat" type="number" name="thuesuat" min="0"

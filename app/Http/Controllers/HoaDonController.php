@@ -329,7 +329,7 @@ class HoaDonController extends Controller
         $request->validate([
             'sohopdong' => 'required',
             'sohoadon' => 'required',
-            'filehoadon' => 'required',
+            //'filehoadon' => 'required',
             'thuesuat' => 'required',
             'tongtien' => 'required',
             'tienthue' => 'required',
@@ -339,8 +339,8 @@ class HoaDonController extends Controller
             'nguoimuahang' => 'required',
         ], [
             'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
-            'sohoadon.required' => '(Modal) Trường số hóa đơn là bắt buộc.',
-            'filehoadon.required' => 'Trường file (Modal) hóa đơn là bắt buộc.',
+            'sohoadon.required' => 'Trường số hóa đơn là bắt buộc.',
+            //'filehoadon.required' => 'Trường file (Modal) hóa đơn là bắt buộc.',
             'thuesuat.required' => 'Trường thuế là bắt buộc.',
             'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
             'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
@@ -360,8 +360,12 @@ class HoaDonController extends Controller
         $tthoadontontai = HoaDon::where('HOADON_SO','=',$request->sohoadon)->first();
         if($tthoadontontai == null) {
             //$this->validator($request->all())->validate();
-            $imageUrl = $this->storeImage($request);
-            $fileUrl = $imageUrl;
+            $fileUrl = "";
+            if ($request->file('filehoadon')){
+                $imageUrl = $this->storeImage($request);
+                $fileUrl = $imageUrl;
+            }
+                
             DB::insert("insert into hoadon(HOPDONG_ID,hoadon_so,HOADON_TRANGTHAI,HOADON_TONGTIEN,HOADON_THUESUAT,HOADON_TIENTHUE,HOADON_TONGTIEN_COTHUE,HOADON_SOTIENBANGCHU,HOADON_NGUOITAO,HOADON_NGAYTAO,HOADON_NGUOIMUAHANG,HOADON_FILE)
             values(
                ?,
