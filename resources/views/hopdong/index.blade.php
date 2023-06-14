@@ -204,13 +204,13 @@
                                         <div class="col">
                                             <label for="cccd" class="form-label fw-bold">Bên B:</label>
                                             <input type="text" class="form-control" placeholder="Nhập tên bên B"
-                                                placeholder="Nhập CMND/CCCD" name="hopdong_daidienben_b">
+                                                name="hopdong_daidienben_b">
                                             <span class="invalid-feedback" id="hopdong_daidienben_b_error"></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="ngdaidien" class="form-label fw-bold">Tổng giá trị:</label>
-                                        <input type="text" class="form-control" id="email"
+                                        <input type="number" class="form-control" id="email"
                                             placeholder="Nhập tổng giá trị" name="hopdong_tonggiatri">
                                         <span class="invalid-feedback" id="hopdong_tonggiatri_error"></span>
                                     </div>
