@@ -420,7 +420,7 @@
 
         $(document).ready(function() {
             $('#deleteForm').on('submit', function(e) {
-                e.preventDefault(); // Ngăn chặn sự kiện mặc định của form
+                e.preventDefault();
 
                 var form = $(this);
                 var url = form.attr('action');
@@ -432,11 +432,9 @@
                     success: function(response) {
                         alert('Xóa hợp đồng thành công');
                         console.log(response);
-                        // Xử lý kết quả thành công (nếu cần)
                     },
                     error: function(xhr, status, error) {
                         alert('Xóa hợp đồng thất bại');
-                        // Xử lý lỗi
                     }
                 });
             });

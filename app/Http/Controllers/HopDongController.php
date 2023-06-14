@@ -24,7 +24,8 @@ class HopDongController extends Controller
             ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
             ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
             ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-            ->orderBy('HOPDONG_ID', 'asc')->get();;
+            ->orderBy('HOPDONG_ID', 'asc')->get();
+        ;
         return view('hopdong.index', [
             'hopdongs' => $hopdongs,
             'trangthaihopdongs' => $trangthaihopdongs,
@@ -79,42 +80,42 @@ class HopDongController extends Controller
             'hopdong_trangthai' => 'required',
             'hopdong_ghichu' => 'required',
         ], [
-            'hopdong_so.required' => 'Trường số hợp đồng là bắt buộc.',
-            'loaihopdong_id.required' => 'Trường loại hợp đồng là bắt buộc.',
-            // 'khachhang_ten.min' => 'Trường tên khách hàng phải có ít nhất :min ký tự.',
-            'khachhang_id.required' => 'Trường khách hàng là bắt buộc.',
-            'hopdong_ngayky.required' => 'Chọn ngày ký là bắt buộc.',
-            'hopdong_ngayhieuluc.required' => 'Chọn ngày hiệu lực là bắt buộc.',
-            'hopdong_ngayketthuc.required' => 'Chọn ngày kết thúc là bắt buộc.',
-            'hopdong_tengoithau.required' => 'Trường tên gói thầu là bắt buộc.',
-            'hopdong_tenduan.required' => 'Trường tên dự án là bắt buộc.',
-            'hopdong_noidung.required' => 'Trường nội dung là bắt buộc.',
-            'hopdong_thoigianthuchien.required' => 'Chọn thời gian thực hiện là bắt buộc.',
-            'hopdong_daidienben_a.required' => 'Trường đại diện bên A là bắt buộc.',
-            'hopdong_daidienben_b.required' => 'Trường đại diện bên B là bắt buộc.',
-            'hopdong_tonggiatri.required' => 'Trường tổng giá trị là bắt buộc.',
-            'hopdong_hinhthucthanhtoan.required' => 'Trường hình thức thanh toán là bắt buộc.',
-            'hopdong_trangthai.required' => 'Trường trạng thái là bắt buộc.',
-            'hopdong_ghichu.required' => 'Trường ghi chú là bắt buộc nếu không có ghi "Không"',
-        ]);
-        
+                'hopdong_so.required' => 'Trường số hợp đồng là bắt buộc.',
+                'loaihopdong_id.required' => 'Trường loại hợp đồng là bắt buộc.',
+                // 'khachhang_ten.min' => 'Trường tên khách hàng phải có ít nhất :min ký tự.',
+                'khachhang_id.required' => 'Trường khách hàng là bắt buộc.',
+                'hopdong_ngayky.required' => 'Chọn ngày ký là bắt buộc.',
+                'hopdong_ngayhieuluc.required' => 'Chọn ngày hiệu lực là bắt buộc.',
+                'hopdong_ngayketthuc.required' => 'Chọn ngày kết thúc là bắt buộc.',
+                'hopdong_tengoithau.required' => 'Trường tên gói thầu là bắt buộc.',
+                'hopdong_tenduan.required' => 'Trường tên dự án là bắt buộc.',
+                'hopdong_noidung.required' => 'Trường nội dung là bắt buộc.',
+                'hopdong_thoigianthuchien.required' => 'Chọn thời gian thực hiện là bắt buộc.',
+                'hopdong_daidienben_a.required' => 'Trường đại diện bên A là bắt buộc.',
+                'hopdong_daidienben_b.required' => 'Trường đại diện bên B là bắt buộc.',
+                'hopdong_tonggiatri.required' => 'Trường tổng giá trị là bắt buộc.',
+                'hopdong_hinhthucthanhtoan.required' => 'Trường hình thức thanh toán là bắt buộc.',
+                'hopdong_trangthai.required' => 'Trường trạng thái là bắt buộc.',
+                'hopdong_ghichu.required' => 'Trường ghi chú là bắt buộc nếu không có ghi "Không"',
+            ]);
+
         // $today = Carbon::today();
 
         $hdong = new HopDong;
-        $hdong->LOAIHOPDONG_ID = $request->loaihopdong_id; 
+        $hdong->LOAIHOPDONG_ID = $request->loaihopdong_id;
         $hdong->KHACHHANG_ID = $request->khachhang_id;
-        $hdong->HOPDONG_SO = $request->hopdong_so; 
-        $hdong->HOPDONG_NGAYKY = $request->hopdong_ngayky; 
-        $hdong->HOPDONG_NGAYHIEULUC = $request->hopdong_ngayhieuluc; 
-        $hdong->HOPDONG_NGAYKETTHUC = $request->hopdong_ngayketthuc; 
-        $hdong->HOPDONG_TENGOITHAU = $request->hopdong_tengoithau; 
-        $hdong->HOPDONG_TENDUAN = $request->hopdong_tenduan; 
-        $hdong->HOPDONG_NOIDUNG = $request->hopdong_noidung; 
-        $hdong->HOPDONG_DAIDIENBEN_A = $request->hopdong_daidienben_a; 
-        $hdong->HOPDONG_DAIDIENBEN_B = $request->hopdong_daidienben_b; 
-        $hdong->HOPDONG_NGUOILAP = Session::get('infoUser.nguoidung_id'); 
-        $hdong->HOPDONG_THOIGIANTHUCHIEN = $request->hopdong_thoigianthuchien; 
-        $hdong->HOPDONG_TONGGIATRI = $request->hopdong_tonggiatri; 
+        $hdong->HOPDONG_SO = $request->hopdong_so;
+        $hdong->HOPDONG_NGAYKY = $request->hopdong_ngayky;
+        $hdong->HOPDONG_NGAYHIEULUC = $request->hopdong_ngayhieuluc;
+        $hdong->HOPDONG_NGAYKETTHUC = $request->hopdong_ngayketthuc;
+        $hdong->HOPDONG_TENGOITHAU = $request->hopdong_tengoithau;
+        $hdong->HOPDONG_TENDUAN = $request->hopdong_tenduan;
+        $hdong->HOPDONG_NOIDUNG = $request->hopdong_noidung;
+        $hdong->HOPDONG_DAIDIENBEN_A = $request->hopdong_daidienben_a;
+        $hdong->HOPDONG_DAIDIENBEN_B = $request->hopdong_daidienben_b;
+        $hdong->HOPDONG_NGUOILAP = Session::get('infoUser.nguoidung_id');
+        $hdong->HOPDONG_THOIGIANTHUCHIEN = $request->hopdong_thoigianthuchien;
+        $hdong->HOPDONG_TONGGIATRI = $request->hopdong_tonggiatri;
         $hdong->HOPDONG_HINHTHUCTHANHTOAN = $request->hopdong_hinhthucthanhtoan;
         $hdong->HOPDONG_TRANGTHAI = $request->hopdong_trangthai;
         $hdong->HOPDONG_GHICHU = $request->hopdong_ghichu;
@@ -132,14 +133,13 @@ class HopDongController extends Controller
         $results = DB::select('SET NOCOUNT ON; EXEC CheckDeleteHopDong ?', [$id]);
         //dd($results);
         $message = $results[0]->message;
-    
+
         if ($message === 'Deleted') {
             return redirect('/hopdong');
         } elseif ($message === 'CannotDelete') {
             return response()->json([
                 'success' => true,
             ]);
-            //return Response::json(['error' => 'Không thể xóa hợp đồng.'], 422);
         } else {
             return Response::json(['error' => 'Có lỗi xảy ra.'], 500);
         }
@@ -166,39 +166,39 @@ class HopDongController extends Controller
             'hopdong_trangthai' => 'required',
             'hopdong_ghichu' => 'required',
         ], [
-            'hopdong_so.required' => 'Trường số hợp đồng là bắt buộc.',
-            'loaihopdong_id.required' => 'Trường loại hợp đồng là bắt buộc.',
-            // 'khachhang_ten.min' => 'Trường tên khách hàng phải có ít nhất :min ký tự.',
-            'khachhang_id.required' => 'Trường khách hàng là bắt buộc.',
-            'hopdong_ngayky.required' => 'Chọn ngày ký là bắt buộc.',
-            'hopdong_ngayhieuluc.required' => 'Chọn ngày hiệu lực là bắt buộc.',
-            'hopdong_ngayketthuc.required' => 'Chọn ngày kết thúc là bắt buộc.',
-            'hopdong_tengoithau.required' => 'Trường tên gói thầu là bắt buộc.',
-            'hopdong_tenduan.required' => 'Trường tên dự án là bắt buộc.',
-            'hopdong_noidung.required' => 'Trường nội dung là bắt buộc.',
-            'hopdong_thoigianthuchien.required' => 'Chọn thời gian thực hiện là bắt buộc.',
-            'hopdong_daidienben_a.required' => 'Trường đại diện bên A là bắt buộc.',
-            'hopdong_daidienben_b.required' => 'Trường đại diện bên B là bắt buộc.',
-            'hopdong_tonggiatri.required' => 'Trường tổng giá trị là bắt buộc.',
-            'hopdong_hinhthucthanhtoan.required' => 'Trường hình thức thanh toán là bắt buộc.',
-            'hopdong_trangthai.required' => 'Trường trạng thái là bắt buộc.',
-            'hopdong_ghichu.required' => 'Trường ghi chú là bắt buộc nếu không có ghi "Không"',
-        ]);
+                'hopdong_so.required' => 'Trường số hợp đồng là bắt buộc.',
+                'loaihopdong_id.required' => 'Trường loại hợp đồng là bắt buộc.',
+                // 'khachhang_ten.min' => 'Trường tên khách hàng phải có ít nhất :min ký tự.',
+                'khachhang_id.required' => 'Trường khách hàng là bắt buộc.',
+                'hopdong_ngayky.required' => 'Chọn ngày ký là bắt buộc.',
+                'hopdong_ngayhieuluc.required' => 'Chọn ngày hiệu lực là bắt buộc.',
+                'hopdong_ngayketthuc.required' => 'Chọn ngày kết thúc là bắt buộc.',
+                'hopdong_tengoithau.required' => 'Trường tên gói thầu là bắt buộc.',
+                'hopdong_tenduan.required' => 'Trường tên dự án là bắt buộc.',
+                'hopdong_noidung.required' => 'Trường nội dung là bắt buộc.',
+                'hopdong_thoigianthuchien.required' => 'Chọn thời gian thực hiện là bắt buộc.',
+                'hopdong_daidienben_a.required' => 'Trường đại diện bên A là bắt buộc.',
+                'hopdong_daidienben_b.required' => 'Trường đại diện bên B là bắt buộc.',
+                'hopdong_tonggiatri.required' => 'Trường tổng giá trị là bắt buộc.',
+                'hopdong_hinhthucthanhtoan.required' => 'Trường hình thức thanh toán là bắt buộc.',
+                'hopdong_trangthai.required' => 'Trường trạng thái là bắt buộc.',
+                'hopdong_ghichu.required' => 'Trường ghi chú là bắt buộc nếu không có ghi "Không"',
+            ]);
 
-        $LOAIHOPDONG_ID = $request->loaihopdong_id; 
+        $LOAIHOPDONG_ID = $request->loaihopdong_id;
         $KHACHHANG_ID = $request->khachhang_id;
-        $HOPDONG_SO = $request->hopdong_so; 
-        $HOPDONG_NGAYKY = $request->hopdong_ngayky; 
-        $HOPDONG_NGAYHIEULUC = $request->hopdong_ngayhieuluc; 
-        $HOPDONG_NGAYKETTHUC = $request->hopdong_ngayketthuc; 
-        $HOPDONG_TENGOITHAU = $request->hopdong_tengoithau; 
-        $HOPDONG_TENDUAN = $request->hopdong_tenduan; 
-        $HOPDONG_NOIDUNG = $request->hopdong_noidung; 
-        $HOPDONG_DAIDIENBEN_A = $request->hopdong_daidienben_a; 
-        $HOPDONG_DAIDIENBEN_B = $request->hopdong_daidienben_b; 
-        $HOPDONG_NGUOILAP = Session::get('infoUser.nguoidung_id'); 
-        $HOPDONG_THOIGIANTHUCHIEN = $request->hopdong_thoigianthuchien; 
-        $HOPDONG_TONGGIATRI = $request->hopdong_tonggiatri; 
+        $HOPDONG_SO = $request->hopdong_so;
+        $HOPDONG_NGAYKY = $request->hopdong_ngayky;
+        $HOPDONG_NGAYHIEULUC = $request->hopdong_ngayhieuluc;
+        $HOPDONG_NGAYKETTHUC = $request->hopdong_ngayketthuc;
+        $HOPDONG_TENGOITHAU = $request->hopdong_tengoithau;
+        $HOPDONG_TENDUAN = $request->hopdong_tenduan;
+        $HOPDONG_NOIDUNG = $request->hopdong_noidung;
+        $HOPDONG_DAIDIENBEN_A = $request->hopdong_daidienben_a;
+        $HOPDONG_DAIDIENBEN_B = $request->hopdong_daidienben_b;
+        $HOPDONG_NGUOILAP = Session::get('infoUser.nguoidung_id');
+        $HOPDONG_THOIGIANTHUCHIEN = $request->hopdong_thoigianthuchien;
+        $HOPDONG_TONGGIATRI = $request->hopdong_tonggiatri;
         $HOPDONG_HINHTHUCTHANHTOAN = $request->hopdong_hinhthucthanhtoan;
         $HOPDONG_TRANGTHAI = $request->hopdong_trangthai;
         $HOPDONG_GHICHU = $request->hopdong_ghichu;
@@ -222,6 +222,7 @@ class HopDongController extends Controller
         HOPDONG_TRANGTHAI = ?,
         HOPDONG_GHICHU = ?
     WHERE HOPDONG_ID = ?;',
-    [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $HOPDONG_ID]);
+            [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $HOPDONG_ID]
+        );
     }
 }
