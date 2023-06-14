@@ -215,7 +215,7 @@
         <form>
             <div class="content">
                 <h5>Nhập số hợp đồng cần tìm</h5>
-                <input class="" name="find" id="find" placeholder="Số hợp đồng...">
+                <input class="" name="find" id="find" placeholder="Số hợp đồng..." onclick="selectHopDong()">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
             </div>
         </form>
@@ -306,12 +306,12 @@
 
             function selectHopDong() {
                 if (document.getElementById("sohopdongsl").value == "-1") {
-                    document.getElementById("find").value = "";
+                    //document.getElementById("find").value = "";
                     document.getElementById("sohopdong").value = "";
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "");
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "");
                 } else {
-                    document.getElementById("find").value = document.getElementById("sohopdongsl").value;
+                    //document.getElementById("find").value = document.getElementById("sohopdongsl").value;
                     document.getElementById("sohopdong").value = document.getElementById("sohopdongsl").value;
                     document.getElementById("errorsohopdong").innerHTML = '';
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "modal");
@@ -320,6 +320,7 @@
             }
 
             function openCreateHDon() {
+                selectHopDong();
                 if (document.getElementById("sohopdongsl").value == "-1") {
                     document.getElementById("errorsohopdong").innerHTML = 'Chưa chọn hợp đồng cần tạo hóa đơn';
                 }
