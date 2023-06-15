@@ -328,6 +328,28 @@
     </div>
     <script>
         $(document).ready(function() {
+            $('#deleteForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(response) {
+                        alert('Xóa hợp đồng thành công');
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Xóa hợp đồng thất bại');
+                    }
+                });
+            });
+        });
+        
+        $(document).ready(function() {
             $('#contractForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
@@ -418,27 +440,6 @@
 
         })
 
-        $(document).ready(function() {
-            $('#deleteForm').on('submit', function(e) {
-                e.preventDefault();
-
-                var form = $(this);
-                var url = form.attr('action');
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        alert('Xóa hợp đồng thành công');
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Xóa hợp đồng thất bại');
-                    }
-                });
-            });
-        });
     </script>
     @include('footer')
 </body>

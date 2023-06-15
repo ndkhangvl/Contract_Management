@@ -137,9 +137,10 @@ class HopDongController extends Controller
         if ($message === 'Deleted') {
             return redirect('/hopdong');
         } elseif ($message === 'CannotDelete') {
-            return response()->json([
-                'success' => true,
-            ]);
+            return redirect('/khachhang');
+            // return response()->json([
+            //     'success' => true,
+            // ]);
         } else {
             return Response::json(['error' => 'Có lỗi xảy ra.'], 500);
         }
