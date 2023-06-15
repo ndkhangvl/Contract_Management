@@ -70,9 +70,9 @@
                     });
                 });
             </script>
-            <button type="button" class="btn btn-primary" onclick="moveToCreate()">Thêm mới (trang mới)</button>
+            {{--<button type="button" class="btn btn-primary" onclick="moveToCreate()">Thêm mới (trang mới)</button>--}}
             <button type="button" class="btn btn-primary" id="btnCreateHDon" onclick="openCreateHDon()">Thêm mới hóa
-                đơn (Modal)</button>
+                đơn</button>
             <a href="/ExportHoaDon">
                 <button type="button" class="btn btn-info">
                     Tải về Excel
