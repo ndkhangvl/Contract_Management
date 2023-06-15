@@ -250,20 +250,20 @@ class HoaDonController extends Controller
                 $request->trangthaihoadon,
                 $fileUrl = $imageUrl
             ]);
+        } else {
+            DB::update('exec updateHoaDon_NoFile ?,?,?,?,?,?,?,?,?',
+            [
+                $id,
+                $request->tongtien,
+                $request->thuesuat,
+                $request->tienthue,
+                $request->tongtiencothue,
+                $request->sotienbangchu,
+                $request->nguoitao,
+                $request->nguoimuahang,
+                $request->trangthaihoadon
+            ]);
         }
-
-        DB::update('exec updateHoaDon_NoFile ?,?,?,?,?,?,?,?,?',
-        [
-            $id,
-            $request->tongtien,
-            $request->thuesuat,
-            $request->tienthue,
-            $request->tongtiencothue,
-            $request->sotienbangchu,
-            $request->nguoitao,
-            $request->nguoimuahang,
-            $request->trangthaihoadon
-        ]);
 
         $soluongchitiet = $request->soluongchitiet;
         for ($i = 1; $i <= $soluongchitiet; $i++){
