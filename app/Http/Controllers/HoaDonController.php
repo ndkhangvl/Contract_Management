@@ -83,7 +83,7 @@ class HoaDonController extends Controller
         $validatedData = $request->validate([
             'sohopdong' => 'required',
             'sohoadon' => 'required',
-            'filehoadon' => 'required',
+            //'filehoadon' => 'required',
             'thuesuat' => 'required',
             'tongtien' => 'required',
             'tienthue' => 'required',
@@ -94,7 +94,7 @@ class HoaDonController extends Controller
         ], [
             'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
             'sohoadon.required' => 'Trường số hóa đơn là bắt buộc.',
-            'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
+            //'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
             'thuesuat.required' => 'Trường thuế là bắt buộc.',
             'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
             'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
@@ -104,7 +104,7 @@ class HoaDonController extends Controller
             'nguoimuahang.required' => 'Trường người mua hàng là bắt buộc.',
         ]);
 
-        //
+        
         $today = Carbon::today();
         $hoadon = new HoaDon;
         $chitiethoadon = new ChiTietHoaDon;
@@ -113,24 +113,14 @@ class HoaDonController extends Controller
         $idhopdong = HopDong::where('HOPDONG_SO', '=', $request->sohopdong)->first();
         $tthoadontontai = HoaDon::where('HOADON_SO','=',$request->sohoadon)->first();
         if($tthoadontontai == null) {
-            //$this->validator($request->all())->validate();
-            $imageUrl = $this->storeImage($request);
-            $fileUrl = $imageUrl;
-            DB::insert("insert into hoadon(HOPDONG_ID,hoadon_so,HOADON_TRANGTHAI,HOADON_TONGTIEN,HOADON_THUESUAT,HOADON_TIENTHUE,HOADON_TONGTIEN_COTHUE,HOADON_SOTIENBANGCHU,HOADON_NGUOITAO,HOADON_NGAYTAO,HOADON_NGUOIMUAHANG,HOADON_FILE)
-            values(
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?
-            );",
+            
+            $fileUrl = "";
+            if ($request->file('filehoadon')){
+                $imageUrl = $this->storeImage($request);
+                $fileUrl = $imageUrl;
+            }
+            
+            $newid = DB::select('SET NOCOUNT ON; exec insertHoaDon ?,?,?,?,?,?,?,?,?,?,?,?',
             [
                 $idhopdong->HOPDONG_ID,
                 $request->sohoadon,
@@ -143,11 +133,9 @@ class HoaDonController extends Controller
                 $request->nguoitao,
                 $today,
                 $request->nguoimuahang,
-                $fileUrl,
+                $fileUrl
             ]);
-            
-            $newid = DB::select(" select max(HOADON_ID) as maxid from HOADON;")[0];
-    
+
             $soluongchitiet = $request->soluongchitiet;
             for ($i = 1; $i <= $soluongchitiet; $i++){
                 $nd = "noidung".$i;
@@ -156,18 +144,9 @@ class HoaDonController extends Controller
                 $dg = "dongia".$i;
                 $tt = "thanhtien".$i;
                 
-                DB::insert("insert into CHITIET_HOADON(HOADON_ID,STT,NOIDUNG,SOLUONG,DVT,DONGIA,THANHTIEN)
-                values(
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?
-                );",
+                DB::update('SET NOCOUNT ON; exec insertChiTietHoaDon ?,?,?,?,?,?,?',
                 [
-                    $newid->maxid,
+                    $newid[0]->HOADON_ID,
                     $i,
                     $request->$nd,
                     $request->$sl,
@@ -176,32 +155,15 @@ class HoaDonController extends Controller
                     $request->$tt,
                 ]);
             }
-
-            //return redirect('/hopdong/'.$request->sohopdong);
+            
             return redirect('/hoadon');
-            /*
-            return response()->json([
-                'success' => true,
-                // 'errors' => $validator->errors(),
-                'input' => $request->all()
-            ]);
-            */
+            
         } else {
             $error = "Lỗi: Số hóa đơn đã tồn tại, vui lòng nhập số hóa đơn khác!";
-            /*return view('/hoadon/create',[
-                'hopdongso' => $request->sohopdong,
-                'error' => $error,
-            ]);*/
+            
             return redirect()->back()->withInput()->with('error', 'Lỗi: Số hóa đơn đã tồn tại, vui lòng nhập số hóa đơn khác!');
 
         }
-        
-        
-        
-        //return dd($newid->maxid);
-        //$hoadon->save();
-        
-        //return dd($idhopdong->HOPDONG_ID);
     }
 
     public function index() {
@@ -244,40 +206,65 @@ class HoaDonController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'sohopdong' => 'required',
+            'sohoadon' => 'required',
+            //'filehoadon' => 'required',
+            'thuesuat' => 'required',
+            'tongtien' => 'required',
+            'tienthue' => 'required',
+            'tongtiencothue' => 'required',
+            'sotienbangchu' => 'required',
+            'nguoitao' => 'required',
+            'nguoimuahang' => 'required',
+        ], [
+            'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
+            'sohoadon.required' => 'Trường số hóa đơn là bắt buộc.',
+            //'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
+            'thuesuat.required' => 'Trường thuế là bắt buộc.',
+            'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
+            'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
+            'tongtiencothue.required' => 'Trường tổng tiền (có thuế) là bắt buộc.',
+            'sotienbangchu.required' => 'Trường số tiền bằng chữ là bắt buộc.',
+            'nguoitao.required' => 'Trường người tạo là bắt buộc.',
+            'nguoimuahang.required' => 'Trường người mua hàng là bắt buộc.',
+        ]);
+
         //$request->validated();
-        if($request->filehoadon == null){
-            $hoadon = HoaDon::where('HOADON_ID', $id)  
-            ->update([
-                'HOADON_THUESUAT' => $request->input('thuesuat'),
-                'HOADON_TONGTIEN' => $request->input('tongtien'),
-                'HOADON_TIENTHUE' => $request->input('tienthue'),
-                'HOADON_TONGTIEN_COTHUE' => $request->input('tongtiencothue'),
-                'HOADON_SOTIENBANGCHU' => $request->input('sotienbangchu'),
-                'HOADON_NGUOITAO' => $request->input('nguoitao'),
-                'HOADON_NGUOIMUAHANG' => $request->input('nguoimuahang'),
-                'HOADON_TRANGTHAI' => $request->input('trangthaihoadon'),
-            ]);
-        }else{
+        
+        $fileUrl = "";
+        if ($request->file('filehoadon')){
             $imageUrl = $this->storeImage($request);
             $fileUrl = $imageUrl;
 
-            $hoadon = HoaDon::where('HOADON_ID', $id)  
-            ->update([
-                'HOADON_THUESUAT' => $request->input('thuesuat'),
-                'HOADON_TONGTIEN' => $request->input('tongtien'),
-                'HOADON_TIENTHUE' => $request->input('tienthue'),
-                'HOADON_TONGTIEN_COTHUE' => $request->input('tongtiencothue'),
-                'HOADON_SOTIENBANGCHU' => $request->input('sotienbangchu'),
-                'HOADON_NGUOITAO' => $request->input('nguoitao'),
-                'HOADON_NGUOIMUAHANG' => $request->input('nguoimuahang'),
-                'HOADON_TRANGTHAI' => $request->input('trangthaihoadon'),
-                'HOADON_FILE' => $fileUrl = $imageUrl,
+            DB::update('exec updateHoaDon_WithFile ?,?,?,?,?,?,?,?,?,?',
+            [
+                $id,
+                $request->tongtien,
+                $request->thuesuat,
+                $request->tienthue,
+                $request->tongtiencothue,
+                $request->sotienbangchu,
+                $request->nguoitao,
+                $request->nguoimuahang,
+                $request->trangthaihoadon,
+                $fileUrl = $imageUrl
             ]);
         }
-        
-        
-        ChiTietHoaDon::where('HOADON_ID', $id)->delete();
-        
+
+        DB::update('exec updateHoaDon_NoFile ?,?,?,?,?,?,?,?,?',
+        [
+            $id,
+            $request->tongtien,
+            $request->thuesuat,
+            $request->tienthue,
+            $request->tongtiencothue,
+            $request->sotienbangchu,
+            $request->nguoitao,
+            $request->nguoimuahang,
+            $request->trangthaihoadon
+        ]);
+
         $soluongchitiet = $request->soluongchitiet;
         for ($i = 1; $i <= $soluongchitiet; $i++){
             $nd = "noidung".$i;
@@ -285,17 +272,8 @@ class HoaDonController extends Controller
             $dvt = "donvitinh".$i;
             $dg = "dongia".$i;
             $tt = "thanhtien".$i;
-            
-            DB::insert("insert into CHITIET_HOADON(HOADON_ID,STT,NOIDUNG,SOLUONG,DVT,DONGIA,THANHTIEN)
-                values(
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?
-                );",
+                
+            DB::update('SET NOCOUNT ON; exec insertChiTietHoaDon ?,?,?,?,?,?,?',
             [
                 $id,
                 $i,
@@ -306,15 +284,13 @@ class HoaDonController extends Controller
                 $request->$tt,
             ]);
         }
+        
         return redirect('/hoadon/'.$request->sohoadon);
     }
 
     public function destroy($id)
     {
-        ChiTietHoaDon::where('HOADON_ID', $id)->delete();
-        $hoadon = HoaDon::find($id);
-        $hoadon->delete();
-        //dd($id);
+        DB::update('exec deleteHoaDon ?', [$id]);
         return redirect('/hoadon');
     }
         
@@ -359,28 +335,14 @@ class HoaDonController extends Controller
         $idhopdong = HopDong::where('HOPDONG_SO', '=', $request->sohopdong)->first();
         $tthoadontontai = HoaDon::where('HOADON_SO','=',$request->sohoadon)->first();
         if($tthoadontontai == null) {
-            //$this->validator($request->all())->validate();
+            
             $fileUrl = "";
             if ($request->file('filehoadon')){
                 $imageUrl = $this->storeImage($request);
                 $fileUrl = $imageUrl;
             }
                 
-            DB::insert("insert into hoadon(HOPDONG_ID,hoadon_so,HOADON_TRANGTHAI,HOADON_TONGTIEN,HOADON_THUESUAT,HOADON_TIENTHUE,HOADON_TONGTIEN_COTHUE,HOADON_SOTIENBANGCHU,HOADON_NGUOITAO,HOADON_NGAYTAO,HOADON_NGUOIMUAHANG,HOADON_FILE)
-            values(
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?,
-               ?
-            );",
+            $newid = DB::select('SET NOCOUNT ON; exec insertHoaDon ?,?,?,?,?,?,?,?,?,?,?,?',
             [
                 $idhopdong->HOPDONG_ID,
                 $request->sohoadon,
@@ -393,11 +355,9 @@ class HoaDonController extends Controller
                 $request->nguoitao,
                 $today,
                 $request->nguoimuahang,
-                $fileUrl,
+                $fileUrl
             ]);
-            
-            $newid = DB::select(" select max(HOADON_ID) as maxid from HOADON;")[0];
-    
+
             $soluongchitiet = $request->soluongchitiet;
             for ($i = 1; $i <= $soluongchitiet; $i++){
                 $nd = "noidung".$i;
@@ -406,18 +366,9 @@ class HoaDonController extends Controller
                 $dg = "dongia".$i;
                 $tt = "thanhtien".$i;
                 
-                DB::insert("insert into CHITIET_HOADON(HOADON_ID,STT,NOIDUNG,SOLUONG,DVT,DONGIA,THANHTIEN)
-                values(
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?,
-                   ?
-                );",
+                DB::update('SET NOCOUNT ON; exec insertChiTietHoaDon ?,?,?,?,?,?,?',
                 [
-                    $newid->maxid,
+                    $newid[0]->HOADON_ID,
                     $i,
                     $request->$nd,
                     $request->$sl,
@@ -426,6 +377,7 @@ class HoaDonController extends Controller
                     $request->$tt,
                 ]);
             }
+
             return response()->json([
                 'success' => true,
                 // 'errors' => $validator->errors(),
@@ -436,18 +388,7 @@ class HoaDonController extends Controller
 
     public function pdf($id) 
     {
-        /*
-        $ds_sanpham = Sanpham::all();
-        $ds_loai    = Loai::all();
-        $data = [
-            'danhsachsanpham' => $ds_sanpham,
-            'danhsachloai'    => $ds_loai,
-        ];
-        */
-
-        /* Code dành cho việc debug
-        - Khi debug cần hiển thị view để xem trước khi Export PDF
-        */
+        
         $hoadon = DB::select("select * from hoadon join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID join KHACHHANG on HOPDONG.KHACHHANG_ID = KHACHHANG.KHACHHANG_ID where HOADON_ID=:id;",
         [
             'id' => $id,
@@ -469,11 +410,7 @@ class HoaDonController extends Controller
         }
         
         $ngayxuat = Carbon::now('Asia/Ho_Chi_Minh')->year."-".Carbon::now('Asia/Ho_Chi_Minh')->month."-".Carbon::now('Asia/Ho_Chi_Minh')->day."_".Carbon::now('Asia/Ho_Chi_Minh')->hour."-".Carbon::now('Asia/Ho_Chi_Minh')->minute."-".Carbon::now('Asia/Ho_Chi_Minh')->second;
-        /*
-        return view('hoadon.pdf')
-            ->with('hoadon', $hoadon)
-            ->with('chitiethoadon', $chitiethoadon);
-        */
+       
         $data = [
             'hoadon' => $hoadon,
             'chitiethoadon'    => $chitiethoadon,
