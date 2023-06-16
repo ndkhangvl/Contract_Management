@@ -44,6 +44,12 @@
     }
 </style>
 <div id="main">
+<div style="display: none">
+    Danh sách số hóa đơn đã có
+    @for ($i = 0; $i < $cnt; $i++)
+        <div class="shdexists" id="{{$dssohoadon[$i]->HOADON_SO}}">{{$dssohoadon[$i]->HOADON_SO}}</div>
+    @endfor
+</div>
     <div class="container shadow bg-white">
         <div class="content p-3">
             <label>Chọn hợp đồng cần tạo hóa đơn</label>
@@ -100,8 +106,9 @@
                                     value="" readonly>
                                 <span class="invalid-feedback" id="sohopdong_error"></span></br>
                                 Hóa đơn số:
-                                <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn">
+                                <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn" id="inputsohoadon">
                                 <span class="invalid-feedback" id="sohoadon_error"></span></br>
+                                <div class="alert alert-danger" id="error_" style="display: none"></div>
                                 File:
                                 <input class="form-control" type="file" name="filehoadon">
                                 <span class="invalid-feedback" id="filehoadon_error"></span></br>
@@ -198,7 +205,7 @@
                                 <div class="mb-3 mt-3 pb-2 text-center">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" id="btnSubmit"
+                                    <button type="submit" id="btnsubmithd"
                                         class="btn btn-success btn-block mb-3 mt-3"><i
                                             class="fas fa-plus me-2"></i>Thêm mới</button>
                                 </div>
@@ -560,6 +567,22 @@
 
                 return null;
             }
+
+            function checkSHDExists() {
+                var hoadontontai = document.getElementsByClassName('shdexists');
+                $shd = document.getElementById("inputsohoadon").value;
+                document.getElementById("error_").setAttribute('style','display: none');
+                document.getElementById("error_").innerHTML = "";
+                document.getElementById("btnsubmithd").removeAttribute('disabled', 'true');
+                for(var i=0; i < hoadontontai.length; i++){
+                        if ($shd == hoadontontai[i].id){
+                                document.getElementById("error_").removeAttribute('style','display: none');
+                                document.getElementById("error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
+                                document.getElementById("btnsubmithd").setAttribute('disabled', 'true');
+                        }
+                }
+            }
+            document.getElementById("inputsohoadon").addEventListener('input', checkSHDExists);
         </script>
     </div>
 </div>

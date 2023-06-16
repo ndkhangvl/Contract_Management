@@ -174,9 +174,12 @@ class HoaDonController extends Controller
         }
         //return dd($hoadons);
         $hopdongs = DB::select("select * from HOPDONG");
+        $dssohoadon = DB::select("select HOADON_SO from hoadon;");
         return view('hoadon.index', [
             'hoadons' => $hoadons,
             'hopdongs' => $hopdongs,
+            'dssohoadon' => $dssohoadon,
+            'cnt' => count($dssohoadon)
         ]);
         
     }
