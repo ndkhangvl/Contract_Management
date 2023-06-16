@@ -68,7 +68,7 @@
                                         @enderror
                                         <br/>
                                         Hóa đơn số:
-                                        <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" placeholder="Số hóa đơn"  value="{{ old('sohoadon') }}">
+                                        <input class="form-control" id="inputsohoadon" type="text" name="sohoadon" placeholder="Số hóa đơn"  value="{{ old('sohoadon') }}" oninput="this.value = this.value.toUpperCase()">
                                         <div class="alert alert-danger" id="error_" style="display: none"></div>
                                         @error('sohoadon')
                                                 <div class="alert alert-danger">{{ $message }}</div>

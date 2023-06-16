@@ -106,7 +106,7 @@
                                     value="" readonly>
                                 <span class="invalid-feedback" id="sohopdong_error"></span></br>
                                 Hóa đơn số:
-                                <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn" id="inputsohoadon">
+                                <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn" id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
                                 <span class="invalid-feedback" id="sohoadon_error"></span></br>
                                 <div class="alert alert-danger" id="error_" style="display: none"></div>
                                 File:
