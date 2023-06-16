@@ -59,6 +59,13 @@ class HopDongController extends Controller
 
     }
 
+    protected function storeImage(Request $request) {
+        $fileName = $request->get('hopdong_so') . '.' . $request->file('filehopdong')->extension();        
+        $path = $request->file('filehopdong')->storeAs('public/HopDong', $fileName);
+        return substr($path, strlen('public/'));
+    }
+
+
     public function store(Request $request)
     {
         //
@@ -100,6 +107,11 @@ class HopDongController extends Controller
             ]);
 
         // $today = Carbon::today();
+        $fileUrl = "";
+        if ($request->file('filehopdong')){
+            $imageUrl = $this->storeImage($request);
+            $fileUrl = $imageUrl;
+        }
 
         $hdong = new HopDong;
         $hdong->LOAIHOPDONG_ID = $request->loaihopdong_id;
@@ -119,6 +131,7 @@ class HopDongController extends Controller
         $hdong->HOPDONG_HINHTHUCTHANHTOAN = $request->hopdong_hinhthucthanhtoan;
         $hdong->HOPDONG_TRANGTHAI = $request->hopdong_trangthai;
         $hdong->HOPDONG_GHICHU = $request->hopdong_ghichu;
+        $hdong->HOPDONG_FILE = $fileUrl;
         $hdong->save();
         return response()->json([
             'success' => true,

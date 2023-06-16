@@ -74,7 +74,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid">
-                                <form action="/hopdong" method="POST" id="contractForm">
+                                <form action="/hopdong" method="POST" id="contractForm" enctype="multipart/form-data">
                                     @csrf
                                     <div>
                                         <label class="form-label fw-bold">Loại hợp đồng:</label>
@@ -205,6 +205,11 @@
                                         <input type="text" class="form-control" id="pwd"
                                             placeholder="Điền vào ghi chú" name="hopdong_ghichu">
                                         <span class="invalid-feedback" id="hopdong_ghichu_error"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="hdfile" class="form-label fw-bold">File hợp đồng (nếu có):</label>
+                                        <input type="file" name="filehopdong" class="form-control" id="filehopdong">
+                                        <span class="invalid-feedback" id="hopdong_file_error"></span>
                                     </div>
                                     <div class="mb-3 mt-3 pb-2 text-center">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -353,10 +358,16 @@
             $('#contractForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
+                var form = $('#contractForm')[0];
+                // Create an FormData object 
+                var data = new FormData(form);
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
-                    data: formData,
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false, // Important!
+                    contentType: false,
                     success: function(success) {
                         if (success) {
                             alert('Thêm mới hợp đồng thành công');

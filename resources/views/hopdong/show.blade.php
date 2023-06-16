@@ -41,7 +41,7 @@
         <h4>Hình thức thanh toán: {{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}</h4>
         <h4>Ghi chú: {{ $hopdong->HOPDONG_GHICHU }}</h4>
         <h4>Trạng thái hợp đồng: {{ $hopdong->TRANGTHAI_TEN }}</h4>
-        <h4>File: {{ $hopdong->HOPDONG_FILE }}</h4>
+        <h4>File: <b><a href="{{asset('storage/'.$hopdong->HOPDONG_FILE)}}">{{ $hopdong->HOPDONG_FILE }}</a></b></h4>
 
 
         <h1>Danh sách hóa đơn</h1>
