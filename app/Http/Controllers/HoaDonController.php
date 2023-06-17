@@ -170,7 +170,7 @@ class HoaDonController extends Controller
         
         $perPage = 10;
         $currentPage = request()->get('page', 1);
-        $key = 'null';
+        $key = '';
         $state = 2;
         $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',[$key, 2]);
         if ($key = request()->find) {
@@ -191,16 +191,16 @@ class HoaDonController extends Controller
         } else {
             switch (request()->state) {
                 case '2':
-                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',2]);
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['',2]);
                     break;
                 case '0':
-                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',0]);
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['',0]);
                     break;
                 case '1':
-                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',1]);
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['',1]);
                     break;
                 default:
-                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',2]);
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['',2]);
                     break;
             }
         }
