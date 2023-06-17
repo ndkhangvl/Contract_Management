@@ -152,12 +152,14 @@
                         </tr>
                     </tbody>
                     </table>
-                    <hr style="border-top: 2px dashed black;"/>
-                    <div class="contentright"><i>*Ngày in: {{$ngayin}}</i></div>
                 </div>
                 </div>
             </div>
             </div>
         </div>
     </div>
+    <footer>
+        <hr style="border-top: 2px dashed black;"/>
+        <div class="contentright"><i>*Ngày in: {{$ngayin}}</i></div>
+    </footer>
 </body>

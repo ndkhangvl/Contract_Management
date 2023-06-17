@@ -63,7 +63,7 @@
                 <div class="contentright">
                     <a href="/hoadon/{{$hoadon->HOADON_SO}}/edit"><button type="button" class="btn btn-primary">Cập nhật Thông tin</button></a>
                     <br>
-                    <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post">
+                    <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post" onsubmit="return confirmDelete()">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger">Xóa</button>
@@ -187,4 +187,9 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete() {
+        return confirm('Bạn có chắc chắn muốn xóa hóa đơn?');
+    }
+</script>
 @include('footer')
