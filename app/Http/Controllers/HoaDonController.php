@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use App\Exports\InvoiceExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\URL;
 class HoaDonController extends Controller
 {
@@ -167,69 +167,58 @@ class HoaDonController extends Controller
     }
 
     public function index() {
-        //$hoadons = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID order by HOADON_ID desc");
-        $hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->orderBy('HOADON_TRANGTHAI','asc')->orderBy('HOADON_ID','desc')->paginate(10);
-        if($key = request()->find){
-            //$hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->where('HOPDONG_SO', 'like','%'.$key.'%')->orderBy('HOADON_ID','desc')->paginate(10);
-            switch(request()->state) {
-                case('2'):
-                    $hoadons = DB::table('HOADON')
-                        ->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')
-                        ->where('HOPDONG_SO', 'like','%'.$key.'%')
-                        ->orWhere('HOADON_SO', 'like', '%'.$key.'%')
-                        ->orderBy('HOADON_TRANGTHAI','asc')
-                        ->orderBy('HOADON_ID','desc')
-                        ->paginate(10);
+        
+        $perPage = 10;
+        $currentPage = request()->get('page', 1);
+        $key = 'null';
+        $state = 2;
+        $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',[$key, 2]);
+        if ($key = request()->find) {
+            switch (request()->state) {
+                case '2':
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',[$key,2]);
                     break;
-                case('0'):
-                    $hoadons = DB::table('HOADON')
-                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
-                        ->where('HOADON_TRANGTHAI', '=', '0')
-                        ->where(function ($query) use ($key) {
-                            $query->where('HOPDONG_SO', 'like', '%'.$key.'%')
-                                ->orWhere('HOADON_SO', 'like', '%'.$key.'%');
-                        })
-                        ->orderBy('HOADON_ID', 'desc')
-                        ->paginate(10);
+                case '0':
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',[$key,0]);
                     break;
-                case('1'):
-                    $hoadons = DB::table('HOADON')
-                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
-                        ->where('HOADON_TRANGTHAI', '=', '1')
-                        ->where(function ($query) use ($key) {
-                            $query->where('HOPDONG_SO', 'like', '%'.$key.'%')
-                                ->orWhere('HOADON_SO', 'like', '%'.$key.'%');
-                        })
-                        ->orderBy('HOADON_ID', 'desc')
-                        ->paginate(10);
+                case '1':
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',[$key,1]);
+                    break;
+                default:
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',[$key,2]);
                     break;
             }
-        }else{
-            switch(request()->state) {
-                case('2'):
-                    $hoadons = DB::table('HOADON')
-                        ->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')
-                        ->orderBy('HOADON_TRANGTHAI','asc')
-                        ->orderBy('HOADON_ID','desc')
-                        ->paginate(10);
+        } else {
+            switch (request()->state) {
+                case '2':
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',2]);
                     break;
-                case('0'):
-                    $hoadons = DB::table('HOADON')
-                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
-                        ->where('HOADON_TRANGTHAI', '=', '0')
-                        ->orderBy('HOADON_ID', 'desc')
-                        ->paginate(10);
+                case '0':
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',0]);
                     break;
-                case('1'):
-                    $hoadons = DB::table('HOADON')
-                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
-                        ->where('HOADON_TRANGTHAI', '=', '1')
-                        ->orderBy('HOADON_ID', 'desc')
-                        ->paginate(10);
+                case '1':
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',1]);
+                    break;
+                default:
+                    $results = DB::select('EXEC GetHoaDonWithHopDong ?, ?',['null',2]);
                     break;
             }
         }
-        //return dd($hoadons);
+
+        $total = count($results);
+        $offset = ($currentPage - 1) * $perPage;
+        $results = array_slice($results, $offset, $perPage);
+        $hoadons = new LengthAwarePaginator(
+            $results,
+            $total,
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+        
         $hopdongs = DB::select("select * from HOPDONG");
         $dssohoadon = DB::select("select HOADON_SO from hoadon;");
         return view('hoadon.index', [
