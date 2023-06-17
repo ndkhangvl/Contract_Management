@@ -69,6 +69,18 @@
                     </button>
                 </div>
             </div>
+            @if (session('success'))
+                <div id="success-alert" class="alert alert-success">
+                    {{ session('success') }}
+                    <button type="button" class="close" onclick="closeAlert()">&times;</button>
+                </div>
+            @endif
+
+            <script>
+                function closeAlert() {
+                    document.getElementById('success-alert').style.display = 'none';
+                }
+            </script>
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">

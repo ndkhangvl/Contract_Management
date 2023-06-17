@@ -61,6 +61,7 @@ Route::get('/test', function () {
 });
 
 Route::get('/test2', [KhachHangController::class, 'create'])->middleware('isLogin');
+Route::delete('/idkhachhang/{id}', [KhachHangController::class, 'destroy'])->name('idkhachhang.destroy');
 // Route::get('test2/{lang}', function($lang) {
 //     App::setlocale($lang);
 //     return view('auth.login');

@@ -18,15 +18,32 @@
     <div class="container bg-white shadow">
         <h1>Chi tiết Khách Hàng</h1>
 
-@foreach ($khachhang as $khachhang)
+@if (session('error'))
+    <div id="alert-danger" class="alert alert-danger" style="width: 375px">
+        {{ session('error') }}
+        <button type="button" class="close" style="border-radius: 50% red"  onclick="closeAlert()">&times;</button>
+    </div>
+@endif
 
-<form action="/khachhang/{{$khachhang->KHACHHANG_ID}}" method="post">
-      @csrf
-      @method('delete')
-      <button type="submit" class="btn btn-danger">
+<script>
+    function closeAlert() {
+        document.getElementById('alert-danger').style.display = 'none';
+    }
+</script>
+
+@foreach ($khachhang as $khachhang)
+<form action="{{ route('idkhachhang.destroy', ['id' => $khachhang->KHACHHANG_ID]) }}" method="POST" onsubmit="return confirmDelete()" id="xoaKH">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger">
         Xóa
-      </button>
+    </button>
 </form>
+<script>
+    function confirmDelete() {
+        return confirm('Bạn có chắc chắn muốn xóa khách hàng?');
+    }
+</script>
 
 <a href="/khachhang/{{$khachhang->KHACHHANG_ID}}/edit">
     <button type="button" class="btn btn-primary">

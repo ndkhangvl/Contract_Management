@@ -151,9 +151,17 @@ class KhachHangController extends Controller
 
     public function destroy($id)
     {
-        $khhang = KhachHang::find($id);
-        $khhang->delete();
-        //dd($id);
-        return redirect('/khachhang');
+        $khachhang = KhachHang::find($id);
+        $hopdong = HopDong::where('KHACHHANG_ID', $khachhang->KHACHHANG_ID)->first();
+
+        if ($hopdong) {
+            session()->flash('error', 'Không thể xóa khách hàng vì có hợp đồng.');
+            return back();
+        }
+
+        $khachhang->delete();
+        session()->flash('success', 'Xóa khách hàng thành công.');
+        return redirect()->route('khachhang.index');
     }
+
 }
