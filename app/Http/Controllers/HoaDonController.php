@@ -168,9 +168,66 @@ class HoaDonController extends Controller
 
     public function index() {
         //$hoadons = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID order by HOADON_ID desc");
-        $hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->orderBy('HOADON_ID','desc')->paginate(10);
+        $hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->orderBy('HOADON_TRANGTHAI','asc')->orderBy('HOADON_ID','desc')->paginate(10);
         if($key = request()->find){
-            $hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->where('HOPDONG_SO', 'like','%'.$key.'%')->orderBy('HOADON_ID','desc')->paginate(10);
+            //$hoadons = DB::table('HOADON')->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')->where('HOPDONG_SO', 'like','%'.$key.'%')->orderBy('HOADON_ID','desc')->paginate(10);
+            switch(request()->state) {
+                case('2'):
+                    $hoadons = DB::table('HOADON')
+                        ->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')
+                        ->where('HOPDONG_SO', 'like','%'.$key.'%')
+                        ->orWhere('HOADON_SO', 'like', '%'.$key.'%')
+                        ->orderBy('HOADON_TRANGTHAI','asc')
+                        ->orderBy('HOADON_ID','desc')
+                        ->paginate(10);
+                    break;
+                case('0'):
+                    $hoadons = DB::table('HOADON')
+                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
+                        ->where('HOADON_TRANGTHAI', '=', '0')
+                        ->where(function ($query) use ($key) {
+                            $query->where('HOPDONG_SO', 'like', '%'.$key.'%')
+                                ->orWhere('HOADON_SO', 'like', '%'.$key.'%');
+                        })
+                        ->orderBy('HOADON_ID', 'desc')
+                        ->paginate(10);
+                    break;
+                case('1'):
+                    $hoadons = DB::table('HOADON')
+                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
+                        ->where('HOADON_TRANGTHAI', '=', '1')
+                        ->where(function ($query) use ($key) {
+                            $query->where('HOPDONG_SO', 'like', '%'.$key.'%')
+                                ->orWhere('HOADON_SO', 'like', '%'.$key.'%');
+                        })
+                        ->orderBy('HOADON_ID', 'desc')
+                        ->paginate(10);
+                    break;
+            }
+        }else{
+            switch(request()->state) {
+                case('2'):
+                    $hoadons = DB::table('HOADON')
+                        ->join('HOPDONG','HOADON.HOPDONG_ID','=','HOPDONG.HOPDONG_ID')
+                        ->orderBy('HOADON_TRANGTHAI','asc')
+                        ->orderBy('HOADON_ID','desc')
+                        ->paginate(10);
+                    break;
+                case('0'):
+                    $hoadons = DB::table('HOADON')
+                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
+                        ->where('HOADON_TRANGTHAI', '=', '0')
+                        ->orderBy('HOADON_ID', 'desc')
+                        ->paginate(10);
+                    break;
+                case('1'):
+                    $hoadons = DB::table('HOADON')
+                        ->join('HOPDONG', 'HOADON.HOPDONG_ID', '=', 'HOPDONG.HOPDONG_ID')
+                        ->where('HOADON_TRANGTHAI', '=', '1')
+                        ->orderBy('HOADON_ID', 'desc')
+                        ->paginate(10);
+                    break;
+            }
         }
         //return dd($hoadons);
         $hopdongs = DB::select("select * from HOPDONG");

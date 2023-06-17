@@ -221,8 +221,33 @@
         <hr />
         <form>
             <div class="content">
-                <h5>Nhập số hợp đồng cần tìm</h5>
-                <input class="" name="find" id="find" placeholder="Số hợp đồng..." onclick="selectHopDong()">
+                <h5>Nhập số hợp đồng/hóa đơn cần tìm</h5>
+                <input class="" name="find" id="find" placeholder="Số hợp đồng/hóa đơn" value="{{ request()->input('find') }}">
+                <select name="state">
+                    @if(request()->has('state'))
+                        @switch(request()->input('state'))
+                            @case('2')
+                                <option value=2 selected>Toàn bộ</option>
+                                <option value=0>Chưa thanh toán</option>
+                                <option value=1>Đã thanh toán</option>
+                                @break
+                            @case('0')
+                                <option value=2>Toàn bộ</option>
+                                <option value=0 selected>Chưa thanh toán</option>
+                                <option value=1>Đã thanh toán</option>
+                                @break  
+                            @case('1')
+                                <option value=2>Toàn bộ</option>
+                                <option value=0>Chưa thanh toán</option>
+                                <option value=1 selected>Đã thanh toán</option>
+                                @break  
+                        @endswitch
+                    @else
+                        <option value=2 selected>Toàn bộ</option>
+                        <option value=0>Chưa thanh toán</option>
+                        <option value=1>Đã thanh toán</option>
+                    @endif
+                </select>
                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
             </div>
         </form>
@@ -242,7 +267,7 @@
                     @if ($hdd->HOADON_TRANGTHAI == 1)
                         <td>Đã thanh toán</td>
                     @else
-                        <td>Chưa thanh toán</td>
+                        <td><b style="color: red">Chưa thanh toán</b></td>
                     @endif
                     <td>{{ $hdd->HOADON_TONGTIEN_COTHUE }} VNĐ</td>
                     <td>{{ $hdd->HOADON_NGAYTAO }}</td>
