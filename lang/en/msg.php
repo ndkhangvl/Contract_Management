@@ -17,4 +17,5 @@ return [
     'logout' => 'Log Out',
     'info' => 'Information Customer',
     'listcus' => 'Customer Type',
+    'loading' => 'Loading...'
 ];

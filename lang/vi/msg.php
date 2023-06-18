@@ -29,4 +29,5 @@ return [
     'logout' => 'Đăng xuất',
     'info' => 'Thông Tin',
     'listcus' => 'Loại Khách Hàng',
+    'loading' => 'Đang xử lý...',
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 //use Auth;
 use Illuminate\Support\Facades\App;
@@ -75,8 +76,14 @@ class UserAuthController extends Controller
         
         $request->validate([
             'ma_nd' => 'required',
-            'matkhau' => 'required|min:5|max:12',
+            'matkhau' => 'required|min:5|max:30',
             'captcha' => 'required'
+        ], [
+            'ma_nd.required' => 'Vui lòng nhập tên đăng nhập.',
+            'matkhau.required' => 'Vui lòng nhập mật khẩu.',
+            'matkhau.min' => 'Mật khẩu phải ít nhất :min ký tự.',
+            'matkhau.max' => 'Mật khẩu tối đa :max ký tự.',
+            'captcha.required' => 'Vui lòng nhập mã captcha.',
         ]);
 
         $captchaData = $request->input('captcha');
@@ -84,14 +91,15 @@ class UserAuthController extends Controller
 
         //$taikhoan = $request->only('ma_nd','matkhau');
         if (!$isCaptchaValid) {
-            return back()->with('fail', 'Mã xác nhận sai');
-            return false;
+            return response()->json(['success' => false, 'captcha' => false, 'message' => 'Mã captcha không đúng']);
+            // return false;
         }
 
         $user = TaiKhoan::where('ma_nd','=', $request-> ma_nd)->first();
         $puser = TaiKhoan::where('matkhau', '=', $request->matkhau)->first();
         if($user && !$puser) {
-            return back()->with('fail', 'Mật khẩu không đúng.');
+            // return back()->with('fail', 'Mật khẩu không đúng.');
+            return response()->json(['success' => false, 'message' => 'Mật khẩu không đúng']);
         }
         if($user && $puser) {
             $request->session()->put('loginId', $user->nguoidung_id);
@@ -104,11 +112,8 @@ class UserAuthController extends Controller
             $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
             join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
             // return view('khachhang.index', compact('data'));
-            return redirect('/khachhang');
-            // return view('khachhang.index', compact('data'), [
-            //     'khachhangs' => $khachhangs,
-            //     'loaikhachhang' => $loaikhachhang,
-            // ]);
+            // return redirect('/khachhang');
+            return response()->json(['success' => true, 'redirect' => '/khachhang']);
         } else {
             return back()->with('fail', 'Tên đăng nhập không tồn tại.');
         }
