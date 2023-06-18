@@ -439,18 +439,18 @@
                             <th class="text-center text-nowrap">HĐ số</th>
                             <th class="text-center text-nowrap">Ngày ký</th>
                             <th class="text-center text-nowrap">Ngày hiệu lực</th>
-                            <th class="text-center text-nowrap">Tên gói thầu</th>
-                            {{-- <th class="text-center text-nowrap">Tên dự án</th> --}}
-                            {{-- <th class="text-center text-nowrap">Nội dung</th>
+                            {{--<th class="text-center text-nowrap">Tên gói thầu</th>
+                            <th class="text-center text-nowrap">Tên dự án</th>
+                            <th class="text-center text-nowrap">Nội dung</th>
                             <th class="text-center text-nowrap">Đại diện bên A</th>
-                            <th class="text-center text-nowrap">Đại diện bên B</th> --}}
-                            <th class="text-center text-nowrap">Thời gian thực hiện</th>
+                            <th class="text-center text-nowrap">Đại diện bên B</th>
+                            <th class="text-center text-nowrap">Thời gian thực hiện</th>--}}
                             <th class="text-center text-nowrap">Tổng giá trị</th>
-                            {{-- <th class="text-center text-nowrap">Hình thức thanh toán</th> --}}
-                            {{-- <th class="text-center text-nowrap">File</th> --}}
-                            <th class="text-center text-nowrap">Ghi chú</th>
+                            {{--<th class="text-center text-nowrap">Hình thức thanh toán</th>
+                            <th class="text-center text-nowrap">File</th>
+                            <th class="text-center text-nowrap">Ghi chú</th>--}}
                             <th class="text-center text-nowrap">Người lập</th>
-                            <th class="text-center text-nowrap">Trạng thái hợp đồng</th>
+                            {{--<th class="text-center text-nowrap">Trạng thái hợp đồng</th>--}}
                             <th class="text-center text-nowrap">Xem chi tiết</th>
                         </tr>
                     </thead>

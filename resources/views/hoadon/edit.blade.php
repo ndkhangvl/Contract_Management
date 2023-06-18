@@ -1,7 +1,7 @@
 <title>Cập nhật hóa đơn | {{$hoadon->HOADON_SO}}</title>
 @include('header2')
-@include('header')
-
+@include('sidebar')
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
 <style>
         form {
                 justify-content: center;
@@ -23,7 +23,7 @@
                 
         }
         .inputstt {
-                width: 30px;
+                width: 70px;
         }
         
         table {
@@ -35,6 +35,9 @@
                 padding: 20px;
         }
 </style>
+<div id="main">
+<div class="container bg-white shadow">
+<a href="/hoadon/{{$hoadon->HOADON_SO}}"><b><i class="bi bi-arrow-return-left"></i>{{$hoadon->HOADON_SO}}</a></b>
 <div class="bodyfake">
         <h1>Cập nhật Hoá đơn</h1>
         <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post" enctype="multipart/form-data">
@@ -46,32 +49,74 @@
                         {{ session('error') }}
                         </div>
                 @endif
-                Hợp đồng số: 
-                <input class="form-control" type="text" name="sohopdong" required value="{{$hoadon->HOPDONG_SO}}" readonly>
-                Hóa đơn số: 
-                <input class="form-control" type="text" name="sohoadon" required value="{{$hoadon->HOADON_SO}}" readonly>
-                File: <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}">{{$hoadon->HOADON_FILE}}</a><br>
-                <div id="wrapper">
-                        <label>Bạn có muốn cập nhật file mới không?</label>
-                        <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input></p>
-                        <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">Hợp đồng:</label>
+                                <input class="form-control" type="text" name="sohopdong" required value="{{$hoadon->HOPDONG_SO}}" readonly>
+                        </div>
+                        <div class="col">
+                                <label class="form-label fw-bold">Hóa đơn số:</label>
+                                <input class="form-control" type="text" name="sohoadon" required value="{{$hoadon->HOADON_SO}}" readonly id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
+                                <span class="invalid-feedback" id="sohoadon_error"></span>
+                                <div class="alert alert-danger" id="error_" style="display: none"></div>
+                        </div>
                 </div>
-                File mới:
-                <input class="form-control" type="file" name="filehoadon" id="filehoadon" disabled required>
-                Thuế (%):
-                <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" value="{{$hoadon->HOADON_THUESUAT}}">
-                Tổng tiền (VNĐ): 
-                <input class="form-control" required type="text" name="tongtien" id="tongtien" value="{{$hoadon->HOADON_TONGTIEN}}" readonly>
-                Tiền thuế (VNĐ): 
-                <input class="form-control" required type="text" name="tienthue" id="tienthue" value="{{$hoadon->HOADON_TIENTHUE}}" readonly>
-                Tổng tiền có thuế (VNĐ): 
-                <input class="form-control" required type="text" name="tongtiencothue" id="tongtiencothue" value="{{$hoadon->HOADON_TONGTIEN_COTHUE}}" readonly>
-                Số tiền (bằng chữ):
-                <input class="form-control" required value="{{$hoadon->HOADON_SOTIENBANGCHU}}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
-                Người tạo:
-                <input class="form-control" required value="{{$hoadon->HOADON_NGUOITAO}}" type="text" name="nguoitao">
-                Người mua hàng:
-                <input class="form-control" required value="{{$hoadon->HOADON_NGUOIMUAHANG}}" type="text" name="nguoimuahang">
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">File hợp đồng:</label>
+                                <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}"  target="_blank">{{$hoadon->HOADON_FILE}}</a>
+                        </div>
+                        <div class="col">
+                                <div id="wrapper">
+                                        <label class="form-label fw-bold">Bạn có muốn cập nhật file mới không?</label>
+                                        <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input></p>
+                                        <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
+                                </div>
+                        </div>
+                </div>
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">File mới:</label>
+                                <input class="form-control" type="file" name="filehoadon" id="filehoadon" disabled required>
+                        </div>
+                </div>
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">Thuế (%):</label>
+                                <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" value="{{$hoadon->HOADON_THUESUAT}}">
+                        </div>
+                        <div class="col">
+                                <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
+                                <input class="form-control" required type="text" name="tongtien" id="tongtien" value="{{$hoadon->HOADON_TONGTIEN}}" readonly>
+                        </div>
+                </div>
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
+                                <input class="form-control" required type="text" name="tienthue" id="tienthue" value="{{$hoadon->HOADON_TIENTHUE}}" readonly>
+                        </div>
+                        <div class="col">
+                                <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
+                                <input class="form-control" required type="text" name="tongtiencothue" id="tongtiencothue" value="{{$hoadon->HOADON_TONGTIEN_COTHUE}}" readonly>
+                        </div>
+                </div>
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
+                                <input class="form-control" required value="{{$hoadon->HOADON_SOTIENBANGCHU}}" type="text" id="sotienbangchu" name="sotienbangchu" readonly>
+                        </div>
+                </div>
+                <div class="row mb-3 mt-3">
+                        <div class="col">
+                                <label class="form-label fw-bold">Người tạo:</label>
+                                <input class="form-control" required value="{{$hoadon->HOADON_NGUOITAO}}" type="text" name="nguoitao">
+                        </div>
+                        <div class="col">
+                                <label class="form-label fw-bold">Người mua hàng:</label>
+                                <input class="form-control" required value="{{$hoadon->HOADON_NGUOIMUAHANG}}" type="text" name="nguoimuahang">
+                        </div>
+                </div>
+                
                 <div>
                         <hr>
                         <label>Trạng thái hóa đơn:</label>
@@ -91,6 +136,7 @@
                 Số lượng loại sản phẩm:
                 <input class="form-control" type="number" name="soluongchitiet" value="{{$cnt}}" min="0" id="slct" required readonly><hr>
                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
+
                 <table id='tablechitiet'>
                         <tr>
                         <th>STT</th>
@@ -106,7 +152,7 @@
                         <tr>
                                 <td><input type="text" class="inputstt" name="stt{{$cthd->STT}}" id="stt{{$cthd->STT}}" value="{{$cthd->STT}}" readonly class="inputstt"></td>
                                 <td><input type="text" name="noidung{{$cthd->STT}}" id="noidung{{$cthd->STT}}" value="{{$cthd->NOIDUNG}}"></td>
-                                <td><input type="number" class="soluong" name="soluong{{$cthd->STT}}" id="soluong{{$cthd->STT}}" value="{{$cthd->SOLUONG}}" min="0"></td>
+                                <td><input type="number" class="soluong inputstt" name="soluong{{$cthd->STT}}" id="soluong{{$cthd->STT}}" value="{{$cthd->SOLUONG}}" min="0"></td>
                                 <td><input type="text" name="donvitinh{{$cthd->STT}}" id="donvitinh{{$cthd->STT}}" value="{{$cthd->DVT}}"></td>
                                 <td><input type="number" class="dongia" name="dongia{{$cthd->STT}}" id="dongia{{$cthd->STT}}" value="{{$cthd->DONGIA}}" min="0"></td>
                                 <td><input type="text" name="thanhtien{{$cthd->STT}}" readonly id="thanhtien{{$cthd->STT}}" value="{{$cthd->THANHTIEN}}"></td>
@@ -118,6 +164,8 @@
                 <button class="btn btn-primary" type="submit">Cập nhật hóa đơn</button>
                 <hr>
         </form>
+</div>
+</div>
 </div>
 <script>
         function calHoaDon() {
@@ -180,7 +228,7 @@
                 $soluong.min = 0;
                 $soluong.name = "soluong"+$length;
                 $soluong.id = "soluong"+$length;
-                $soluong.className = "soluong";
+                $soluong.className = "soluong inputstt";
                 $soluong.addEventListener('input', calHoaDon);
                 $cell3.appendChild($soluong);
 

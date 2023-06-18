@@ -156,7 +156,7 @@ class HoaDonController extends Controller
                 ]);
             }
             
-            return redirect('/hoadon');
+            return redirect('/hopdong/'.$request->sohopdong);
             
         } else {
             $error = "Lỗi: Số hóa đơn đã tồn tại, vui lòng nhập số hóa đơn khác!";
