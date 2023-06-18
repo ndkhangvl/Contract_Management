@@ -56,7 +56,6 @@
             <span id="selecthopdong" onclick="selectHopDong()">
                 <select name="sohopdongsl" id="sohopdongsl" class="js-example-placeholder-single js-states"
                     style="width: 20%;">
-                    {{-- <option value="-1">--Chọn hợp đồng--</option> --}}
                     @foreach ($hopdongs as $hd)
                         <option value="{{ $hd->HOPDONG_SO }}">{{ $hd->HOPDONG_SO }}</option>
                     @endforeach
@@ -100,49 +99,81 @@
                             <form action="/createHoaDonModal" method="POST" enctype="multipart/form-data"
                                 id="hoaDonForm">
                                 @csrf
-
-                                Hợp đồng số:
-                                <input class="form-control" type="text" name="sohopdong" id="sohopdong"
-                                    value="" readonly>
-                                <span class="invalid-feedback" id="sohopdong_error"></span></br>
-                                Hóa đơn số:
-                                <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn" id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
-                                <span class="invalid-feedback" id="sohoadon_error"></span></br>
-                                <div class="alert alert-danger" id="error_" style="display: none"></div>
-                                File:
-                                <input class="form-control" type="file" name="filehoadon">
-                                <span class="invalid-feedback" id="filehoadon_error"></span></br>
-                                Thuế (%):
-                                <input class="form-control" id="thuesuat" type="number" name="thuesuat" min="0"
-                                    value="{{ old('thuesuat') }}">
-                                <span class="invalid-feedback" id="thuesuat_error"></span></br>
-                                Tổng tiền (VNĐ):
-                                <input class="form-control" type="text" name="tongtien" id="tongtien"
-                                    value="{{ old('tongtien') }}" readonly>
-                                <span class="invalid-feedback" id="tongtien_error"></span></br>
-                                Tiền thuế (VNĐ):
-                                <input class="form-control" type="text" name="tienthue" id="tienthue"
-                                    value="{{ old('tienthue') }}" readonly>
-                                <span class="invalid-feedback" id="tienthue_error"></span></br>
-                                Tổng tiền có thuế (VNĐ):
-                                <input class="form-control" type="text" name="tongtiencothue" id="tongtiencothue"
-                                    value="{{ old('tongtiencothue') }}" readonly>
-                                <span class="invalid-feedback" id="tongtiencothue_error"></span></br>
-                                Số tiền (bằng chữ):
-                                <input class="form-control" value="{{ old('sotienbangchu') }}" type="text"
-                                    id="sotienbangchu" name="sotienbangchu" readonly>
-                                <span class="invalid-feedback" id="sotienbangchu_error"></span></br>
-                                Người tạo:
-                                <input class="form-control" value="{{ old('nguoitao') }}" type="text"
-                                    name="nguoitao">
-                                <span class="invalid-feedback" id="nguoitao_error"></span></br>
-                                Người mua hàng:
-                                <input class="form-control" value="{{ old('nguoimuahang') }}" type="text"
-                                    name="nguoimuahang">
-                                <span class="invalid-feedback" id="nguoimuahang_error"></span></br>
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Hợp đồng:</label>
+                                        <input class="form-control" type="text" name="sohopdong" id="sohopdong"
+                                            value="" readonly>
+                                        <span class="invalid-feedback" id="sohopdong_error"></span>
+                                    </div>
+                                    <div class="col">
+                                    <label class="form-label fw-bold">Hóa đơn số:</label>
+                                        <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn" id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
+                                        <span class="invalid-feedback" id="sohoadon_error"></span>
+                                        <div class="alert alert-danger" id="error_" style="display: none"></div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">File:</label>
+                                        <input class="form-control" type="file" name="filehoadon">
+                                        <span class="invalid-feedback" id="filehoadon_error"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Thuế:</label>
+                                        <input class="form-control" id="thuesuat" type="number" name="thuesuat" min="0"
+                                            value="0">
+                                        <span class="invalid-feedback" id="thuesuat_error"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
+                                        <input class="form-control" type="text" name="tongtien" id="tongtien"
+                                        value="" readonly>
+                                        <span class="invalid-feedback" id="tongtien_error"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
+                                        <input class="form-control" type="text" name="tienthue" id="tienthue"
+                                        value="" readonly>
+                                        <span class="invalid-feedback" id="tienthue_error"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
+                                        <input class="form-control" type="text" name="tongtiencothue" id="tongtiencothue"
+                                        value="" readonly>
+                                        <span class="invalid-feedback" id="tongtiencothue_error"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
+                                        <input class="form-control" value="" type="text"
+                                        id="sotienbangchu" name="sotienbangchu" readonly>
+                                        <span class="invalid-feedback" id="sotienbangchu_error"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Người tạo:</label>
+                                        <input class="form-control" value="" type="text"
+                                        name="nguoitao">
+                                        <span class="invalid-feedback" id="nguoitao_error"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Người mua hàng:</label>
+                                        <input class="form-control" value="" type="text"            
+                                        name="nguoimuahang">
+                                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
+                                    </div>
+                                </div>
+                                
                                 <div>
                                     <hr>
-                                    <label>Trạng thái hóa đơn:</label>
+                                    <label class="form-label fw-bold">Trạng thái hóa đơn:</label>
                                     <select name="trangthaihoadon">
                                         @if (old('trangthaihoadon') == 0)
                                             <option value=0 selected>Chưa thanh toán</option>
@@ -158,7 +189,7 @@
                                 <hr>
                                 Số lượng loại sản phẩm:
                                 <input class="form-control" type="number" name="soluongchitiet"
-                                    value="{{ old('soluongchitiet') }}" min="0" id="slct" required
+                                    value="" min="0" id="slct" required
                                     readonly>
                                 <hr>
                                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
@@ -180,21 +211,21 @@
                                                     class="inputstt"></td>
                                             <td><input type="text" name="noidung{{ $i }}"
                                                     id="noidung{{ $i }}"
-                                                    value="{{ old('noidung' . $i) }}">
+                                                    value="">
                                             </td>
                                             <td><input type="number" class="soluong inputstt"
                                                     name="soluong{{ $i }}"
                                                     id="soluong{{ $i }}"
-                                                    value="{{ old('soluong' . $i) }}" min="0"></td>
+                                                    value="" min="0"></td>
                                             <td><input type="text" name="donvitinh{{ $i }}"
                                                     id="donvitinh{{ $i }}"
-                                                    value="{{ old('donvitinh' . $i) }}"></td>
+                                                    value=""></td>
                                             <td><input type="number" class="dongia"
                                                     name="dongia{{ $i }}" id="dongia{{ $i }}"
-                                                    value="{{ old('dongia' . $i) }}" min="0"></td>
+                                                    value="" min="0"></td>
                                             <td><input type="text" name="thanhtien{{ $i }}" readonly
                                                     id="thanhtien{{ $i }}"
-                                                    value="{{ old('thanhtien' . $i) }}"></td>
+                                                    value=""></td>
                                             <td><button type="button" name="btnxoa{{ $i }}"
                                                     id="btnxoa{{ $i }}" class="btn btn-danger"
                                                     onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
@@ -337,13 +368,13 @@
             }
 
             function selectHopDong() {
-                if (document.getElementById("sohopdongsl").value == "-1") {
-                    //document.getElementById("find").value = "";
+                if (document.getElementById("sohopdongsl").value == "-1" || document.getElementById("sohopdongsl").value == "") {
+                    
                     document.getElementById("sohopdong").value = "";
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "");
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "");
                 } else {
-                    //document.getElementById("find").value = document.getElementById("sohopdongsl").value;
+                    
                     document.getElementById("sohopdong").value = document.getElementById("sohopdongsl").value;
                     document.getElementById("errorsohopdong").innerHTML = '';
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "modal");
