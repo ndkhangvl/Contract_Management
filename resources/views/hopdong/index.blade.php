@@ -234,187 +234,6 @@
                 </div>
             </div>
 
-            <!-- Modal 2 -->
-            <div class="modal fade" id="updateHoaDon" data-bs-backdrop="static" data-bs-keyboard="false"
-                aria-labelledby="updateHoaDon" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="updateHoaDonLabel">Cập nhật hợp đồng</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container-fluid">
-                                <form action="#" method="POST"
-                                    id="contractUpdateForm" enctype="multipart/form-data">
-                                    @csrf
-                                    {{-- @method('PUT') --}}
-                                    <div>
-                                        <label class="form-label fw-bold">Loại hợp đồng:</label>
-                                        <select name="loaihopdong_id" value="">
-                                            @if (old('loaihopdong_id') == 0)
-                                                <option value=1 selected>Đặt mới</option>
-                                                <option value=2>Gia hạn</option>
-                                            @elseif (old('loaihopdong_Id') == 1)
-                                                <option value=0>Đặt mới</option>
-                                                <option value=1 selected>Gia hạn</option>
-                                            @endif
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 mt-3">
-                                        <label for="owner" class="form-label fw-bold">Hợp đồng số:</label>
-                                        <input type="text" class="form-control" id="email"
-                                            placeholder="Nhập vào số hợp đồng" name="hopdong_so">
-                                        <span class="invalid-feedback" id="hopdong_so_error"></span>
-                                    </div>
-                                    <label for="owner" class="form-label fw-bold">Khách hàng:</label>
-                                    <div>
-                                        <select id="tenKH" name="khachhang_id" style="width: 100%;"
-                                            class="js-example-placeholder-single js-states form-control form-select form-select-sm">
-                                            @foreach ($khachhangs as $khachhang)
-                                                <option value="{{ $khachhang->KHACHHANG_ID }}">
-                                                    {{ $khachhang->KHACHHANG_TEN }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                            <label for="ngaysinh" class="form-label fw-bold">Ngày ký:</label>
-                                            <input type="date" class="form-control" name="hopdong_ngayky">
-                                            <span class="invalid-feedback" id="hopdong_ngayky_error"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label for="cccd" class="form-label fw-bold">Ngày hiệu lực:</label>
-                                            <input type="date" class="form-control" placeholder="Nhập CMND/CCCD"
-                                                name="hopdong_ngayhieuluc">
-                                            <span class="invalid-feedback" id="hopdong_ngayhieuluc_error"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label for="ngaycap" class="form-label fw-bold">Ngày kết thúc:</label>
-                                            <input type="date" class="form-control"
-                                                placeholder="Nhập số diện thoại" name="hopdong_ngayketthuc">
-                                            <span class="invalid-feedback" id="hopdong_ngayketthuc_error"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                            <label for="tenkhang" class="form-label fw-bold">Tên gói thầu:</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="Nhập tên gói thầu" name="hopdong_tengoithau">
-                                            <span class="invalid-feedback" id="hopdong_tengoithau_error"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label for="diachi" class="form-label fw-bold">Dự án:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập dự án"
-                                                name="hopdong_tenduan">
-                                            <span class="invalid-feedback" id="hopdong_tenduan_error"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                            <label for="ndung" class="form-label fw-bold">Nội dung:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập nội dung"
-                                                name="hopdong_noidung">
-                                            <span class="invalid-feedback" id="hopdong_noidung_error"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label for="tgthien" class="form-label fw-bold">Thời gian thực
-                                                hiện:</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="Nhập số thời gian, ví dụ: 1 tháng, 1 năm,.."
-                                                name="hopdong_thoigianthuchien">
-                                            <span class="invalid-feedback" id="hopdong_thoigianthuchien_error"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                            <label for="bena" class="form-label fw-bold">Bên A:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập tên bên A"
-                                                name="hopdong_daidienben_a">
-                                            <span class="invalid-feedback" id="hopdong_daidienben_a_error"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label for="benb" class="form-label fw-bold">Bên B:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập tên bên B"
-                                                name="hopdong_daidienben_b">
-                                            <span class="invalid-feedback" id="hopdong_daidienben_b_error"></span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 mt-3">
-                                        <label for="tgtri" class="form-label fw-bold">Tổng giá trị:</label>
-                                        <input type="number" class="form-control" id="email"
-                                            placeholder="Nhập tổng giá trị" name="hopdong_tonggiatri">
-                                        <span class="invalid-feedback" id="hopdong_tonggiatri_error"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="httoan" class="form-label fw-bold">Hình thức thanh toán:</label>
-                                        <select name="hopdong_hinhthucthanhtoan">
-                                            @if (old('hopdong_hinhthucthanhtoan') == 0)
-                                                <option value="Chuyển khoản" selected>Chuyển khoản ngân hàng</option>
-                                                <option value="Tiền mặt">Tiền mặt</option>
-                                            @elseif (old('hopdong_hinhthucthanhtoan') == 1)
-                                                <option value="Chuyển khoản">Chuyển khoản ngân hàng</option>
-                                                <option value="Tiền mặt" selected>Tiền mặt</option>
-                                            @endif
-                                        </select>
-                                        <span class="invalid-feedback" id="hopdong_hinhthucthanhtoan_error"></span>
-                                    </div>
-                                    <div class="mb-3 mt-3">
-                                        <label for="tthai" class="form-label fw-bold">Trạng thái:</label>
-                                        <div>
-                                            <select id="tenKH" name="hopdong_trangthai" style="width: 100%;"
-                                                class="js-example-placeholder-single js-states form-control form-select form-select-sm">
-                                                @foreach ($trangthaihopdongs as $tthdong)
-                                                    <option value="{{ $tthdong->TRANGTHAI_ID }}">
-                                                        {{ $tthdong->TRANGTHAI_TEN }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="gchu" class="form-label fw-bold">Ghi chú:</label>
-                                        <input type="text" class="form-control" id="pwd"
-                                            placeholder="Điền vào ghi chú" name="hopdong_ghichu">
-                                        <span class="invalid-feedback" id="hopdong_ghichu_error"></span>
-                                    </div>
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">File hợp đồng:</label>
-                                                <a href=""  target="_blank" id="filehdlink"></a>
-                                        </div>
-                                        <div class="col">
-                                            <div id="wrapper">
-                                                    <label class="form-label fw-bold">Bạn có muốn cập nhật file mới không?</label>
-                                                    <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input></p>
-                                                    <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <label for="hdfile" class="form-label fw-bold">File hợp đồng (nếu
-                                        có):</label>
-                                    <input type="file" name="filehopdong" class="form-control"
-                                        id="filehopdong">
-                                    <span class="invalid-feedback" id="hopdong_file_error"></span>
-                                    
-                                    <div class="mb-3 mt-3 pb-2 text-center">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                            onclick="resetForm()">Close</button>
-                                        <button type="submit" id="btnSubmit"
-                                            class="btn btn-success btn-block mb-3 mt-3"><i
-                                                class="fas fa-plus me-2"></i>Chỉnh sửa</button>
-                                        <button type="reset" class="btn btn-secondary btn-block mb-3 mt-3"
-                                            onclick="clearForm()"><i class="fas fa-redo me-2"></i>Soạn lại</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- <a href="/khachhang/create">
     <button  type="button" class="btn btn-primary">
         Thêm mới
@@ -458,11 +277,11 @@
                             <th class="text-center text-nowrap">Đại diện bên B</th>
                             <th class="text-center text-nowrap">Thời gian thực hiện</th> --}}
                             <th class="text-center text-nowrap">Tổng giá trị</th>
-                            {{--<th class="text-center text-nowrap">Hình thức thanh toán</th>
+                            {{-- <th class="text-center text-nowrap">Hình thức thanh toán</th>
                             <th class="text-center text-nowrap">File</th>
-                            <th class="text-center text-nowrap">Ghi chú</th>--}}
+                            <th class="text-center text-nowrap">Ghi chú</th> --}}
                             <th class="text-center text-nowrap">Người lập</th>
-                            {{--<th class="text-center text-nowrap">Trạng thái hợp đồng</th>--}}
+                            {{-- <th class="text-center text-nowrap">Trạng thái hợp đồng</th> --}}
                             <th class="text-center text-nowrap">Xem chi tiết</th>
                         </tr>
                     </thead>
@@ -478,7 +297,7 @@
                                 {{-- <td class="w-auto text-truncate" style="max-width: 100px;">
                                     {{ $hopdong->HOPDONG_TENGOITHAU }}</td> --}}
                                 <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_TENDUAN }}</td>
-                            {{-- <td class="align-middle text-truncate" style="max-width: 250px;">
+                                {{-- <td class="align-middle text-truncate" style="max-width: 250px;">
                                 {{ $hopdong->HOPDONG_NOIDUNG }}</td> --}}
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_DAIDIENBEN_A }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_DAIDIENBEN_B }}</td> --}}
@@ -489,7 +308,7 @@
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_GHICHU }}</td> --}}
                                 <td class="w-auto text-truncate">{{ $hopdong->ten_nd }}</td>
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->TRANGTHAI_TEN }}</td> --}}
-                                <td class="text-center w-auto">
+                                <td class="w-auto">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <a href="/hopdong/{{ $hopdong->HOPDONG_SO }}"
                                             class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
@@ -497,9 +316,282 @@
                                                 style="color: #000000;"></i></a>
                                         <a href="/hopdong/{{ $hopdong->HOPDONG_SO }}"
                                             class="btn btn-info btn-icon-only" aria-label="Sửa"
-                                            data-bs-toggle="modal" data-bs-target="#updateHoaDon"
-                                            onclick="updateContract()" title="Sửa hợp đồng"><i
-                                                class="fas fa-edit"></i></a>
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#updateHoaDon-{{ $hopdong->HOPDONG_SO }}"
+                                            onclick="updateContract('{{ $hopdong->HOPDONG_SO }}',
+                                            '{{ $hopdong->LOAIHOPDONG_ID }}',
+                                            '{{ $hopdong->HOPDONG_SO }}',
+                                            '{{ $hopdong->KHACHHANG_ID }}',
+                                            '{{ $hopdong->HOPDONG_NGAYKY }}',
+                                            '{{ $hopdong->HOPDONG_NGAYHIEULUC }}',
+                                            '{{ $hopdong->HOPDONG_NGAYKETTHUC }}',
+                                            '{{ $hopdong->HOPDONG_TENGOITHAU }}',
+                                            '{{ $hopdong->HOPDONG_TENDUAN }}',
+                                            '{{ $hopdong->HOPDONG_NOIDUNG }}',
+                                            '{{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}',
+                                            '{{ $hopdong->HOPDONG_DAIDIENBEN_A }}',
+                                            '{{ $hopdong->HOPDONG_DAIDIENBEN_B }}',
+                                            '{{ $hopdong->HOPDONG_TONGGIATRI }}',
+                                            '{{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}',
+                                            '{{ $hopdong->HOPDONG_TRANGTHAI }}',
+                                            '{{ $hopdong->HOPDONG_GHICHU }}',
+                                            '{{ $hopdong->HOPDONG_FILE }}')"
+                                            title="Sửa hợp đồng"><i class="fas fa-edit"></i></a>
+                                        <!-- Modal 2 -->
+                                        <div class="modal fade" id="updateHoaDon-{{ $hopdong->HOPDONG_SO }}"
+                                            data-bs-backdrop="static" data-bs-keyboard="false"
+                                            aria-labelledby="updateHoaDon-{{ $hopdong->HOPDONG_SO }}"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="updateHoaDonLabel">Cập nhật hợp
+                                                            đồng</h5>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                            <form action="/hopdong/{{ $hopdong->HOPDONG_ID }}"
+                                                                method="POST" id="contractUpdateForm"
+                                                                enctype="multipart/form-data">
+                                                                @csrf
+                                                                {{-- @method('PUT') --}}
+                                                                <div>
+                                                                    <label class="form-label fw-bold">Loại hợp
+                                                                        đồng:</label>
+                                                                    <select name="loaihopdong_id" value="">
+                                                                        @if (old('loaihopdong_id') == 0)
+                                                                            <option value=1 selected>Đặt mới</option>
+                                                                            <option value=2>Gia hạn</option>
+                                                                        @elseif (old('loaihopdong_Id') == 1)
+                                                                            <option value=0>Đặt mới</option>
+                                                                            <option value=1 selected>Gia hạn</option>
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-3 mt-3">
+                                                                    <label for="owner"
+                                                                        class="form-label fw-bold">Hợp đồng số:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="email"
+                                                                        placeholder="Nhập vào số hợp đồng"
+                                                                        name="hopdong_so">
+                                                                    <span class="invalid-feedback"
+                                                                        id="hopdong_so_error"></span>
+                                                                </div>
+                                                                <label for="owner" class="form-label fw-bold">Khách
+                                                                    hàng:</label>
+                                                                <div>
+                                                                    <select id="tenKH" name="khachhang_id"
+                                                                        style="width: 100%;"
+                                                                        class="js-example-placeholder-single js-states form-control form-select form-select-sm">
+                                                                        @foreach ($khachhangs as $khachhang)
+                                                                            <option
+                                                                                value="{{ $khachhang->KHACHHANG_ID }}">
+                                                                                {{ $khachhang->KHACHHANG_TEN }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="row mb-3 mt-3">
+                                                                    <div class="col">
+                                                                        <label for="ngaysinh"
+                                                                            class="form-label fw-bold">Ngày ký:</label>
+                                                                        <input type="date" class="form-control"
+                                                                            name="hopdong_ngayky">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_ngayky_error"></span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="cccd"
+                                                                            class="form-label fw-bold">Ngày hiệu
+                                                                            lực:</label>
+                                                                        <input type="date" class="form-control"
+                                                                            placeholder="Nhập CMND/CCCD"
+                                                                            name="hopdong_ngayhieuluc">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_ngayhieuluc_error"></span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="ngaycap"
+                                                                            class="form-label fw-bold">Ngày kết
+                                                                            thúc:</label>
+                                                                        <input type="date" class="form-control"
+                                                                            placeholder="Nhập số diện thoại"
+                                                                            name="hopdong_ngayketthuc">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_ngayketthuc_error"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3 mt-3">
+                                                                    <div class="col">
+                                                                        <label for="tenkhang"
+                                                                            class="form-label fw-bold">Tên gói
+                                                                            thầu:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập tên gói thầu"
+                                                                            name="hopdong_tengoithau">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_tengoithau_error"></span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="diachi"
+                                                                            class="form-label fw-bold">Dự án:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập dự án"
+                                                                            name="hopdong_tenduan">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_tenduan_error"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3 mt-3">
+                                                                    <div class="col">
+                                                                        <label for="ndung"
+                                                                            class="form-label fw-bold">Nội
+                                                                            dung:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập nội dung"
+                                                                            name="hopdong_noidung">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_noidung_error"></span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="tgthien"
+                                                                            class="form-label fw-bold">Thời gian thực
+                                                                            hiện:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập số thời gian, ví dụ: 1 tháng, 1 năm,.."
+                                                                            name="hopdong_thoigianthuchien">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_thoigianthuchien_error"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3 mt-3">
+                                                                    <div class="col">
+                                                                        <label for="bena"
+                                                                            class="form-label fw-bold">Bên A:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập tên bên A"
+                                                                            name="hopdong_daidienben_a">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_daidienben_a_error"></span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="benb"
+                                                                            class="form-label fw-bold">Bên B:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập tên bên B"
+                                                                            name="hopdong_daidienben_b">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_daidienben_b_error"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 mt-3">
+                                                                    <label for="tgtri"
+                                                                        class="form-label fw-bold">Tổng giá
+                                                                        trị:</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="email" placeholder="Nhập tổng giá trị"
+                                                                        name="hopdong_tonggiatri">
+                                                                    <span class="invalid-feedback"
+                                                                        id="hopdong_tonggiatri_error"></span>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="httoan"
+                                                                        class="form-label fw-bold">Hình thức thanh
+                                                                        toán:</label>
+                                                                    <select name="hopdong_hinhthucthanhtoan">
+                                                                        @if (old('hopdong_hinhthucthanhtoan') == 0)
+                                                                            <option value="Chuyển khoản" selected>
+                                                                                Chuyển khoản ngân hàng</option>
+                                                                            <option value="Tiền mặt">Tiền mặt</option>
+                                                                        @elseif (old('hopdong_hinhthucthanhtoan') == 1)
+                                                                            <option value="Chuyển khoản">Chuyển khoản
+                                                                                ngân hàng</option>
+                                                                            <option value="Tiền mặt" selected>Tiền mặt
+                                                                            </option>
+                                                                        @endif
+                                                                    </select>
+                                                                    <span class="invalid-feedback"
+                                                                        id="hopdong_hinhthucthanhtoan_error"></span>
+                                                                </div>
+                                                                <div class="mb-3 mt-3">
+                                                                    <label for="tthai"
+                                                                        class="form-label fw-bold">Trạng thái:</label>
+                                                                    <div>
+                                                                        <select id="tenKH"
+                                                                            name="hopdong_trangthai"
+                                                                            style="width: 100%;"
+                                                                            class="js-example-placeholder-single js-states form-control form-select form-select-sm">
+                                                                            @foreach ($trangthaihopdongs as $tthdong)
+                                                                                <option
+                                                                                    value="{{ $tthdong->TRANGTHAI_ID }}">
+                                                                                    {{ $tthdong->TRANGTHAI_TEN }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="gchu"
+                                                                        class="form-label fw-bold">Ghi chú:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="pwd" placeholder="Điền vào ghi chú"
+                                                                        name="hopdong_ghichu">
+                                                                    <span class="invalid-feedback"
+                                                                        id="hopdong_ghichu_error"></span>
+                                                                </div>
+                                                                <div class="row mb-3 mt-3">
+                                                                    <div class="col">
+                                                                        <label class="form-label fw-bold">File hợp
+                                                                            đồng:</label>
+                                                                        <a href="" target="_blank"
+                                                                            id="filehdlink"></a>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div id="wrapper">
+                                                                            <label class="form-label fw-bold">Bạn có
+                                                                                muốn cập nhật file mới không?</label>
+                                                                            <p><input type="radio"
+                                                                                    name="fileadd_yes_no"
+                                                                                    id="radY"
+                                                                                    value="1">Có</input></p>
+                                                                            <p><input type="radio"
+                                                                                    name="fileadd_yes_no"
+                                                                                    id="radN" value="0"
+                                                                                    checked>Không</input></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <label for="hdfile" class="form-label fw-bold">File
+                                                                    hợp đồng (nếu
+                                                                    có):</label>
+                                                                <input type="file" name="filehopdong"
+                                                                    class="form-control" id="filehopdong">
+                                                                <span class="invalid-feedback"
+                                                                    id="hopdong_file_error"></span>
+
+                                                                <div class="mb-3 mt-3 pb-2 text-center">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal"
+                                                                        onclick="resetForm()">Close</button>
+                                                                    <button type="submit" id="btnSubmit"
+                                                                        class="btn btn-success btn-block mb-3 mt-3"><i
+                                                                            class="fas fa-plus me-2"></i>Chỉnh
+                                                                        sửa</button>
+                                                                    <button type="reset"
+                                                                        class="btn btn-secondary btn-block mb-3 mt-3"
+                                                                        onclick="clearForm()"><i
+                                                                            class="fas fa-redo me-2"></i>Soạn
+                                                                        lại</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <form id="deleteForm-{{ $hopdong->HOPDONG_ID }}"
                                             action="/hopdong/delete/{{ $hopdong->HOPDONG_ID }}" method="POST">
                                             @method('DELETE')
@@ -665,55 +757,77 @@
 
         })
 
-        function updateContract() {
-            var modal = document.getElementById('updateHoaDon');
+        function updateContract(hopdongSo,
+            selectLoaiHopDongData,
+            hopdongSoData,
+            tenKHData,
+            ngaykyData,
+            ngayhieulucData,
+            ngauketthucData,
+            tengoithauData,
+            duanData,
+            noidungData,
+            thoigianthuchienData,
+            ddienaData,
+            ddienbData,
+            tgiatriData,
+            httoanData,
+            tthaiData,
+            gchuData,
+            filehdlinkGet)
+
+        {
+            var modal = document.getElementById('updateHoaDon-' + hopdongSo);
             var form = document.getElementById('contractUpdateForm');
-            form.action = '/hopdong/' + "{{ $hopdong->HOPDONG_ID }}";
-            hopdong_so = document.querySelector('#updateHoaDon input[name="hopdong_so"]');
-            // tenKH = document.querySelector('#updateHoaDon select[name="khachhang_id"]');
-            selectLoaiHopDong = document.querySelector('#updateHoaDon select[name="loaihopdong_id"]');
-            selectKH = document.querySelector('#updateHoaDon select[name="khachhang_id"]');
-            ngayky = document.querySelector('#updateHoaDon input[name="hopdong_ngayky"]');
-            ngayhieuluc = document.querySelector('#updateHoaDon input[name="hopdong_ngayhieuluc"]');
-            ngaykthuc = document.querySelector('#updateHoaDon input[name="hopdong_ngayketthuc"]');
-            tengoithau = document.querySelector('#updateHoaDon input[name="hopdong_tengoithau"]');
-            duan = document.querySelector('#updateHoaDon input[name="hopdong_tenduan"]');
-            noidung = document.querySelector('#updateHoaDon input[name="hopdong_noidung"]');
-            thoigianthuchien = document.querySelector('#updateHoaDon input[name="hopdong_thoigianthuchien"]');
-            ddiena = document.querySelector('#updateHoaDon input[name="hopdong_daidienben_a"]');
-            ddienb = document.querySelector('#updateHoaDon input[name="hopdong_daidienben_b"]');
-            tgiatri = document.querySelector('#updateHoaDon input[name="hopdong_tonggiatri"]');
-            htttoan = document.querySelector('#updateHoaDon select[name="hopdong_hinhthucthanhtoan"');
-            tthai = document.querySelector('#updateHoaDon select[name="hopdong_trangthai"]');
-            gchu = document.querySelector('#updateHoaDon input[name="hopdong_ghichu"]');
+            form.action = '/hopdong/' + hopdongSo;
+            hopdong_so = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_so"]');
+            tenKH = document.querySelector('#updateHoaDon select[name="khachhang_id"]');
+            selectLoaiHopDong = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="loaihopdong_id"]');
+            selectKH = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="khachhang_id"]');
+            ngayky = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ngayky"]');
+            ngayhieuluc = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ngayhieuluc"]');
+            ngaykthuc = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ngayketthuc"]');
+            tengoithau = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_tengoithau"]');
+            duan = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_tenduan"]');
+            noidung = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_noidung"]');
+            thoigianthuchien = document.querySelector('#updateHoaDon-' + hopdongSo +
+                ' input[name="hopdong_thoigianthuchien"]');
+            ddiena = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_daidienben_a"]');
+            ddienb = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_daidienben_b"]');
+            tgiatri = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_tonggiatri"]');
+            htttoan = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="hopdong_hinhthucthanhtoan"');
+            tthai = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="hopdong_trangthai"]');
+            gchu = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ghichu"]');
             // file = document.querySelector('#updateHoaDon input[name="hopdong_file"]');
-            filehdlink = document.querySelector('#updateHoaDon [id="filehdlink"]');
+            filehdlink = document.querySelector('#updateHoaDon-' + hopdongSo + ' [id="filehdlink"]');
 
-            selectLoaiHopDongData = "{{ $hopdong->LOAIHOPDONG_ID }}";
-            hopdongSoData = "{{ $hopdong->HOPDONG_SO }}";
-            tenKHData = "{{ $hopdong->KHACHHANG_ID }}";
-            ngaykyData = "{{ $hopdong->HOPDONG_NGAYKY }}";
-            ngayhieulucData = "{{ $hopdong->HOPDONG_NGAYHIEULUC }}";
-            ngauketthucData = "{{ $hopdong->HOPDONG_NGAYKETTHUC }}";
-            tengoithauData = "{{ $hopdong->HOPDONG_TENGOITHAU }}";
-            duanData = "{{ $hopdong->HOPDONG_TENDUAN }}";
-            noidungData = "{{ $hopdong->HOPDONG_NOIDUNG }}";
-            thoigianthuchienData = "{{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}";
-            ddienaData = "{{ $hopdong->HOPDONG_DAIDIENBEN_A }}";
-            ddienbData = "{{ $hopdong->HOPDONG_DAIDIENBEN_B }}";
-            tgiatriData = "{{ $hopdong->HOPDONG_TONGGIATRI }}";
-            httoanData = "{{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}";
-            tthaiData = "{{ $hopdong->HOPDONG_TRANGTHAI }}";
-            gchuData = "{{ $hopdong->HOPDONG_GHICHU }}";
-            // fileData = "{{ asset('storage/' . $hopdong->HOPDONG_FILE) }}";
-            filehdlinkData = '{{asset('storage/'.$hopdong->HOPDONG_FILE)}}';
+            // selectLoaiHopDongData = "{{ $hopdong->LOAIHOPDONG_ID }}";
+            // hopdongSoData = "{{ $hopdong->HOPDONG_SO }}";
+            // tenKHData = "{{ $hopdong->KHACHHANG_ID }}";
+            // ngaykyData = "{{ $hopdong->HOPDONG_NGAYKY }}";
+            // ngayhieulucData = "{{ $hopdong->HOPDONG_NGAYHIEULUC }}";
+            // ngauketthucData = "{{ $hopdong->HOPDONG_NGAYKETTHUC }}";
+            // tengoithauData = "{{ $hopdong->HOPDONG_TENGOITHAU }}";
+            // duanData = "{{ $hopdong->HOPDONG_TENDUAN }}";
+            // noidungData = "{{ $hopdong->HOPDONG_NOIDUNG }}";
+            // thoigianthuchienData = "{{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}";
+            // ddienaData = "{{ $hopdong->HOPDONG_DAIDIENBEN_A }}";
+            // ddienbData = "{{ $hopdong->HOPDONG_DAIDIENBEN_B }}";
+            // tgiatriData = "{{ $hopdong->HOPDONG_TONGGIATRI }}";
+            // httoanData = "{{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}";
+            // tthaiData = "{{ $hopdong->HOPDONG_TRANGTHAI }}";
+            // gchuData = "{{ $hopdong->HOPDONG_GHICHU }}";
+            // // fileData = "{{ asset('storage/' . $hopdong->HOPDONG_FILE) }}";
+            filehdlinkData = '{{ asset('storage/' . $hopdong->HOPDONG_FILE) }}';
+            filehdlinkData = filehdlinkData.replace('{{ $hopdong->HOPDONG_FILE }}', filehdlinkGet);
             filehdlink.href = filehdlinkData;
-            filehdlink.innerHTML = '{{$hopdong->HOPDONG_FILE}}';
+            filehdlink.innerHTML = filehdlinkGet;
 
-            console.log(hopdongSoData);
-            console.log(selectLoaiHopDongData);
-            console.log(tenKHData);
-            console.log(tthaiData);
+            // console.log("{{ $hopdong->HOPDONG_ID }}")
+            // console.log(hopdongSoData);
+            // console.log(selectLoaiHopDongData);
+            // console.log(tenKHData);
+            // console.log('in trang thai:' + httoanData);
 
             selectLoaiHopDong.value = selectLoaiHopDongData;
             hopdong_so.value = hopdongSoData;

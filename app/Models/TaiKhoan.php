@@ -14,4 +14,14 @@ class TaiKhoan extends Model implements AuthenticatableContract
     public $timestamps = false;
     public $table = 'TAIKHOAN';
     public $primaryKey = 'NGUOIDUNG_ID';
+
+        /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }

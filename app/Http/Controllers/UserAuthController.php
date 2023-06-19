@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-//use Auth;
+use Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\TaiKhoan;
 use App\Mail\ForgotPasswordMail;
