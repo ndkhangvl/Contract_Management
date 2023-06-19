@@ -236,7 +236,7 @@
 
             <!-- Modal 2 -->
             <div class="modal fade" id="updateHoaDon" data-bs-backdrop="static" data-bs-keyboard="false"
-                aria-labelledby="updateHoaDonLabel" aria-hidden="true">
+                aria-labelledby="updateHoaDon" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
