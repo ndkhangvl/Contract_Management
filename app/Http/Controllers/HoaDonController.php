@@ -33,6 +33,11 @@ class HoaDonController extends Controller
             'id' => $hoadon->HOADON_ID,
 
         ]);
+        $chitiethoadon2 = DB::select("select * from CHITIET_HOADON where HOADON_ID=:id;",
+        [
+            'id' => $hoadon->HOADON_ID,
+
+        ]);
         for ($i = 0 ; $i < count($chitiethoadon); $i++){
             $chitiethoadon[$i]->DONGIA = number_format(round($chitiethoadon[$i]->DONGIA),0,'.','.');
             $chitiethoadon[$i]->THANHTIEN = number_format(round($chitiethoadon[$i]->THANHTIEN),0,'.','.');
@@ -42,6 +47,8 @@ class HoaDonController extends Controller
         return view('hoadon.show', [
             'hoadon' => $hoadon,
             'chitiethoadon' => $chitiethoadon,
+            'chitiethoadon2' => $chitiethoadon2,
+            'cnt' => count($chitiethoadon),
         ]);
     }
 
@@ -468,5 +475,87 @@ class HoaDonController extends Controller
         $pdf = LaravelMpdf::loadView('hoadon.pdf', $data);
         $sohoadon = $hoadon->HOADON_SO;
         return $pdf->download($sohoadon."_".$ngayxuat.'.pdf');
+    }
+
+    public function updateModal(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'sohopdong' => 'required',
+            'sohoadon' => 'required',
+            //'filehoadon' => 'required',
+            'thuesuat' => 'required',
+            'tongtien' => 'required',
+            'tienthue' => 'required',
+            'tongtiencothue' => 'required',
+            'sotienbangchu' => 'required',
+            'nguoitao' => 'required',
+            'nguoimuahang' => 'required',
+        ], [
+            'sohopdong.required' => 'Trường số hợp đồng là bắt buộc.',
+            'sohoadon.required' => 'Trường số hóa đơn là bắt buộc.',
+            //'filehoadon.required' => 'Trường file hóa đơn là bắt buộc.',
+            'thuesuat.required' => 'Trường thuế là bắt buộc.',
+            'tongtien.required' => 'Trường tổng tiền là bắt buộc.',
+            'tienthue.required' => 'Trường tiền thuế là bắt buộc.',
+            'tongtiencothue.required' => 'Trường tổng tiền (có thuế) là bắt buộc.',
+            'sotienbangchu.required' => 'Trường số tiền bằng chữ là bắt buộc.',
+            'nguoitao.required' => 'Trường người tạo là bắt buộc.',
+            'nguoimuahang.required' => 'Trường người mua hàng là bắt buộc.',
+        ]);
+
+        //$request->validated();
+        
+        $fileUrl = "";
+        if ($request->file('filehoadon')){
+            $imageUrl = $this->storeImage($request);
+            $fileUrl = $imageUrl;
+
+            DB::update('exec updateHoaDon_WithFile ?,?,?,?,?,?,?,?,?,?',
+            [
+                $id,
+                $request->tongtien,
+                $request->thuesuat,
+                $request->tienthue,
+                $request->tongtiencothue,
+                $request->sotienbangchu,
+                $request->nguoitao,
+                $request->nguoimuahang,
+                $request->trangthaihoadon,
+                $fileUrl = $imageUrl
+            ]);
+        } else {
+            DB::update('exec updateHoaDon_NoFile ?,?,?,?,?,?,?,?,?',
+            [
+                $id,
+                $request->tongtien,
+                $request->thuesuat,
+                $request->tienthue,
+                $request->tongtiencothue,
+                $request->sotienbangchu,
+                $request->nguoitao,
+                $request->nguoimuahang,
+                $request->trangthaihoadon
+            ]);
+        }
+
+        $soluongchitiet = $request->soluongchitiet;
+        for ($i = 1; $i <= $soluongchitiet; $i++){
+            $nd = "noidung".$i;
+            $sl = "soluong".$i;
+            $dvt = "donvitinh".$i;
+            $dg = "dongia".$i;
+            $tt = "thanhtien".$i;
+                
+            DB::update('SET NOCOUNT ON; exec insertChiTietHoaDon ?,?,?,?,?,?,?',
+            [
+                $id,
+                $i,
+                $request->$nd,
+                $request->$sl,
+                $request->$dvt,
+                $request->$dg,
+                $request->$tt,
+            ]);
+        }
     }
 }
