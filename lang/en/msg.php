@@ -2,6 +2,9 @@
 
 return [
     'forgotpassword' => 'Forgot Password?',
+    'return-login' => 'Return',
+    'login-a' => ' login',
+    'submit-forgot' => 'Submit',
     'title-login' => 'Contract Management',
     'username' => 'Username',
     'passwd' => 'Password',

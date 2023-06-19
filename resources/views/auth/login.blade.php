@@ -79,7 +79,6 @@
 
 <body>
     <div class="container-sm">
-        {{-- <div class="" style="margin-top:100px"> --}}
         <div class="rounded d-flex justify-content-center" style="margin-top:80px">
             <div class="col-md-4 col-sm-12 bg-white border border-primary rounded-3">
                 <div class="text-center py-2 rounded-top" style="background: #E9E9E9">

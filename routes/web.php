@@ -53,7 +53,7 @@ Route::get('/header', function () {
 Route::get('/forgotpass', function () {
     //$value = Session::get('loginId');
     return view('mail.indexforgotpass');
-});
+})->middleware('switchLanguage');
 
 Route::get('/test', function () {
     //$value = Session::get('loginId');

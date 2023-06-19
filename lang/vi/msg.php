@@ -15,6 +15,9 @@ return [
 
     'forgotpassword' => 'Quên mật khẩu?',
     'title-login' => 'Quản Lý Hợp Đồng',
+    'return-login' => 'Trở về',
+    'login-a' => ' đăng nhập',
+    'submit-forgot' => 'Gửi yêu cầu',
     'username' => 'Tên tài khoản',
     'passwd' => 'Mật khẩu',
     'captcha' => 'Mã xác thực',

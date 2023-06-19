@@ -52,6 +52,14 @@ class UserAuthController extends Controller
     // }
 
     public function forgotPass(Request $request) {
+        $request->validate([
+            'nd_email' => 'required'
+        
+        ], [
+            'nd_email.required' => 'Vui lòng nhập email.'
+        ]);
+
+
         $user = TaiKhoan::where('nguoidung_email','=', $request->nd_email)->first();
         if(!$user) {
             return back()->with('fail', 'Tài khoản không tồn tại với thông tin email.');
