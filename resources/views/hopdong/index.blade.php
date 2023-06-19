@@ -380,13 +380,25 @@
                                             placeholder="Điền vào ghi chú" name="hopdong_ghichu">
                                         <span class="invalid-feedback" id="hopdong_ghichu_error"></span>
                                     </div>
-                                    {{-- <div class="mb-3">
-                                        <label for="hdfile" class="form-label fw-bold">File hợp đồng (nếu
-                                            có):</label>
-                                        <input type="file" name="filehopdong" class="form-control"
-                                            id="filehopdong">
-                                        <span class="invalid-feedback" id="hopdong_file_error"></span>
-                                    </div> --}}
+                                    <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">File hợp đồng:</label>
+                                                <a href=""  target="_blank" id="filehdlink"></a>
+                                        </div>
+                                        <div class="col">
+                                            <div id="wrapper">
+                                                    <label class="form-label fw-bold">Bạn có muốn cập nhật file mới không?</label>
+                                                    <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input></p>
+                                                    <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label for="hdfile" class="form-label fw-bold">File hợp đồng (nếu
+                                        có):</label>
+                                    <input type="file" name="filehopdong" class="form-control"
+                                        id="filehopdong">
+                                    <span class="invalid-feedback" id="hopdong_file_error"></span>
+                                    
                                     <div class="mb-3 mt-3 pb-2 text-center">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                             onclick="resetForm()">Close</button>
@@ -585,6 +597,22 @@
                 });
             });
         });
+        $('#contractUpdateForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var form = $('#contractUpdateForm')[0];
+                // Create an FormData object 
+                var data = new FormData(form);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false, // Important!
+                    contentType: false,
+                });
+                location.reload();
+            });
     </script>
     <script>
         function matchCustom(params, data) {
@@ -657,6 +685,7 @@
             tthai = document.querySelector('#updateHoaDon select[name="hopdong_trangthai"]');
             gchu = document.querySelector('#updateHoaDon input[name="hopdong_ghichu"]');
             // file = document.querySelector('#updateHoaDon input[name="hopdong_file"]');
+            filehdlink = document.querySelector('#updateHoaDon [id="filehdlink"]');
 
             selectLoaiHopDongData = "{{ $hopdong->LOAIHOPDONG_ID }}";
             hopdongSoData = "{{ $hopdong->HOPDONG_SO }}";
@@ -675,6 +704,9 @@
             tthaiData = "{{ $hopdong->HOPDONG_TRANGTHAI }}";
             gchuData = "{{ $hopdong->HOPDONG_GHICHU }}";
             // fileData = "{{ asset('storage/' . $hopdong->HOPDONG_FILE) }}";
+            filehdlinkData = '{{asset('storage/'.$hopdong->HOPDONG_FILE)}}';
+            filehdlink.href = filehdlinkData;
+            filehdlink.innerHTML = '{{$hopdong->HOPDONG_FILE}}';
 
             console.log(hopdongSoData);
             console.log(selectLoaiHopDongData);

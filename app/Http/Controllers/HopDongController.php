@@ -221,28 +221,59 @@ class HopDongController extends Controller
         $HOPDONG_HINHTHUCTHANHTOAN = $request->hopdong_hinhthucthanhtoan;
         $HOPDONG_TRANGTHAI = $request->hopdong_trangthai;
         $HOPDONG_GHICHU = $request->hopdong_ghichu;
+        if ($request->fileadd_yes_no == "0") {
+            DB::update('UPDATE HOPDONG SET
+                LOAIHOPDONG_ID = ?,
+                KHACHHANG_ID = ?,
+                HOPDONG_SO = ?,
+                HOPDONG_NGAYKY = ?,
+                HOPDONG_NGAYHIEULUC = ?,
+                HOPDONG_NGAYKETTHUC = ?,
+                HOPDONG_TENGOITHAU = ?,
+                HOPDONG_TENDUAN = ?,
+                HOPDONG_NOIDUNG = ?,
+                HOPDONG_DAIDIENBEN_A = ?,
+                HOPDONG_DAIDIENBEN_B = ?,
+                HOPDONG_NGUOILAP = ?,
+                HOPDONG_THOIGIANTHUCHIEN = ?,
+                HOPDONG_TONGGIATRI = ?,
+                HOPDONG_HINHTHUCTHANHTOAN = ?,
+                HOPDONG_TRANGTHAI = ?,
+                HOPDONG_GHICHU = ?
+            WHERE HOPDONG_ID = ?;',
+                    [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $id]
+            );
+        } else if ($request->fileadd_yes_no == "1"){
+            $fileUrl = "";
+            if ($request->file('filehopdong')) {
+                $imageUrl = $this->storeImage($request);
+                $fileUrl = $imageUrl;
+            }
+            DB::update('UPDATE HOPDONG SET
+            LOAIHOPDONG_ID = ?,
+            KHACHHANG_ID = ?,
+            HOPDONG_SO = ?,
+            HOPDONG_NGAYKY = ?,
+            HOPDONG_NGAYHIEULUC = ?,
+            HOPDONG_NGAYKETTHUC = ?,
+            HOPDONG_TENGOITHAU = ?,
+            HOPDONG_TENDUAN = ?,
+            HOPDONG_NOIDUNG = ?,
+            HOPDONG_DAIDIENBEN_A = ?,
+            HOPDONG_DAIDIENBEN_B = ?,
+            HOPDONG_NGUOILAP = ?,
+            HOPDONG_THOIGIANTHUCHIEN = ?,
+            HOPDONG_TONGGIATRI = ?,
+            HOPDONG_HINHTHUCTHANHTOAN = ?,
+            HOPDONG_TRANGTHAI = ?,
+            HOPDONG_GHICHU = ?,
+            HOPDONG_FILE = ?
+        WHERE HOPDONG_ID = ?;',
+                [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $fileUrl, $id]
+            );
 
-        DB::update('UPDATE HOPDONG SET
-        LOAIHOPDONG_ID = ?,
-        KHACHHANG_ID = ?,
-        HOPDONG_SO = ?,
-        HOPDONG_NGAYKY = ?,
-        HOPDONG_NGAYHIEULUC = ?,
-        HOPDONG_NGAYKETTHUC = ?,
-        HOPDONG_TENGOITHAU = ?,
-        HOPDONG_TENDUAN = ?,
-        HOPDONG_NOIDUNG = ?,
-        HOPDONG_DAIDIENBEN_A = ?,
-        HOPDONG_DAIDIENBEN_B = ?,
-        HOPDONG_NGUOILAP = ?,
-        HOPDONG_THOIGIANTHUCHIEN = ?,
-        HOPDONG_TONGGIATRI = ?,
-        HOPDONG_HINHTHUCTHANHTOAN = ?,
-        HOPDONG_TRANGTHAI = ?,
-        HOPDONG_GHICHU = ?
-    WHERE HOPDONG_ID = ?;',
-            [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $id]
-        );
+        }
+        
         return redirect('/hopdong');
     }
 }

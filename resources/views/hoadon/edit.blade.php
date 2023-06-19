@@ -63,7 +63,7 @@
                 </div>
                 <div class="row mb-3 mt-3">
                         <div class="col">
-                                <label class="form-label fw-bold">File hợp đồng:</label>
+                                <label class="form-label fw-bold">File hóa đơn:</label>
                                 <a href="{{asset('storage/'.$hoadon->HOADON_FILE)}}"  target="_blank">{{$hoadon->HOADON_FILE}}</a>
                         </div>
                         <div class="col">
