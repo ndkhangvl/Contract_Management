@@ -597,7 +597,8 @@
                 });
             });
         });
-        $('#contractUpdateForm').on('submit', function(e) {
+        $(document).ready(function() {
+            $('#contractUpdateForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
                 var form = $('#contractUpdateForm')[0];
@@ -613,6 +614,7 @@
                 });
                 location.reload();
             });
+        });
     </script>
     <script>
         function matchCustom(params, data) {
