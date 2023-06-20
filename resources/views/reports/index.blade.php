@@ -76,7 +76,7 @@
                                 <div class="fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
                                     Tổng tiền của các hợp đồng
                                 </div>
-                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongHoaDon }} VNĐ</div>
+                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongHoaDon }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-calendar fa-2x text-gray-300"></i>

@@ -12,7 +12,8 @@ class ReportController extends Controller
     public function index()
     {
         $TongHopDong = DB::table('hopdong')->count();
-        $TongHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
+        $TongHoaDonVND = DB::table('hoadon')->sum('HOADON_TONGTIEN');
+        $TongHoaDon = number_format($TongHoaDonVND, 0, ',', '.') . ' VNĐ';
         $HopDongHoatDong = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
         $HopDongNgungHoatDong = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '0')->count();
 
