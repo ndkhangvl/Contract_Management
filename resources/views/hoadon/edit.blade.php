@@ -270,6 +270,13 @@
 
                 document.getElementById("slct").value = $length;
                 calHoaDon();
+
+                var soluongs = document.getElementsByClassName('soluong');
+                var dongias = document.getElementsByClassName('dongia');
+                for (var i = 0; i < soluongs.length; i++) {
+                        soluongs[i].addEventListener('input', calHoaDon);
+                        dongias[i].addEventListener('input', calHoaDon);
+                }
         }
 
         function delRow(x){
