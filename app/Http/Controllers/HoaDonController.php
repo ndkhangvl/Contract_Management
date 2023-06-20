@@ -558,4 +558,17 @@ class HoaDonController extends Controller
             ]);
         }
     }
+    public function getHoaDon($id)
+    {
+        $hoadon = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID = HOPDONG.HOPDONG_ID where HOADON_ID = ?", [$id])[0];
+        $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID= ?", [$id]);
+
+        $data = [
+            'hoadon' => $hoadon,
+            'chitiethoadon' => $chitiethoadon,
+            'cntcthd' => count($chitiethoadon)
+        ];
+
+        return response()->json($data);
+    }
 }

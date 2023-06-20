@@ -246,7 +246,134 @@
                 </div>
             </div>
         </div>
+        <!-- Modal HTML -->
+        <div class="modal fade" id="yourModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Cập nhật Hoá đơn</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form action="#" method="post" enctype="multipart/form-data" id="updateHoaDonForm" onsubmit="return confirmUpdate()">
+                                @csrf
+                                @method('PUT')
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                            <label class="form-label fw-bold">Hợp đồng:</label>
+                                            <input class="form-control" type="text" name="sohopdong" required readonly id="getSohopdong">
+                                    </div>
+                                    <div class="col">
+                                            <label class="form-label fw-bold">Hóa đơn số:</label>
+                                            <input class="form-control" type="text" name="sohoadon" required readonly id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
+                                            <span class="invalid-feedback" id="sohoadon_error"></span>
+                                            <div class="alert alert-danger" id="error_" style="display: none"></div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">File hóa đơn:</label>
+                                                <a href=""  target="_blank" id="filehoadonlink"></a>
+                                        </div>
+                                        <div class="col">
+                                                <div id="wrapper">
+                                                        <label class="form-label fw-bold">Bạn có muốn cập nhật file mới không?</label>
+                                                        <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input></p>
+                                                        <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">File mới:</label>
+                                                <input class="form-control" type="file" name="filehoadon" id="filehoadon" disabled required>
+                                        </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Thuế (%):</label>
+                                                <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" >
+                                        </div>
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
+                                                <input class="form-control" required type="number" name="tongtien" id="tongtien" readonly>
+                                        </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
+                                                <input class="form-control" required type="number" name="tienthue" id="tienthue" readonly>
+                                        </div>
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
+                                                <input class="form-control" required type="number" name="tongtiencothue" id="tongtiencothue" readonly>
+                                        </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
+                                                <input class="form-control" required type="text" id="sotienbangchu" name="sotienbangchu" readonly>
+                                        </div>
+                                </div>
+                                <div class="row mb-3 mt-3">
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Người tạo:</label>
+                                                <input class="form-control" required type="text" name="nguoitao" id="nguoitao">
+                                        </div>
+                                        <div class="col">
+                                                <label class="form-label fw-bold">Người mua hàng:</label>
+                                                <input class="form-control" required type="text" name="nguoimuahang" id="nguoimuahang">
+                                        </div>
+                                </div>
+                                
+                                <div>
+                                        <hr>
+                                        <label>Trạng thái hóa đơn:</label>
+                                        <select name="trangthaihoadon" id="trangthaihoadon">
+                                               
+                                                <option value=0 selected>Chưa thanh toán</option>  
+                                                <option value=1>Đã thanh toán</option> 
+                                                
+                                        </select>
+                                        <hr>
+                                </div>
+                                <h1>Danh sách chi tiết</h1>
+                                <hr>
+                                Số lượng loại sản phẩm:
+                                <input class="form-control" type="number" name="soluongchitiet" min="0" id="slct" required readonly value=""><hr>
+                                <button class="btn btn-primary" onclick="addRow2()" type="button">Thêm hàng</button>
 
+                                <table id='tablechitiet'>
+                                        <tr>
+                                        <th>STT</th>
+                                        <th>Nội dung</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn vị tính</th>
+                                        <th>Đơn giá</th>
+                                        <th>Thành tiền</th>
+                                        <th>Xóa</th>
+                                        </tr>
+                                        <tbody id="tableBody"></tbody>
+                
+                                        
+                                </table>
+                                <hr>
+                                <div class="mb-3 mt-3 pb-2 text-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                onclick="">Close</button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Cập nhật hóa đơn
+                                    </button>
+                                </div>
+                                <hr>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <hr />
         <h1>Danh sách Hóa đơn</h1>
         <hr />
@@ -309,9 +436,17 @@
                                 title="Xem chi tiết"><i class="fas fa-file-signature"
                                     style="color: #000000;"></i>
                             </a>
-                            <a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
+                            {{--<a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
                                 class="btn btn-info btn-icon-only" aria-label="Sửa"
                                 onclick="" title="Sửa hóa đơn"><i class="fas fa-edit"></i>
+                            </a>--}}
+                            <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-primary" 
+                                data-bs-toggle="modal" data-bs-target="#yourModal"
+                                onclick="
+                                    var form = document.getElementById('updateHoaDonForm');
+                                    form.action = '/updateHoaDonModal/{{$hdd->HOADON_ID}}';
+                                ">
+                                <i class="fas fa-edit"></i>
                             </a>
                             <form id="deleteForm-{{ $hdd->HOADON_SO }}"
                                 action="/hoadon/{{$hdd->HOADON_ID}}" method="post" onsubmit="return confirmDelete()">
@@ -332,6 +467,12 @@
             {{ $hoadons->appends(request()->all())->links() }}
         </div>
         <script>
+            function confirmDelete() {
+                return confirm('Bạn có chắc chắn muốn xóa hóa đơn?');
+            }
+            function confirmUpdate(){
+                calHoaDon2();
+            }
             $(document).ready(function() {
                 $('#hoaDonForm').on('submit', function(e) {
                     e.preventDefault();
@@ -370,6 +511,103 @@
                             }
                         }
                     });
+                });
+
+                $('#yourModal').on('show.bs.modal', function(event) {
+                    $('#tableBody').empty();
+                    var button = $(event.relatedTarget); 
+                    var itemId = button.data('id'); 
+
+                    var sohopdong = $('#yourModal #getSohopdong');
+                    var inputsohoadon = $('#yourModal #inputsohoadon');
+                    var filehoadonlink = $('#yourModal #filehoadonlink');
+                    var tongtien = $('#yourModal #tongtien');
+                    var thuesuat = $('#yourModal #thuesuat');
+                    var tienthue = $('#yourModal #tienthue');
+                    var tongtiencothue = $('#yourModal #tongtiencothue');
+                    var sotienbangchu = $('#yourModal #sotienbangchu');
+                    var nguoitao = $('#yourModal #nguoitao');
+                    var nguoimuahang = $('#yourModal #nguoimuahang');
+                    var trangthaihoadon = $('#yourModal #trangthaihoadon');
+                    var slct = $('#yourModal #slct');
+                    // Make an AJAX request to get the item details
+                    $.ajax({
+                        url: '/gethoadon/' + itemId,
+                        type: 'GET',
+                        success: function(response) {
+                            var hoadon = response.hoadon;
+                            var cthd = response.chitiethoadon;
+                            var cntcthd = response.cntcthd;
+
+                            // Update the modal content with the item details
+                            sohopdong.val(hoadon.HOPDONG_SO);
+                            inputsohoadon.val(hoadon.HOADON_SO);
+                            filehoadonlink.attr('href', '{{ asset("storage/") }}' + "/" + hoadon.HOADON_FILE);
+                            filehoadonlink.text(hoadon.HOADON_FILE);
+                            tongtien.val(hoadon.HOADON_TONGTIEN);
+                            thuesuat.val(hoadon.HOADON_THUESUAT);
+                            tienthue.val(hoadon.HOADON_TIENTHUE);
+                            tongtiencothue.val(hoadon.HOADON_TONGTIEN_COTHUE);
+                            sotienbangchu.val(hoadon.HOADON_SOTIENBANGCHU);
+                            nguoitao.val(hoadon.HOADON_NGUOITAO);
+                            nguoimuahang.val(hoadon.HOADON_NGUOIMUAHANG);
+                            trangthaihoadon.val(hoadon.HOADON_TRANGTHAI);
+                            slct.val(cntcthd);
+
+                            for (var i = 1; i <= cntcthd; i++) {
+                                var row = '<tr>' +
+                                    '<td><input type="text" class="inputstt" name="stt' + i + '" id="stt' + i + '" value="" readonly class="inputstt"></td>' +
+                                    '<td><input type="text" name="noidung' + i + '" id="noidung' + i + '" value=""></td>' +
+                                    '<td><input type="number" class="soluong inputstt" name="soluong' + i + '" id="soluong' + i + '" value="" min="0"></td>' +
+                                    '<td><input type="text" name="donvitinh' + i + '" id="donvitinh' + i + '" value=""></td>' +
+                                    '<td><input type="number" class="dongia" name="dongia' + i + '" id="dongia' + i + '" value="" min="0"></td>' +
+                                    '<td><input type="number" class="thanhtien" name="thanhtien' + i + '" readonly id="thanhtien' + i + '" value=""></td>' +
+                                    '<td><button type="button" name="btnxoa' + i + '" id="btnxoa' + i + '" class="btn btn-danger" onclick="delRow2(this.id.replace(\'btnxoa\',\'\'))">Xóa</button></td>' +
+                                    '</tr>';
+
+                                $('#tableBody').append(row);
+                            }
+                            for (var i = 0; i < cthd.length; i++) {
+                                var item = cthd[i];
+                                var strstt = 'stt'+(i+1);
+                                var strnd = 'noidung'+(i+1);
+                                var strsl = 'soluong'+(i+1);
+                                var strdvt = 'donvitinh'+(i+1);
+                                var strdg = 'dongia'+(i+1);
+                                var strtt = 'thanhtien'+(i+1);
+
+                                var stt = $('#tableBody #'+strstt);
+                                var nd = $('#tableBody #'+strnd);
+                                var sl = $('#tableBody #'+strsl);
+                                var dvt = $('#tableBody #'+strdvt);
+                                var dg = $('#tableBody #'+strdg);
+                                var tt = $('#tableBody #'+strtt);
+                                stt.val(item.STT);
+                                nd.val(item.NOIDUNG);
+                                sl.val(item.SOLUONG);
+                                dvt.val(item.DVT);
+                                dg.val(item.DONGIA);
+                                tt.val(item.THANHTIEN);
+                            }
+                        }
+                    });
+                });
+
+                $('#updateHoaDonForm').on('submit', function(e) {
+                    e.preventDefault();
+                    var formData = $(this).serialize();
+                    var form = $('#updateHoaDonForm')[0];
+                    // Create an FormData object 
+                    var data = new FormData(form);
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: data,
+                        enctype: 'multipart/form-data',
+                        processData: false, // Important!
+                        contentType: false,
+                    });
+                    location.reload();
                 });
             });
         </script>
@@ -677,6 +915,202 @@
                 }
             }
             document.getElementById("inputsohoadon").addEventListener('input', checkSHDExists);
+///////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////Phan nay cua Modal UPDATE........lam gon lai sau huhu////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+            function calHoaDon2() {
+                var modal = document.getElementById("yourModal");
+                var cnt = modal.querySelector("#slct").value;
+                var thue = modal.querySelector("#thuesuat").value;
+                var tongtien = 0;
+                var tienthue = 0;
+                var tongtiencothue = 0;
+                
+                for (var i = 1; i <= cnt; i++) {
+                    var sluong = "soluong" + i;
+                    var dgia = "dongia" + i;
+                    var ttien = "thanhtien" + i;
+                    
+                    var sl = modal.querySelector("#" + sluong).value;
+                    var dg = modal.querySelector("#" + dgia).value;
+                    
+                    var cal = parseInt(sl) * parseInt(dg);
+                    if (isNaN(cal)) cal = 0;
+                    
+                    modal.querySelector("#" + ttien).value = cal;
+                    tongtien = tongtien + cal;
+                }
+                
+                tienthue = tongtien / 100 * thue;
+                tongtiencothue = tongtien + tienthue;
+                
+                modal.querySelector("#tongtien").value = tongtien;
+                modal.querySelector("#tienthue").value = tienthue;
+                modal.querySelector("#tongtiencothue").value = tongtiencothue;
+                
+                to_VNese_currency2();
+            }
+
+            document.querySelector("#yourModal #thuesuat").addEventListener('input', calHoaDon2);
+            var modal = document.getElementById("yourModal");
+            var soluongs = modal.querySelectorAll('.soluong');
+            var dongias = modal.querySelectorAll('.dongia');
+
+            for (var i = 0; i < soluongs.length; i++) {
+            soluongs[i].addEventListener('input', calHoaDon2);
+            dongias[i].addEventListener('input', calHoaDon2);
+            }
+            function addRow2() {
+                var modal = document.getElementById("yourModal");
+                var table = modal.querySelector("#tablechitiet");
+                var length = table.rows.length;
+
+                var row = table.insertRow(length);
+
+                var cell1 = row.insertCell(0);
+                var stt = document.createElement('input');
+                stt.value = length;
+                stt.readOnly = true;
+                stt.type = "text";
+                stt.name = "stt" + length;
+                stt.id = "stt" + length;
+                stt.className = "inputstt";
+                cell1.appendChild(stt);
+
+                var cell2 = row.insertCell(1);
+                var noidung = document.createElement('input');
+                noidung.type = "text";
+                noidung.name = "noidung" + length;
+                noidung.id = "noidung" + length;
+                cell2.appendChild(noidung);
+
+                var cell3 = row.insertCell(2);
+                var soluong = document.createElement('input');
+                soluong.type = "number";
+                soluong.min = 0;
+                soluong.name = "soluong" + length;
+                soluong.id = "soluong" + length;
+                soluong.className = "soluong inputstt";
+                soluong.addEventListener('input', calHoaDon);
+                cell3.appendChild(soluong);
+
+                var cell4 = row.insertCell(3);
+                var donvitinh = document.createElement('input');
+                donvitinh.type = "text";
+                donvitinh.name = "donvitinh" + length;
+                donvitinh.id = "donvitinh" + length;
+                cell4.appendChild(donvitinh);
+
+                var cell5 = row.insertCell(4);
+                var dongia = document.createElement('input');
+                dongia.type = "number";
+                dongia.min = "0";
+                dongia.name = "dongia" + length;
+                dongia.id = "dongia" + length;
+                dongia.className = "dongia";
+                dongia.addEventListener('input', calHoaDon);
+                cell5.appendChild(dongia);
+
+                var cell6 = row.insertCell(5);
+                var thanhtien = document.createElement('input');
+                thanhtien.readOnly = true;
+                thanhtien.type = "text";
+                thanhtien.name = "thanhtien" + length;
+                thanhtien.id = "thanhtien" + length;
+                cell6.appendChild(thanhtien);
+
+                var cell7 = row.insertCell(6);
+                var xoa = document.createElement('button');
+                xoa.id = "btnxoa" + length;
+                xoa.name = "btnxoa" + length;
+                xoa.innerHTML = "Xóa";
+                xoa.className = 'btn btn-danger';
+
+                xoa.setAttribute('onclick', 'delRow2(this.id.replace("btnxoa",""))');
+                xoa.setAttribute('type', 'button');
+                cell7.appendChild(xoa);
+
+                modal.querySelector("#slct").value = length;
+                calHoaDon2();
+            }
+
+            function delRow2(x) {
+                var modal = document.querySelector("#yourModal");
+                var table = modal.querySelector("#tablechitiet");
+                var length = table.rows.length;
+
+                for (var i = parseInt(x); i < length - 1; i++) {
+                    var sohang = parseInt(i);
+                    var sohangsau = parseInt(i) + 1;
+                    modal.querySelector("#noidung" + sohang).value = modal.querySelector("#noidung" + sohangsau).value;
+                    modal.querySelector("#soluong" + sohang).value = modal.querySelector("#soluong" + sohangsau).value;
+                    modal.querySelector("#donvitinh" + sohang).value = modal.querySelector("#donvitinh" + sohangsau).value;
+                    modal.querySelector("#dongia" + sohang).value = modal.querySelector("#dongia" + sohangsau).value;
+                    modal.querySelector("#thanhtien" + sohang).value = modal.querySelector("#thanhtien" + sohangsau).value;
+                }
+
+                table.deleteRow(length - 1);
+                modal.querySelector("#slct").value = length - 2;
+                calHoaDon2();
+            }
+
+            function to_VNese_currency2() {
+                var modal = document.querySelector("#yourModal");
+                var number = modal.querySelector("#tongtiencothue").value;
+                var str = parseInt(number) + '';
+                var i = 0;
+                var arr = [];
+                var index = str.length;
+                var result = [];
+                var rsString = '';
+
+                if (index == 0 || str == 'NaN') {
+                    return '';
+                }
+
+                // Chia chuỗi số thành một mảng từng khối có 3 chữ số
+                while (index >= 0) {
+                    arr.push(str.substring(index, Math.max(index - 3, 0)));
+                    index -= 3;
+                }
+
+                // Lặp từng khối trong mảng trên và convert từng khối đấy ra chữ Việt Nam
+                for (i = arr.length - 1; i >= 0; i--) {
+                    if (arr[i] != '' && arr[i] != '000') {
+                        result.push(convert_block_three(arr[i]));
+
+                        // Thêm đuôi của mỗi khối
+                        if (dvBlock[i]) {
+                            result.push(dvBlock[i]);
+                        }
+                    }
+                }
+
+                // Join mảng kết quả lại thành chuỗi string
+                rsString = result.join(' ');
+
+                // Trả về kết quả kèm xóa những ký tự thừa
+                finalval = rsString.replace(/[0-9]/g, '').replace(/ /g, ' ').replace(/ $/, '') + " đồng";
+                finalval = finalval.charAt(0).toUpperCase() + finalval.slice(1);
+                modal.querySelector("#sotienbangchu").value = finalval;
+
+            };
+            var modal = document.querySelector("#yourModal");
+            $radButtons = modal.querySelectorAll("input[name=fileadd_yes_no]");
+            $radButtons.forEach(rb=>rb.addEventListener("change",function(){
+                    //alert("Change");
+                    //console.log("value of rad: " + document.querySelector('input[name="fileadd_yes_no"]:checked').value);
+                    if(modal.querySelector('input[name="fileadd_yes_no"]:checked').value == "1"){
+                            modal.querySelector("#filehoadon").removeAttribute("disabled");
+                            //console.log("Cho phep them file");
+                    }
+                    else if (modal.querySelector('input[name="fileadd_yes_no"]:checked').value == "0"){
+                            modal.querySelector("#filehoadon").setAttribute("disabled", "disabled");
+                            //console.log("KHONG cho phep them file");
+                            modal.querySelector("#filehoadon").value = null;
+                    }
+            }));
+
         </script>
     </div>
 </div>
