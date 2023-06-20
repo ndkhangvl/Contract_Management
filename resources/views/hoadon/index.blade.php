@@ -431,16 +431,19 @@
                     <td>{{ $hdd->HOADON_NGAYTAO }}</td>
                     <td class="text-center w-auto">
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="/hoadon/{{ $hdd->HOADON_SO }}"
-                                class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
-                                title="Xem chi tiết"><i class="fas fa-file-signature"
-                                    style="color: #000000;"></i>
-                            </a>
+                            <form>
+                                <a href="/hoadon/{{ $hdd->HOADON_SO }}"
+                                    class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
+                                    title="Xem chi tiết"><i class="fas fa-file-signature"
+                                        style="color: #000000;"></i>
+                                </a>
+                            </form>
                             {{--<a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
                                 class="btn btn-info btn-icon-only" aria-label="Sửa"
                                 onclick="" title="Sửa hóa đơn"><i class="fas fa-edit"></i>
                             </a>--}}
-                            <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-primary" 
+                            <form>
+                            <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-info btn-icon-only" 
                                 data-bs-toggle="modal" data-bs-target="#yourModal"
                                 onclick="
                                     var form = document.getElementById('updateHoaDonForm');
@@ -448,8 +451,8 @@
                                 ">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form id="deleteForm-{{ $hdd->HOADON_SO }}"
-                                action="/hoadon/{{$hdd->HOADON_ID}}" method="post" onsubmit="return confirmDelete()">
+                            </form>
+                            <form action="/hoadon/{{$hdd->HOADON_ID}}" method="post" onsubmit="return confirmDelete()">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" id="submitDel"  title="Xóa hóa đơn"
