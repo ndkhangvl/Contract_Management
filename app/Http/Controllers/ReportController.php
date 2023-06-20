@@ -27,6 +27,9 @@ class ReportController extends Controller
                 $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
                 $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
                 $HopDongThanhLy = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '4')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
+                
+                $TongHoaDon = DB::table('hoadon')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->count('HOADON_ID');
+                $TongChuaThanhToan = DB::table('hoadon')->where('HOADON_TRANGTHAI','=','0')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->count();
             }
         }
         else {
@@ -41,13 +44,16 @@ class ReportController extends Controller
             $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->count();
             $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->count();
             $HopDongThanhLy = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '4')->count();
+
+            $TongHoaDon = DB::table('hoadon')->count('HOADON_ID');
+            $TongChuaThanhToan = DB::table('hoadon')->where('HOADON_TRANGTHAI','=','0')->count();
         }
         
 
         // Định dạng số tiền
         $TongThuHoaDonFormatted = number_format($TongThuHoaDon, 0, ',', '.');
 
-        return view('reports.index', compact('TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang','startDate','endDate'));
+        return view('reports.index', compact('TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang','startDate','endDate','TongHoaDon','TongChuaThanhToan'));
     }
 
 }

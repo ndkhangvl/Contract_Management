@@ -56,42 +56,6 @@
         </form>
         {{-- Row Dashboard --}}
         <div class="row">
-            {{-- Tổng số hợp đồng --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
-                                    Tổng số hợp đồng
-                                </div>
-                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongHopDong }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Tổng tiền của các hợp đồng --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-success);">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
-                                    Tổng thu của các hóa đơn
-                                </div>
-                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongThuHoaDonFormatted  }} VNĐ</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             {{-- Các hợp đồng mới tạo --}}
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);">
@@ -104,7 +68,7 @@
                                 <div class="h5 mb-0 fw-bold text-gray-800">{{ $HopDongMoiTao }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fas fa-folder-plus fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -122,7 +86,7 @@
                                 <div class="h5 mb-0 fw-bold text-gray-800">{{ $HopDongNghiemThu }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fas fa-tasks fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -130,7 +94,7 @@
             </div>
             {{-- Các hợp đồng xuất hóa đơn --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -140,7 +104,7 @@
                                 <div class="h5 mb-0 fw-bold text-gray-800">{{ $HopDongXuatHoaDon }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fas fa-file-export fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -155,10 +119,82 @@
                                 <div class="text-xs fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
                                     Hợp đồng thanh lý
                                 </div>
-                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $HopDongNghiemThu }}</div>
+                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $HopDongThanhLy }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fas fa-folder-minus fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Tổng số hợp đồng --}}
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
+                                    Tổng số hợp đồng
+                                </div>
+                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongHopDong }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-archive fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Tổng tiền của các hợp đồng --}}
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-success);">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
+                                    Tổng thu của các hóa đơn
+                                </div>
+                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongThuHoaDonFormatted  }} VNĐ</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-coins fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Tổng số hóa đơn --}}
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs fw-bold text-primary text-uppercase mb-1" style="font-size: .7rem;">
+                                    Tổng số hóa đơn
+                                </div>
+                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongHoaDon }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-archive fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Số hóa đơn chưa thanh toán --}}
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-red);">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="fw-bold text-danger text-uppercase mb-1" style="font-size: .7rem;">
+                                    Số hóa đơn chưa thanh toán
+                                </div>
+                                <div class="h5 mb-0 fw-bold text-gray-800">{{ $TongChuaThanhToan  }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-thumbtack fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
