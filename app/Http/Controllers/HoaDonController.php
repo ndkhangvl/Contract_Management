@@ -353,7 +353,8 @@ class HoaDonController extends Controller
 
     public function exportInvoices()
     {
-        return Excel::download(new InvoiceExport, 'HoaDon.xlsx');
+        $ngayxuat = Carbon::now('Asia/Ho_Chi_Minh')->year."-".Carbon::now('Asia/Ho_Chi_Minh')->month."-".Carbon::now('Asia/Ho_Chi_Minh')->day."_".Carbon::now('Asia/Ho_Chi_Minh')->hour."-".Carbon::now('Asia/Ho_Chi_Minh')->minute."-".Carbon::now('Asia/Ho_Chi_Minh')->second;
+        return Excel::download(new InvoiceExport, 'TK_HOADON_'.$ngayxuat.'.xlsx');
     }
 
     public function storeModal(Request $request)
