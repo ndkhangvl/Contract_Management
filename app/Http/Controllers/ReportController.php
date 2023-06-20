@@ -12,16 +12,21 @@ class ReportController extends Controller
     public function index()
     {
         $TongHopDong = DB::table('hopdong')->count();
-        $TongHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
-        $HopDongHoatDong = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
-        $HopDongNgungHoatDong = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '0')->count();
+        $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
+        $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
+        $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->count();
+        $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->count();
+        $HopDongThanhLy = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '4')->count();
 
         $HoaDonTheoThang = DB::table('hoadon')
             ->selectRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)) AS Thang, YEAR(CONVERT(date, HOADON_NGAYTAO)) AS Nam, COUNT(*) AS SoLuongHoaDon')
             ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
             ->get();
 
-            
-        return view('reports.index', compact('TongHopDong', 'TongHoaDon', 'HopDongHoatDong', 'HopDongNgungHoatDong', 'HoaDonTheoThang'));
+        // Định dạng số tiền
+        $TongThuHoaDonFormatted = number_format($TongThuHoaDon, 0, ',', '.');
+
+        return view('reports.index', compact('TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang'));
     }
+
 }

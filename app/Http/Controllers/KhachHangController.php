@@ -13,7 +13,6 @@ use Carbon\Carbon;
 
 class KhachHangController extends Controller
 {
-    //
     public function index() {
         $loaikhachhang = LoaiKhachHang::orderBy('LOAIKHACHHANG_TEN', 'asc')->get();
         $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID

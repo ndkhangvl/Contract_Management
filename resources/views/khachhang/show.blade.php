@@ -1,4 +1,6 @@
 {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
+@include('header2')
+@include('sidebar')
 <style>
     table, th, td {
         border: 1px solid black;
@@ -12,8 +14,7 @@
         width:90%;
     }
 </style>
-@include('header2')
-@include('sidebar')
+
 <div id="main">
     <div class="container bg-white shadow">
         <h1>Chi tiết Khách Hàng</h1>
@@ -77,10 +78,10 @@
 <table>
     <tr>
     
-    <th>Số Hợp đồng</th>
-    <th>Tên gói thầu</th>
-    <th>Tên dự án</th>
-    <th>Chi tiết hợp đồng</th>
+    <th class="text-center text-nowrap">Số Hợp đồng</th>
+    <th class="text-center text-nowrap">Tên gói thầu</th>
+    <th class="text-center text-nowrap">Tên dự án</th>
+    <th class="text-center text-nowrap">Chi tiết hợp đồng</th>
     </tr>
     @foreach ($hopdongs as $hopdong)
     <tr>
@@ -88,7 +89,7 @@
         <td>{{$hopdong->HOPDONG_SO}}</td>
         <td>{{$hopdong->HOPDONG_TENGOITHAU}}</td>
         <td>{{$hopdong->HOPDONG_TENDUAN}}</td>
-        <td>
+        <td class="text-center text-nowrap">
         <a href="/hopdong/{{$hopdong->HOPDONG_SO}}">
                     <button type="button" class="btn btn-info">
                         Chi tiết
