@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row mb-3 mt-3">
                                         <div class="col">
-                                                <label class="form-label fw-bold">File hóa đồng:</label>
+                                                <label class="form-label fw-bold">File hóa đơn:</label>
                                                 <a href="{{asset('storage/')}}"  target="_blank" id="filehoadonlink"></a>
                                         </div>
                                         <div class="col">
