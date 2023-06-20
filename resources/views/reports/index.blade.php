@@ -47,6 +47,13 @@
         <div class="d-sm flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-dark">Thống kê</h1>
         </div>
+        <form>
+            <label for="start_date">Ngày bắt đầu:</label>
+            <input type="date" id="start_date" name="start_date" value="{{ $startDate }}" required>
+            <label for="end_date">Ngày kết thúc:</label>
+            <input type="date" id="end_date" name="end_date" value="{{ $endDate }}" required>
+            <button type="submit" id="btnThongKe">Thống kê</button>
+        </form>
         {{-- Row Dashboard --}}
         <div class="row">
             {{-- Tổng số hợp đồng --}}

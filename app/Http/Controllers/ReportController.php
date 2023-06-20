@@ -11,22 +11,43 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $TongHopDong = DB::table('hopdong')->count();
-        $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
-        $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
-        $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->count();
-        $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->count();
-        $HopDongThanhLy = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '4')->count();
+        $startDate = null;
+        $endDate = null;
+        if ($startDate = request()->start_date) {
+            if($endDate = request()->end_date){
+                $HoaDonTheoThang = DB::table('hoadon')
+                ->selectRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)) AS Thang, YEAR(CONVERT(date, HOADON_NGAYTAO)) AS Nam, COUNT(*) AS SoLuongHoaDon')
+                ->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])
+                ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
+                ->get();
 
-        $HoaDonTheoThang = DB::table('hoadon')
+                $TongHopDong = DB::table('hopdong')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
+                $TongThuHoaDon = DB::table('hoadon')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->sum('HOADON_TONGTIEN');
+                $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
+                $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
+                $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
+                $HopDongThanhLy = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '4')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
+            }
+        }
+        else {
+            $HoaDonTheoThang = DB::table('hoadon')
             ->selectRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)) AS Thang, YEAR(CONVERT(date, HOADON_NGAYTAO)) AS Nam, COUNT(*) AS SoLuongHoaDon')
             ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
             ->get();
 
+            $TongHopDong = DB::table('hopdong')->count();
+            $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
+            $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
+            $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->count();
+            $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->count();
+            $HopDongThanhLy = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '4')->count();
+        }
+        
+
         // Định dạng số tiền
         $TongThuHoaDonFormatted = number_format($TongThuHoaDon, 0, ',', '.');
 
-        return view('reports.index', compact('TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang'));
+        return view('reports.index', compact('TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang','startDate','endDate'));
     }
 
 }
