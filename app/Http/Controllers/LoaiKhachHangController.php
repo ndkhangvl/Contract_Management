@@ -51,20 +51,17 @@ class LoaiKhachHangController extends Controller
 
         return redirect('/')->with('success', 'Data deleted successfully!');
     }*/
-    public function delete(Request $request)
+    public function delete($loaikhachhangid)
     {
-        $validatedData = $request->validate([
-            'loaikhachhangid' => 'required'
-        ]);
-    
-        $khachHangCount = DB::table('KHACHHANG')->where('LOAIKHACHHANG_ID', $validatedData['loaikhachhangid'])->count();
-    
-        if ($khachHangCount > 0) {
-            return response()->json(['message' => 'Cannot delete the Loai Khach Hang because there are associated records in the Khach Hang table.'], 422);
-        }
-    
-        DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $validatedData['loaikhachhangid'])->delete();
+        $khachHangCount = DB::table('KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->count();
 
+        if ($khachHangCount > 0) {
+            session()->flash('error', 'không thể xóa Loại Khách Hàng vì có Khach Hang mang loại này.');
+            return back();
+        }
+
+        DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->delete();
+        session()->flash('success', 'Xóa loại khách hàng thành công.');
         return redirect('/')->with('success', 'Data deleted successfully!');
     }
 

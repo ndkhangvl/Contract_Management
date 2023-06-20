@@ -111,8 +111,13 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 */
 Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin', 'switchLanguage');
 Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin', 'switchLanguage');
-Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin', 'switchLanguage');
+//Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin', 'switchLanguage');
 Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin', 'switchLanguage');
+//Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->middleware('isLogin', 'switchLanguage');
+Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name('id.delete');
+
+
+
 
 // Route::get('/forgotpasswd', function () {
 //     Mail::to('khangb1910654@student.ctu.edu.vn')

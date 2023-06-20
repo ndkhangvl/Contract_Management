@@ -273,7 +273,7 @@
                             <th class="text-center text-nowrap">Tên</th>
                             <th class="text-center text-nowrap">Địa chỉ</th>
                             <th class="text-center text-nowrap">Số Điện thoại</th>
-                            <th class="text-center text-nowrap">Email</th>
+                            {{-- <th class="text-center text-nowrap">Email</th> --}}
                             <th class="text-center text-nowrap">Xem chi tiết</th>
                             <th class="text-center text-nowrap">Trạng thái</th>
                         </tr>
@@ -281,12 +281,12 @@
                     @foreach ($khachhangs as $khachhang)
                         <tr>
                             <td class="text-center align-middle w-auto">{{ $khachhang->KHACHHANG_ID }}</td>
-                            <td class="align-middle text-truncate" style="max-width: 250px;">
+                            <td class="align-middle text-truncate" style="max-width: 200px;">
                                 {{ $khachhang->LOAIKHACHHANG_TEN }}</td>
-                            <td class="w-auto">{{ $khachhang->KHACHHANG_TEN }}</td>
-                            <td class="w-auto">{{ $khachhang->KHACHHANG_DIACHI }}</td>
+                            <td class="w-auto text-truncate" style="max-width: 200px;">{{ $khachhang->KHACHHANG_TEN }}</td>
+                            <td class="w-auto text-truncate" style="max-width: 100px;">{{ $khachhang->KHACHHANG_DIACHI }}</td>
                             <td class="w-auto">{{ $khachhang->KHACHHANG_SDT }}</td>
-                            <td class="w-auto">{{ $khachhang->KHACHHANG_EMAIL }}</td>
+                            {{-- <td class="w-auto">{{ $khachhang->KHACHHANG_EMAIL }}</td> --}}
                             <td class="text-center w-auto">
                                 <a href="/khachhang/{{ $khachhang->KHACHHANG_ID }}">
                                     <button type="button" class="btn btn-info">
