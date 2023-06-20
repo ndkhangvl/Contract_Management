@@ -95,6 +95,7 @@ Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
     Route::resource('/hoadon', HoaDonController::class);
     Route::post('/createHoaDonModal', [HoaDonController::class, 'storeModal']);
     Route::put('/updateHoaDonModal/{id}', [HoaDonController::class, 'updateModal']);
+    Route::get('/gethoadon/{id}',[HoaDonController::class,'getHoaDon']);
 });
 
 
