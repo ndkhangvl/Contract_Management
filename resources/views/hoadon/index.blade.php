@@ -203,34 +203,6 @@
                                         <th>Thành tiền</th>
                                         <th>Xóa</th>
                                     </tr>
-
-                                    @for ($i = 1; $i <= old('soluongchitiet'); $i++)
-                                        <tr>
-                                            <td><input type="text" class="inputstt" name="stt{{ $i }}"
-                                                    id="stt{{ $i }}" value="{{ $i }}" readonly
-                                                    class="inputstt"></td>
-                                            <td><input type="text" name="noidung{{ $i }}"
-                                                    id="noidung{{ $i }}"
-                                                    value="">
-                                            </td>
-                                            <td><input type="number" class="soluong inputstt"
-                                                    name="soluong{{ $i }}"
-                                                    id="soluong{{ $i }}"
-                                                    value="" min="0"></td>
-                                            <td><input type="text" name="donvitinh{{ $i }}"
-                                                    id="donvitinh{{ $i }}"
-                                                    value=""></td>
-                                            <td><input type="number" class="dongia"
-                                                    name="dongia{{ $i }}" id="dongia{{ $i }}"
-                                                    value="" min="0"></td>
-                                            <td><input type="text" name="thanhtien{{ $i }}" readonly
-                                                    id="thanhtien{{ $i }}"
-                                                    value=""></td>
-                                            <td><button type="button" name="btnxoa{{ $i }}"
-                                                    id="btnxoa{{ $i }}" class="btn btn-danger"
-                                                    onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
-                                        </tr>
-                                    @endfor
                                 </table>
                                 <hr>
                                 <div class="mb-3 mt-3 pb-2 text-center">
@@ -515,7 +487,10 @@
                         }
                     });
                 });
-
+                $('#staticBackdrop').on('show.bs.modal', function(event) {
+                    $('#tablechitiet tr').slice(1).remove();
+                    $('#slct').val(0);
+                });
                 $('#yourModal').on('show.bs.modal', function(event) {
                     $('#tableBody').empty();
                     var button = $(event.relatedTarget); 
