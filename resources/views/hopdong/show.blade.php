@@ -3,53 +3,126 @@
 <div id="main">
     <div class="container bg-white shadow">
         <style>
-            table,
-            th,
-            td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-
-            th,
-            td {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-
             table {
-                width: 90%;
+                border-collapse: collapse;
+                width: 100%;
+                font-family: Arial, sans-serif;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            td {
+                border-bottom: 1px solid #ddd;
+            }
+
+            .container {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                color: #fff;
+                font-size: 16px;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+            .btn-info {
+                background-color: #17a2b8;
+            }
+
+            .btn-info:hover {
+                background-color: #11707e;
+            }
+            .subheading {
+                font-size: 18px;
+                margin-bottom: 5px;
+            }
+            .row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .column {
+                width: 48%;
+            }
+            .fixed-button {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                z-index: 999;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: #007bff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .fixed-button:hover {
+                background-color: #0056b3;
+            }
+
+            .fixed-button-icon {
+                color: #fff;
+                font-size: 24px;
             }
         </style>
-        <h1>Chi tiết Hợp đồng</h1>
+                <h1 style="color: blue;">Chi tiết Hợp đồng</h1>
+
         <hr>
 
-
-        <h4>Hợp đồng số: {{ $hopdong->HOPDONG_SO }} </h4>
-        <h4>Khách hàng: {{ $hopdong->KHACHHANG_TEN }}</h4>
-        <h4>Loại hợp đồng: {{ $hopdong->LOAIHOPDONG_TEN }}</h4>
-        <h4>Ngày ký: {{ $hopdong->HOPDONG_NGAYKY }}</h4>
-        <h4>Ngày hiệu lực: {{ $hopdong->HOPDONG_NGAYHIEULUC }}</h4>
-        <h4>Ngày kết thúc: {{ $hopdong->HOPDONG_NGAYKETTHUC }}</h4>
-        <h4>Gói thầu: {{ $hopdong->HOPDONG_TENGOITHAU }}</h4>
-        <h4>Dự án: {{ $hopdong->HOPDONG_TENDUAN }}</h4>
-        <h4>Nội dung: {{ $hopdong->HOPDONG_NOIDUNG }}</h4>
-        <h4>Đại diện bên A: {{ $hopdong->HOPDONG_DAIDIENBEN_A }}</h4>
-        <h4>Đại diện bên B: {{ $hopdong->HOPDONG_DAIDIENBEN_B }}</h4>
-        <h4>Người lập: {{ $hopdong->ten_nd }}</h4>
-        <h4>Thời gian thực hiện: {{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}</h4>
-        <h4>Tổng giá trị: {{ $hopdong->HOPDONG_TONGGIATRI }} VNĐ</h4>
-        <h4>Hình thức thanh toán: {{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}</h4>
-        <h4>Ghi chú: {{ $hopdong->HOPDONG_GHICHU }}</h4>
-        <h4>Trạng thái hợp đồng: {{ $hopdong->TRANGTHAI_TEN }}</h4>
-        <h4>File: <b><a href="{{asset('storage/'.$hopdong->HOPDONG_FILE)}}">{{ $hopdong->HOPDONG_FILE }}</a></b></h4>
-
-
-        <h1>Danh sách hóa đơn</h1>
-        <a href="/hoadon/create?hopdong={{ $hopdong->HOPDONG_SO }}">
-            <button type="button" class="btn btn-primary">
-                Thêm mới hóa đơn
-            </button>
-        </a>
+        <div class="row">
+            <div class="column">
+                <div class="subheading"><b>Hợp đồng số:</b> {{ $hopdong->HOPDONG_SO }}</div>
+                <div class="subheading"><b>Khách hàng:</b> {{ $hopdong->KHACHHANG_TEN }}</div>
+                <div class="subheading"><b>Loại hợp đồng:</b> {{ $hopdong->LOAIHOPDONG_TEN }}</div>
+                <div class="subheading"><b>Ngày ký:</b> {{ $hopdong->HOPDONG_NGAYKY }}</div>
+                <div class="subheading"><b>Ngày hiệu lực:</b> {{ $hopdong->HOPDONG_NGAYHIEULUC }}</div>
+                <div class="subheading"><b>Ngày kết thúc:</b> {{ $hopdong->HOPDONG_NGAYKETTHUC }}</div>
+                <div class="subheading"><b>Thời gian thực hiện:</b> {{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}</div>
+                <div class="subheading"><b>Tổng giá trị:</b> {{ $hopdong->HOPDONG_TONGGIATRI }} VNĐ</div>
+                <div class="subheading"><b>Hình thức thanh toán:</b> {{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}</div>
+                <div class="subheading"><b>Ghi chú:</b> {{ $hopdong->HOPDONG_GHICHU }}</div>
+                <div class="subheading"><b>Trạng thái hợp đồng:</b> {{ $hopdong->TRANGTHAI_TEN }}</div>
+                <div class="subheading"><b>File:</b> <a href="{{ asset('storage/'.$hopdong->HOPDONG_FILE) }}">{{ $hopdong->HOPDONG_FILE }}</a></b></div>
+            </div>
+            <div class="column">
+                <div class="subheading"><b>Gói thầu:</b> {{ $hopdong->HOPDONG_TENGOITHAU }}</div>
+                <div class="subheading"><b>Dự án:</b> {{ $hopdong->HOPDONG_TENDUAN }}</div>
+                <div class="subheading"><b>Đại diện bên A:</b> {{ $hopdong->HOPDONG_DAIDIENBEN_A }}</div>
+                <div class="subheading"><b>Đại diện bên B:</b> {{ $hopdong->HOPDONG_DAIDIENBEN_B }}</div>
+                <div class="subheading"><b>Người lập:</b> {{ $hopdong->ten_nd }}</div>
+                <div class="subheading"><b>Nội dung:</b> {{ $hopdong->HOPDONG_NOIDUNG }}</div>
+            </div>
+        </div>
+    
+        <hr>
+        <h1 style="color: blue;">Danh sách hóa đơn</h1>
         <hr>
 
         <table>
@@ -80,6 +153,11 @@
                 </tr>
             @endforeach
         </table>
+            <div class="fixed-button">
+                <a href="/hoadon/create?hopdong={{ $hopdong->HOPDONG_SO }}">
+                    <i class="fixed-button-icon fas fa-plus"></i>
+                </a>
+            </div>
 
         <hr>
     </div>
