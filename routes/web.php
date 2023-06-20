@@ -95,7 +95,6 @@ Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
     Route::resource('/hoadon', HoaDonController::class);
     Route::post('/createHoaDonModal', [HoaDonController::class, 'storeModal']);
     Route::put('/updateHoaDonModal/{id}', [HoaDonController::class, 'updateModal']);
-    Route::get('/gethoadon/{id}',[HoaDonController::class,'getHoaDon']);
 });
 
 
@@ -111,8 +110,13 @@ Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testco
 */
 Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin', 'switchLanguage');
 Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin', 'switchLanguage');
-Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin', 'switchLanguage');
+//Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin', 'switchLanguage');
 Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin', 'switchLanguage');
+//Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->middleware('isLogin', 'switchLanguage');
+Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name('id.delete');
+
+
+
 
 // Route::get('/forgotpasswd', function () {
 //     Mail::to('khangb1910654@student.ctu.edu.vn')

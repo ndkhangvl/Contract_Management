@@ -59,111 +59,94 @@
     @include('sidebar')
     @include('header2')
     <div id="main">
+        
         <div class="container bg-white shadow p-2">
-            {{-- <div class="header">
-            <h2>Loại khách hàng</h2>
-            <form id="infoForm" action="{{ route('testconnect.insert') }}" method="POST">
-                @csrf
-                <br>
-                <label for="id">ID:</label>
-                <input type="text" id="id" name="loaikhachhangid">
-                <label for="code">Mã:</label>
-                <input type="text" id="code" name="loaikhachhangma">
-                <label for="cssId">ID CSS:</label>
-                <input type="text" id="cssId" name="loaikhachhangidcss">
-                <select id="codeDropdown">
-                    <option value="">All Codes</option>
-                    @foreach ($loaikhachhangs as $loaikhachhang)
-                        <option value="{{ $loaikhachhang->LOAIKHACHHANG_MA }}">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" id="insert">Thêm</button>
-                <button type="button" id="editButton">Sửa</button>
-                <button type="button" id="deleteButton">Xóa</button><br>
-                <label for="name">Tên loại khách hàng:</label>
-                <input type="text" id="name" name="loaikhachhangten" style="width: 725px;">
-            </form>
-        </div> --}}
-            {{-- Sửa lại CSS với boostrap5 để đồng bộ --}}
             <h1>Loại khách hàng</h1>
-            <div class="container shadow">
-                {{-- <form>
-                <div class="mb-3 mt-3">
-                    <input type="text" class="form-control" id="timkiem" name="timkiem">
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
+            <div class="d-flex p-2">
+                <div class="me-1">
+                    <a href="/khachhang" class="btn text-white" style="background-color: #435EBE;">
+                        <i class="fas fa-list" style="margin-right: 5px;"></i>Khách hàng
+                    </a>
                 </div>
-            </form> --}}
-                <form id="infoForm" action="{{ route('testconnect.insert') }}" method="POST">
-                    @csrf
-                    <div class="mb-3 mt-3">
-                        <label for="id" class="form-label fw-bold">ID: </label>
-                        <input type="text" class="form-control" id="id" name="loaikhachhangid">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="code" class="form-label fw-bold">Mã: </label>
-                        <input type="text" class="form-control" id="code" name="loaikhachhangma">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="name" class="form-label fw-bold">Tên loại khách hàng: </label>
-                        <input type="text" class="form-control" id="name" name="loaikhachhangten">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="cssid" class="form-label fw-bold">ID CSS: </label>
-                        <input type="text" class="form-control" id="cssId" name="loaikhachhangidcss">
-                    </div>
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="name" class="form-label fw-bold">Lọc theo mã: </label>
-                            </td>
-                            <td style="padding-left: 10px;">
-                                <select id="codeDropdown">
-                                    <option value="" disabled selected>Chọn mã</option>
-                                    @foreach ($loaikhachhangs as $loaikhachhang)
-                                        <option value="{{ $loaikhachhang->LOAIKHACHHANG_MA }}">
-                                            {{ $loaikhachhang->LOAIKHACHHANG_MA }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="mb-2 ms-1">
+                    <button type="button" class="btn text-white" style="background-color: #435EBE;"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="toggleTable()">
+                <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
+            </button>
+                </div>
+            </div>
+            <div class="container shadow">
+            <div id="tableContainer">
 
-                    <div class="text-center">
-                        <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i
-                                class="fas fa-plus me-2"></i>Thêm mới</button>
-                        <button type="button" id="editButton" class="btn btn-warning btn-block mb-3 mt-3"><i
-                                class="fas fa-edit me-2"></i>Sửa</button>
-                        <button type="button" id="deleteButton" class="btn btn-danger btn-block mb-3 mt-3"><i
-                                class="fas fa-minus me-2"></i>Xóa</button>
-                    </div>
-                </form>
+            </div>
             </div>
             <hr />
             <div id="data-container">
+                <div id="formTab" style="display: none;">
+                    <form id="infoForm" action="{{ route('testconnect.insert') }}" method="POST">
+                        @csrf
+                        <div class="mb-3 mt-3">
+                            <label for="id" class="form-label fw-bold">ID: </label>
+                            <input type="text" class="form-control" id="id" name="loaikhachhangid">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="code" class="form-label fw-bold">Mã: </label>
+                            <input type="text" class="form-control" id="code" name="loaikhachhangma">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="name" class="form-label fw-bold">Tên loại khách hàng: </label>
+                            <input type="text" class="form-control" id="name" name="loaikhachhangten">
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="cssid" class="form-label fw-bold">ID CSS: </label>
+                            <input type="text" class="form-control" id="cssId" name="loaikhachhangidcss">
+                        </div>
+
+    
+                        <div class="text-center">
+                            <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i
+                                    class="fas fa-plus me-2"></i>Thêm mới</button>
+                        </div>
+                    </form>
+                </div>
                 <table class="table table-striped table-hover" id="dataTable">
                     <thead>
                         <tr>
-                            {{-- <th class="text-center text-nowrap">STT</th> --}}
                             <th class="text-center text-nowrap">ID</th>
                             <th class="text-center text-nowrap">Mã</th>
                             <th class="text-center text-nowrap">Tên loại khách hàng</th>
                             <th class="text-center text-nowrap">ID CSS</th>
+                            <th class="text-center text-nowrap">Xóa</th>
+                            <th class="text-center text-nowrap">Chỉnh sửa</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($loaikhachhangs as $loaikhachhang)
                             <tr id="row{{ $loaikhachhang->LOAIKHACHHANG_ID }}">
-                                {{-- <td class="text-center align-middle">{{++$i}}</td> --}}
-                                <td class="text-center align-middle"> {{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
-                                <td class="text-center align-middle"> {{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
+                                <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
+                                <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
                                 <td>{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
-                                <td class="text-center align-middle"> {{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
+                                <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
+                                <td class="text-center align-middle">
+                                    <form action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-block mb-3 mt-3">
+                                            <i class="fas fa-minus me-2"></i>Xóa
+                                        </button>
+                                    </form>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <button type="button" id="editButton" class="btn btn-warning btn-block mb-3 mt-3">
+                                        <i class="fas fa-edit me-2"></i>Sửa
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach
+
                     </tbody>
                 </table>
+                
             </div>
             <div id="pagination-links" class="d-flex justify-content-center">
                 {{ $loaikhachhangs->appends(request()->all())->links() }}
@@ -186,59 +169,7 @@
                         fillForm();
                     }
                 });
-                $('#editButton').click(function() {
-                    if (selectedRow !== null) {
-                        const id = selectedRow.find('td:nth-child(1)').text();
-                        const code = $('#code').val();
-                        const name = $('#name').val();
-                        const cssId = $('#cssId').val();
-
-                        $.ajax({
-                            url: "{{ route('testconnect.update') }}",
-                            type: "POST",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                loaikhachhangid: id,
-                                loaikhachhangma: code,
-                                loaikhachhangten: name,
-                                loaikhachhangidcss: cssId
-                            },
-                            success: function() {
-                                selectedRow.find('td:nth-child(2)').text(code);
-                                selectedRow.find('td:nth-child(3)').text(name);
-                                selectedRow.find('td:nth-child(4)').text(cssId);
-                                clearForm();
-                                selectedRow = null;
-                            },
-                            error: function() {
-                                alert('Failed to update the data.');
-                            }
-                        });
-                    }
-                });
-
-                $('#deleteButton').click(function() {
-                    if (selectedRow !== null) {
-                        const id = selectedRow.find('td:nth-child(1)').text();
-
-                        $.ajax({
-                            url: "{{ route('testconnect.delete') }}",
-                            type: "POST",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                loaikhachhangid: id
-                            },
-                            success: function() {
-                                selectedRow.remove();
-                                selectedRow = null;
-                                clearForm();
-                            },
-                            error: function() {
-                                alert('Failed to delete the data.');
-                            }
-                        });
-                    }
-                });
+            
 
                 $('#codeDropdown').change(function() {
                     const code = $(this).val();
@@ -269,7 +200,10 @@
                     $('#name').val('');
                     $('#cssId').val('');
                 }
-
+                function toggleTable() {
+        var table = document.getElementById("tableContainer");
+        table.style.display = (table.style.display === "none") ? "block" : "none";
+    }
                 // Remove rows with the same data
                 $('#dataTable tbody tr').each(function() {
                     const currentRow = $(this);
@@ -309,8 +243,19 @@
                 document.getElementById('sidebar').classList.toggle('active');
 
             })
+            function toggleTable() {
+            var table = document.getElementById("tableContainer");
+            var formTab = document.getElementById("formTab");
+            if (table.style.display === "none") {
+                table.style.display = "block";
+                formTab.style.display = "none";
+            } else {
+                table.style.display = "none";
+                formTab.style.display = "block";
+            }
+}
         </script>
-    </div>
+        </div>
     @include('footer')
 </body>
 
