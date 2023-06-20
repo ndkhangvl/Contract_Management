@@ -488,11 +488,11 @@
                     });
                 });
                 $('#staticBackdrop').on('show.bs.modal', function(event) {
-                    $('#tablechitiet tr').slice(1).remove();
+                    $('#staticBackdrop #tablechitiet tr').slice(1).remove();
                     $('#slct').val(0);
                 });
                 $('#yourModal').on('show.bs.modal', function(event) {
-                    $('#tableBody').empty();
+                    $('#yourModal #tablechitiet tr').slice(1).remove();
                     var button = $(event.relatedTarget); 
                     var itemId = button.data('id'); 
 
@@ -725,7 +725,7 @@
 
                 document.getElementById("slct").value = $length;
                 calHoaDon();
-                
+
                 var soluongs = document.getElementsByClassName('soluong');
                 var dongias = document.getElementsByClassName('dongia');
                 for (var i = 0; i < soluongs.length; i++) {
