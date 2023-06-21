@@ -40,6 +40,7 @@
                 cursor: pointer;
                 color: #fff;
                 font-size: 16px;
+                margin-bottom: 20px
             }
 
             .btn-primary {
@@ -68,28 +69,6 @@
 
             .column {
                 width: 48%;
-            }
-            .fixed-button {
-                position: fixed;
-                right: 20px;
-                bottom: 20px;
-                z-index: 999;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background-color: #007bff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .fixed-button:hover {
-                background-color: #0056b3;
-            }
-
-            .fixed-button-icon {
-                color: #fff;
-                font-size: 24px;
             }
         </style>
                 <h1 style="color: blue;">Chi tiết Hợp đồng</h1>
@@ -124,7 +103,11 @@
         <hr>
         <h1 style="color: blue;">Danh sách hóa đơn</h1>
         <hr>
-
+        <a href="/hoadon/create?hopdong={{ $hopdong->HOPDONG_SO }}">
+            <button type="button" class="btn btn-primary">
+                Thêm mới hóa đơn
+            </button>
+        </a>
         <table>
             <tr>
                 <th>Hóa đơn số</th>
@@ -153,12 +136,6 @@
                 </tr>
             @endforeach
         </table>
-            <div class="fixed-button">
-                <a href="/hoadon/create?hopdong={{ $hopdong->HOPDONG_SO }}">
-                    <i class="fixed-button-icon fas fa-plus"></i>
-                </a>
-            </div>
-
         <hr>
     </div>
 </div>

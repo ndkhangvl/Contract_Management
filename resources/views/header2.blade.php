@@ -4,9 +4,7 @@
     .logo-img {
         width: 150px;
         height: auto;
-    }
-
-    ;
+    };
 </style>
 {{-- <header class="bg-white py-3" style="padding-left: 300px;">
     <div class="container">

@@ -39,6 +39,68 @@
     .clear {
         clear: both;
     }
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+    }
+
+    .btn-info:hover {
+        background-color: #11707e;
+    }
+    .custom-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 300px;
+    margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+    }
+
+    input[type="date"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 16px;
+        background-color: #007bff;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
 </style>
 @include('header2')
 @include('sidebar')
@@ -47,13 +109,17 @@
         <div class="d-sm flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-dark">Thống kê</h1>
         </div>
-        <form>
-            <label for="start_date">Ngày bắt đầu:</label>
-            <input type="date" id="start_date" name="start_date" value="{{ $startDate }}" required>
-            <label for="end_date">Ngày kết thúc:</label>
-            <input type="date" id="end_date" name="end_date" value="{{ $endDate }}" required>
-            <button type="submit" id="btnThongKe">Thống kê</button>
-        </form>
+        <form class="custom-form">
+            <div class="form-group">
+                <label for="start_date">Ngày bắt đầu:</label>
+                <input type="date" id="start_date" name="start_date" value="{{ $startDate }}" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">Ngày kết thúc:</label>
+                <input type="date" id="end_date" name="end_date" value="{{ $endDate }}" required>
+            </div>
+            <button type="submit" id="btnThongKe" class="btn btn-primary">Thống kê</button>
+        </form>        
         {{-- Row Dashboard --}}
         <div class="row">
             {{-- Các hợp đồng mới tạo --}}
