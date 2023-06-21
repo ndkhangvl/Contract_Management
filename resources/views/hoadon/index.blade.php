@@ -34,7 +34,7 @@
     }
 
     .inputstt {
-    
+        width:100px;
     }
     .contentcenter {
         text-align: center;
@@ -50,11 +50,7 @@
     }
 
 
-    table {
-        width: 100%;
-        max-width: 100%;
-        table-layout: fixed;
-    }
+    
 </style>
 @include('header2')
 @include('sidebar')
@@ -208,6 +204,7 @@
                                     readonly>
                                 <hr>
                                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
+                                <div class="table-responsive">
                                 <table id='tablechitiet' class="contentcenter">
                                     <tr>
                                         <th>STT</th>
@@ -219,6 +216,7 @@
                                         <th>Xóa</th>
                                     </tr>
                                 </table>
+                                </div>
                                 <hr>
                                 <div class="mb-3 mt-3 pb-2 text-center">
                                     <button type="button" class="btn btn-secondary"
@@ -332,7 +330,7 @@
                                 Số lượng loại sản phẩm:
                                 <input class="form-control" type="number" name="soluongchitiet" min="0" id="slct" required readonly value=""><hr>
                                 <button class="btn btn-primary" onclick="addRow2()" type="button">Thêm hàng</button>
-
+                                <div class="table-responsive">
                                 <table id='tablechitiet' class="contentcenter">
                                         <tr>
                                         <th>STT</th>
@@ -344,9 +342,10 @@
                                         <th>Xóa</th>
                                         </tr>
                                         <tbody id="tableBody"></tbody>
-                
+
                                         
                                 </table>
+                                </div>
                                 <hr>
                                 <div class="mb-3 mt-3 pb-2 text-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -512,6 +511,7 @@
                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
             </div>
         </form>
+        <div class="table-responsive">
         <table id="danhsachhoadon" class="table table-striped table-hover">
             <tr>
                 <th style="background: #077DCE">Hóa đơn số</th>
@@ -572,6 +572,7 @@
                 </tr>
             @endforeach
         </table>
+        </div>
         <hr>
         <div>
             {{ $hoadons->appends(request()->all())->links() }}

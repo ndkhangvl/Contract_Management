@@ -68,13 +68,9 @@
 
     }
     .inputstt {
-        
+        width: 70px;
     }
-    table {
-        width: 100%;
-        max-width: 100%;
-        table-layout: fixed;
-    }
+    
 </style>
 @include('header2')
 @include('sidebar')
@@ -178,7 +174,7 @@
                                 Số lượng loại sản phẩm:
                                 <input class="form-control" type="number" name="soluongchitiet" min="0" id="slct" required readonly value="{{$cnt}}"><hr>
                                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
-
+                                <div class="table-responsive">
                                 <table id='tablechitiet' class="contentcenter" style=" border: 0px;">
                                         <tr>
                                         <th>STT</th>
@@ -201,6 +197,7 @@
                                         </tr>
                                         @endforeach
                                 </table>
+                                </div>
                                 <hr>
                                 <div class="mb-3 mt-3 pb-2 text-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -344,6 +341,7 @@
                                 
                             </tbody>
                         </table>
+                        <div class="table-responsive">
                         <table class="table table-bordered mt-4">
                           <thead>
                             <tr>
@@ -384,6 +382,7 @@
                             </tr>
                           </tbody>
                         </table>
+                        </div>
                       </div>
                     </div>
                   </div>
