@@ -86,7 +86,7 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">
-                    Xóa
+                    Xóa!
                 </button>
             </form>
             <script>
