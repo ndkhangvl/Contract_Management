@@ -211,7 +211,11 @@ class HoaDonController extends Controller
                     break;
             }
         }
-
+        for ($i = 0 ; $i < count($results); $i++){
+            $timestamp = strtotime($results[$i]->HOADON_NGAYTAO); 
+            $results[$i]->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
+            $results[$i]->HOADON_TONGTIEN_COTHUE = number_format(round($results[$i]->HOADON_TONGTIEN_COTHUE),0,'.','.');
+        }
         $total = count($results);
         $offset = ($currentPage - 1) * $perPage;
         $results = array_slice($results, $offset, $perPage);
@@ -563,11 +567,25 @@ class HoaDonController extends Controller
     {
         $hoadon = DB::select("select * from HOADON join HOPDONG on HOADON.HOPDONG_ID = HOPDONG.HOPDONG_ID where HOADON_ID = ?", [$id])[0];
         $chitiethoadon = DB::select("select * from CHITIET_HOADON where HOADON_ID= ?", [$id]);
+        /////
+        $hoadon2 = DB::select("select * from hoadon join HOPDONG on HOADON.HOPDONG_ID=HOPDONG.HOPDONG_ID join KHACHHANG on HOPDONG.KHACHHANG_ID = KHACHHANG.KHACHHANG_ID where HOADON_ID= ?", [$id])[0];
+        $chitiethoadon2 = DB::select("select * from CHITIET_HOADON where HOADON_ID= ?", [$id]);
 
+        $timestamp = strtotime($hoadon2->HOADON_NGAYTAO); 
+        $hoadon2->HOADON_NGAYTAO = date('d-m-Y', $timestamp);
+        $hoadon2->HOADON_TONGTIEN = number_format(round($hoadon2->HOADON_TONGTIEN),0,'.','.');
+        $hoadon2->HOADON_TIENTHUE = number_format(round($hoadon2->HOADON_TIENTHUE),0,'.','.');
+        $hoadon2->HOADON_TONGTIEN_COTHUE = number_format(round($hoadon2->HOADON_TONGTIEN_COTHUE),0,'.','.');
+        for ($i = 0 ; $i < count($chitiethoadon2); $i++){
+            $chitiethoadon2[$i]->DONGIA = number_format(round($chitiethoadon2[$i]->DONGIA),0,'.','.');
+            $chitiethoadon2[$i]->THANHTIEN = number_format(round($chitiethoadon2[$i]->THANHTIEN),0,'.','.');
+        }
         $data = [
             'hoadon' => $hoadon,
             'chitiethoadon' => $chitiethoadon,
-            'cntcthd' => count($chitiethoadon)
+            'cntcthd' => count($chitiethoadon),
+            'hoadon2' => $hoadon2,
+            'chitiethoadon2' => $chitiethoadon2,
         ];
 
         return response()->json($data);

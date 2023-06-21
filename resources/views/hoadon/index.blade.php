@@ -7,8 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-@include('header2')
-@include('sidebar')
+
 <style>
     .content {
         margin: 15px;
@@ -20,12 +19,7 @@
         justify-content: center;
     }
 
-    table,
-    th,
-    td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
+    
 
     th {
         background: #337ab7;
@@ -42,7 +36,37 @@
     .inputstt {
         width: 100px;
     }
+    .contentcenter {
+        text-align: center;
+        
+    }
+    .contentright {
+        text-align: right;
+        
+    }
+    .contentleft {
+        text-align: left;
+        
+    }
+
+    .table-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+        table {
+        width: 100%;
+        max-width: 100%;
+        table-layout: fixed;
+        }
+
+        th, td {
+        white-space: nowrap;
+        }
 </style>
+@include('header2')
+@include('sidebar')
 <div id="main">
 <div style="display: none">
     Danh sách số hóa đơn đã có
@@ -85,13 +109,13 @@
             </a>
             <div id="errorsohopdong"></div>
         </div>
-        <!--Modal-->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <!--Modal create-->
+        <div class="modal fade" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="createModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Thêm mới Hoá đơn</h5>
+                        <h5 class="modal-title" id="createModalLabel">Thêm mới Hoá đơn</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -218,13 +242,14 @@
                 </div>
             </div>
         </div>
-        <!-- Modal HTML -->
-        <div class="modal fade" id="yourModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <!--end modal create-->
+        <!-- Modal update -->
+        <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
             <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Cập nhật Hoá đơn</h5>
+                        <h5 class="modal-title" id="updateModalLabel">Cập nhật Hoá đơn</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -346,6 +371,121 @@
                 </div>
             </div>
         </div>
+        <!--end modal update-->
+        <!--modal detail-->
+        <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel">Thông tin hóa đơn</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                        <div class="table-responsive">
+                            <div class="col-auto">
+                                <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
+                            </div>
+                            <div class="col text-center">
+                                <h5 class="fs-3">HÓA ĐƠN DỊCH VỤ</h5>
+                            </div>
+                            <hr style="border-top: 2px dashed black;"/>
+                            <div class="contentcenter">Ngày tạo: <b id="dtngaytao"></b></div>
+                            <div class="contentright">Số: <b id="dtsohoadon" style="color: red; padding-right:20px"></b></div>
+                            <div class="col text-center">
+                                <b id="dttrangthai"></b>
+                            </div>
+                            <div class="">
+                                <table class="table table-auto table-hover">
+                                    <tbody>
+                                        <tr class="notprint">
+                                            <td class="info-td col-4">File hóa đơn</td>
+                                            <td class="info-td col-8"><b><a id="dtfilelink" href="" target="_blank"></a></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Khách hàng</td>
+                                            <td class="info-td col-8 fw-bold" id="dtkhachhang"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Điện thoại</td>
+                                            <td class="info-td col-8 fw-bold" id="dtdienthoai"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Địa chỉ</td>
+                                            <td class="info-td col-8 fw-bold" id="dtdiachi"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Hợp đồng số</td>
+                                            <td class="info-td col-8 fw-bold"><a id="dtsohopdong" href=""></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Gói thầu</td>
+                                            <td class="info-td col-8 fw-bold" id="dtgoithau"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Dự án</td>
+                                            <td class="info-td col-8 fw-bold" id="dtduan"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Người tạo</td>
+                                            <td class="info-td col-8 fw-bold text-uppercase" id="dtnguoitao"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="info-td col-4">Người mua hàng</td>
+                                            <td class="info-td col-8 fw-bold text-uppercase" id="dtnguoimuahang"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                <table class="table table-bordered mt-4">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-nowrap" style="color: black">STT</th>
+                                        <th class="text-center text-nowrap" style="color: black">Nội dung</th>
+                                        <th class="text-center text-nowrap" style="color: black">Số lượng</th>
+                                        <th class="text-center text-nowrap" style="color: black">Đơn vị tính</th>
+                                        <th class="text-center text-nowrap" style="color: black">Đơn giá (VNĐ)</th>
+                                        <th class="text-center text-nowrap" style="color: black">Thành tiền (VNĐ)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tbody id="dtcthd"></tbody>
+                                    <tr>
+                                    <td colspan="5" class="text-end">Cộng tiền hàng hóa dịch vụ:</td>
+                                    <td class="text-end"><span id="dttongtien"></span> VNĐ</td>
+                                    </tr>
+                                    <tr>
+                                    <td colspan="5" class="text-end">Thuế <span id="dtthuesuat"></span> %:</td>
+                                    <td class="text-end"><span id="dttienthue"></span> VNĐ</td>
+                                    </tr>
+                                    <tr>
+                                    <td colspan="5" class="text-end">Tổng cộng tiền thanh toán:</td>
+                                    <td class="text-end"><b><span id="dttongtiencothue"></span> VNĐ</b></td>
+                                    </tr>
+                                    <tr>
+                                    <td colspan="6" class="text-end">Số tiền (bằng chữ):
+                                    <b><span id="dtsotienbangchu"></span></b></td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <hr>
+                                <div class="mb-3 mt-3 pb-2 text-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                onclick="">Close</button>
+                                    <a class="btn btn-primary" href="" id="dtbtnxuatpdf">
+                                        Xuất hóa đơn
+                                    </a>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal detail-->
         <hr />
         <h1>Danh sách Hóa đơn</h1>
         <hr />
@@ -404,10 +544,14 @@
                     <td class="text-center w-auto">
                         <div class="d-flex justify-content-between align-items-center">
                             <form>
-                                <a href="/hoadon/{{ $hdd->HOADON_SO }}"
+                                {{--<a href="/hoadon/{{ $hdd->HOADON_SO }}"
                                     class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
                                     title="Xem chi tiết"><i class="fas fa-file-signature"
                                         style="color: #000000;"></i>
+                                </a>--}}
+                                <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-success btn-icon-only" 
+                                    data-bs-toggle="modal" data-bs-target="#detailModal">
+                                    <i class="fas fa-file-signature" style="color: #000000;"></i>
                                 </a>
                             </form>
                             {{--<a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
@@ -416,7 +560,7 @@
                             </a>--}}
                             <form>
                             <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-info btn-icon-only" 
-                                data-bs-toggle="modal" data-bs-target="#yourModal"
+                                data-bs-toggle="modal" data-bs-target="#updateModal"
                                 onclick="
                                     var form = document.getElementById('updateHoaDonForm');
                                     form.action = '/updateHoaDonModal/{{$hdd->HOADON_ID}}';
@@ -487,27 +631,27 @@
                         }
                     });
                 });
-                $('#staticBackdrop').on('show.bs.modal', function(event) {
-                    $('#staticBackdrop #tablechitiet tr').slice(1).remove();
+                $('#createModal').on('show.bs.modal', function(event) {
+                    $('#createModal #tablechitiet tr').slice(1).remove();
                     $('#slct').val(0);
                 });
-                $('#yourModal').on('show.bs.modal', function(event) {
-                    $('#yourModal #tablechitiet tr').slice(1).remove();
+                $('#updateModal').on('show.bs.modal', function(event) {
+                    $('#updateModal #tablechitiet tr').slice(1).remove();
                     var button = $(event.relatedTarget); 
                     var itemId = button.data('id'); 
 
-                    var sohopdong = $('#yourModal #getSohopdong');
-                    var inputsohoadon = $('#yourModal #inputsohoadon');
-                    var filehoadonlink = $('#yourModal #filehoadonlink');
-                    var tongtien = $('#yourModal #tongtien');
-                    var thuesuat = $('#yourModal #thuesuat');
-                    var tienthue = $('#yourModal #tienthue');
-                    var tongtiencothue = $('#yourModal #tongtiencothue');
-                    var sotienbangchu = $('#yourModal #sotienbangchu');
-                    var nguoitao = $('#yourModal #nguoitao');
-                    var nguoimuahang = $('#yourModal #nguoimuahang');
-                    var trangthaihoadon = $('#yourModal #trangthaihoadon');
-                    var slct = $('#yourModal #slct');
+                    var sohopdong = $('#updateModal #getSohopdong');
+                    var inputsohoadon = $('#updateModal #inputsohoadon');
+                    var filehoadonlink = $('#updateModal #filehoadonlink');
+                    var tongtien = $('#updateModal #tongtien');
+                    var thuesuat = $('#updateModal #thuesuat');
+                    var tienthue = $('#updateModal #tienthue');
+                    var tongtiencothue = $('#updateModal #tongtiencothue');
+                    var sotienbangchu = $('#updateModal #sotienbangchu');
+                    var nguoitao = $('#updateModal #nguoitao');
+                    var nguoimuahang = $('#updateModal #nguoimuahang');
+                    var trangthaihoadon = $('#updateModal #trangthaihoadon');
+                    var slct = $('#updateModal #slct');
                     // Make an AJAX request to get the item details
                     $.ajax({
                         url: '/gethoadon/' + itemId,
@@ -567,13 +711,94 @@
                                 dg.val(item.DONGIA);
                                 tt.val(item.THANHTIEN);
                             }
-                            var modal = document.getElementById("yourModal");
+                            var modal = document.getElementById("updateModal");
                             var soluongs = modal.querySelectorAll('.soluong');
                             var dongias = modal.querySelectorAll('.dongia');
                             for (var i = 0; i < soluongs.length; i++) {
                                 soluongs[i].addEventListener('input', calHoaDon2);
                                 dongias[i].addEventListener('input', calHoaDon2);
                             }
+                        }
+                    });
+                });
+
+                $('#detailModal').on('show.bs.modal', function(event) {
+                    $('#dtcthd').empty();
+                    var button = $(event.relatedTarget); 
+                    var itemId = button.data('id'); 
+
+                    var ngaytao = $('#detailModal #dtngaytao');
+                    var sohoadon = $('#detailModal #dtsohoadon');
+                    var trangthai = $('#detailModal #dttrangthai');
+                    var filelink = $('#detailModal #dtfilelink');
+                    var khachhang = $('#detailModal #dtkhachhang');
+                    var dienthoai = $('#detailModal #dtdienthoai');
+                    var diachi = $('#detailModal #dtdiachi');
+                    var sohopdong = $('#detailModal #dtsohopdong');
+                    var goithau = $('#detailModal #dtgoithau');
+                    var duan = $('#detailModal #dtduan');
+                    var nguoitao = $('#detailModal #dtnguoitao');
+                    var nguoimuahang = $('#detailModal #dtnguoimuahang');
+                    var tongtien = $('#detailModal #dttongtien');
+                    var thuesuat = $('#detailModal #dtthuesuat');
+                    var tienthue = $('#detailModal #dttienthue');
+                    var tongtiencothue = $('#detailModal #dttongtiencothue');
+                    var sotienbangchu = $('#detailModal #dtsotienbangchu');
+                    var xuathoadon = $('#detailModal #dtbtnxuatpdf');
+                    // Make an AJAX request to get the item details
+                    $.ajax({
+                        url: '/gethoadon/' + itemId,
+                        type: 'GET',
+                        success: function(response) {
+                            var hoadon = response.hoadon2;
+                            var cthd = response.chitiethoadon2;
+                            var cntcthd = response.cntcthd;
+
+                            ngaytao.text(hoadon.HOADON_NGAYTAO);
+                            sohoadon.text(hoadon.HOADON_SO);
+                            if(hoadon.HOADON_TRANGTHAI == 1){
+                                trangthai.css('color', 'green');
+                                trangthai.text("Đã thanh toán");
+                            } else {
+                                trangthai.css('color', 'red');
+                                trangthai.text("Chưa thanh toán");
+                            }
+                            filelink.attr('href', '{{ asset("storage/") }}' + "/" + hoadon.HOADON_FILE);
+                            filelink.text(hoadon.HOADON_FILE);
+                            khachhang.text(hoadon.KHACHHANG_TEN);
+                            dienthoai.text(hoadon.KHACHHANG_SDT);
+                            diachi.text(hoadon.KHACHHANG_DIACHI);
+                            sohopdong.attr('href', '/hopdong' + "/" + hoadon.HOPDONG_SO);
+                            sohopdong.text(hoadon.HOPDONG_SO);
+                            goithau.text(hoadon.HOPDONG_TENGOITHAU);
+                            duan.text(hoadon.HOPDONG_TENDUAN);
+                            nguoitao.text(hoadon.HOADON_NGUOITAO);
+                            nguoimuahang.text(hoadon.HOADON_NGUOIMUAHANG);
+                            tongtien.text(hoadon.HOADON_TONGTIEN);
+                            thuesuat.text(hoadon.HOADON_THUESUAT);
+                            tienthue.text(hoadon.HOADON_TIENTHUE);
+                            tongtiencothue.text(hoadon.HOADON_TONGTIEN_COTHUE);
+                            sotienbangchu.text(hoadon.HOADON_SOTIENBANGCHU);
+
+                            for (var i = 0; i < cthd.length; i++) {
+                                var item = cthd[i];
+                                var tr = $("<tr>");
+                                var tdSTT = $("<td>").text(item.STT);
+                                tr.append(tdSTT);
+                                var tdNOIDUNG = $("<td>").text(item.NOIDUNG);
+                                tr.append(tdNOIDUNG);
+                                var tdSOLUONG = $("<td>").text(item.SOLUONG);
+                                tr.append(tdSOLUONG);
+                                var tdDVT = $("<td>").text(item.DVT);
+                                tr.append(tdDVT);
+                                var tdDONGIA = $("<td>").text(item.DONGIA);
+                                tr.append(tdDONGIA);
+                                var tdTHANHTIEN = $("<td>").text(item.THANHTIEN);
+                                tr.append(tdTHANHTIEN);
+                                $("#dtcthd").append(tr);
+                            }
+
+                            xuathoadon.attr('href', '/hoadon' + "/" + hoadon.HOADON_ID+ "/" + "pdf");
                         }
                     });
                 });
@@ -616,7 +841,7 @@
                     document.getElementById("sohopdong").value = document.getElementById("sohopdongsl").value;
                     document.getElementById("errorsohopdong").innerHTML = '';
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "modal");
-                    document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "#staticBackdrop");
+                    document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "#createModal");
                 }
             }
 
@@ -905,7 +1130,7 @@
 //////////////////////Phan nay cua Modal UPDATE........lam gon lai sau huhu////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
             function calHoaDon2() {
-                var modal = document.getElementById("yourModal");
+                var modal = document.getElementById("updateModal");
                 var cnt = modal.querySelector("#slct").value;
                 var thue = modal.querySelector("#thuesuat").value;
                 var tongtien = 0;
@@ -937,10 +1162,10 @@
                 to_VNese_currency2();
             }
 
-            document.querySelector("#yourModal #thuesuat").addEventListener('input', calHoaDon2);
+            document.querySelector("#updateModal #thuesuat").addEventListener('input', calHoaDon2);
             
             function addRow2() {
-                var modal = document.getElementById("yourModal");
+                var modal = document.getElementById("updateModal");
                 var table = modal.querySelector("#tablechitiet");
                 var length = table.rows.length;
 
@@ -1012,7 +1237,7 @@
                 modal.querySelector("#slct").value = length;
                 calHoaDon2();
 
-                var modal = document.getElementById("yourModal");
+                var modal = document.getElementById("updateModal");
                 var soluongs = modal.querySelectorAll('.soluong');
                 var dongias = modal.querySelectorAll('.dongia');
                 for (var i = 0; i < soluongs.length; i++) {
@@ -1022,7 +1247,7 @@
             }
 
             function delRow2(x) {
-                var modal = document.querySelector("#yourModal");
+                var modal = document.querySelector("#updateModal");
                 var table = modal.querySelector("#tablechitiet");
                 var length = table.rows.length;
 
@@ -1042,7 +1267,7 @@
             }
 
             function to_VNese_currency2() {
-                var modal = document.querySelector("#yourModal");
+                var modal = document.querySelector("#updateModal");
                 var number = modal.querySelector("#tongtiencothue").value;
                 var str = parseInt(number) + '';
                 var i = 0;
@@ -1082,7 +1307,7 @@
                 modal.querySelector("#sotienbangchu").value = finalval;
 
             };
-            var modal = document.querySelector("#yourModal");
+            var modal = document.querySelector("#updateModal");
             $radButtons = modal.querySelectorAll("input[name=fileadd_yes_no]");
             $radButtons.forEach(rb=>rb.addEventListener("change",function(){
                     //alert("Change");
