@@ -314,11 +314,13 @@
                                             class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
                                             title="Xem chi tiết"><i class="fas fa-file-signature"
                                                 style="color: #000000;"></i></a>
-                                        <a href="/hopdong/{{ $hopdong->HOPDONG_SO }}"
+                                        <a href="" data-id="{{ $hopdong->HOPDONG_SO }}"
                                             class="btn btn-info btn-icon-only" aria-label="Sửa"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#updateHoaDon-{{ $hopdong->HOPDONG_SO }}"
-                                            onclick="updateContract('{{ $hopdong->HOPDONG_SO }}',
+                                            data-bs-toggle="modal" data-bs-target="#updateHopDong"
+                                            onclick="
+                                            var form = document.getElementById('contractUpdateForm');
+                                            form.action = '/updateHopDong/{{ $hopdong->HOPDONG_ID }}';"
+                                            {{-- onclick="updateContract('{{ $hopdong->HOPDONG_SO }}',
                                             '{{ $hopdong->LOAIHOPDONG_ID }}',
                                             '{{ $hopdong->HOPDONG_SO }}',
                                             '{{ $hopdong->KHACHHANG_ID }}',
@@ -335,28 +337,26 @@
                                             '{{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}',
                                             '{{ $hopdong->HOPDONG_TRANGTHAI }}',
                                             '{{ $hopdong->HOPDONG_GHICHU }}',
-                                            '{{ $hopdong->HOPDONG_FILE }}')"
-                                            title="Sửa hợp đồng"><i class="fas fa-edit"></i></a>
+                                            '{{ $hopdong->HOPDONG_FILE }}')" --}} title="Sửa hợp đồng"><i
+                                                class="fas fa-edit"></i></a>
                                         <!-- Modal 2 -->
-                                        <div class="modal fade" id="updateHoaDon-{{ $hopdong->HOPDONG_SO }}"
-                                            data-bs-backdrop="static" data-bs-keyboard="false"
-                                            aria-labelledby="updateHoaDon-{{ $hopdong->HOPDONG_SO }}"
+                                        <div class="modal fade" id="updateHopDong" data-bs-backdrop="static"
+                                            data-bs-keyboard="false" aria-labelledby="updateHopDong"
                                             aria-hidden="true">
                                             <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="updateHoaDonLabel">Cập nhật hợp
+                                                        <h5 class="modal-title" id="updateHopDongLabel">Cập nhật hợp
                                                             đồng</h5>
                                                         <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="container-fluid">
-                                                            <form action="/hopdong/{{ $hopdong->HOPDONG_ID }}"
-                                                                method="POST" id="contractUpdateForm"
-                                                                enctype="multipart/form-data">
+                                                            <form action="#" method="POST"
+                                                                id="contractUpdateForm" enctype="multipart/form-data">
                                                                 @csrf
-                                                                {{-- @method('PUT') --}}
+                                                                @method('PUT')
                                                                 <div>
                                                                     <label class="form-label fw-bold">Loại hợp
                                                                         đồng:</label>
@@ -757,96 +757,58 @@
 
         })
 
-        function updateContract(hopdongSo,
-            selectLoaiHopDongData,
-            hopdongSoData,
-            tenKHData,
-            ngaykyData,
-            ngayhieulucData,
-            ngauketthucData,
-            tengoithauData,
-            duanData,
-            noidungData,
-            thoigianthuchienData,
-            ddienaData,
-            ddienbData,
-            tgiatriData,
-            httoanData,
-            tthaiData,
-            gchuData,
-            filehdlinkGet)
+        // Update modal
+        $('#updateHopDong').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget);
+                    var itemId = button.data('id');
 
-        {
-            var modal = document.getElementById('updateHoaDon-' + hopdongSo);
-            var form = document.getElementById('contractUpdateForm');
-            form.action = '/hopdong/' + hopdongSo;
-            hopdong_so = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_so"]');
-            tenKH = document.querySelector('#updateHoaDon select[name="khachhang_id"]');
-            selectLoaiHopDong = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="loaihopdong_id"]');
-            selectKH = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="khachhang_id"]');
-            ngayky = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ngayky"]');
-            ngayhieuluc = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ngayhieuluc"]');
-            ngaykthuc = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ngayketthuc"]');
-            tengoithau = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_tengoithau"]');
-            duan = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_tenduan"]');
-            noidung = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_noidung"]');
-            thoigianthuchien = document.querySelector('#updateHoaDon-' + hopdongSo +
-                ' input[name="hopdong_thoigianthuchien"]');
-            ddiena = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_daidienben_a"]');
-            ddienb = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_daidienben_b"]');
-            tgiatri = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_tonggiatri"]');
-            htttoan = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="hopdong_hinhthucthanhtoan"');
-            tthai = document.querySelector('#updateHoaDon-' + hopdongSo + ' select[name="hopdong_trangthai"]');
-            gchu = document.querySelector('#updateHoaDon-' + hopdongSo + ' input[name="hopdong_ghichu"]');
-            // file = document.querySelector('#updateHoaDon input[name="hopdong_file"]');
-            filehdlink = document.querySelector('#updateHoaDon-' + hopdongSo + ' [id="filehdlink"]');
+                    hopdong_so = document.querySelector('#updateHopDong input[name="hopdong_so"]');
+                    tenKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
+                    selectLoaiHopDong = document.querySelector('#updateHopDong select[name="loaihopdong_id"]');
+                    selectKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
+                    ngayky = document.querySelector('#updateHopDong input[name="hopdong_ngayky"]');
+                    ngayhieuluc = document.querySelector('#updateHopDong input[name="hopdong_ngayhieuluc"]');
+                    ngaykthuc = document.querySelector('#updateHopDong input[name="hopdong_ngayketthuc"]');
+                    tengoithau = document.querySelector('#updateHopDong input[name="hopdong_tengoithau"]');
+                    duan = document.querySelector('#updateHopDong input[name="hopdong_tenduan"]');
+                    noidung = document.querySelector('#updateHopDong input[name="hopdong_noidung"]');
+                    thoigianthuchien = document.querySelector('#updateHopDong input[name="hopdong_thoigianthuchien"]');
+                    ddiena = document.querySelector('#updateHopDong input[name="hopdong_daidienben_a"]');
+                    ddienb = document.querySelector('#updateHopDong input[name="hopdong_daidienben_b"]');
+                    tgiatri = document.querySelector('#updateHopDong input[name="hopdong_tonggiatri"]');
+                    htttoan = document.querySelector('#updateHopDong select[name="hopdong_hinhthucthanhtoan"');
+                    tthai = document.querySelector('#updateHopDong select[name="hopdong_trangthai"]');
+                    gchu = document.querySelector('#updateHopDong input[name="hopdong_ghichu"]');
+                    filehdlink = document.querySelector('#updateHopDong [id="filehdlink"]');
 
-            // selectLoaiHopDongData = "{{ $hopdong->LOAIHOPDONG_ID }}";
-            // hopdongSoData = "{{ $hopdong->HOPDONG_SO }}";
-            // tenKHData = "{{ $hopdong->KHACHHANG_ID }}";
-            // ngaykyData = "{{ $hopdong->HOPDONG_NGAYKY }}";
-            // ngayhieulucData = "{{ $hopdong->HOPDONG_NGAYHIEULUC }}";
-            // ngauketthucData = "{{ $hopdong->HOPDONG_NGAYKETTHUC }}";
-            // tengoithauData = "{{ $hopdong->HOPDONG_TENGOITHAU }}";
-            // duanData = "{{ $hopdong->HOPDONG_TENDUAN }}";
-            // noidungData = "{{ $hopdong->HOPDONG_NOIDUNG }}";
-            // thoigianthuchienData = "{{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}";
-            // ddienaData = "{{ $hopdong->HOPDONG_DAIDIENBEN_A }}";
-            // ddienbData = "{{ $hopdong->HOPDONG_DAIDIENBEN_B }}";
-            // tgiatriData = "{{ $hopdong->HOPDONG_TONGGIATRI }}";
-            // httoanData = "{{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}";
-            // tthaiData = "{{ $hopdong->HOPDONG_TRANGTHAI }}";
-            // gchuData = "{{ $hopdong->HOPDONG_GHICHU }}";
-            // // fileData = "{{ asset('storage/' . $hopdong->HOPDONG_FILE) }}";
-            filehdlinkData = '{{ asset('storage/' . $hopdong->HOPDONG_FILE) }}';
-            filehdlinkData = filehdlinkData.replace('{{ $hopdong->HOPDONG_FILE }}', filehdlinkGet);
-            filehdlink.href = filehdlinkData;
-            filehdlink.innerHTML = filehdlinkGet;
-
-            // console.log("{{ $hopdong->HOPDONG_ID }}")
-            // console.log(hopdongSoData);
-            // console.log(selectLoaiHopDongData);
-            // console.log(tenKHData);
-            // console.log('in trang thai:' + httoanData);
-
-            selectLoaiHopDong.value = selectLoaiHopDongData;
-            hopdong_so.value = hopdongSoData;
-            selectKH.value = tenKHData;
-            ngayky.value = ngaykyData;
-            ngayhieuluc.value = ngayhieulucData;
-            ngaykthuc.value = ngauketthucData;
-            tengoithau.value = tengoithauData;
-            duan.value = duanData;
-            noidung.value = noidungData;
-            thoigianthuchien.value = thoigianthuchienData;
-            ddiena.value = ddienaData;
-            ddienb.value = ddienbData;
-            tgiatri.value = tgiatriData;
-            htttoan.value = httoanData;
-            tthai.value = tthaiData;
-            gchu.value = gchuData;
-            // file.value = fileData;
-        }
+                    $.ajax({
+                        url: '/gethopdong/' + itemId,
+                        type: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            var hopdong = response.hopdong;
+                            selectLoaiHopDong.value = hopdong.LOAIHOPDONG_ID;
+                            hopdong_so.value = hopdong.HOPDONG_SO;
+                            selectKH.value = hopdong.KHACHHANG_ID;
+                            ngayky.value = hopdong.HOPDONG_NGAYKY;
+                            ngayhieuluc.value = hopdong.HOPDONG_NGAYHIEULUC;
+                            ngaykthuc.value = hopdong.HOPDONG_NGAYKETTHUC;
+                            tengoithau.value = hopdong.HOPDONG_TENGOITHAU;
+                            duan.value = hopdong.HOPDONG_TENDUAN;
+                            noidung.value = hopdong.HOPDONG_NOIDUNG;
+                            thoigianthuchien.value = hopdong.HOPDONG_THOIGIANTHUCHIEN;
+                            ddiena.value = hopdong.HOPDONG_DAIDIENBEN_A;
+                            ddienb.value = hopdong.HOPDONG_DAIDIENBEN_B;
+                            tgiatri.value = hopdong.HOPDONG_TONGGIATRI;
+                            htttoan.value = hopdong.HOPDONG_HINHTHUCTHANHTOAN;
+                            tthai.value = hopdong.HOPDONG_TRANGTHAI;
+                            gchu.value = hopdong.HOPDONG_GHICHU;
+                            console.log(hopdong.HOPDONG_FILE);
+                            filehdlink.href = '{{ asset('storage/') }}' + "/" + hopdong.HOPDONG_FILE;
+                            filehdlink.innerHTML = hopdong.HOPDONG_FILE;
+                        }
+                    })
+                });
     </script>
     @include('footer')
 </body>
