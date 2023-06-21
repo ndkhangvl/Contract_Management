@@ -148,8 +148,8 @@
                                 {{ $khachhang->KHACHHANG_CHUSOHUU }}<br>
                                 &nbsp;<br>
                                 &nbsp;<br>
-                                &nbsp;<br>
-                                &nbsp;
+                                <span class="form-label fw-bold">Ngày hoạt động:</span>
+                                {{ $khachhang->KHACHHANG_NGAYHOATDONG }}
                                 <hr>
                             </div>
                             <div class="col subheading">
@@ -160,9 +160,7 @@
                                 <span class="form-label fw-bold">Ngày cấp CMND:</span>
                                 {{ $khachhang->KHACHHANG_NGAYCAPCMND }}<br>
                                 <span class="form-label fw-bold">Ngày sinh:</span>
-                                {{ $khachhang->KHACHHANG_NGAYSINHNDD }}<br>
-                                <span class="form-label fw-bold">Ngày hoạt động:</span>
-                                {{ $khachhang->KHACHHANG_NGAYHOATDONG }}
+                                {{ $khachhang->KHACHHANG_NGAYSINHNDD }}
                                 <hr>
                             </div>
                         </div>
