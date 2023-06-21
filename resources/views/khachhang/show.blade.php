@@ -66,7 +66,7 @@
 </style>
 <div id="main">
     <div class="container bg-white shadow">
-        <h1>Chi tiết Khách Hàng</h1>
+
         <hr>
         @if (session('error'))
             <div id="alert-danger" class="alert alert-danger" style="width: 375px">
@@ -100,27 +100,83 @@
                     Cập nhật Thông tin
                 </button>
             </a>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="@if ($khachhang->TRANGTHAI_TEN === 'Đang hoạt động') trangthai-danghoatdong @elseif ($khachhang->TRANGTHAI_TEN === 'Bị khóa') trangthai-bikhoa @elseif ($khachhang->TRANGTHAI_TEN === 'Tạm ngưng hoạt động') trangthai-tamngunghoatdong @else trangthai-dagiaithe @endif"><b style="color: black">Trạng thái: </b><b>{{ $khachhang->TRANGTHAI_TEN }}</b></div>
-                    <div class="subheading"><b>Mã KH:</b> {{ $khachhang->KHACHHANG_ID }}</div>
-                    <div class="subheading"><b>Loại:</b> {{ $khachhang->LOAIKHACHHANG_TEN }}</div>
-                    <div class="subheading"><b>Tên KH:</b> {{ $khachhang->KHACHHANG_TEN }}</div>
-                    <div class="subheading"><b>SĐT:</b> {{ $khachhang->KHACHHANG_SDT }}</div>
-                    <div class="subheading"><b>Email:</b> {{ $khachhang->KHACHHANG_EMAIL }}</div>
-                    <div class="subheading"><b>Địa chỉ:</b> {{ $khachhang->KHACHHANG_DIACHI }}</div>
-                </div>
-                <div class="col-md-6">
-                    <div class="subheading"><b>Mã số thuế:</b> <b style="color: red">{{ $khachhang->KHACHHANG_MASOTHUE }}</b></div>
-                    <div class="subheading"><b>Chủ sỡ hữu:</b> {{ $khachhang->KHACHHANG_CHUSOHUU }}</div>
-                    <div class="subheading"><b>Người đại diện:</b> {{ $khachhang->KHACHHANG_NGUOIDAIDIEN }}</div>
-                    <div class="subheading"><b>CMND:</b> {{ $khachhang->KHACHHANG_CMND }}</div>
-                    <div class="subheading"><b>Ngày cấp CMND:</b> {{ $khachhang->KHACHHANG_NGAYCAPCMND }}</div>
-                    <div class="subheading"><b>Ngày sinh:</b> {{ $khachhang->KHACHHANG_NGAYSINHNDD }}</div>
-                    <div class="subheading"><b>Ngày hoạt động:</b> {{ $khachhang->KHACHHANG_NGAYHOATDONG }}</div>
-                    <div class="subheading"><b>Ngày tạo lập:</b> {{ $khachhang->NGAYTAOLAP }}</div>
+            <div class="container-fluid">
+                <div class="border" style="padding-left:100px; padding-right:100px">
+                    <div class="mt-2">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
+                            </div>
+                            <div class="col text-center">
+                                <h4 class="fs-2">Chi tiết Khách hàng</h4>
+                            </div>
+                        </div>
+                        
+                        <hr style="border-top: 2px dashed black;"/>
+                        <div class="text-start">
+                                    <b>Mã khách hàng: </b><b style="color: red">{{ $khachhang->KHACHHANG_ID }}</b><br>
+                                    <div class="@if ($khachhang->TRANGTHAI_TEN === 'Đang hoạt động') trangthai-danghoatdong @elseif ($khachhang->TRANGTHAI_TEN === 'Bị khóa') trangthai-bikhoa @elseif ($khachhang->TRANGTHAI_TEN === 'Tạm ngưng hoạt động') trangthai-tamngunghoatdong @else trangthai-dagiaithe @endif"><b style="color: black">Trạng thái: </b><b>{{ $khachhang->TRANGTHAI_TEN }}</b></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col subheading">
+                                <span class="form-label fw-bold">Loại:</span>
+                                {{ $khachhang->LOAIKHACHHANG_TEN }}<br>
+                                &nbsp;<br>
+                                &nbsp;<br>
+                                &nbsp;<br>
+                                &nbsp;
+                                <hr>
+                            </div>
+                            <div class="col subheading">
+                                <span class="form-label fw-bold">Tên khách hàng:</span>
+                                {{ $khachhang->KHACHHANG_TEN }}<br>
+                                <span class="form-label fw-bold">Điện thoại:</span>
+                                {{ $khachhang->KHACHHANG_SDT }}<br>
+                                <span class="form-label fw-bold">Email:</span>
+                                {{ $khachhang->KHACHHANG_EMAIL }}<br>
+                                <span class="form-label fw-bold">Địa chỉ:</span>
+                                {{ $khachhang->KHACHHANG_DIACHI }}<br>
+                                <span class="form-label fw-bold">Mã số thuế:</span>
+                                <b style="color: red">{{ $khachhang->KHACHHANG_MASOTHUE }}</b>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col subheading">
+                                <span class="form-label fw-bold">Chủ sỡ hữu:</span>
+                                {{ $khachhang->KHACHHANG_CHUSOHUU }}<br>
+                                &nbsp;<br>
+                                &nbsp;<br>
+                                &nbsp;<br>
+                                &nbsp;
+                                <hr>
+                            </div>
+                            <div class="col subheading">
+                                <span class="form-label fw-bold">Người đại diện:</span>
+                                {{ $khachhang->KHACHHANG_NGUOIDAIDIEN }}<br>
+                                <span class="form-label fw-bold">CMND/CCCD:</span>
+                                {{ $khachhang->KHACHHANG_CMND }}<br>
+                                <span class="form-label fw-bold">Ngày cấp CMND:</span>
+                                {{ $khachhang->KHACHHANG_NGAYCAPCMND }}<br>
+                                <span class="form-label fw-bold">Ngày sinh:</span>
+                                {{ $khachhang->KHACHHANG_NGAYSINHNDD }}<br>
+                                <span class="form-label fw-bold">Ngày hoạt động:</span>
+                                {{ $khachhang->KHACHHANG_NGAYHOATDONG }}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col subheading">
+                                <span class="form-label fw-bold">Ngày tạo lập:</span>
+                                {{ $khachhang->NGAYTAOLAP }}
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         @endforeach
         <hr>
         <h1>Danh sách Hợp đồng</h1>

@@ -71,35 +71,118 @@
                 width: 48%;
             }
         </style>
-                <h1 style="color: blue;">Chi tiết Hợp đồng</h1>
 
         <hr>
 
-        <div class="row">
-            <div class="column">
-                <div class="subheading"><b>Hợp đồng số:</b> {{ $hopdong->HOPDONG_SO }}</div>
-                <div class="subheading"><b>Khách hàng:</b> {{ $hopdong->KHACHHANG_TEN }}</div>
-                <div class="subheading"><b>Loại hợp đồng:</b> {{ $hopdong->LOAIHOPDONG_TEN }}</div>
-                <div class="subheading"><b>Ngày ký:</b> {{ $hopdong->HOPDONG_NGAYKY }}</div>
-                <div class="subheading"><b>Ngày hiệu lực:</b> {{ $hopdong->HOPDONG_NGAYHIEULUC }}</div>
-                <div class="subheading"><b>Ngày kết thúc:</b> {{ $hopdong->HOPDONG_NGAYKETTHUC }}</div>
-                <div class="subheading"><b>Thời gian thực hiện:</b> {{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}</div>
-                <div class="subheading"><b>Tổng giá trị:</b> {{ $hopdong->HOPDONG_TONGGIATRI }} VNĐ</div>
-                <div class="subheading"><b>Hình thức thanh toán:</b> {{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}</div>
-                <div class="subheading"><b>Ghi chú:</b> {{ $hopdong->HOPDONG_GHICHU }}</div>
-                <div class="subheading"><b>Trạng thái hợp đồng:</b> {{ $hopdong->TRANGTHAI_TEN }}</div>
-                <div class="subheading"><b>File:</b> <a href="{{ asset('storage/'.$hopdong->HOPDONG_FILE) }}">{{ $hopdong->HOPDONG_FILE }}</a></b></div>
-            </div>
-            <div class="column">
-                <div class="subheading"><b>Gói thầu:</b> {{ $hopdong->HOPDONG_TENGOITHAU }}</div>
-                <div class="subheading"><b>Dự án:</b> {{ $hopdong->HOPDONG_TENDUAN }}</div>
-                <div class="subheading"><b>Đại diện bên A:</b> {{ $hopdong->HOPDONG_DAIDIENBEN_A }}</div>
-                <div class="subheading"><b>Đại diện bên B:</b> {{ $hopdong->HOPDONG_DAIDIENBEN_B }}</div>
-                <div class="subheading"><b>Người lập:</b> {{ $hopdong->ten_nd }}</div>
-                <div class="subheading"><b>Nội dung:</b> {{ $hopdong->HOPDONG_NOIDUNG }}</div>
+        <div class="container-fluid">
+            <div class="border" style="padding-left:100px; padding-right:100px">
+                <div class="mt-2">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
+                        </div>
+                        <div class="col text-center">
+                            <h4 class="fs-2">Chi tiết Hợp đồng</h4>
+                        </div>
+                    </div>
+                    
+                    <hr style="border-top: 2px dashed black;"/>
+                    <div class="text-start">
+                                <b>Ngày ký: </b>{{ $hopdong->HOPDONG_NGAYKY }}<br>
+                                <b>Hợp đồng số: </b><b style="color: red">{{ $hopdong->HOPDONG_SO }}</b><br>
+                                <b>Trạng thái: </b>{{ $hopdong->TRANGTHAI_TEN }}
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Khách hàng:</span>
+                            {{ $hopdong->KHACHHANG_TEN }}
+                            <hr>
+                        </div>
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Loại hợp đồng:</span>
+                            {{ $hopdong->LOAIHOPDONG_TEN }}
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Ngày hiệu lực:</span>
+                            {{ $hopdong->HOPDONG_NGAYHIEULUC }}
+                            <hr>
+                        </div>
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Ngày kết thúc:</span>
+                            {{ $hopdong->HOPDONG_NGAYKETTHUC }}
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Thời gian thực hiện:</span>
+                            {{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}
+                            <hr>
+                        </div>
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Tổng giá trị:</span>
+                            {{ $hopdong->HOPDONG_TONGGIATRI }} VNĐ
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Hình thức thanh toán:</span>
+                            {{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}
+                            <hr>
+                        </div>
+                        <div class="col subheading">
+                            <span class="form-label fw-bold">Ghi chú:</span>
+                            {{ $hopdong->HOPDONG_GHICHU }}
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col subheading">
+                            <label class="form-label fw-bold">File:</label>
+                            </b> <a href="{{ asset('storage/'.$hopdong->HOPDONG_FILE) }}">{{ $hopdong->HOPDONG_FILE }}</a></b>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col subheading">
+                            <label class="form-label fw-bold">Gói thầu:</label>
+                            {{ $hopdong->HOPDONG_TENGOITHAU }}
+                            <br>
+                            <label class="form-label fw-bold">Dự án:</label>
+                            {{ $hopdong->HOPDONG_TENDUAN }}
+                            <br>
+                            <label class="form-label fw-bold">&nbsp;</label>
+                            &nbsp;
+                            <hr>
+                        </div>
+                        <div class="col subheading">
+                            <label class="form-label fw-bold">Đại diện bên A:</label>
+                            {{ $hopdong->HOPDONG_DAIDIENBEN_A }}
+                            <br>
+                            <label class="form-label fw-bold">Đại diện bên B:</label>
+                            {{ $hopdong->HOPDONG_DAIDIENBEN_B }}
+                            <br>
+                            <label class="form-label fw-bold">Người lập:</label>
+                            {{ $hopdong->ten_nd }}
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col subheading">
+                            <label class="form-label fw-bold">Nội dung:</label><br>
+                            {{ $hopdong->HOPDONG_NOIDUNG }}
+                            <hr>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    
+        
         <hr>
         <h1 style="color: blue;">Danh sách hóa đơn</h1>
         <hr>
