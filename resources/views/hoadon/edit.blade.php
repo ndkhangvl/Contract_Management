@@ -23,16 +23,22 @@
                 
         }
         .inputstt {
-                width: 70px;
+                
         }
         
-        table {
-                width: 70%;
-        }
+        
         .bodyfake{
                 max-width: 1000px;
                 margin: auto;
                 padding: 20px;
+        }
+        table {
+                width: 100%;
+                max-width: 100%;
+                table-layout: fixed;
+        }
+        .contentcenter {
+                text-align: center;
         }
 </style>
 <div id="main">
@@ -137,7 +143,7 @@
                 <input class="form-control" type="number" name="soluongchitiet" value="{{$cnt}}" min="0" id="slct" required readonly><hr>
                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
 
-                <table id='tablechitiet'>
+                <table id='tablechitiet' class="contentcenter">
                         <tr>
                         <th>STT</th>
                         <th>Nội dung</th>

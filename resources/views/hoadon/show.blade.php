@@ -1,6 +1,5 @@
 <title>Chi tiết hóa đơn | {{$hoadon->HOADON_SO}}</title>
-@include('header2')
-@include('sidebar')
+
 {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -11,7 +10,7 @@
 <style>
     table, th, td {
         border: 1px solid black;
-        border-collapse: collapse;
+        
     }
     
     /* .info-border {
@@ -69,10 +68,16 @@
 
     }
     .inputstt {
-        width: 100px;
+        
+    }
+    table {
+        width: 100%;
+        max-width: 100%;
+        table-layout: fixed;
     }
 </style>
-
+@include('header2')
+@include('sidebar')
 <div id="main">
     <div class="container bg-white shadow">
         <!--Update hoa don modal-->
@@ -174,7 +179,7 @@
                                 <input class="form-control" type="number" name="soluongchitiet" min="0" id="slct" required readonly value="{{$cnt}}"><hr>
                                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
 
-                                <table id='tablechitiet'>
+                                <table id='tablechitiet' class="contentcenter" style=" border: 0px;">
                                         <tr>
                                         <th>STT</th>
                                         <th>Nội dung</th>
@@ -282,13 +287,13 @@
                                 <h4 class="fs-2">Hóa Đơn Dịch Vụ</h4>
                               </div>
                             </div>
-                          </div>
-                            <hr style="border-top: 2px dashed black;"/>
-                            <div class="contentcenter">
+                        </div>
+                        <hr style="border-top: 2px dashed black;"/>
+                        <div class="contentcenter">
                                 Ngày tạo: <b>{{$hoadon->HOADON_NGAYTAO}}</b>
-                            </div>
-                                <div class="contentright">Số: <b style="color: red; padding-right:20px">{{$hoadon->HOADON_SO}}</b></div>
-                            </div>
+                        </div>
+                        <div class="contentright">Số: <b style="color: red; padding-right:20px">{{$hoadon->HOADON_SO}}</b></div>
+                        </div>
                             <div class="col text-center">
                                 @if ($hoadon->HOADON_TRANGTHAI == 1)
                                     <b style="color: green">Đã thanh toán</b>

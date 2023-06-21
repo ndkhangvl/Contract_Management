@@ -29,12 +29,12 @@
 
     td {
         background: #cce0df;
-        padding: 5px;
+        
 
     }
 
     .inputstt {
-        width: 100px;
+    
     }
     .contentcenter {
         text-align: center;
@@ -49,21 +49,12 @@
         
     }
 
-    .table-container {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: auto;
-    }
 
-        table {
+    table {
         width: 100%;
         max-width: 100%;
         table-layout: fixed;
-        }
-
-        th, td {
-        white-space: nowrap;
-        }
+    }
 </style>
 @include('header2')
 @include('sidebar')
@@ -217,7 +208,7 @@
                                     readonly>
                                 <hr>
                                 <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
-                                <table id='tablechitiet'>
+                                <table id='tablechitiet' class="contentcenter">
                                     <tr>
                                         <th>STT</th>
                                         <th>Nội dung</th>
@@ -342,7 +333,7 @@
                                 <input class="form-control" type="number" name="soluongchitiet" min="0" id="slct" required readonly value=""><hr>
                                 <button class="btn btn-primary" onclick="addRow2()" type="button">Thêm hàng</button>
 
-                                <table id='tablechitiet'>
+                                <table id='tablechitiet' class="contentcenter">
                                         <tr>
                                         <th>STT</th>
                                         <th>Nội dung</th>
