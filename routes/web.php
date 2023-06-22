@@ -126,6 +126,7 @@ Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name(
 // });
 
 Route::get('/baocao', [ReportController::class, 'index'])->middleware('switchLanguage')->name('reports.index');
+//Route::get('/baocao/hopdongmoitao', [ReportController::class, 'showModel1'])->middleware('switchLanguage')->name('showModel1');
 
 Route::get('/hoadon/{hoadon}/pdf', [HoaDonController::class, 'pdf']);
 

@@ -1,5 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
@@ -100,6 +101,10 @@
     button:hover {
         background-color: #0056b3;
     }
+    .modal-body {
+        height: 200px;
+        overflow-y: ;
+    }
 
 </style>
 @include('header2')
@@ -124,7 +129,7 @@
         <div class="row">
             {{-- Các hợp đồng mới tạo --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);" data-toggle="modal" data-target="#myModal1">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -142,7 +147,7 @@
             </div>
             {{-- Các hợp đồng nghiệm thu --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);" data-toggle="modal" data-target="#myModal2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -160,7 +165,7 @@
             </div>
             {{-- Các hợp đồng xuất hóa đơn --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);" data-toggle="modal" data-target="#myModal3">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -178,7 +183,7 @@
             </div>
             {{-- Các hợp đồng thanh lý --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);" data-toggle="modal" data-target="#myModal4">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -196,7 +201,7 @@
             </div>
             {{-- Tổng số hợp đồng --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);" data-toggle="modal" data-target="#myModal5">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -214,7 +219,7 @@
             </div>
             {{-- Tổng tiền của các hợp đồng --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-success);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-success);" data-toggle="modal" data-target="#myModal6">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -232,7 +237,7 @@
             </div>
             {{-- Tổng số hóa đơn --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);" data-toggle="modal" data-target="#myModal7">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -250,7 +255,7 @@
             </div>
             {{-- Số hóa đơn chưa thanh toán --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-red);">
+                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-red);" data-toggle="modal" data-target="#myModal8">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -267,6 +272,237 @@
                 </div>
             </div>
         </div>
+
+        {{-- Model card --}}
+            <div class="modal" id="myModal1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <b><h3>Danh sách hợp đồng</h3></b>
+                </div>
+                <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                    @foreach ($ThongtinHD as $hopDong)
+                    @if($hopDong->TRANGTHAI_ID == 1)
+                        <div>
+                            <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
+                            <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
+                            <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
+                            <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
+                            <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
+                            <p>Đai diện bên B: {{ $hopDong->HOPDONG_DAIDIENBEN_B  }}</p>
+                            <p>Thời gian thực hiện: {{ $hopDong->HOPDONG_THOIGIANTHUCHIEN  }}</p>
+                            <p>Tổng giá trị: {{ $hopDong->HOPDONG_TONGGIATRI  }} VNĐ</p>
+                            <hr>
+                        </div>
+                    @endif
+                    @endforeach
+                </div>
+              </div>
+            </div>
+            </div>
+          
+            <div class="modal" id="myModal2">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Danh sách hợp đồng</h3>
+                    </div>
+                    <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                        @foreach ($ThongtinHD as $hopDong)
+                        @if($hopDong->TRANGTHAI_ID == 2)
+                            <div>
+                                <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
+                                <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
+                                <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
+                                <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
+                                <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
+                                <p>Đai diện bên B: {{ $hopDong->HOPDONG_DAIDIENBEN_B  }}</p>
+                                <p>Thời gian thực hiện: {{ $hopDong->HOPDONG_THOIGIANTHUCHIEN  }}</p>
+                                <p>Tổng giá trị: {{ $hopDong->HOPDONG_TONGGIATRI  }} VNĐ</p>
+                                <hr>
+                            </div>
+                        @endif
+                        @endforeach
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+                <div class="modal" id="myModal3">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Danh sách hợp đồng</h3>
+                        </div>
+                        <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                            @foreach ($ThongtinHD as $hopDong)
+                            @if($hopDong->TRANGTHAI_ID == 3)
+                                <div>
+                                    <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
+                                    <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
+                                    <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
+                                    <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
+                                    <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
+                                    <p>Đai diện bên B: {{ $hopDong->HOPDONG_DAIDIENBEN_B  }}</p>
+                                    <p>Thời gian thực hiện: {{ $hopDong->HOPDONG_THOIGIANTHUCHIEN  }}</p>
+                                    <p>Tổng giá trị: {{ $hopDong->HOPDONG_TONGGIATRI  }} VNĐ</p>
+                                    <hr>
+                                </div>
+                            @endif
+                            @endforeach
+                        </div>
+                      </div>
+                    </div>
+                </div>
+          
+                    <div class="modal" id="myModal4">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Danh sách hợp đồng</h3>
+                            </div>
+                            <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                @foreach ($ThongtinHD as $hopDong)
+                                @if($hopDong->TRANGTHAI_ID == 4)
+                                    <div>
+                                        <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
+                                        <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
+                                        <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
+                                        <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
+                                        <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
+                                        <p>Đai diện bên B: {{ $hopDong->HOPDONG_DAIDIENBEN_B  }}</p>
+                                        <p>Thời gian thực hiện: {{ $hopDong->HOPDONG_THOIGIANTHUCHIEN  }}</p>
+                                        <p>Tổng giá trị: {{ $hopDong->HOPDONG_TONGGIATRI  }} VNĐ</p>
+                                        <hr>
+                                    </div>
+                                @endif
+                                @endforeach
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                        <div class="modal" id="myModal5">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Danh sách hợp đồng</h3>
+                                </div>
+                                <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                    @foreach ($ThongtinHD as $hopDong)
+                                        <div>
+                                            <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
+                                            <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
+                                            <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
+                                            <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
+                                            <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
+                                            <p>Đai diện bên B: {{ $hopDong->HOPDONG_DAIDIENBEN_B  }}</p>
+                                            <p>Thời gian thực hiện: {{ $hopDong->HOPDONG_THOIGIANTHUCHIEN  }}</p>
+                                            <p>Tổng giá trị: {{ $hopDong->HOPDONG_TONGGIATRI  }} VNĐ</p>
+                                            <hr>
+                                        </div>
+                                    @endforeach
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+          
+                        <div class="modal" id="myModal6">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Tổng thu các hóa đơn</h3>
+                                </div>
+                                <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                    @foreach ($ThongtinHoaDon as $hoadon)
+                                        <div>
+                                            <b><p>Hóa đơn số:</b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
+                                            <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO  }}</p>
+                                            <p>Thuộc về họp đồng số: {{ $hoadon->HOPDONG_SO }}
+                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_TONGTIEN  }} VNĐ</p>
+                                            <p>Thuế: {{ $hoadon->HOADON_THUESUAT }}%</p>
+                                            <p>Tiền thuế {{ $hoadon->HOADON_TIENTHUE }} VNĐ</p>
+                                            <p>Tổng tiền có thuế: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
+                                            <hr>
+                                        </div>
+                                    @endforeach
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal" id="myModal7">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Số hóa đơn</h3>
+                                </div>
+                                <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                    @foreach ($ThongtinHoaDon as $hoadon)
+                                        <div>
+                                            <b><p>Hóa đơn số:</b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
+                                            <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO  }}</p>
+                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_NGUOITAO  }} VNĐ</p>
+                                            <p>Thuế: {{ $hoadon->HOADON_NGUOIMUAHANG }}%</p>
+                                            <p>Thành tiền: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
+                                            <hr>
+                                        </div>
+                                    @endforeach
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal" id="myModal8">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Số hóa đơn chưa thanh toán</h3>
+                                    </div>
+                                    <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                        @foreach ($ThongtinHoaDon as $hoadon)
+                                            @if ($hoadon->HOADON_TRANGTHAI == 0)
+                                                <div>
+                                                    <b><p>Hóa đơn số:</b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
+                                                    <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO }}</p>
+                                                    <p>Người tạo hóa đơn: {{ $hoadon->HOADON_NGUOITAO }}</p>
+                                                    <p>Người mua hàng {{ $hoadon->HOADON_NGUOIMUAHANG }}</p>
+                                                    <p>Tổng tiền: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
+                                                    <i style="color: red">Hóa đơn chưa được thanh toán!</i>
+                                                    <hr>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const cards = document.querySelectorAll('.card-clickable');
+                const modal = document.querySelector('#myModal1');
+        
+                cards.forEach(function(card) {
+                    card.addEventListener('click', function() {
+                        modal.style.display = 'block';
+                    });
+                });
+        
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+        
+          
+
+
         {{-- Thống kê --}}
         <div class="row">
             {{-- <div class="col-xl-8 col-lg-7">

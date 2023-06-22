@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\HopDong;
 use App\Models\HoaDon;
 use Illuminate\Support\Facades\DB;
+use App\Models\TrangThaiHD;
 
 class ReportController extends Controller
 {
@@ -20,6 +21,22 @@ class ReportController extends Controller
                 ->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])
                 ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
                 ->get();
+
+                $ThongtinHD = DB::table('HOPDONG')
+                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.TRANGTHAI_ID', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+                ->select('HOPDONG.HOPDONG_SO','TRANGTHAI_HOPDONG.TRANGTHAI_ID', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN',
+                        'HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B',
+                        'HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
+                ->whereBetween('HOPDONG.HOPDONG_NGAYKY', [$startDate, $endDate])
+                ->get();
+
+                $ThongtinHoaDon = DB::table('HOADON')
+                    ->join('HOPDONG', 'HOPDONG.HOPDONG_ID', '=', 'HOADON.HOPDONG_ID')
+                    ->select('HOADON.HOADON_SO', 'HOADON.HOADON_TRANGTHAI', 'HOADON.HOADON_TONGTIEN', 'HOADON.HOADON_TIENTHUE', 'HOADON.HOADON_THUESUAT', 'HOADON.HOADON_TONGTIEN_COTHUE', 'HOADON.HOADON_NGAYTAO', 'HOPDONG.HOPDONG_SO','HOADON_NGUOITAO','HOADON_NGUOIMUAHANG')
+                    ->whereBetween('HOADON.HOADON_NGAYTAO', [$startDate, $endDate])
+                    ->get();
+
+
 
                 $TongHopDong = DB::table('hopdong')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
                 $TongThuHoaDon = DB::table('hoadon')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->sum('HOADON_TONGTIEN');
@@ -38,6 +55,17 @@ class ReportController extends Controller
             ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
             ->get();
 
+            $ThongtinHD = DB::table('HOPDONG')
+                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.TRANGTHAI_ID', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+                ->select('HOPDONG.HOPDONG_SO', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN','HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B','HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
+                ->get();
+
+            $ThongtinHoaDon = DB::table('HOADON')
+                ->join('HOPDONG', 'HOPDONG.HOPDONG_ID', '=', 'HOADON.HOPDONG_ID')
+                ->select('HOADON.HOADON_SO', 'HOADON.HOADON_TRANGTHAI', 'HOADON.HOADON_TONGTIEN', 'HOADON.HOADON_TIENTHUE', 'HOADON.HOADON_THUESUAT', 'HOADON.HOADON_TONGTIEN_COTHUE', 'HOADON.HOADON_NGAYTAO', 'HOPDONG.HOPDONG_SO','HOADON_NGUOITAO','HOADON_NGUOIMUAHANG')
+                ->get();
+
+
             $TongHopDong = DB::table('hopdong')->count();
             $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
             $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
@@ -53,7 +81,8 @@ class ReportController extends Controller
         // Định dạng số tiền
         $TongThuHoaDonFormatted = number_format($TongThuHoaDon, 0, ',', '.');
 
-        return view('reports.index', compact('TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang','startDate','endDate','TongHoaDon','TongChuaThanhToan'));
+        return view('reports.index', compact('ThongtinHoaDon', 'TongHopDong', 'TongThuHoaDonFormatted', 'HopDongMoiTao', 'HopDongNghiemThu', 'HopDongXuatHoaDon', 'HopDongThanhLy', 'HoaDonTheoThang','ThongtinHD', 'startDate','endDate','TongHoaDon','TongChuaThanhToan'));
     }
+
 
 }

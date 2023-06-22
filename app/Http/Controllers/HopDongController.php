@@ -306,4 +306,5 @@ class HopDongController extends Controller
         
         // return redirect('/hopdong');
     }
+
 }
