@@ -816,6 +816,15 @@
                     location.reload();
                 });
             });
+            $('#detailModal').on('hide.bs.modal', function(event) {
+                $('#detailModal input').val('');
+            });
+            $('#createModal').on('hide.bs.modal', function(event) {
+                $('#createModal input').val('');
+            });
+            $('#updateModal').on('hide.bs.modal', function(event) {
+                $('#updateModal input').val('');
+            });
         </script>
         <script>
             function moveToCreate() {
