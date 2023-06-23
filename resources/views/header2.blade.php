@@ -4,7 +4,9 @@
     .logo-img {
         width: 150px;
         height: auto;
-    };
+    }
+
+    ;
 </style>
 {{-- <header class="bg-white py-3" style="padding-left: 300px;">
     <div class="container">
@@ -48,15 +50,16 @@
             <i class="fas fa-bars" style="display: inline-block; font-size: 40px;"></i>
         </a>
     </div>
-    <div class="float-end">
+    <div class="float-end d-flex align-items-center">
         <div class="dropdown d-inline-block mr-2 mb-2">
             <button class="btn btn-secondary dropdown-toggle" type="button" style="margin-top: 5%" id="userMenuDropdown"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                {{ Session::get('infoUser')['ma_nd'] }}
+                {{ Session::get('infoUser')['ten_nd'] }} ({{ Session::get('infoUser')['ma_nd'] }})
             </button>
             <ul class="dropdown-menu" aria-labelledby="userMenuDropdown">
-                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#infoModal"
-                        id="infoBtn">{{ trans('msg.info') }}</a></li>
+                <li> <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#infoModal">
+                        {{ trans('msg.info') }}
+                    </button></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -67,69 +70,67 @@
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="logout">{{ __('msg.logout') }}</a></li>
+                <li><a class="dropdown-item" href="/logout">{{ __('msg.logout') }}</a></li>
             </ul>
         </div>
         <a href="/khachhang" class="d-inline-block mr-2">
             <img src="https://testing.ctu.edu.vn/theme/image.php/lambda/core/1684852385/u/f1"
-                class="d-inline-block rounded-circle m-2" width="40" height="40" alt="" data-selected="true"
-                data-label-id="0" data-metatip="true">
+                class="d-inline-block rounded-circle m-2" width="40" height="40" alt=""
+                data-selected="true" data-label-id="0" data-metatip="true">
         </a>
     </div>
-</header>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-</header>
-
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="infoModalLabel">Thông tin tài khoản</h5>
-            </div>
-            {{-- <div class="modal-body">
+    <div class="modal fade" id="infoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalLabel">Thông tin tài khoản</h5>
+                </div>
+                {{-- <div class="modal-body">
                 <p>Tên người dùng: {{ Session::get('infoUser')['ma_nd'] }}</p>
                 <p>Mã người dùng: {{ Session::get('infoUser')['ten_nd'] }}<span id="userInfoMaND"></span></p>
                 <p>Mật khẩu: {{ Session::get('infoUser')['matkhau'] }}<span id="userInfoMatKhau"></span></p>
                 <p>Trạng thái: {{ Session::get('infoUser')['trangthai'] }}<span id="userInfoTrangThai"></span></p>
             </div> --}}
-            <div class="modal-body">
-                <p>Tên người dùng: {{ Session::get('infoUser')['ma_nd'] }}</p>
-                <p>Mã người dùng: <span id="userInfoMaND"></span></p>
-                <p>Mật khẩu: <span id="userInfoMatKhau"></span></p>
-                <p>Trạng thái: <span id="userInfoTrangThai"></span></p>
-            </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var infoBtn = document.getElementById('infoBtn');
-                    var infoModal = document.getElementById('infoModal');
-                    var userInfoMaND = document.getElementById('userInfoMaND');
-                    var userInfoMatKhau = document.getElementById('userInfoMatKhau');
-                    var userInfoTrangThai = document.getElementById('userInfoTrangThai');
+                <div class="modal-body">
+                    <p>Tên người dùng: {{ Session::get('infoUser')['ten_nd'] }}</p>
+                    <p>Mã người dùng: {{ Session::get('infoUser')['ma_nd'] }}</p>
+                    <p>Mật khẩu: {{ Session::get('infoUser')['matkhau'] }}</p>
+                    <p>Trạng thái: {{ Session::get('infoUser')['trangthai'] }}</p>
+                    <p>Email: {{ Session::get('infoUser')['nguoidung_email'] }}</p>
+                </div>
+                {{-- <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var infoBtn = document.getElementById('infoBtn');
+                        var infoModal = document.getElementById('infoModal');
+                        var userInfoMaND = document.getElementById('userInfoMaND');
+                        var userInfoMatKhau = document.getElementById('userInfoMatKhau');
+                        var userInfoTrangThai = document.getElementById('userInfoTrangThai');
 
-                    infoBtn.addEventListener('click', function() {
-                        var userId = '{{ Session::get('infoUser')['ma_nd'] }}';
-                        fetch('/user/' + userId)
-                            .then(response => response.json())
-                            .then(data => {
-                                userInfoMaND.textContent = data.ma_nd;
-                                userInfoMatKhau.textContent = data.matkhau;
-                                userInfoTrangThai.textContent = data.trangthai;
-                                var infoModalInstance = new bootstrap.Modal(infoModal);
-                                infoModalInstance.show();
-                            })
-                            .catch(error => {
-                                console.error('Error', error);
-                            });
+                        infoBtn.addEventListener('click', function() {
+                            var userId = '{{ Session::get('infoUser')['ma_nd'] }}';
+                            fetch('/user/' + userId)
+                                .then(response => response.json())
+                                .then(data => {
+                                    userInfoMaND.textContent = data.ma_nd;
+                                    userInfoMatKhau.textContent = data.matkhau;
+                                    userInfoTrangThai.textContent = data.trangthai;
+                                    var infoModalInstance = new bootstrap.Modal(infoModal);
+                                    infoModalInstance.show();
+                                })
+                                .catch(error => {
+                                    console.error('Error', error);
+                                });
+                        });
                     });
-                });
-            </script>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </script> --}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</header>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
     function changeLanguage(culture) {
         var jsondata = {

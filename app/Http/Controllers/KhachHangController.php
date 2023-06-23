@@ -27,6 +27,8 @@ class KhachHangController extends Controller
         /*$khachhang = DB::select("EXEC GetKhachHangByID @KhachHangID = :id", [
             'id' => $id
         ]);*/
+        $khachhangs = DB::select('select * from KHACHHANG');
+        $trangthaihopdongs = DB::select('select * from TRANGTHAI_HOPDONG');
         $khachhang = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
         join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID where KHACHHANG_ID=:id;",
         [
@@ -40,6 +42,8 @@ class KhachHangController extends Controller
         return view('khachhang.show', [
             'khachhang' => $khachhang,
             'hopdongs' => $hopdongs,
+            'khachhangs' => $khachhangs,
+            'trangthaihopdongs' => $trangthaihopdongs,
         ]);
     }
 

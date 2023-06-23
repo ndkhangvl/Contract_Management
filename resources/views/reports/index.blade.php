@@ -1,9 +1,9 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-</script>
+</script> --}}
 <title>Thống kê báo cáo</title>
 <style>
     table,
@@ -428,10 +428,10 @@
                                             <b><p>Hóa đơn số:</b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
                                             <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO  }}</p>
                                             <p>Thuộc về họp đồng số: {{ $hoadon->HOPDONG_SO }}
-                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_TONGTIEN = number_format($hoadon->HOADON_TONGTIEN, 0, '.', '.'); }} VNĐ</p>
+                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_TONGTIEN = number_format($hoadon->HOADON_TONGTIEN, 0, '.', '.') }} VNĐ</p>
                                             <p>Thuế: {{ $hoadon->HOADON_THUESUAT }}%</p>
-                                            <p>Tiền thuế: {{ $hoadon->HOADON_TIENTHUE = number_format($hoadon->HOADON_TIENTHUE, 0, '.', '.'); }} VNĐ</p>
-                                            <p>Tổng tiền có thuế: {{ $hoadon->HOADON_TONGTIEN_COTHUE = number_format($hoadon->HOADON_TONGTIEN_COTHUE, 0, '.', '.'); }} VNĐ</p>
+                                            <p>Tiền thuế: {{ $hoadon->HOADON_TIENTHUE = number_format($hoadon->HOADON_TIENTHUE, 0, '.', '.') }} VNĐ</p>
+                                            <p>Tổng tiền có thuế: {{ $hoadon->HOADON_TONGTIEN_COTHUE = number_format($hoadon->HOADON_TONGTIEN_COTHUE, 0, '.', '.') }} VNĐ</p>
                                             <hr>
                                         </div>
                                     @endforeach
@@ -637,4 +637,26 @@
             barSpacing: 0
         }
     });
+    /////////////////////////////////////////////
+    window.addEventListener('DOMContentLoaded', (event) => {
+            var w = window.innerWidth;
+            if (w < 1200) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        });
+        window.addEventListener('resize', (event) => {
+            var w = window.innerWidth;
+            if (w < 1200) {
+                document.getElementById('sidebar').classList.remove('active');
+            } else {
+                document.getElementById('sidebar').classList.add('active');
+            }
+        });
+        document.querySelector('.burger-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+        })
+        document.querySelector('.sidebar-hide').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+
+        })
 </script>

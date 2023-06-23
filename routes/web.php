@@ -57,7 +57,7 @@ Route::get('/forgotpass', function () {
 
 Route::get('/test', function () {
     //$value = Session::get('loginId');
-    return view('sidebar');
+    return view('hoadon.pdf');
 });
 
 Route::get('/test2', [KhachHangController::class, 'create'])->middleware('isLogin');

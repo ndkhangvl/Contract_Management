@@ -1,9 +1,9 @@
 <title>Hóa đơn</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-</script>
+</script> --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
         justify-content: center;
     }
 
-    
+
 
     th {
         background: #337ab7;
@@ -29,38 +29,38 @@
 
     td {
         background: #cce0df;
-        
+
 
     }
 
     .inputstt {
-        width:100px;
+        width: 100px;
     }
+
     .contentcenter {
         text-align: center;
-        
+
     }
+
     .contentright {
         text-align: right;
-        
+
     }
+
     .contentleft {
         text-align: left;
-        
+
     }
-
-
-    
 </style>
-@include('header2')
 @include('sidebar')
+@include('header2')
 <div id="main">
-<div style="display: none">
-    Danh sách số hóa đơn đã có
-    @for ($i = 0; $i < $cnt; $i++)
-        <div class="shdexists" id="{{$dssohoadon[$i]->HOADON_SO}}">{{$dssohoadon[$i]->HOADON_SO}}</div>
-    @endfor
-</div>
+    <div style="display: none">
+        Danh sách số hóa đơn đã có
+        @for ($i = 0; $i < $cnt; $i++)
+            <div class="shdexists" id="{{ $dssohoadon[$i]->HOADON_SO }}">{{ $dssohoadon[$i]->HOADON_SO }}</div>
+        @endfor
+    </div>
     <div class="container shadow bg-white">
         <div class="content p-3">
             <label>Chọn hợp đồng cần tạo hóa đơn</label>
@@ -86,7 +86,7 @@
                     });
                 });
             </script>
-            {{--<button type="button" class="btn btn-primary" onclick="moveToCreate()">Thêm mới (trang mới)</button>--}}
+            {{-- <button type="button" class="btn btn-primary" onclick="moveToCreate()">Thêm mới (trang mới)</button> --}}
             <button type="button" class="btn btn-primary" id="btnCreateHDon" onclick="openCreateHDon()">Thêm mới hóa
                 đơn</button>
             <a href="/ExportHoaDon">
@@ -118,8 +118,10 @@
                                         <span class="invalid-feedback" id="sohopdong_error"></span>
                                     </div>
                                     <div class="col">
-                                    <label class="form-label fw-bold">Hóa đơn số:</label>
-                                        <input class="form-control" type="text" name="sohoadon" placeholder="Số hóa đơn" id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
+                                        <label class="form-label fw-bold">Hóa đơn số:</label>
+                                        <input class="form-control" type="text" name="sohoadon"
+                                            placeholder="Số hóa đơn" id="inputsohoadon"
+                                            oninput="this.value = this.value.toUpperCase()">
                                         <span class="invalid-feedback" id="sohoadon_error"></span>
                                         <div class="alert alert-danger" id="error_" style="display: none"></div>
                                     </div>
@@ -134,14 +136,14 @@
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Thuế:</label>
-                                        <input class="form-control" id="thuesuat" type="number" name="thuesuat" min="0"
-                                            value="0">
+                                        <input class="form-control" id="thuesuat" type="number" name="thuesuat"
+                                            min="0" value="0">
                                         <span class="invalid-feedback" id="thuesuat_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
                                         <input class="form-control" type="text" name="tongtien" id="tongtien"
-                                        value="" readonly>
+                                            value="" readonly>
                                         <span class="invalid-feedback" id="tongtien_error"></span>
                                     </div>
                                 </div>
@@ -149,39 +151,38 @@
                                     <div class="col">
                                         <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
                                         <input class="form-control" type="text" name="tienthue" id="tienthue"
-                                        value="" readonly>
+                                            value="" readonly>
                                         <span class="invalid-feedback" id="tienthue_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
-                                        <input class="form-control" type="text" name="tongtiencothue" id="tongtiencothue"
-                                        value="" readonly>
+                                        <input class="form-control" type="text" name="tongtiencothue"
+                                            id="tongtiencothue" value="" readonly>
                                         <span class="invalid-feedback" id="tongtiencothue_error"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
-                                        <input class="form-control" value="" type="text"
-                                        id="sotienbangchu" name="sotienbangchu" readonly>
+                                        <input class="form-control" value="" type="text" id="sotienbangchu"
+                                            name="sotienbangchu" readonly>
                                         <span class="invalid-feedback" id="sotienbangchu_error"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Người tạo:</label>
-                                        <input class="form-control" value="" type="text"
-                                        name="nguoitao">
+                                        <input class="form-control" value="" type="text" name="nguoitao">
                                         <span class="invalid-feedback" id="nguoitao_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Người mua hàng:</label>
-                                        <input class="form-control" value="" type="text"            
-                                        name="nguoimuahang">
+                                        <input class="form-control" value="" type="text"
+                                            name="nguoimuahang">
                                         <span class="invalid-feedback" id="nguoimuahang_error"></span>
                                     </div>
                                 </div>
-                                
+
                                 <div>
                                     <hr>
                                     <label class="form-label fw-bold">Trạng thái hóa đơn:</label>
@@ -199,23 +200,23 @@
                                 <h1>Danh sách chi tiết</h1>
                                 <hr>
                                 Số lượng loại sản phẩm:
-                                <input class="form-control" type="number" name="soluongchitiet"
-                                    value="" min="0" id="slct" required
-                                    readonly>
+                                <input class="form-control" type="number" name="soluongchitiet" value=""
+                                    min="0" id="slct" required readonly>
                                 <hr>
-                                <button class="btn btn-primary" onclick="addRowIndexCreate()" type="button">Thêm hàng</button>
+                                <button class="btn btn-primary" onclick="addRowIndexCreate()" type="button">Thêm
+                                    hàng</button>
                                 <div class="table-responsive">
-                                <table id='tablechitiet' class="contentcenter">
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Nội dung</th>
-                                        <th>Số lượng</th>
-                                        <th>Đơn vị tính</th>
-                                        <th>Đơn giá</th>
-                                        <th>Thành tiền</th>
-                                        <th>Xóa</th>
-                                    </tr>
-                                </table>
+                                    <table id='tablechitiet' class="contentcenter">
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Nội dung</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn vị tính</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                            <th>Xóa</th>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <hr>
                                 <div class="mb-3 mt-3 pb-2 text-center">
@@ -236,120 +237,138 @@
         <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+                <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="updateModalLabel">Cập nhật Hoá đơn</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <form action="#" method="post" enctype="multipart/form-data" id="updateHoaDonForm" onsubmit="return confirmUpdate()">
+                            <form action="#" method="post" enctype="multipart/form-data" id="updateHoaDonForm"
+                                onsubmit="return confirmUpdate()">
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                            <label class="form-label fw-bold">Hợp đồng:</label>
-                                            <input class="form-control" type="text" name="sohopdong" required readonly id="getSohopdong">
+                                        <label class="form-label fw-bold">Hợp đồng:</label>
+                                        <input class="form-control" type="text" name="sohopdong" required readonly
+                                            id="getSohopdong">
                                     </div>
                                     <div class="col">
-                                            <label class="form-label fw-bold">Hóa đơn số:</label>
-                                            <input class="form-control" type="text" name="sohoadon" required readonly id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
-                                            <span class="invalid-feedback" id="sohoadon_error"></span>
-                                            <div class="alert alert-danger" id="error_" style="display: none"></div>
+                                        <label class="form-label fw-bold">Hóa đơn số:</label>
+                                        <input class="form-control" type="text" name="sohoadon" required readonly
+                                            id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
+                                        <span class="invalid-feedback" id="sohoadon_error"></span>
+                                        <div class="alert alert-danger" id="error_" style="display: none"></div>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">File hóa đơn:</label>
-                                                <a href=""  target="_blank" id="filehoadonlink"></a>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">File hóa đơn:</label>
+                                        <a href="" target="_blank" id="filehoadonlink"></a>
+                                    </div>
+                                    <div class="col">
+                                        <div id="wrapper">
+                                            <label class="form-label fw-bold">Bạn có muốn cập nhật file mới
+                                                không?</label>
+                                            <p><input type="radio" name="fileadd_yes_no" id="radY"
+                                                    value="1">Có</input></p>
+                                            <p><input type="radio" name="fileadd_yes_no" id="radN"
+                                                    value="0" checked>Không</input></p>
                                         </div>
-                                        <div class="col">
-                                                <div id="wrapper">
-                                                        <label class="form-label fw-bold">Bạn có muốn cập nhật file mới không?</label>
-                                                        <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input></p>
-                                                        <p><input type="radio" name="fileadd_yes_no" id="radN" value="0" checked>Không</input></p>
-                                                </div>
-                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">File mới:</label>
-                                                <input class="form-control" type="file" name="filehoadon" id="filehoadon" disabled required>
-                                        </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">File mới:</label>
+                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon"
+                                            disabled required>
+                                    </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Thuế (%):</label>
-                                                <input class="form-control" id="thuesuat" required type="number" name="thuesuat" min="0" >
-                                        </div>
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
-                                                <input class="form-control" required type="number" name="tongtien" id="tongtien" readonly>
-                                        </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Thuế (%):</label>
+                                        <input class="form-control" id="thuesuat" required type="number"
+                                            name="thuesuat" min="0">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
+                                        <input class="form-control" required type="number" name="tongtien"
+                                            id="tongtien" readonly>
+                                    </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
-                                                <input class="form-control" required type="number" name="tienthue" id="tienthue" readonly>
-                                        </div>
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
-                                                <input class="form-control" required type="number" name="tongtiencothue" id="tongtiencothue" readonly>
-                                        </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
+                                        <input class="form-control" required type="number" name="tienthue"
+                                            id="tienthue" readonly>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
+                                        <input class="form-control" required type="number" name="tongtiencothue"
+                                            id="tongtiencothue" readonly>
+                                    </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
-                                                <input class="form-control" required type="text" id="sotienbangchu" name="sotienbangchu" readonly>
-                                        </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
+                                        <input class="form-control" required type="text" id="sotienbangchu"
+                                            name="sotienbangchu" readonly>
+                                    </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Người tạo:</label>
-                                                <input class="form-control" required type="text" name="nguoitao" id="nguoitao">
-                                        </div>
-                                        <div class="col">
-                                                <label class="form-label fw-bold">Người mua hàng:</label>
-                                                <input class="form-control" required type="text" name="nguoimuahang" id="nguoimuahang">
-                                        </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Người tạo:</label>
+                                        <input class="form-control" required type="text" name="nguoitao"
+                                            id="nguoitao">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Người mua hàng:</label>
+                                        <input class="form-control" required type="text" name="nguoimuahang"
+                                            id="nguoimuahang">
+                                    </div>
                                 </div>
-                                
+
                                 <div>
-                                        <hr>
-                                        <label>Trạng thái hóa đơn:</label>
-                                        <select name="trangthaihoadon" id="trangthaihoadon">
-                                               
-                                                <option value=0 selected>Chưa thanh toán</option>  
-                                                <option value=1>Đã thanh toán</option> 
-                                                
-                                        </select>
-                                        <hr>
+                                    <hr>
+                                    <label>Trạng thái hóa đơn:</label>
+                                    <select name="trangthaihoadon" id="trangthaihoadon">
+
+                                        <option value=0 selected>Chưa thanh toán</option>
+                                        <option value=1>Đã thanh toán</option>
+
+                                    </select>
+                                    <hr>
                                 </div>
                                 <h1>Danh sách chi tiết</h1>
                                 <hr>
                                 Số lượng loại sản phẩm:
-                                <input class="form-control" type="number" name="soluongchitiet" min="0" id="slct" required readonly value=""><hr>
-                                <button class="btn btn-primary" onclick="add_RowIndexUpdate()" type="button">Thêm hàng</button>
+                                <input class="form-control" type="number" name="soluongchitiet" min="0"
+                                    id="slct" required readonly value="">
+                                <hr>
+                                <button class="btn btn-primary" onclick="add_RowIndexUpdate()" type="button">Thêm
+                                    hàng</button>
                                 <div class="table-responsive">
-                                <table id='tablechitiet' class="contentcenter">
+                                    <table id='tablechitiet' class="contentcenter">
                                         <tr>
-                                        <th>STT</th>
-                                        <th>Nội dung</th>
-                                        <th>Số lượng</th>
-                                        <th>Đơn vị tính</th>
-                                        <th>Đơn giá</th>
-                                        <th>Thành tiền</th>
-                                        <th>Xóa</th>
+                                            <th>STT</th>
+                                            <th>Nội dung</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn vị tính</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                            <th>Xóa</th>
                                         </tr>
                                         <tbody id="tableBody"></tbody>
 
-                                        
-                                </table>
+
+                                    </table>
                                 </div>
                                 <hr>
                                 <div class="mb-3 mt-3 pb-2 text-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                onclick="">Close</button>
+                                        onclick="">Close</button>
                                     <button class="btn btn-primary" type="submit">
                                         Cập nhật hóa đơn
                                     </button>
@@ -366,111 +385,122 @@
         <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="detailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+                <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="detailModalLabel">Thông tin hóa đơn</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                        <div class="table-responsive">
-                            <div class="col-auto">
-                                <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="logo" width="100" height="43.25">
-                            </div>
-                            <div class="col text-center">
-                                <h5 class="fs-3">HÓA ĐƠN DỊCH VỤ</h5>
-                            </div>
-                            <hr style="border-top: 2px dashed black;"/>
-                            <div class="contentcenter">Ngày tạo: <b id="dtngaytao"></b></div>
-                            <div class="contentright">Số: <b id="dtsohoadon" style="color: red; padding-right:20px"></b></div>
-                            <div class="col text-center">
-                                <b id="dttrangthai"></b>
-                            </div>
-                            <div class="">
-                                <table class="table table-auto table-hover">
-                                    <tbody>
-                                        <tr class="notprint">
-                                            <td class="info-td col-4">File hóa đơn</td>
-                                            <td class="info-td col-8"><b><a id="dtfilelink" href="" target="_blank"></a></b></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Khách hàng</td>
-                                            <td class="info-td col-8 fw-bold" id="dtkhachhang"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Điện thoại</td>
-                                            <td class="info-td col-8 fw-bold" id="dtdienthoai"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Địa chỉ</td>
-                                            <td class="info-td col-8 fw-bold" id="dtdiachi"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Hợp đồng số</td>
-                                            <td class="info-td col-8 fw-bold"><a id="dtsohopdong" href=""></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Gói thầu</td>
-                                            <td class="info-td col-8 fw-bold" id="dtgoithau"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Dự án</td>
-                                            <td class="info-td col-8 fw-bold" id="dtduan"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Người tạo</td>
-                                            <td class="info-td col-8 fw-bold text-uppercase" id="dtnguoitao"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="info-td col-4">Người mua hàng</td>
-                                            <td class="info-td col-8 fw-bold text-uppercase" id="dtnguoimuahang"></td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered mt-4">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center text-nowrap" style="color: black">STT</th>
-                                        <th class="text-center text-nowrap" style="color: black">Nội dung</th>
-                                        <th class="text-center text-nowrap" style="color: black">Số lượng</th>
-                                        <th class="text-center text-nowrap" style="color: black">Đơn vị tính</th>
-                                        <th class="text-center text-nowrap" style="color: black">Đơn giá (VNĐ)</th>
-                                        <th class="text-center text-nowrap" style="color: black">Thành tiền (VNĐ)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tbody id="dtcthd"></tbody>
-                                    <tr>
-                                    <td colspan="5" class="text-end">Cộng tiền hàng hóa dịch vụ:</td>
-                                    <td class="text-end"><span id="dttongtien"></span> VNĐ</td>
-                                    </tr>
-                                    <tr>
-                                    <td colspan="5" class="text-end">Thuế <span id="dtthuesuat"></span> %:</td>
-                                    <td class="text-end"><span id="dttienthue"></span> VNĐ</td>
-                                    </tr>
-                                    <tr>
-                                    <td colspan="5" class="text-end">Tổng cộng tiền thanh toán:</td>
-                                    <td class="text-end"><b><span id="dttongtiencothue"></span> VNĐ</b></td>
-                                    </tr>
-                                    <tr>
-                                    <td colspan="6" class="text-end">Số tiền (bằng chữ):
-                                    <b><span id="dtsotienbangchu"></span></b></td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                                <hr>
-                                <div class="mb-3 mt-3 pb-2 text-center">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                onclick="">Close</button>
-                                    <a class="btn btn-primary" href="" id="dtbtnxuatpdf">
-                                        Xuất hóa đơn
-                                    </a>
+                            <div class="table-responsive">
+                                <div class="col-auto">
+                                    <img src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png"
+                                        alt="logo" width="100" height="43.25">
                                 </div>
-                                <hr>
+                                <div class="col text-center">
+                                    <h5 class="fs-3">HÓA ĐƠN DỊCH VỤ</h5>
+                                </div>
+                                <hr style="border-top: 2px dashed black;" />
+                                <div class="contentcenter">Ngày tạo: <b id="dtngaytao"></b></div>
+                                <div class="contentright">Số: <b id="dtsohoadon"
+                                        style="color: red; padding-right:20px"></b></div>
+                                <div class="col text-center">
+                                    <b id="dttrangthai"></b>
+                                </div>
+                                <div class="">
+                                    <table class="table table-auto table-hover">
+                                        <tbody>
+                                            <tr class="notprint">
+                                                <td class="info-td col-4">File hóa đơn</td>
+                                                <td class="info-td col-8"><b><a id="dtfilelink" href=""
+                                                            target="_blank"></a></b></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Khách hàng</td>
+                                                <td class="info-td col-8 fw-bold" id="dtkhachhang"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Điện thoại</td>
+                                                <td class="info-td col-8 fw-bold" id="dtdienthoai"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Địa chỉ</td>
+                                                <td class="info-td col-8 fw-bold" id="dtdiachi"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Hợp đồng số</td>
+                                                <td class="info-td col-8 fw-bold"><a id="dtsohopdong"
+                                                        href=""></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Gói thầu</td>
+                                                <td class="info-td col-8 fw-bold" id="dtgoithau"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Dự án</td>
+                                                <td class="info-td col-8 fw-bold" id="dtduan"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Người tạo</td>
+                                                <td class="info-td col-8 fw-bold text-uppercase" id="dtnguoitao"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="info-td col-4">Người mua hàng</td>
+                                                <td class="info-td col-8 fw-bold text-uppercase" id="dtnguoimuahang">
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered mt-4">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-nowrap" style="color: black">STT</th>
+                                                <th class="text-center text-nowrap" style="color: black">Nội dung</th>
+                                                <th class="text-center text-nowrap" style="color: black">Số lượng</th>
+                                                <th class="text-center text-nowrap" style="color: black">Đơn vị tính
+                                                </th>
+                                                <th class="text-center text-nowrap" style="color: black">Đơn giá (VNĐ)
+                                                </th>
+                                                <th class="text-center text-nowrap" style="color: black">Thành tiền
+                                                    (VNĐ)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tbody id="dtcthd"></tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-end">Cộng tiền hàng hóa dịch vụ:</td>
+                                            <td class="text-end"><span id="dttongtien"></span> VNĐ</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-end">Thuế <span id="dtthuesuat"></span> %:
+                                            </td>
+                                            <td class="text-end"><span id="dttienthue"></span> VNĐ</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-end">Tổng cộng tiền thanh toán:</td>
+                                            <td class="text-end"><b><span id="dttongtiencothue"></span> VNĐ</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" class="text-end">Số tiền (bằng chữ):
+                                                <b><span id="dtsotienbangchu"></span></b>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <div class="mb-3 mt-3 pb-2 text-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            onclick="">Close</button>
+                                        <a class="btn btn-primary" href="" id="dtbtnxuatpdf">
+                                            Xuất hóa đơn
+                                        </a>
+                                    </div>
+                                    <hr>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -482,25 +512,28 @@
         <form>
             <div class="content">
                 <h5>Nhập số hợp đồng/hóa đơn cần tìm</h5>
-                <input class="" name="find" id="find" placeholder="Số hợp đồng/hóa đơn" value="{{ request()->input('find') }}">
+                <input class="" name="find" id="find" placeholder="Số hợp đồng/hóa đơn"
+                    value="{{ request()->input('find') }}">
                 <select name="state">
-                    @if(request()->has('state'))
+                    @if (request()->has('state'))
                         @switch(request()->input('state'))
                             @case('2')
                                 <option value=2 selected>Toàn bộ</option>
                                 <option value=0>Chưa thanh toán</option>
                                 <option value=1>Đã thanh toán</option>
-                                @break
+                            @break
+
                             @case('0')
                                 <option value=2>Toàn bộ</option>
                                 <option value=0 selected>Chưa thanh toán</option>
                                 <option value=1>Đã thanh toán</option>
-                                @break  
+                            @break
+
                             @case('1')
                                 <option value=2>Toàn bộ</option>
                                 <option value=0>Chưa thanh toán</option>
                                 <option value=1 selected>Đã thanh toán</option>
-                                @break  
+                            @break
                         @endswitch
                     @else
                         <option value=2 selected>Toàn bộ</option>
@@ -512,79 +545,83 @@
             </div>
         </form>
         <div class="table-responsive">
-        <table id="danhsachhoadon" class="table table-striped table-hover">
-            <tr>
-                <th style="background: #077DCE">Hóa đơn số</th>
-                <th style="background: #077DCE">Thuộc hợp đồng</th>
-                <th style="background: #077DCE">Trạng thái</th>
-                <th style="background: #077DCE">Tổng thanh toán</th>
-                <th style="background: #077DCE">Ngày tạo hóa đơn</th>
-                <th style="background: #077DCE">Chi tiết</th>
-            </tr>
-            @foreach ($hoadons as $hdd)
+            <table id="danhsachhoadon" class="table table-striped table-hover">
                 <tr>
-                    <td>{{ $hdd->HOADON_SO }}</td>
-                    <td>{{ $hdd->HOPDONG_SO }}</td>
-                    @if ($hdd->HOADON_TRANGTHAI == 1)
-                        <td>Đã thanh toán</td>
-                    @else
-                        <td><b style="color: red">Chưa thanh toán</b></td>
-                    @endif
-                    <td>{{ $hdd->HOADON_TONGTIEN_COTHUE }} VNĐ</td>
-                    <td>{{ $hdd->HOADON_NGAYTAO }}</td>
-                    <td class="text-center w-auto">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <form>
-                                {{--<a href="/hoadon/{{ $hdd->HOADON_SO }}"
+                    <th style="background: #077DCE">Hóa đơn số</th>
+                    <th style="background: #077DCE">Thuộc hợp đồng</th>
+                    <th style="background: #077DCE">Trạng thái</th>
+                    <th style="background: #077DCE">Tổng thanh toán</th>
+                    <th style="background: #077DCE">Ngày tạo hóa đơn</th>
+                    <th style="background: #077DCE">Chi tiết</th>
+                </tr>
+                @foreach ($hoadons as $hdd)
+                    <tr>
+                        <td>{{ $hdd->HOADON_SO }}</td>
+                        <td>{{ $hdd->HOPDONG_SO }}</td>
+                        @if ($hdd->HOADON_TRANGTHAI == 1)
+                            <td>Đã thanh toán</td>
+                        @else
+                            <td><b style="color: red">Chưa thanh toán</b></td>
+                        @endif
+                        <td>{{ $hdd->HOADON_TONGTIEN_COTHUE }} VNĐ</td>
+                        <td>{{ $hdd->HOADON_NGAYTAO }}</td>
+                        <td class="text-center w-auto">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <form>
+                                    {{-- <a href="/hoadon/{{ $hdd->HOADON_SO }}"
                                     class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
                                     title="Xem chi tiết"><i class="fas fa-file-signature"
                                         style="color: #000000;"></i>
-                                </a>--}}
-                                <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-success btn-icon-only" 
-                                    data-bs-toggle="modal" data-bs-target="#detailModal">
-                                    <i class="fas fa-file-signature" style="color: #000000;"></i>
-                                </a>
-                            </form>
-                            {{--<a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
+                                </a> --}}
+                                    <a href="" data-id="{{ $hdd->HOADON_ID }}"
+                                        class="btn btn-success btn-icon-only" data-bs-toggle="modal"
+                                        data-bs-target="#detailModal">
+                                        <i class="fas fa-file-signature" style="color: #000000;"></i>
+                                    </a>
+                                </form>
+                                {{-- <a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
                                 class="btn btn-info btn-icon-only" aria-label="Sửa"
                                 onclick="" title="Sửa hóa đơn"><i class="fas fa-edit"></i>
-                            </a>--}}
-                            <form>
-                            <a href="" data-id="{{$hdd->HOADON_ID}}" class="btn btn-info btn-icon-only" 
-                                data-bs-toggle="modal" data-bs-target="#updateModal"
-                                onclick="
+                            </a> --}}
+                                <form>
+                                    <a href="" data-id="{{ $hdd->HOADON_ID }}"
+                                        class="btn btn-info btn-icon-only" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal"
+                                        onclick="
                                     var form = document.getElementById('updateHoaDonForm');
-                                    form.action = '/updateHoaDonModal/{{$hdd->HOADON_ID}}';
+                                    form.action = '/updateHoaDonModal/{{ $hdd->HOADON_ID }}';
                                 ">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            </form>
-                            <form action="/hoadon/{{$hdd->HOADON_ID}}" method="post" onsubmit="return confirmDelete()">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </form>
+                                <form action="/hoadon/{{ $hdd->HOADON_ID }}" method="post"
+                                    onsubmit="return confirmDelete()">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" id="submitDel"  title="Xóa hóa đơn"
+                                    <button type="submit" id="submitDel" title="Xóa hóa đơn"
                                         class="btn btn-warning btn-icon-only">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
         </div>
         <hr>
         <div>
             {{ $hoadons->appends(request()->all())->links() }}
         </div>
-       <!--goi js-->
+        <!--goi js-->
         <script src="{{ asset('js/change_currency.js') }}"></script>
         <!---->
         <script>
             function confirmDelete() {
                 return confirm('Bạn có chắc chắn muốn xóa hóa đơn?');
             }
-            function confirmUpdate(){
+
+            function confirmUpdate() {
                 cal_HoaDonIndexUpdate();
             }
             $(document).ready(function() {
@@ -631,7 +668,7 @@
                     $('#slct').val(0);
                     $("#createModal #thuesuat").on('input', calHoaDonIndexCreate);
                     $('#createModal').on('input', '#inputsohoadon', checkSHDExistsIndexCreate);
-                    $('#createModal').on('keyup', '[id=inputsohoadon]', function () {
+                    $('#createModal').on('keyup', '[id=inputsohoadon]', function() {
                         var obj = $(this);
                         obj.val(convert_vi_to_en(obj.val()).toUpperCase().replace(/ /g, "-"));
                     });
@@ -651,8 +688,8 @@
                         }
                     });
 
-                    var button = $(event.relatedTarget); 
-                    var itemId = button.data('id'); 
+                    var button = $(event.relatedTarget);
+                    var itemId = button.data('id');
 
                     var sohopdong = $('#updateModal #getSohopdong');
                     var inputsohoadon = $('#updateModal #inputsohoadon');
@@ -680,7 +717,8 @@
                             // Update the modal content with the item details
                             sohopdong.val(hoadon.HOPDONG_SO);
                             inputsohoadon.val(hoadon.HOADON_SO);
-                            filehoadonlink.attr('href', '{{ asset("storage/") }}' + "/" + hoadon.HOADON_FILE);
+                            filehoadonlink.attr('href', '{{ asset('storage/') }}' + "/" + hoadon
+                                .HOADON_FILE);
                             filehoadonlink.text(hoadon.HOADON_FILE);
                             tongtien.val(hoadon.HOADON_TONGTIEN);
                             thuesuat.val(hoadon.HOADON_THUESUAT);
@@ -694,32 +732,40 @@
 
                             for (var i = 1; i <= cntcthd; i++) {
                                 var row = '<tr>' +
-                                    '<td><input type="text" class="inputstt" name="stt' + i + '" id="stt' + i + '" value="" readonly class="inputstt"></td>' +
-                                    '<td><input type="text" name="noidung' + i + '" id="noidung' + i + '" value=""></td>' +
-                                    '<td><input type="number" class="soluong inputstt" name="soluong' + i + '" id="soluong' + i + '" value="" min="0"></td>' +
-                                    '<td><input type="text" name="donvitinh' + i + '" id="donvitinh' + i + '" value=""></td>' +
-                                    '<td><input type="number" class="dongia" name="dongia' + i + '" id="dongia' + i + '" value="" min="0"></td>' +
-                                    '<td><input type="number" class="thanhtien" name="thanhtien' + i + '" readonly id="thanhtien' + i + '" value=""></td>' +
-                                    '<td><button type="button" name="btnxoa' + i + '" id="btnxoa' + i + '" class="btn btn-danger" onclick="del_RowIndexUpdate(this.id.replace(\'btnxoa\',\'\'))">Xóa</button></td>' +
+                                    '<td><input type="text" class="inputstt" name="stt' + i +
+                                    '" id="stt' + i + '" value="" readonly class="inputstt"></td>' +
+                                    '<td><input type="text" name="noidung' + i + '" id="noidung' +
+                                    i + '" value=""></td>' +
+                                    '<td><input type="number" class="soluong inputstt" name="soluong' +
+                                    i + '" id="soluong' + i + '" value="" min="0"></td>' +
+                                    '<td><input type="text" name="donvitinh' + i +
+                                    '" id="donvitinh' + i + '" value=""></td>' +
+                                    '<td><input type="number" class="dongia" name="dongia' + i +
+                                    '" id="dongia' + i + '" value="" min="0"></td>' +
+                                    '<td><input type="number" class="thanhtien" name="thanhtien' +
+                                    i + '" readonly id="thanhtien' + i + '" value=""></td>' +
+                                    '<td><button type="button" name="btnxoa' + i + '" id="btnxoa' +
+                                    i +
+                                    '" class="btn btn-danger" onclick="del_RowIndexUpdate(this.id.replace(\'btnxoa\',\'\'))">Xóa</button></td>' +
                                     '</tr>';
 
                                 $('#tableBody').append(row);
                             }
                             for (var i = 0; i < cthd.length; i++) {
                                 var item = cthd[i];
-                                var strstt = 'stt'+(i+1);
-                                var strnd = 'noidung'+(i+1);
-                                var strsl = 'soluong'+(i+1);
-                                var strdvt = 'donvitinh'+(i+1);
-                                var strdg = 'dongia'+(i+1);
-                                var strtt = 'thanhtien'+(i+1);
+                                var strstt = 'stt' + (i + 1);
+                                var strnd = 'noidung' + (i + 1);
+                                var strsl = 'soluong' + (i + 1);
+                                var strdvt = 'donvitinh' + (i + 1);
+                                var strdg = 'dongia' + (i + 1);
+                                var strtt = 'thanhtien' + (i + 1);
 
-                                var stt = $('#tableBody #'+strstt);
-                                var nd = $('#tableBody #'+strnd);
-                                var sl = $('#tableBody #'+strsl);
-                                var dvt = $('#tableBody #'+strdvt);
-                                var dg = $('#tableBody #'+strdg);
-                                var tt = $('#tableBody #'+strtt);
+                                var stt = $('#tableBody #' + strstt);
+                                var nd = $('#tableBody #' + strnd);
+                                var sl = $('#tableBody #' + strsl);
+                                var dvt = $('#tableBody #' + strdvt);
+                                var dg = $('#tableBody #' + strdg);
+                                var tt = $('#tableBody #' + strtt);
                                 stt.val(item.STT);
                                 nd.val(item.NOIDUNG);
                                 sl.val(item.SOLUONG);
@@ -740,8 +786,8 @@
 
                 $('#detailModal').on('show.bs.modal', function(event) {
                     $('#dtcthd').empty();
-                    var button = $(event.relatedTarget); 
-                    var itemId = button.data('id'); 
+                    var button = $(event.relatedTarget);
+                    var itemId = button.data('id');
 
                     var ngaytao = $('#detailModal #dtngaytao');
                     var sohoadon = $('#detailModal #dtsohoadon');
@@ -773,14 +819,15 @@
 
                             ngaytao.text(hoadon.HOADON_NGAYTAO);
                             sohoadon.text(hoadon.HOADON_SO);
-                            if(hoadon.HOADON_TRANGTHAI == 1){
+                            if (hoadon.HOADON_TRANGTHAI == 1) {
                                 trangthai.css('color', 'green');
                                 trangthai.text("Đã thanh toán");
                             } else {
                                 trangthai.css('color', 'red');
                                 trangthai.text("Chưa thanh toán");
                             }
-                            filelink.attr('href', '{{ asset("storage/") }}' + "/" + hoadon.HOADON_FILE);
+                            filelink.attr('href', '{{ asset('storage/') }}' + "/" + hoadon
+                                .HOADON_FILE);
                             filelink.text(hoadon.HOADON_FILE);
                             khachhang.text(hoadon.KHACHHANG_TEN);
                             dienthoai.text(hoadon.KHACHHANG_SDT);
@@ -815,7 +862,8 @@
                                 $("#dtcthd").append(tr);
                             }
 
-                            xuathoadon.attr('href', '/hoadon' + "/" + hoadon.HOADON_ID+ "/" + "pdf");
+                            xuathoadon.attr('href', '/hoadon' + "/" + hoadon.HOADON_ID + "/" +
+                                "pdf");
                         }
                     });
                 });
@@ -857,7 +905,8 @@
             }
 
             function selectHopDong() {
-                if (document.getElementById("sohopdongsl").value == "-1" || document.getElementById("sohopdongsl").value == "") {
+                if (document.getElementById("sohopdongsl").value == "-1" || document.getElementById("sohopdongsl").value ==
+                    "") {
                     var modal = document.getElementById("createModal");
                     modal.querySelector("#sohopdong").value = "";
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "");
@@ -889,11 +938,11 @@
                     $sluong = "soluong" + $i;
                     $dgia = "dongia" + $i;
                     $ttien = "thanhtien" + $i;
-                    $sl = modal.querySelector("#"+$sluong).value;
-                    $dg = modal.querySelector("#"+$dgia).value;
+                    $sl = modal.querySelector("#" + $sluong).value;
+                    $dg = modal.querySelector("#" + $dgia).value;
                     $cal = parseInt($sl) * parseInt($dg);
                     if (isNaN($cal)) $cal = 0;
-                    modal.querySelector("#"+$ttien).value = $cal;
+                    modal.querySelector("#" + $ttien).value = $cal;
                     $tongtien = $tongtien + $cal;
                 }
                 $tienthue = $tongtien / 100 * $thue;
@@ -1026,7 +1075,7 @@
                 }
                 return null;
             }
-            
+
             function convert_vi_to_en(str) {
                 str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
                 str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -1042,32 +1091,33 @@
                 str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
                 str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
                 str = str.replace(/Đ/g, "D");
-                str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+                str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
+                    " ");
                 str = str.replace(/  +/g, ' ');
                 return str;
             }
-           
+
 
             function checkSHDExistsIndexCreate() {
                 var hoadontontai = document.getElementsByClassName('shdexists');
                 var modal = document.getElementById("createModal");
                 $shd = modal.querySelector("#inputsohoadon").value;
-                modal.querySelector("#error_").setAttribute('style','display: none');
+                modal.querySelector("#error_").setAttribute('style', 'display: none');
                 modal.querySelector("#error_").innerHTML = "";
                 modal.querySelector("#btnsubmithd").removeAttribute('disabled', 'true');
-                for(var i=0; i < hoadontontai.length; i++){
-                        if ($shd == hoadontontai[i].id){
-                                modal.querySelector("#error_").removeAttribute('style','display: none');
-                                modal.querySelector("#error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
-                                modal.querySelector("#btnsubmithd").setAttribute('disabled', 'true');
-                        }
+                for (var i = 0; i < hoadontontai.length; i++) {
+                    if ($shd == hoadontontai[i].id) {
+                        modal.querySelector("#error_").removeAttribute('style', 'display: none');
+                        modal.querySelector("#error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
+                        modal.querySelector("#btnsubmithd").setAttribute('disabled', 'true');
+                    }
                 }
             }
-            
-            
-///////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////Phan nay cua Modal UPDATE........lam gon lai sau huhu////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////Phan nay cua Modal UPDATE........lam gon lai sau huhu////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////
             function cal_HoaDonIndexUpdate() {
                 var modal = document.getElementById("updateModal");
                 var cnt = modal.querySelector("#slct").value;
@@ -1075,32 +1125,32 @@
                 var tongtien = 0;
                 var tienthue = 0;
                 var tongtiencothue = 0;
-                
+
                 for (var i = 1; i <= cnt; i++) {
                     var sluong = "soluong" + i;
                     var dgia = "dongia" + i;
                     var ttien = "thanhtien" + i;
-                    
+
                     var sl = modal.querySelector("#" + sluong).value;
                     var dg = modal.querySelector("#" + dgia).value;
-                    
+
                     var cal = parseInt(sl) * parseInt(dg);
                     if (isNaN(cal)) cal = 0;
-                    
+
                     modal.querySelector("#" + ttien).value = cal;
                     tongtien = tongtien + cal;
                 }
-                
+
                 tienthue = tongtien / 100 * thue;
                 tongtiencothue = tongtien + tienthue;
-                
+
                 modal.querySelector("#tongtien").value = tongtien;
                 modal.querySelector("#tienthue").value = tienthue;
                 modal.querySelector("#tongtiencothue").value = tongtiencothue;
-                
+
                 to__VNese_currency_IndexUpdate();
             }
-            
+
             function add_RowIndexUpdate() {
                 var modal = document.getElementById("updateModal");
                 var table = modal.querySelector("#tablechitiet");
@@ -1210,7 +1260,28 @@
                 var rsString = convertNumberToCurrency(str);
                 modal.querySelector("#sotienbangchu").value = rsString;
             };
+            ///////////////////////////////////////////////
+            window.addEventListener('DOMContentLoaded', (event) => {
+                var w = window.innerWidth;
+                if (w < 1200) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            });
+            window.addEventListener('resize', (event) => {
+                var w = window.innerWidth;
+                if (w < 1200) {
+                    document.getElementById('sidebar').classList.remove('active');
+                } else {
+                    document.getElementById('sidebar').classList.add('active');
+                }
+            });
+            document.querySelector('.burger-btn').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('active');
+            })
+            document.querySelector('.sidebar-hide').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('active');
 
+            })
         </script>
     </div>
 </div>
