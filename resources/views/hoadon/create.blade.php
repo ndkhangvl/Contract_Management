@@ -163,7 +163,7 @@
                                         <hr>
                                         Số lượng loại sản phẩm:
                                         <input class="form-control" type="number" name="soluongchitiet" value="{{ old('soluongchitiet') }}" min="0" id="slct" required readonly><hr>
-                                        <button class="btn btn-primary" onclick="addRow()" type="button">Thêm hàng</button>
+                                        <button class="btn btn-primary" onclick="addRowCreate()" type="button">Thêm hàng</button>
                                         <div class="table-responsive">
                                         <table id='tablechitiet' class='contentcenter'>
                                                 <tr>
@@ -184,7 +184,7 @@
                                                         <td><input type="text" name="donvitinh{{$i}}" id="donvitinh{{$i}}" value="{{ old('donvitinh'.$i) }}"></td>
                                                         <td><input type="number" class="dongia" name="dongia{{$i}}" id="dongia{{$i}}" value="{{ old('dongia'.$i) }}" min="0"></td>
                                                         <td><input type="text" name="thanhtien{{$i}}" readonly id="thanhtien{{$i}}" value="{{ old('thanhtien'.$i) }}"></td>
-                                                        <td><button type="button" name="btnxoa{{$i}}" id="btnxoa{{$i}}" class="btn btn-danger" onclick="delRow(this.id.replace('btnxoa',''))">Xóa</button></td>
+                                                        <td><button type="button" name="btnxoa{{$i}}" id="btnxoa{{$i}}" class="btn btn-danger" onclick="delRowCreate(this.id.replace('btnxoa',''))">Xóa</button></td>
                                                 </tr>
                                                 @endfor
                                         </table>
@@ -201,7 +201,7 @@
 </body>
 
 <script>
-        function calHoaDon() {
+        function calHoaDonCreate() {
                 $cnt = document.getElementById("slct").value;
                 $thue = document.getElementById("thuesuat").value;
                 $tongtien = 0;
@@ -223,16 +223,16 @@
                 document.getElementById("tongtien").value= $tongtien;
                 document.getElementById("tienthue").value= $tienthue;
                 document.getElementById("tongtiencothue").value= $tongtiencothue;
-                to_VNese_currency();
+                to_VNese_currency_Create();
         }
-        document.getElementById("thuesuat").addEventListener('input', calHoaDon);
+        document.getElementById("thuesuat").addEventListener('input', calHoaDonCreate);
         var soluongs = document.getElementsByClassName('soluong');
         var dongias = document.getElementsByClassName('dongia');
         for (var i = 0; i < soluongs.length; i++) {
-                soluongs[i].addEventListener('input', calHoaDon);
-                dongias[i].addEventListener('input', calHoaDon);
+                soluongs[i].addEventListener('input', calHoaDonCreate);
+                dongias[i].addEventListener('input', calHoaDonCreate);
         }
-        function addRow(){
+        function addRowCreate(){
                 $table = document.getElementById("tablechitiet");
                 $length = document.getElementById("tablechitiet").rows.length;
                 
@@ -262,7 +262,7 @@
                 $soluong.name = "soluong"+$length;
                 $soluong.id = "soluong"+$length;
                 $soluong.className = "soluong inputstt";
-                $soluong.addEventListener('input', calHoaDon);
+                $soluong.addEventListener('input', calHoaDonCreate);
                 $cell3.appendChild($soluong);
 
                 $cell4 = $row.insertCell(3);
@@ -279,7 +279,7 @@
                 $dongia.name = "dongia"+$length;
                 $dongia.id = "dongia"+$length;
                 $dongia.className = "dongia";
-                $dongia.addEventListener('input', calHoaDon);
+                $dongia.addEventListener('input', calHoaDonCreate);
                 $cell5.appendChild($dongia);
 
                 $cell6 = $row.insertCell(5);
@@ -297,22 +297,22 @@
                 $xoa.innerHTML = "Xóa";
                 $xoa.className = 'btn btn-danger';
                 
-                $xoa.setAttribute('onclick', 'delRow(this.id.replace("btnxoa",""))');
+                $xoa.setAttribute('onclick', 'delRowCreate(this.id.replace("btnxoa",""))');
                 $xoa.setAttribute('type', 'button');
                 $cell7.appendChild($xoa);
 
                 document.getElementById("slct").value = $length;
-                calHoaDon();
+                calHoaDonCreate();
 
                 var soluongs = document.getElementsByClassName('soluong');
                 var dongias = document.getElementsByClassName('dongia');
                 for (var i = 0; i < soluongs.length; i++) {
-                        soluongs[i].addEventListener('input', calHoaDon);
-                        dongias[i].addEventListener('input', calHoaDon);
+                        soluongs[i].addEventListener('input', calHoaDonCreate);
+                        dongias[i].addEventListener('input', calHoaDonCreate);
                 }
         }
 
-        function delRow(x){
+        function delRowCreate(x){
                 
                 $table = document.getElementById("tablechitiet");
                 $length = document.getElementById("tablechitiet").rows.length;
@@ -330,7 +330,7 @@
                 
                 $table.deleteRow($length-1);
                 document.getElementById("slct").value = $length-2;
-                calHoaDon();
+                calHoaDonCreate();
         }
 
         function convert_vi_to_en(str) {
@@ -357,7 +357,7 @@
                 $('[id=inputsohoadon]').val(convert_vi_to_en(obj.val()).toUpperCase().replace(/ /g, "-"));
         });
 
-        function checkSHDExists() {
+        function checkSHDExistsCreate() {
                 var hoadontontai = document.getElementsByClassName('shdexists');
                 $shd = document.getElementById("inputsohoadon").value;
                 document.getElementById("error_").setAttribute('style','display: none');
@@ -371,7 +371,7 @@
                         }
                 }
         }
-        document.getElementById("inputsohoadon").addEventListener('input', checkSHDExists);
+        document.getElementById("inputsohoadon").addEventListener('input', checkSHDExistsCreate);
 
 
         /*************************** */
@@ -420,7 +420,7 @@
 
         const dvBlock = '1 nghìn triệu tỷ'.split(' ');
 
-        function to_VNese_currency() {
+        function to_VNese_currency_Create() {
                 var number = document.getElementById("tongtiencothue").value;
                 var str = parseInt(number) + '';
                 var i = 0;
