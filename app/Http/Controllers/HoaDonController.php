@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use App\Exports\InvoiceExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-use PDF;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\URL;
 class HoaDonController extends Controller
