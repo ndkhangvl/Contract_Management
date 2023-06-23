@@ -626,10 +626,28 @@
                 $('#createModal').on('show.bs.modal', function(event) {
                     $('#createModal #tablechitiet tr').slice(1).remove();
                     $('#slct').val(0);
+                    $("#createModal #thuesuat").on('input', calHoaDonIndexCreate);
+                    $('#createModal').on('input', '#inputsohoadon', checkSHDExistsIndexCreate);
+                    $('#createModal').on('keyup', '[id=inputsohoadon]', function () {
+                        var obj = $(this);
+                        obj.val(convert_vi_to_en(obj.val()).toUpperCase().replace(/ /g, "-"));
+                    });
                 });
                 $('#updateModal').on('show.bs.modal', function(event) {
                     //$('#updateModal #tablechitiet tr').slice(1).remove();
                     $('#tableBody').empty();
+                    $("#updateModal #thuesuat").on('input', cal_HoaDonIndexUpdate);
+                    var modal = $("#updateModal");
+                    var radButtons = modal.find("input[name=fileadd_yes_no]");
+                    radButtons.on("change", function() {
+                        if (modal.find('input[name="fileadd_yes_no"]:checked').val() == "1") {
+                            modal.find("#filehoadon").removeAttr("disabled");
+                        } else if (modal.find('input[name="fileadd_yes_no"]:checked').val() == "0") {
+                            modal.find("#filehoadon").attr("disabled", "disabled");
+                            modal.find("#filehoadon").val(null);
+                        }
+                    });
+
                     var button = $(event.relatedTarget); 
                     var itemId = button.data('id'); 
 
@@ -837,13 +855,13 @@
 
             function selectHopDong() {
                 if (document.getElementById("sohopdongsl").value == "-1" || document.getElementById("sohopdongsl").value == "") {
-                    
-                    document.getElementById("sohopdong").value = "";
+                    var modal = document.getElementById("createModal");
+                    modal.querySelector("#sohopdong").value = "";
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "");
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "");
                 } else {
-                    
-                    document.getElementById("sohopdong").value = document.getElementById("sohopdongsl").value;
+                    var modal = document.getElementById("createModal");
+                    modal.querySelector("#sohopdong").value = document.getElementById("sohopdongsl").value;
                     document.getElementById("errorsohopdong").innerHTML = '';
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "modal");
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "#createModal");
@@ -858,8 +876,9 @@
             }
 
             function calHoaDonIndexCreate() {
-                $cnt = document.getElementById("slct").value;
-                $thue = document.getElementById("thuesuat").value;
+                var modal = document.getElementById("createModal");
+                $cnt = modal.querySelector("#slct").value;
+                $thue = modal.querySelector("#thuesuat").value;
                 $tongtien = 0;
                 $tienthue = 0;
                 $tongtiencothue = 0;
@@ -867,26 +886,25 @@
                     $sluong = "soluong" + $i;
                     $dgia = "dongia" + $i;
                     $ttien = "thanhtien" + $i;
-                    $sl = document.getElementById($sluong).value;
-                    $dg = document.getElementById($dgia).value;
+                    $sl = modal.querySelector("#"+$sluong).value;
+                    $dg = modal.querySelector("#"+$dgia).value;
                     $cal = parseInt($sl) * parseInt($dg);
                     if (isNaN($cal)) $cal = 0;
-                    document.getElementById($ttien).value = $cal;
+                    modal.querySelector("#"+$ttien).value = $cal;
                     $tongtien = $tongtien + $cal;
                 }
                 $tienthue = $tongtien / 100 * $thue;
                 $tongtiencothue = $tongtien + $tienthue;
-                document.getElementById("tongtien").value = $tongtien;
-                document.getElementById("tienthue").value = $tienthue;
-                document.getElementById("tongtiencothue").value = $tongtiencothue;
+                modal.querySelector("#tongtien").value = $tongtien;
+                modal.querySelector("#tienthue").value = $tienthue;
+                modal.querySelector("#tongtiencothue").value = $tongtiencothue;
                 to_VNese_currency_IndexCreate();
             }
 
-            document.getElementById("thuesuat").addEventListener('input', calHoaDonIndexCreate);
-
             function addRowIndexCreate() {
-                $table = document.getElementById("tablechitiet");
-                $length = document.getElementById("tablechitiet").rows.length;
+                var modal = document.getElementById("createModal");
+                $table = modal.querySelector("#tablechitiet");
+                $length = modal.querySelector("#tablechitiet").rows.length;
 
                 $row = $table.insertRow($length);
 
@@ -953,11 +971,11 @@
                 $xoa.setAttribute('type', 'button');
                 $cell7.appendChild($xoa);
 
-                document.getElementById("slct").value = $length;
+                modal.querySelector("#slct").value = $length;
                 calHoaDonIndexCreate();
 
-                var soluongs = document.getElementsByClassName('soluong');
-                var dongias = document.getElementsByClassName('dongia');
+                var soluongs = modal.querySelectorAll('.soluong');
+                var dongias = modal.querySelectorAll('.dongia');
                 for (var i = 0; i < soluongs.length; i++) {
                     soluongs[i].addEventListener('input', calHoaDonIndexCreate);
                     dongias[i].addEventListener('input', calHoaDonIndexCreate);
@@ -965,24 +983,22 @@
             }
 
             function delRowIndexCreate(x) {
-
-                $table = document.getElementById("tablechitiet");
-                $length = document.getElementById("tablechitiet").rows.length;
+                var modal = document.getElementById("createModal");
+                $table = modal.querySelector("#tablechitiet");
+                $length = modal.querySelector("#tablechitiet").rows.length;
 
                 for ($i = parseInt(x); $i < $length - 1; $i++) {
                     $sohang = parseInt($i);
                     $sohangsau = parseInt($i) + 1;
-                    document.getElementById("noidung" + $sohang).value = document.getElementById("noidung" + $sohangsau).value;
-                    document.getElementById("soluong" + $sohang).value = document.getElementById("soluong" + $sohangsau).value;
-                    document.getElementById("donvitinh" + $sohang).value = document.getElementById("donvitinh" + $sohangsau)
-                        .value;
-                    document.getElementById("dongia" + $sohang).value = document.getElementById("dongia" + $sohangsau).value;
-                    document.getElementById("thanhtien" + $sohang).value = document.getElementById("thanhtien" + $sohangsau)
-                        .value;
+                    modal.querySelector("#noidung" + $sohang).value = modal.querySelector("#noidung" + $sohangsau).value;
+                    modal.querySelector("#soluong" + $sohang).value = modal.querySelector("#soluong" + $sohangsau).value;
+                    modal.querySelector("#donvitinh" + $sohang).value = modal.querySelector("#donvitinh" + $sohangsau).value;
+                    modal.querySelector("#dongia" + $sohang).value = modal.querySelector("#dongia" + $sohangsau).value;
+                    modal.querySelector("#thanhtien" + $sohang).value = modal.querySelector("#thanhtien" + $sohangsau).value;
                 }
 
                 $table.deleteRow($length - 1);
-                document.getElementById("slct").value = $length - 2;
+                modal.querySelector("#slct").value = $length - 2;
                 calHoaDonIndexCreate();
             }
 
@@ -1036,7 +1052,8 @@
             const dvBlock = '1 nghìn triệu tỷ'.split(' ');
 
             function to_VNese_currency_IndexCreate() {
-                var number = document.getElementById("tongtiencothue").value;
+                var modal = document.getElementById("createModal");
+                var number = modal.querySelector("#tongtiencothue").value;
                 var str = parseInt(number) + '';
                 var i = 0;
                 var arr = [];
@@ -1072,26 +1089,23 @@
                 // Trả về kết quả kèm xóa những ký tự thừa
                 finalval = rsString.replace(/[0-9]/g, '').replace(/ /g, ' ').replace(/ $/, '') + " đồng";
                 finalval = finalval.charAt(0).toUpperCase() + finalval.slice(1);
-                document.getElementById("sotienbangchu").value = finalval;
-
+                modal.querySelector("#sotienbangchu").value = finalval;
             };
 
             function matchCustom(params, data) {
                 if ($.trim(params.term) === '') {
                     return data;
                 }
-
                 var searchTerm = params.term.toLowerCase();
                 var dataText = data.text.toLowerCase();
-
                 if (dataText.indexOf(searchTerm) > -1) {
                     var modifiedData = $.extend({}, data, true);
                     modifiedData.text += ' (phù hợp)';
                     return modifiedData;
                 }
-
                 return null;
             }
+            
             function convert_vi_to_en(str) {
                 str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
                 str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -1111,26 +1125,25 @@
                 str = str.replace(/  +/g, ' ');
                 return str;
             }
-            $(document).on('keyup', '[id=inputsohoadon]', function () {
-                var obj = $(this);
-                $('[id=inputsohoadon]').val(convert_vi_to_en(obj.val()).toUpperCase().replace(/ /g, "-"));
-            });
+           
 
             function checkSHDExistsIndexCreate() {
                 var hoadontontai = document.getElementsByClassName('shdexists');
-                $shd = document.getElementById("inputsohoadon").value;
-                document.getElementById("error_").setAttribute('style','display: none');
-                document.getElementById("error_").innerHTML = "";
-                document.getElementById("btnsubmithd").removeAttribute('disabled', 'true');
+                var modal = document.getElementById("createModal");
+                $shd = modal.querySelector("#inputsohoadon").value;
+                modal.querySelector("#error_").setAttribute('style','display: none');
+                modal.querySelector("#error_").innerHTML = "";
+                modal.querySelector("#btnsubmithd").removeAttribute('disabled', 'true');
                 for(var i=0; i < hoadontontai.length; i++){
                         if ($shd == hoadontontai[i].id){
-                                document.getElementById("error_").removeAttribute('style','display: none');
-                                document.getElementById("error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
-                                document.getElementById("btnsubmithd").setAttribute('disabled', 'true');
+                                modal.querySelector("#error_").removeAttribute('style','display: none');
+                                modal.querySelector("#error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
+                                modal.querySelector("#btnsubmithd").setAttribute('disabled', 'true');
                         }
                 }
             }
-            document.getElementById("inputsohoadon").addEventListener('input', checkSHDExistsIndexCreate);
+            
+            
 ///////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////Phan nay cua Modal UPDATE........lam gon lai sau huhu////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1166,8 +1179,6 @@
                 
                 to__VNese_currency_IndexUpdate();
             }
-
-            document.querySelector("#updateModal #thuesuat").addEventListener('input', cal_HoaDonIndexUpdate);
             
             function add_RowIndexUpdate() {
                 var modal = document.getElementById("updateModal");
@@ -1312,22 +1323,7 @@
                 modal.querySelector("#sotienbangchu").value = finalval;
 
             };
-            var modal = document.querySelector("#updateModal");
-            $radButtons = modal.querySelectorAll("input[name=fileadd_yes_no]");
-            $radButtons.forEach(rb=>rb.addEventListener("change",function(){
-                    //alert("Change");
-                    //console.log("value of rad: " + document.querySelector('input[name="fileadd_yes_no"]:checked').value);
-                    if(modal.querySelector('input[name="fileadd_yes_no"]:checked').value == "1"){
-                            modal.querySelector("#filehoadon").removeAttribute("disabled");
-                            //console.log("Cho phep them file");
-                    }
-                    else if (modal.querySelector('input[name="fileadd_yes_no"]:checked').value == "0"){
-                            modal.querySelector("#filehoadon").setAttribute("disabled", "disabled");
-                            //console.log("KHONG cho phep them file");
-                            modal.querySelector("#filehoadon").value = null;
-                    }
-            }));
-
+            
         </script>
     </div>
 </div>
