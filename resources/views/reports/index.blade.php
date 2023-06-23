@@ -105,6 +105,14 @@
         height: 200px;
         overflow-y: ;
     }
+    .card {
+    transition: transform 0.3s;
+    }
+
+    .card:hover {
+    transform: scale(1.1);
+    }
+
 
 </style>
 @include('header2')
@@ -484,7 +492,7 @@
           <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const cards = document.querySelectorAll('.card-clickable');
-                const modal = document.querySelector('#myModal1');
+                const modal = document.querySelector('#myModal');
         
                 cards.forEach(function(card) {
                     card.addEventListener('click', function() {
