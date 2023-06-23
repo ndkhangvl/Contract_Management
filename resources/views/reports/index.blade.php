@@ -105,13 +105,14 @@
         height: 200px;
         overflow-y: ;
     }
-    .card {
-    transition: transform 0.3s;
+    .hovercard {
+        transition: transform 0.3s;
     }
 
-    .card:hover {
-    transform: scale(1.1);
+    .hovercard:hover {
+        transform: scale(1.1);
     }
+    
 
 
 </style>
@@ -137,7 +138,7 @@
         <div class="row">
             {{-- Các hợp đồng mới tạo --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);" data-toggle="modal" data-target="#myModal1">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-orange);" data-toggle="modal" data-target="#myModal1">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -155,7 +156,7 @@
             </div>
             {{-- Các hợp đồng nghiệm thu --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);" data-toggle="modal" data-target="#myModal2">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-warning);" data-toggle="modal" data-target="#myModal2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -173,7 +174,7 @@
             </div>
             {{-- Các hợp đồng xuất hóa đơn --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-orange);" data-toggle="modal" data-target="#myModal3">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-orange);" data-toggle="modal" data-target="#myModal3">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -191,7 +192,7 @@
             </div>
             {{-- Các hợp đồng thanh lý --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-warning);" data-toggle="modal" data-target="#myModal4">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-warning);" data-toggle="modal" data-target="#myModal4">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -209,7 +210,7 @@
             </div>
             {{-- Tổng số hợp đồng --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);" data-toggle="modal" data-target="#myModal5">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-primary);" data-toggle="modal" data-target="#myModal5">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -227,7 +228,7 @@
             </div>
             {{-- Tổng tiền của các hợp đồng --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-success);" data-toggle="modal" data-target="#myModal6">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-success);" data-toggle="modal" data-target="#myModal6">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -245,7 +246,7 @@
             </div>
             {{-- Tổng số hóa đơn --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-primary);" data-toggle="modal" data-target="#myModal7">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-primary);" data-toggle="modal" data-target="#myModal7">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -263,7 +264,7 @@
             </div>
             {{-- Số hóa đơn chưa thanh toán --}}
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card shadow h-100 py-2" style="border-left: 0.25rem solid var(--bs-red);" data-toggle="modal" data-target="#myModal8">
+                <div class="card shadow h-100 py-2 hovercard" style="border-left: 0.25rem solid var(--bs-red);" data-toggle="modal" data-target="#myModal8">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -427,10 +428,10 @@
                                             <b><p>Hóa đơn số:</b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
                                             <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO  }}</p>
                                             <p>Thuộc về họp đồng số: {{ $hoadon->HOPDONG_SO }}
-                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_TONGTIEN  }} VNĐ</p>
+                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_TONGTIEN = number_format($hoadon->HOADON_TONGTIEN, 0, '.', '.'); }} VNĐ</p>
                                             <p>Thuế: {{ $hoadon->HOADON_THUESUAT }}%</p>
-                                            <p>Tiền thuế {{ $hoadon->HOADON_TIENTHUE }} VNĐ</p>
-                                            <p>Tổng tiền có thuế: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
+                                            <p>Tiền thuế: {{ $hoadon->HOADON_TIENTHUE = number_format($hoadon->HOADON_TIENTHUE, 0, '.', '.'); }} VNĐ</p>
+                                            <p>Tổng tiền có thuế: {{ $hoadon->HOADON_TONGTIEN_COTHUE = number_format($hoadon->HOADON_TONGTIEN_COTHUE, 0, '.', '.'); }} VNĐ</p>
                                             <hr>
                                         </div>
                                     @endforeach
@@ -450,8 +451,8 @@
                                         <div>
                                             <b><p>Hóa đơn số:</b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
                                             <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO  }}</p>
-                                            <p>Tổng tiền chưa thuế: {{ $hoadon->HOADON_NGUOITAO  }} VNĐ</p>
-                                            <p>Thuế: {{ $hoadon->HOADON_NGUOIMUAHANG }}%</p>
+                                            <p>Người tạo hóa đơn: {{ $hoadon->HOADON_NGUOITAO  }}</p>
+                                            <p>Người mua hàng: {{ $hoadon->HOADON_NGUOIMUAHANG }}</p>
                                             <p>Thành tiền: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
                                             <hr>
                                         </div>
@@ -548,12 +549,11 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
-                                <canvas class="chartjs-render-monitor" id="columnChart"></canvas>
-                            </div>
+                            <canvas class="chartjs-render-monitor" id="columnChart"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
         {{-- <h1>Báo cáo thống kê</h1>
         <p>Tổng số hợp đồng: {{ $TongHopDong }}</p>

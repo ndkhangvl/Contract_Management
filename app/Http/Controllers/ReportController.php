@@ -23,12 +23,14 @@ class ReportController extends Controller
                 ->get();
 
                 $ThongtinHD = DB::table('HOPDONG')
-                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-                ->select('HOPDONG.HOPDONG_SO','HOPDONG.HOPDONG_TRANGTHAI', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN',
-                        'HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B',
-                        'HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
-                ->whereBetween('HOPDONG.HOPDONG_NGAYKY', [$startDate, $endDate])
-                ->get();
+                    ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+                    ->select('HOPDONG.HOPDONG_SO', 'HOPDONG.HOPDONG_TRANGTHAI', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN',
+                        'HOPDONG_TENGOITHAU', 'HOPDONG_TENDUAN', 'HOPDONG_DAIDIENBEN_A', 'HOPDONG_DAIDIENBEN_B',
+                        'HOPDONG_THOIGIANTHUCHIEN', DB::raw("FORMAT(HOPDONG_TONGGIATRI, 'N0') AS HOPDONG_TONGGIATRI"),
+                        'HOPDONG_NGAYKY')
+                    ->whereBetween('HOPDONG.HOPDONG_NGAYKY', [$startDate, $endDate])
+                    ->get();
+
 
                 $ThongtinHoaDon = DB::table('HOADON')
                     ->join('HOPDONG', 'HOPDONG.HOPDONG_ID', '=', 'HOADON.HOPDONG_ID')
@@ -49,14 +51,18 @@ class ReportController extends Controller
         }
         else {
             $HoaDonTheoThang = DB::table('hoadon')
-            ->selectRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)) AS Thang, YEAR(CONVERT(date, HOADON_NGAYTAO)) AS Nam, COUNT(*) AS SoLuongHoaDon')
-            ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
-            ->get();
+                ->selectRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)) AS Thang, YEAR(CONVERT(date, HOADON_NGAYTAO)) AS Nam, COUNT(*) AS SoLuongHoaDon')
+                ->groupByRaw('MONTH(CONVERT(date, HOADON_NGAYTAO)), YEAR(CONVERT(date, HOADON_NGAYTAO))')
+                ->get();
 
             $ThongtinHD = DB::table('HOPDONG')
                 ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-                ->select('HOPDONG.HOPDONG_SO', 'HOPDONG.HOPDONG_TRANGTHAI', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN','HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B','HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
+                ->select('HOPDONG.HOPDONG_SO', 'HOPDONG.HOPDONG_TRANGTHAI', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN',
+                    'HOPDONG_TENGOITHAU', 'HOPDONG_TENDUAN', 'HOPDONG_DAIDIENBEN_A', 'HOPDONG_DAIDIENBEN_B',
+                    'HOPDONG_THOIGIANTHUCHIEN', DB::raw("FORMAT(HOPDONG_TONGGIATRI, 'N0') AS HOPDONG_TONGGIATRI"),
+                    'HOPDONG_NGAYKY')
                 ->get();
+
 
             $ThongtinHoaDon = DB::table('HOADON')
                 ->join('HOPDONG', 'HOPDONG.HOPDONG_ID', '=', 'HOADON.HOPDONG_ID')
