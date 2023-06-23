@@ -282,7 +282,7 @@
                 </div>
                 <div class="modal-body" style="height: 500px; overflow-y: auto;">
                     @foreach ($ThongtinHD as $hopDong)
-                    @if($hopDong->TRANGTHAI_ID == 1)
+                    @if($hopDong->HOPDONG_TRANGTHAI == 1)
                         <div>
                             <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
                             <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
@@ -309,7 +309,7 @@
                     </div>
                     <div class="modal-body" style="height: 500px; overflow-y: auto;">
                         @foreach ($ThongtinHD as $hopDong)
-                        @if($hopDong->TRANGTHAI_ID == 2)
+                        @if($hopDong->HOPDONG_TRANGTHAI == 2)
                             <div>
                                 <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
                                 <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
@@ -336,7 +336,7 @@
                         </div>
                         <div class="modal-body" style="height: 500px; overflow-y: auto;">
                             @foreach ($ThongtinHD as $hopDong)
-                            @if($hopDong->TRANGTHAI_ID == 3)
+                            @if($hopDong->HOPDONG_TRANGTHAI == 3)
                                 <div>
                                     <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
                                     <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>
@@ -363,7 +363,7 @@
                             </div>
                             <div class="modal-body" style="height: 500px; overflow-y: auto;">
                                 @foreach ($ThongtinHD as $hopDong)
-                                @if($hopDong->TRANGTHAI_ID == 4)
+                                @if($hopDong->HOPDONG_TRANGTHAI == 4)
                                     <div>
                                         <b><p>Hợp đồng số:</b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
                                         <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY  }}</p>

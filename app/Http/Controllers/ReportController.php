@@ -23,8 +23,8 @@ class ReportController extends Controller
                 ->get();
 
                 $ThongtinHD = DB::table('HOPDONG')
-                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.TRANGTHAI_ID', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-                ->select('HOPDONG.HOPDONG_SO','TRANGTHAI_HOPDONG.TRANGTHAI_ID', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN',
+                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+                ->select('HOPDONG.HOPDONG_SO','HOPDONG.HOPDONG_TRANGTHAI', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN',
                         'HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B',
                         'HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
                 ->whereBetween('HOPDONG.HOPDONG_NGAYKY', [$startDate, $endDate])
@@ -35,8 +35,6 @@ class ReportController extends Controller
                     ->select('HOADON.HOADON_SO', 'HOADON.HOADON_TRANGTHAI', 'HOADON.HOADON_TONGTIEN', 'HOADON.HOADON_TIENTHUE', 'HOADON.HOADON_THUESUAT', 'HOADON.HOADON_TONGTIEN_COTHUE', 'HOADON.HOADON_NGAYTAO', 'HOPDONG.HOPDONG_SO','HOADON_NGUOITAO','HOADON_NGUOIMUAHANG')
                     ->whereBetween('HOADON.HOADON_NGAYTAO', [$startDate, $endDate])
                     ->get();
-
-
 
                 $TongHopDong = DB::table('hopdong')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
                 $TongThuHoaDon = DB::table('hoadon')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->sum('HOADON_TONGTIEN');
@@ -56,8 +54,8 @@ class ReportController extends Controller
             ->get();
 
             $ThongtinHD = DB::table('HOPDONG')
-                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.TRANGTHAI_ID', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-                ->select('HOPDONG.HOPDONG_SO', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN','HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B','HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
+                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+                ->select('HOPDONG.HOPDONG_SO', 'HOPDONG.HOPDONG_TRANGTHAI', 'TRANGTHAI_HOPDONG.TRANGTHAI_TEN','HOPDONG_TENGOITHAU','HOPDONG_TENDUAN','HOPDONG_DAIDIENBEN_A','HOPDONG_DAIDIENBEN_B','HOPDONG_THOIGIANTHUCHIEN','HOPDONG_TONGGIATRI', 'HOPDONG_NGAYKY')
                 ->get();
 
             $ThongtinHoaDon = DB::table('HOADON')
