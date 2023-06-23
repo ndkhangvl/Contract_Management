@@ -628,7 +628,8 @@
                     $('#slct').val(0);
                 });
                 $('#updateModal').on('show.bs.modal', function(event) {
-                    $('#updateModal #tablechitiet tr').slice(1).remove();
+                    //$('#updateModal #tablechitiet tr').slice(1).remove();
+                    $('#tableBody').empty();
                     var button = $(event.relatedTarget); 
                     var itemId = button.data('id'); 
 
@@ -649,6 +650,8 @@
                         url: '/gethoadon/' + itemId,
                         type: 'GET',
                         success: function(response) {
+                            //$('#updateModal #tablechitiet tr').slice(1).remove();
+                            $('#tableBody').empty();
                             var hoadon = response.hoadon;
                             var cthd = response.chitiethoadon;
                             var cntcthd = response.cntcthd;
@@ -742,6 +745,7 @@
                         url: '/gethoadon/' + itemId,
                         type: 'GET',
                         success: function(response) {
+                            $('#dtcthd').empty();
                             var hoadon = response.hoadon2;
                             var cthd = response.chitiethoadon2;
                             var cntcthd = response.cntcthd;
