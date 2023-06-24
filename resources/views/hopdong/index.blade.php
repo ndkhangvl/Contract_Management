@@ -65,7 +65,7 @@
             <!-- Modal 1 -->
             <div class="modal fade" id="hoadonModal" data-bs-backdrop="static" data-bs-keyboard="false"
                 aria-labelledby="hoadonModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="hoadonModalLabel">Thêm hợp đồng</h5>
@@ -202,7 +202,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="gchu" class="form-label fw-bold">Ghi chú:</label>
-                                        <input type="text" class="form-control" id="pwd"
+                                        <input type="text" class="form-control"
                                             placeholder="Điền vào ghi chú" name="hopdong_ghichu">
                                         <span class="invalid-feedback" id="hopdong_ghichu_error"></span>
                                     </div>
@@ -537,7 +537,7 @@
                                                                     <label for="gchu"
                                                                         class="form-label fw-bold">Ghi chú:</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="pwd" placeholder="Điền vào ghi chú"
+                                                                        placeholder="Điền vào ghi chú"
                                                                         name="hopdong_ghichu">
                                                                     <span class="invalid-feedback"
                                                                         id="hopdong_ghichu_error"></span>

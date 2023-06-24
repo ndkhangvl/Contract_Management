@@ -30,7 +30,8 @@ return [
     'english' => 'Tiếng Anh',
     'vietnamese' => 'Tiếng Việt',
     'logout' => 'Đăng xuất',
-    'info' => 'Thông Tin',
+    'infomation' => 'Thông Tin',
     'listcus' => 'Loại Khách Hàng',
     'loading' => 'Đang xử lý...',
+    'updatepw' => 'Đổi Mật Khẩu',
 ];

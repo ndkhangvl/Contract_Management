@@ -45,6 +45,25 @@ class UserAuthController extends Controller
         return response()->json(['success' => true, 'test' => $locale]);
     }
 
+    public function updatePass(Request $request) {
+        $request->validate([
+            'passwd_new' => 'required',
+            'confirm_passwd_new' => 'required|same:passwd_new'
+        ], [
+            'passwd_new.required' => 'Vui lòng nhập mật khẩu mới.',
+            'confirm_passwd_new.required' => 'Vui lòng nhập lại mật khẩu xác nhận.',
+            'confirm_passwd_new.same' => 'Mật khẩu xác nhận không khớp.'
+        ]);
+
+        $passwd_new = $request -> confirm_passwd_new;
+        $userid = Session::get('infoUser.nguoidung_id');
+        DB::update('UPDATE TAIKHOAN SET
+                MATKHAU = ?
+            WHERE nguoidung_id = ?;',
+                    [$passwd_new, $userid]
+            );
+        return redirect('/khachhang');
+    }
     // public function updateLocale()
     // {
     //     App::setlocale('en');

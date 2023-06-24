@@ -71,6 +71,7 @@ Route::get('/login', [UserAuthController::class,'login'])->middleware('alreadyLo
 Route::post('/updatelocale', [UserAuthController::class, 'updateLocale'])->name('updateLocale');
 Route::post('/user-login', [UserAuthController::class, 'userLogin'])-> name('user-login');
 Route::post('/forgot-pass', [UserAuthController::class, 'forgotPass'])->middleware('switchLanguage')-> name('forgot-pass');
+Route::post('/updatePassWd', [UserAuthController::class, 'updatePass'])->middleware('isLogin');
 Route::get('/logout', [UserAuthController::class, 'logout']);
 Route::get('/user/{id}', [UserAuthController::class, 'getUser'])->middleware('switchLanguage');
 

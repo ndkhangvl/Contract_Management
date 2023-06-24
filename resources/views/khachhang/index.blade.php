@@ -132,7 +132,7 @@
                                     </script>
                                     <div class="mb-3 mt-3">
                                         <label for="owner" class="form-label fw-bold">Chủ sỡ hữu:</label>
-                                        <input type="text" class="form-control" id="email"
+                                        <input type="text" class="form-control"
                                             placeholder="Nhập vào chủ sỡ hữu" name="khachhang_chusohuu">
                                         <span class="invalid-feedback" id="khachhang_chusohuu_error"></span>
                                     </div>
@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="ngdaidien" class="form-label fw-bold">Người đại diện:</label>
-                                        <input type="text" class="form-control" id="email"
+                                        <input type="text" class="form-control"
                                             placeholder="Nhập tên người đại diện" name="khachhang_nguoidaidien">
                                         <span class="invalid-feedback" id="khachhang_nguoidaidien_error"></span>
                                     </div>
@@ -446,5 +446,4 @@
     </script>
 @include('footer')
 </body>
-
 </html>

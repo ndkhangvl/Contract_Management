@@ -18,7 +18,8 @@ return [
     'english' => 'English',
     'vietnamese' => 'Vietnamese',
     'logout' => 'Log Out',
-    'info' => 'Information Customer',
+    'infomation' => 'Information Customer',
     'listcus' => 'Customer Type',
-    'loading' => 'Loading...'
+    'loading' => 'Loading...',
+    'updatepw' => 'Change Password',
 ];
