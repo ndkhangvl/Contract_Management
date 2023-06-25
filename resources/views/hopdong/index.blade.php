@@ -629,7 +629,7 @@
                     success: function(response) {
                         if (response.success == true) {
                             alert('Xóa hợp đồng thành công');
-                            //location.reload();
+                            location.reload();
                         } else {
                             console.log(response);
                             alert('Không thể xóa hợp đồng');

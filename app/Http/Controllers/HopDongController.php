@@ -197,7 +197,7 @@ class HopDongController extends Controller
             $history->ten_nd = Session::get('infoUser.ten_nd');
             $history->action = 'Xóa';
             $history->model_type = 'Hợp đồng';
-            $history->model_id = $hopdong->HOPDONG_SO;
+            $history->model_id = $hopdong->HOPDONG_ID;
             $history->description = "Xóa thông tin khách hàng (MÃ: " . $id . ")";
             $history->Time = Carbon::now();
             $history->save();
