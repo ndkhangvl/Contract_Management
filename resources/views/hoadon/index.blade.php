@@ -282,8 +282,7 @@
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">File mới:</label>
-                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon"
-                                            disabled required>
+                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon">
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
@@ -678,16 +677,8 @@
                     $('#tableBody').empty();
                     $("#updateModal #thuesuat").on('input', cal_HoaDonIndexUpdate);
                     var modal = $("#updateModal");
-                    var radButtons = modal.find("input[name=fileadd_yes_no]");
-                    radButtons.on("change", function() {
-                        if (modal.find('input[name="fileadd_yes_no"]:checked').val() == "1") {
-                            modal.find("#filehoadon").removeAttr("disabled");
-                        } else if (modal.find('input[name="fileadd_yes_no"]:checked').val() == "0") {
-                            modal.find("#filehoadon").attr("disabled", "disabled");
-                            modal.find("#filehoadon").val(null);
-                        }
-                    });
-
+                    modal.find('input[name="fileadd_yes_no"]').filter('[value="0"]').prop('checked', true);
+                    
                     var button = $(event.relatedTarget);
                     var itemId = button.data('id');
 
@@ -881,8 +872,16 @@
                         enctype: 'multipart/form-data',
                         processData: false, // Important!
                         contentType: false,
+                        success: function(success) {
+                            if (success) {
+                                alert('Cập nhật hóa đơn thành công');
+                                $('#hoaDonForm input').val('');
+                                location.reload();
+                            } else {
+                                alert('Thất bại: cập nhật không thành công');
+                            }
+                        }
                     });
-                    location.reload();
                 });
             });
             $('#detailModal').on('hide.bs.modal', function(event) {
@@ -892,7 +891,8 @@
                 $('#createModal input').val('');
             });
             $('#updateModal').on('hide.bs.modal', function(event) {
-                $('#updateModal input').val('');
+                //$('#updateModal input[type="text"]').val('');
+                $('#updateModal input[type="file"]').val('');
             });
         </script>
         <script>
