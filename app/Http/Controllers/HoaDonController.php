@@ -55,10 +55,7 @@ class HoaDonController extends Controller
     }
 
     public function create(){
-        $urlfull  = url()->full();
-        $url  = url()->current();
-        $hds = ltrim($urlfull,$url);
-        $hds = ltrim($hds,'?hopdong=');
+        $hds = request()->hopdong;
         $error = "";
         $hopdong = HopDong::where('HOPDONG_SO', '=', $hds)->first();
         if($hopdong == null) {

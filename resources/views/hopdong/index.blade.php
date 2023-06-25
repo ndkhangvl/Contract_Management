@@ -705,8 +705,28 @@
                     enctype: 'multipart/form-data',
                     processData: false, // Important!
                     contentType: false,
+                    success: function(success) {
+                        if (success) {
+                            alert('Cập nhật hợp đồng thành công');
+                            location.reload();
+                        } else {
+                            alert('Thất bại');
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            $('.invalid-feedback').empty();
+                            var response = JSON.parse(xhr.responseText);
+                            var errors = response.errors;
+                            for (var field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    var errorMessage = errors[field][0];
+                                    $('#' + field + '_error').text(errorMessage).show();
+                                }
+                            }
+                        }
+                    }
                 });
-                location.reload();
             });
         });
     </script>

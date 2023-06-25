@@ -338,6 +338,11 @@ class HopDongController extends Controller
         $history->save();
 
         // return redirect('/hopdong');
+        return response()->json([
+            'success' => true,
+            // 'errors' => $validator->errors(),
+            'input' => $request->all()
+        ]);
     }
 
 }
