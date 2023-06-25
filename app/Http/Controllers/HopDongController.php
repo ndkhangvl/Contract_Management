@@ -168,7 +168,7 @@ class HopDongController extends Controller
         $hdong->HOPDONG_GHICHU = $request->hopdong_ghichu;
         $hdong->HOPDONG_FILE = $fileUrl;
         $hdong->save();
-        
+
         $history = new History;
         $history->ten_nd = Session::get('infoUser.ten_nd');
         $history->action = 'Thêm';
@@ -186,31 +186,36 @@ class HopDongController extends Controller
         // return redirect('/khachhang');
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
-        
+        $hopdong = HopDong::find($id);
         $results = DB::select('SET NOCOUNT ON; EXEC CheckDeleteHopDong ?', [$id]);
         $message = $results[0]->message;
 
         if ($message === 'Deleted') {
-            $hopdong = HopDong::find($id);
-            $$history = new History;
+            $history = new History;
             $history->ten_nd = Session::get('infoUser.ten_nd');
             $history->action = 'Xóa';
-            $history->model_type= 'Hợp đồng';
+            $history->model_type = 'Hợp đồng';
             $history->model_id = $hopdong->HOPDONG_SO;
             $history->description = "Xóa thông tin khách hàng (MÃ: " . $id . ")";
             $history->Time = Carbon::now();
             $history->save();
             return response()->json([
                 'success' => true,
+                'data' => $results,
+                'data1' => $hopdong,
             ]);
         } elseif ($message === 'CannotDelete') {
             return response()->json([
                 'success' => false,
+                'data' => $results,
             ]);
         } else {
-            return response()->json(['error' => 'Có lỗi xảy ra.'], 500);
+            return response()->json([
+                'error' => 'Có lỗi xảy ra.',
+                'data' => $hopdong,
+            ], 500);
         }
     }
 
@@ -291,9 +296,9 @@ class HopDongController extends Controller
                 HOPDONG_TRANGTHAI = ?,
                 HOPDONG_GHICHU = ?
             WHERE HOPDONG_ID = ?;',
-                    [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $id]
+                [$LOAIHOPDONG_ID, $KHACHHANG_ID, $HOPDONG_SO, $HOPDONG_NGAYKY, $HOPDONG_NGAYHIEULUC, $HOPDONG_NGAYKETTHUC, $HOPDONG_TENGOITHAU, $HOPDONG_TENDUAN, $HOPDONG_NOIDUNG, $HOPDONG_DAIDIENBEN_A, $HOPDONG_DAIDIENBEN_B, $HOPDONG_NGUOILAP, $HOPDONG_THOIGIANTHUCHIEN, $HOPDONG_TONGGIATRI, $HOPDONG_HINHTHUCTHANHTOAN, $HOPDONG_TRANGTHAI, $HOPDONG_GHICHU, $id]
             );
-        } else if ($request->fileadd_yes_no == "1"){
+        } else if ($request->fileadd_yes_no == "1") {
             $fileUrl = "";
             if ($request->file('filehopdong')) {
                 $imageUrl = $this->storeImage($request);
@@ -331,7 +336,7 @@ class HopDongController extends Controller
         $history->description = "Sửa thông tin họp đồng (MÃ: " . $id . ")";
         $history->Time = Carbon::now();
         $history->save();
-        
+
         // return redirect('/hopdong');
     }
 

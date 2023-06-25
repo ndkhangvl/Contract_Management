@@ -627,15 +627,17 @@
                     type: 'DELETE',
                     data: form.serialize(),
                     success: function(response) {
-                        if (response.success) {
+                        if (response.success == true) {
                             alert('Xóa hợp đồng thành công');
-                            location.reload();
+                            //location.reload();
                         } else {
+                            console.log(response);
                             alert('Không thể xóa hợp đồng');
                         }
                         console.log(response);
                     },
                     error: function(xhr, status, error) {
+                        console.log(response);
                         alert('Xóa hợp đồng thất bại');
                     }
                 });
