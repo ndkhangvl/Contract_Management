@@ -11,4 +11,9 @@ class KhachHang extends Model
     public $table = 'KHACHHANG';
     public $primaryKey = 'KHACHHANG_ID';
     public $timestamps = false;
+
+    public function history()
+    {
+        return $this->hasMany(History::class, 'NGUOIDUNG_ID');
+    }
 }

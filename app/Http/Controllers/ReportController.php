@@ -39,7 +39,7 @@ class ReportController extends Controller
                     ->get();
 
                 $TongHopDong = DB::table('hopdong')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
-                $TongThuHoaDon = DB::table('hoadon')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->sum('HOADON_TONGTIEN');
+                $TongThuHoaDon = DB::table('hoadon')->whereBetween('HOADON_NGAYTAO', [$startDate, $endDate])->sum('HOADON_TONGTIEN_COTHUE');
                 $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
                 $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
                 $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->whereBetween('HOPDONG_NGAYKY', [$startDate, $endDate])->count();
@@ -71,7 +71,7 @@ class ReportController extends Controller
 
 
             $TongHopDong = DB::table('hopdong')->count();
-            $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN');
+            $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN_COTHUE');
             $HopDongMoiTao = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '1')->count();
             $HopDongNghiemThu = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '2')->count();
             $HopDongXuatHoaDon = DB::table('hopdong')->where('HOPDONG_TRANGTHAI', '3')->count();

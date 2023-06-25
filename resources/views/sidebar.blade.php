@@ -77,6 +77,13 @@
                             <span>{{ trans('msg.statistical') }}</span>
                         </a>
                     </li>
+
+                    <li class="sidebar-item {{ Str::startsWith(request()->path(), 'history') ? 'active' : '' }} ">
+                        <a href="/history" class='sidebar-link'>
+                            <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                            <span>{{ trans('msg.history') }}</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

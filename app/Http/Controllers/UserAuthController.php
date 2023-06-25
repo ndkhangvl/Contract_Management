@@ -110,7 +110,7 @@ class UserAuthController extends Controller
             'matkhau.required' => 'Vui lòng nhập mật khẩu.',
             'matkhau.min' => 'Mật khẩu phải ít nhất :min ký tự.',
             'matkhau.max' => 'Mật khẩu tối đa :max ký tự.',
-            'captcha.required' => 'Vui lòng nhập mã captcha.',
+            'captcha.required' => 'Vui lòng nhập mã xác nhận.',
         ]);
 
         $captchaData = $request->input('captcha');
@@ -118,7 +118,7 @@ class UserAuthController extends Controller
 
         //$taikhoan = $request->only('ma_nd','matkhau');
         if (!$isCaptchaValid) {
-            return response()->json(['success' => false, 'captcha' => false, 'message' => 'Mã captcha không đúng']);
+            return response()->json(['success' => false, 'captcha' => false, 'message' => 'Mã xác nhận không đúng']);
             // return false;
         }
 

@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\URL;
+use App\Models\History;
+use Illuminate\Support\Facades\Session;
 class HoaDonController extends Controller
 {
     //

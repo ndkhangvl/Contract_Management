@@ -9,10 +9,14 @@ use App\Models\KhachHang;
 use App\Models\TrangThaiKH;
 use App\Models\HopDong;
 use Carbon\Carbon;
+use App\Models\History;
+use Illuminate\Support\Facades\Session;
+
 //use App\Http\Requests\CreateValidationRequest;
 
 class KhachHangController extends Controller
 {
+    
     public function index() {
         $loaikhachhang = LoaiKhachHang::orderBy('LOAIKHACHHANG_TEN', 'asc')->get();
         $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
@@ -72,7 +76,6 @@ class KhachHangController extends Controller
 
     public function store(Request $request)
     {
-        //
         $request->validate([
             'loaikhachhang_id' => 'required',
             'khachhang_ten' => 'required|min:5',
@@ -101,32 +104,40 @@ class KhachHangController extends Controller
             'khachhang_ngayhoatdong.required' => 'Chọn ngày hoạt động là bắt buộc.',
             'khachhang_masothue.required' => 'Trường mã số thuế là bắt buộc.',
         ]);
-        
+
         $today = Carbon::today();
 
-        $khhang = new KhachHang;
-        $khhang->LOAIKHACHHANG_ID = $request->loaikhachhang_id; 
-        $khhang->KHACHHANG_TEN = $request->khachhang_ten;
-        $khhang->KHACHHANG_DIACHI = $request->khachhang_diachi; 
-        $khhang->KHACHHANG_SDT = $request->khachhang_sdt; 
-        $khhang->KHACHHANG_EMAIL = $request->khachhang_email; 
-        $khhang->KHACHHANG_CHUSOHUU = $request->khachhang_chusohuu; 
-        $khhang->KHACHHANG_NGUOIDAIDIEN = $request->khachhang_nguoidaidien; 
-        $khhang->KHACHHANG_CMND = $request->khachhang_cmnd; 
-        $khhang->KHACHHANG_NGAYCAPCMND = $request->khachhang_ngaycapcmnd; 
-        $khhang->KHACHHANG_NGAYSINHNDD = $request->khachhang_ngaysinhndd; 
-        $khhang->KHACHHANG_NGAYHOATDONG = $request->khachhang_ngayhoatdong; 
-        $khhang->KHACHHANG_TRANGTHAI = 2; 
-        $khhang->KHACHHANG_MASOTHUE = $request->khachhang_masothue; 
-        $khhang->NGAYTAOLAP = $today; 
-    
-        $khhang->save();
+        $khachhang = new KhachHang;
+        $khachhang->LOAIKHACHHANG_ID = $request->loaikhachhang_id;
+        $khachhang->KHACHHANG_TEN = $request->khachhang_ten;
+        $khachhang->KHACHHANG_DIACHI = $request->khachhang_diachi;
+        $khachhang->KHACHHANG_SDT = $request->khachhang_sdt;
+        $khachhang->KHACHHANG_EMAIL = $request->khachhang_email;
+        $khachhang->KHACHHANG_CHUSOHUU = $request->khachhang_chusohuu;
+        $khachhang->KHACHHANG_NGUOIDAIDIEN = $request->khachhang_nguoidaidien;
+        $khachhang->KHACHHANG_CMND = $request->khachhang_cmnd;
+        $khachhang->KHACHHANG_NGAYCAPCMND = $request->khachhang_ngaycapcmnd;
+        $khachhang->KHACHHANG_NGAYSINHNDD = $request->khachhang_ngaysinhndd;
+        $khachhang->KHACHHANG_NGAYHOATDONG = $request->khachhang_ngayhoatdong;
+        $khachhang->KHACHHANG_TRANGTHAI = 2;
+        $khachhang->KHACHHANG_MASOTHUE = $request->khachhang_masothue;
+        $khachhang->NGAYTAOLAP = $today;
+        $khachhang->save();
+
+        
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Thêm';
+        $history->model_type = 'KhachHang';
+        $history->model_id = $khachhang->KHACHHANG_ID;
+        $history->description = 'Thêm mới khách hàng: ' . $khachhang->KHACHHANG_TEN;
+        $history->Time = Carbon::now();
+        $history->save();
+
         return response()->json([
             'success' => true,
-            // 'errors' => $validator->errors(),
             'input' => $request->all()
         ]);
-        // return redirect('/khachhang');
     }
 
     public function update(Request $request, $id)
@@ -147,8 +158,17 @@ class KhachHangController extends Controller
                     'KHACHHANG_NGAYHOATDONG' => $request->input('khachhang_ngayhoatdong'),
                     'KHACHHANG_TRANGTHAI' => $request->input('khachhang_trangthai'),
                     'KHACHHANG_MASOTHUE' => $request->input('khachhang_masothue'),
-                    
                 ]);
+
+                $history = new History;
+                $history->ten_nd = Session::get('infoUser.ten_nd');
+                $history->action = 'Sửa';
+                $history->model_type = 'KhachHang';
+                $history->model_id = $id;
+                $history->description = "Sửa thông tin khách hàng (MÃ: " . $id . ")";
+                $history->Time = Carbon::now();
+                $history->save();
+
         return redirect('/khachhang');
     }
 
@@ -163,8 +183,19 @@ class KhachHangController extends Controller
         }
 
         $khachhang->delete();
+
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Xóa'; // Hành động xóa
+        $history->model_type = 'KhachHang'; // Loại mô hình
+        $history->model_id = $khachhang->KHACHHANG_ID;
+        $history->description = "Xóa thông tin khách hàng (MÃ: " . $id . ")";
+        $history->Time = Carbon::now(); // Ngày giờ tạo
+        $history->save();
+
         session()->flash('success', 'Xóa khách hàng thành công.');
         return redirect()->route('khachhang.index');
     }
+
 
 }

@@ -20,9 +20,6 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav ms-auto">
-                {{-- <li class="nav-item">
-                    <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }} fw-bold" href="/khachhang">{{ Session::get('locale') }}</a>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('khachhang') ? 'active' : '' }} fw-bold" href="/khachhang">{{trans('msg.customer')}}</a>
                 </li>
@@ -34,6 +31,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('baocao') ? 'active' : '' }} fw-bold" href="/baocao">{{trans('msg.statistical')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('history') ? 'active' : '' }} fw-bold" href="/history">{{trans('msg.history')}}</a>
                 </li>
             </ul>
         </div>

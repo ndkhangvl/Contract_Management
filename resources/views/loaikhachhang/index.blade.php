@@ -130,7 +130,7 @@
                             <tr id="row{{ $loaikhachhang->LOAIKHACHHANG_ID }}">
                                 <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
                                 <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
-                                <td>{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
+                                <td class="text-left align-middle">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
                                 <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
                                 <td class="text-center align-middle">
                                     <form action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST">

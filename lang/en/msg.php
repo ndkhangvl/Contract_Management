@@ -14,6 +14,7 @@ return [
     'contract' => 'Contract',
     'bill' => 'Bill',
     'statistical' => 'Statistical',
+    'history' => 'History',
     'info' => 'Information',
     'english' => 'English',
     'vietnamese' => 'Vietnamese',

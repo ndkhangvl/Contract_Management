@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -127,7 +128,8 @@ Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name(
 // });
 
 Route::get('/baocao', [ReportController::class, 'index'])->middleware('switchLanguage')->name('reports.index');
-//Route::get('/baocao/hopdongmoitao', [ReportController::class, 'showModel1'])->middleware('switchLanguage')->name('showModel1');
+
+Route::get('/history', [HistoryController::class, 'index'])->middleware('switchLanguage')->name('lichsu.index');
 
 Route::get('/hoadon/{hoadon}/pdf', [HoaDonController::class, 'pdf']);
 

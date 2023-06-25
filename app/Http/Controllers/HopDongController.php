@@ -10,8 +10,10 @@ use App\Models\TaiKhoan;
 use App\Models\KhachHang;
 use App\Models\HopDong;
 use App\Models\TrangThaiHD;
+use App\Models\History;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class HopDongController extends Controller
 {
@@ -166,6 +168,16 @@ class HopDongController extends Controller
         $hdong->HOPDONG_GHICHU = $request->hopdong_ghichu;
         $hdong->HOPDONG_FILE = $fileUrl;
         $hdong->save();
+        
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Thêm';
+        $history->model_type = 'HopDong';
+        $history->model_id = $hdong->HOPDONG_ID;
+        $history->description = 'Thêm mới họp đồng: ' . $hdong->HOPDONG_SO;
+        $history->Time = Carbon::now();
+        $history->save();
+
         return response()->json([
             'success' => true,
             // 'errors' => $validator->errors(),
@@ -174,23 +186,31 @@ class HopDongController extends Controller
         // return redirect('/khachhang');
     }
 
-    public function delete($id)
+    public function delete($id) 
     {
+        
         $results = DB::select('SET NOCOUNT ON; EXEC CheckDeleteHopDong ?', [$id]);
-        //dd($results);
         $message = $results[0]->message;
 
         if ($message === 'Deleted') {
+            $hopdong = HopDong::find($id);
+            $$history = new History;
+            $history->ten_nd = Session::get('infoUser.ten_nd');
+            $history->action = 'Xóa';
+            $history->model_type= 'Hợp đồng';
+            $history->model_id = $hopdong->HOPDONG_SO;
+            $history->description = "Xóa thông tin khách hàng (MÃ: " . $id . ")";
+            $history->Time = Carbon::now();
+            $history->save();
             return response()->json([
                 'success' => true,
             ]);
         } elseif ($message === 'CannotDelete') {
-            // return redirect('/khachhang');
             return response()->json([
                 'success' => false,
             ]);
         } else {
-            return Response::json(['error' => 'Có lỗi xảy ra.'], 500);
+            return response()->json(['error' => 'Có lỗi xảy ra.'], 500);
         }
     }
 
@@ -303,6 +323,14 @@ class HopDongController extends Controller
             );
 
         }
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Sửa';
+        $history->model_type = 'HopDong';
+        $history->model_id = $id;
+        $history->description = "Sửa thông tin họp đồng (MÃ: " . $id . ")";
+        $history->Time = Carbon::now();
+        $history->save();
         
         // return redirect('/hopdong');
     }
