@@ -511,26 +511,8 @@ class HoaDonController extends Controller
         ]);
 
         //$request->validated();
-        
-        $fileUrl = "";
-        if ($request->file('filehoadon')){
-            $imageUrl = $this->storeImage($request);
-            $fileUrl = $imageUrl;
 
-            DB::update('exec updateHoaDon_WithFile ?,?,?,?,?,?,?,?,?,?',
-            [
-                $id,
-                $request->tongtien,
-                $request->thuesuat,
-                $request->tienthue,
-                $request->tongtiencothue,
-                $request->sotienbangchu,
-                $request->nguoitao,
-                $request->nguoimuahang,
-                $request->trangthaihoadon,
-                $fileUrl = $imageUrl
-            ]);
-        } else {
+        if ($request->fileadd_yes_no == "0") {
             DB::update('exec updateHoaDon_NoFile ?,?,?,?,?,?,?,?,?',
             [
                 $id,
@@ -542,6 +524,26 @@ class HoaDonController extends Controller
                 $request->nguoitao,
                 $request->nguoimuahang,
                 $request->trangthaihoadon
+            ]);
+        }
+        else if ($request->fileadd_yes_no == "1") {
+            $fileUrl = "";
+            if ($request->file('filehoadon')) {
+                $imageUrl = $this->storeImage($request);
+                $fileUrl = $imageUrl;
+            }
+            DB::update('exec updateHoaDon_WithFile ?,?,?,?,?,?,?,?,?,?',
+            [
+                $id,
+                $request->tongtien,
+                $request->thuesuat,
+                $request->tienthue,
+                $request->tongtiencothue,
+                $request->sotienbangchu,
+                $request->nguoitao,
+                $request->nguoimuahang,
+                $request->trangthaihoadon,
+                $fileUrl
             ]);
         }
 
@@ -564,6 +566,12 @@ class HoaDonController extends Controller
                 $request->$tt,
             ]);
         }
+
+        return response()->json([
+            'success' => true,
+            // 'errors' => $validator->errors(),
+            'input' => $request->all()
+        ]);
     }
     public function getHoaDon($id)
     {
