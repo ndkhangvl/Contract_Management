@@ -161,7 +161,14 @@ class HoaDonController extends Controller
                     $request->$tt,
                 ]);
             }
-            
+            $history = new History;
+            $history->ten_nd = Session::get('infoUser.ten_nd');
+            $history->action = 'Thêm';
+            $history->model_type = 'Hóa đơn';
+            $history->model_id = $newid[0]->HOADON_ID;
+            $history->description = 'Thêm mới hóa đơn số: ' . $request->sohoadon;
+            $history->Time = Carbon::now();
+            $history->save();
             return redirect('/hopdong/'.$request->sohopdong);
             
         } else {
@@ -343,13 +350,29 @@ class HoaDonController extends Controller
                 $request->$tt,
             ]);
         }
-        
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Sửa';
+        $history->model_type = 'Hóa đơn';
+        $history->model_id = $id;
+        $history->description = 'Cập nhật hóa đơn số: ' . $request->sohoadon;
+        $history->Time = Carbon::now();
+        $history->save();
         return redirect('/hoadon/'.$request->sohoadon);
     }
 
     public function destroy($id)
     {
+        $hoadon = HoaDon::find($id);
         DB::update('exec deleteHoaDon ?', [$id]);
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Xóa';
+        $history->model_type = 'Hóa đơn';
+        $history->model_id = $id;
+        $history->description = 'Xóa hóa đơn số: ' . $hoadon->HOADON_SO;
+        $history->Time = Carbon::now();
+        $history->save();
         return redirect('/hoadon');
     }
         
@@ -437,7 +460,14 @@ class HoaDonController extends Controller
                     $request->$tt,
                 ]);
             }
-
+            $history = new History;
+            $history->ten_nd = Session::get('infoUser.ten_nd');
+            $history->action = 'Thêm';
+            $history->model_type = 'Hóa đơn';
+            $history->model_id = $newid[0]->HOADON_ID;
+            $history->description = 'Thêm mới hóa đơn số: ' . $request->sohoadon;
+            $history->Time = Carbon::now();
+            $history->save();
             return response()->json([
                 'success' => true,
                 // 'errors' => $validator->errors(),
@@ -563,7 +593,14 @@ class HoaDonController extends Controller
                 $request->$tt,
             ]);
         }
-
+        $history = new History;
+        $history->ten_nd = Session::get('infoUser.ten_nd');
+        $history->action = 'Sửa';
+        $history->model_type = 'Hóa đơn';
+        $history->model_id = $id;
+        $history->description = 'Cập nhật hóa đơn số: ' . $request->sohoadon;
+        $history->Time = Carbon::now();
+        $history->save();
         return response()->json([
             'success' => true,
             // 'errors' => $validator->errors(),
