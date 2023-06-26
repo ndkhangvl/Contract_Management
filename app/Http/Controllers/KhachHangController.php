@@ -128,9 +128,9 @@ class KhachHangController extends Controller
         $history = new History;
         $history->ten_nd = Session::get('infoUser.ten_nd');
         $history->action = 'Thêm';
-        $history->model_type = 'KhachHang';
+        $history->model_type = 'Khách Hàng';
         $history->model_id = $khachhang->KHACHHANG_ID;
-        $history->description = 'Thêm mới khách hàng: ' . $khachhang->KHACHHANG_TEN;
+        $history->description = 'Thêm mới khách hàng: ' . mb_convert_encoding($khachhang->KHACHHANG_ID, 'UTF-8');
         $history->Time = Carbon::now();
         $history->save();
 
@@ -163,9 +163,9 @@ class KhachHangController extends Controller
                 $history = new History;
                 $history->ten_nd = Session::get('infoUser.ten_nd');
                 $history->action = 'Sửa';
-                $history->model_type = 'KhachHang';
+                $history->model_type = 'Khách Hàng';
                 $history->model_id = $id;
-                $history->description = "Sửa thông tin khách hàng (MÃ: " . $id . ")";
+                $history->description = 'Sửa thông tin khách hàng: ' . mb_convert_encoding($id, 'UTF-8');
                 $history->Time = Carbon::now();
                 $history->save();
 
@@ -186,11 +186,11 @@ class KhachHangController extends Controller
 
         $history = new History;
         $history->ten_nd = Session::get('infoUser.ten_nd');
-        $history->action = 'Xóa'; // Hành động xóa
-        $history->model_type = 'KhachHang'; // Loại mô hình
+        $history->action = 'Xóa';
+        $history->model_type = 'Khách Hàng';
         $history->model_id = $khachhang->KHACHHANG_ID;
-        $history->description = "Xóa thông tin khách hàng (MÃ: " . $id . ")";
-        $history->Time = Carbon::now(); // Ngày giờ tạo
+        $history->description = "Xóa thông tin khách hàng: " . $id . "";
+        $history->Time = Carbon::now();
         $history->save();
 
         session()->flash('success', 'Xóa khách hàng thành công.');

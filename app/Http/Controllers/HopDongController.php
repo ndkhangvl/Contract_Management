@@ -172,9 +172,9 @@ class HopDongController extends Controller
         $history = new History;
         $history->ten_nd = Session::get('infoUser.ten_nd');
         $history->action = 'Thêm';
-        $history->model_type = 'HopDong';
+        $history->model_type = 'Hợp Đồng';
         $history->model_id = $hdong->HOPDONG_ID;
-        $history->description = 'Thêm mới họp đồng: ' . $hdong->HOPDONG_SO;
+        $history->description = 'Thêm mới họp đồng: ' . mb_convert_encoding($hdong->HOPDONG_SO, 'UTF-8');
         $history->Time = Carbon::now();
         $history->save();
 
@@ -198,7 +198,7 @@ class HopDongController extends Controller
             $history->action = 'Xóa';
             $history->model_type = 'Hợp đồng';
             $history->model_id = $hopdong->HOPDONG_SO;
-            $history->description = "Xóa thông tin khách hàng (MÃ: " . $id . ")";
+            $history->description = 'Xóa hợp đồng số: ' . mb_convert_encoding($hopdong->HOPDONG_SO, 'UTF-8');
             $history->Time = Carbon::now();
             $history->save();
             return response()->json([
@@ -328,14 +328,18 @@ class HopDongController extends Controller
             );
 
         }
-        $history = new History;
-        $history->ten_nd = Session::get('infoUser.ten_nd');
-        $history->action = 'Sửa';
-        $history->model_type = 'HopDong';
-        $history->model_id = $id;
-        $history->description = "Sửa thông tin họp đồng (MÃ: " . $id . ")";
-        $history->Time = Carbon::now();
-        $history->save();
+        
+        $hopdong = HopDong::find($id);
+        if ($hopdong) {
+            $history = new History;
+            $history->ten_nd = Session::get('infoUser.ten_nd');
+            $history->action = 'Sửa';
+            $history->model_type = 'Hợp Đồng';
+            $history->model_id = $id;
+            $history->description = 'Sửa thông tin hợp đồng số: ' . mb_convert_encoding($hopdong->HOPDONG_SO, 'UTF-8');
+            $history->Time = Carbon::now();
+            $history->save();
+        }
 
         // return redirect('/hopdong');
         return response()->json([
