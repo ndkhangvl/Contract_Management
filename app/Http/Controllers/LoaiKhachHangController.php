@@ -39,7 +39,7 @@ class LoaiKhachHangController extends Controller
             'LOAIKHACHHANG_ID_CSS' => $validatedData['loaikhachhangidcss'],
         ]);
 
-        return redirect('/')->with('success', 'Data inserted successfully!');
+        return redirect('/')->with('success', 'Thêm loại khách hàng thành công');
     }
     /*public function delete(Request $request)
     {
@@ -56,13 +56,13 @@ class LoaiKhachHangController extends Controller
         $khachHangCount = DB::table('KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->count();
 
         if ($khachHangCount > 0) {
-            session()->flash('error', 'không thể xóa Loại Khách Hàng vì có Khach Hang mang loại này.');
-            return back();
+            session()->flash('error', 'Không thể xóa Loại Khách Hàng vì có Khách Hàng mang loại này.');
+            return redirect()->back()->withErrors('Không thể xóa Loại Khách Hàng vì có Khách Hàng mang loại này.');
         }
 
         DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->delete();
         session()->flash('success', 'Xóa loại khách hàng thành công.');
-        return redirect('/')->with('success', 'Data deleted successfully!');
+        return redirect()->back()->with('success', 'Xóa loại khách hàng thành công');
     }
 
     public function update(Request $request)

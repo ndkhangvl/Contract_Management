@@ -50,14 +50,9 @@
         }
 
         #infoForm select {
-            margin-bottom: 20px;
+            margin-bottom: 20px; b
         }
     </style>
-        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script> --}}
 </head>
 
 <body>
@@ -84,6 +79,17 @@
             <div id="tableContainer">
 
             </div>
+            @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
             </div>
             <hr />
             <div id="data-container">
@@ -127,13 +133,13 @@
                     </thead>
                     <tbody>
                         @foreach ($loaikhachhangs as $loaikhachhang)
-                            <tr id="row{{ $loaikhachhang->LOAIKHACHHANG_ID }}">
-                                <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
-                                <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
-                                <td class="text-left align-middle">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
-                                <td class="text-center align-middle">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
+                      <tr id="row{{ $loaikhachhang->LOAIKHACHHANG_ID }}" class="editable-row">
+                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
+                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
+                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
+                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
                                 <td class="text-center align-middle">
-                                    <form action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST">
+                                    <form action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-block mb-3 mt-3">
@@ -141,8 +147,8 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td class="text-center align-middle">
-                                    <button type="button" id="editButton" class="btn btn-warning btn-block mb-3 mt-3">
+                                <td class="buttonsua">
+                                    <button type="button" class="btn btn-warning btn-block mb-3 mt-3 editButton">
                                         <i class="fas fa-edit me-2"></i>Sửa
                                     </button>
                                 </td>
@@ -257,8 +263,10 @@
             } else {
                 table.style.display = "none";
                 formTab.style.display = "block";
-            }
-}
+            }}
+            function confirmDelete() {
+                    return confirm('Bạn có chắc chắn muốn xóa loại khách hàng?');
+                }
         </script>
         </div>
     @include('footer')
