@@ -59,7 +59,38 @@
     @include('sidebar')
     @include('header2')
     <div id="main">
-        
+        <!--Modal-->
+        <div class="modal fade" id="addloaikh">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updatePasswdLabel">Đổi mật khẩu</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" id="updatePass" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="passwd_new" class="form-label">Mật khẩu mới:</label>
+                                <input type="password" class="form-control" id="passwd_new" placeholder="Nhập vào mật khẩu mới"
+                                    name="passwd_new">
+                                <span class="invalid-feedback" id="passwd_new_error"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pwd" class="form-label">Nhập lại mật khẩu:</label>
+                                <input type="password" class="form-control" id="confirm_passwd_new"
+                                    placeholder="Xác nhận mật khẩu" name="confirm_passwd_new">
+                                <span class="invalid-feedback" id="confirm_passwd_new_error"></span>
+                            </div>
+                            <div class="mb-3 mt-3 pb-2 text-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------->
         <div class="container bg-white shadow p-2">
             <h1>Loại khách hàng</h1>
             <div class="d-flex p-2">
@@ -70,7 +101,7 @@
                 </div>
                 <div class="mb-2 ms-1">
                     <button type="button" class="btn text-white" style="background-color: #435EBE;"
-                    data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="toggleTable()">
+                    data-bs-toggle="modal" data-bs-target="#addloaikh">
                 <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
             </button>
                 </div>
