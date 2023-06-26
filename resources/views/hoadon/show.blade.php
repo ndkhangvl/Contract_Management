@@ -117,25 +117,12 @@ td {
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                        <label class="form-label fw-bold">File hóa đơn:</label>
-                                        <a href="{{asset('storage/')}}" target="_blank" id="filehoadonlink"></a>
+                                        <label class="form-label fw-bold">Người tạo:</label>
+                                        <input class="form-control" required type="text" name="nguoitao">
                                     </div>
                                     <div class="col">
-                                        <div id="wrapper">
-                                            <label class="form-label fw-bold">Bạn có muốn cập nhật file mới
-                                                không?</label>
-                                            <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input>
-                                            </p>
-                                            <p><input type="radio" name="fileadd_yes_no" id="radN" value="0"
-                                                    checked>Không</input></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 mt-3">
-                                    <div class="col">
-                                        <label class="form-label fw-bold">File mới:</label>
-                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon"
-                                            disabled required>
+                                        <label class="form-label fw-bold">Người mua hàng:</label>
+                                        <input class="form-control" required type="text" name="nguoimuahang">
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
@@ -171,15 +158,27 @@ td {
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                        <label class="form-label fw-bold">Người tạo:</label>
-                                        <input class="form-control" required type="text" name="nguoitao">
+                                        <label class="form-label fw-bold">File hóa đơn:</label>
+                                        <a href="{{asset('storage/')}}" target="_blank" id="filehoadonlink"></a>
                                     </div>
                                     <div class="col">
-                                        <label class="form-label fw-bold">Người mua hàng:</label>
-                                        <input class="form-control" required type="text" name="nguoimuahang">
+                                        <div id="wrapper">
+                                            <label class="form-label fw-bold">Bạn có muốn cập nhật file mới
+                                                không?</label>
+                                            <p><input type="radio" name="fileadd_yes_no" id="radY" value="1">Có</input>
+                                            </p>
+                                            <p><input type="radio" name="fileadd_yes_no" id="radN" value="0"
+                                                    checked>Không</input></p>
+                                        </div>
                                     </div>
                                 </div>
-
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">File mới:</label>
+                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon"
+                                            disabled required>
+                                    </div>
+                                </div>
                                 <div>
                                     <hr>
                                     <label>Trạng thái hóa đơn:</label>
@@ -442,8 +441,16 @@ $(document).ready(function() {
             enctype: 'multipart/form-data',
             processData: false, // Important!
             contentType: false,
+            success: function(success) {
+                if (success) {
+                    alert('Cập nhật hóa đơn thành công');
+                    $('#hoaDonForm input').val('');
+                    location.reload();
+                } else {
+                    alert('Thất bại: cập nhật không thành công');
+                }
+            }
         });
-        location.reload();
     });
 });
 

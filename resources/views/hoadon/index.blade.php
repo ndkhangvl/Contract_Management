@@ -128,9 +128,15 @@
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                        <label class="form-label fw-bold">File:</label>
-                                        <input class="form-control" type="file" name="filehoadon">
-                                        <span class="invalid-feedback" id="filehoadon_error"></span>
+                                        <label class="form-label fw-bold">Người tạo:</label>
+                                        <input class="form-control" value="" type="text" name="nguoitao">
+                                        <span class="invalid-feedback" id="nguoitao_error"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label fw-bold">Người mua hàng:</label>
+                                        <input class="form-control" value="" type="text"
+                                            name="nguoimuahang">
+                                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
@@ -171,18 +177,11 @@
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                        <label class="form-label fw-bold">Người tạo:</label>
-                                        <input class="form-control" value="" type="text" name="nguoitao">
-                                        <span class="invalid-feedback" id="nguoitao_error"></span>
-                                    </div>
-                                    <div class="col">
-                                        <label class="form-label fw-bold">Người mua hàng:</label>
-                                        <input class="form-control" value="" type="text"
-                                            name="nguoimuahang">
-                                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
+                                        <label class="form-label fw-bold">File hóa đơn (nếu có):</label>
+                                        <input class="form-control" type="file" name="filehoadon">
+                                        <span class="invalid-feedback" id="filehoadon_error"></span>
                                     </div>
                                 </div>
-
                                 <div>
                                     <hr>
                                     <label class="form-label fw-bold">Trạng thái hóa đơn:</label>
@@ -265,24 +264,14 @@
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                        <label class="form-label fw-bold">File hóa đơn:</label>
-                                        <a href="" target="_blank" id="filehoadonlink"></a>
+                                        <label class="form-label fw-bold">Người tạo:</label>
+                                        <input class="form-control" required type="text" name="nguoitao"
+                                            id="nguoitao">
                                     </div>
                                     <div class="col">
-                                        <div id="wrapper">
-                                            <label class="form-label fw-bold">Bạn có muốn cập nhật file mới
-                                                không?</label>
-                                            <p><input type="radio" name="fileadd_yes_no" id="radY"
-                                                    value="1">Có</input></p>
-                                            <p><input type="radio" name="fileadd_yes_no" id="radN"
-                                                    value="0" checked>Không</input></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3 mt-3">
-                                    <div class="col">
-                                        <label class="form-label fw-bold">File mới:</label>
-                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon">
+                                        <label class="form-label fw-bold">Người mua hàng:</label>
+                                        <input class="form-control" required type="text" name="nguoimuahang"
+                                            id="nguoimuahang">
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
@@ -318,20 +307,29 @@
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
-                                        <label class="form-label fw-bold">Người tạo:</label>
-                                        <input class="form-control" required type="text" name="nguoitao"
-                                            id="nguoitao">
+                                        <label class="form-label fw-bold">File hóa đơn (nếu có):</label><br>
+                                        <a href="" target="_blank" id="filehoadonlink"></a>
                                     </div>
                                     <div class="col">
-                                        <label class="form-label fw-bold">Người mua hàng:</label>
-                                        <input class="form-control" required type="text" name="nguoimuahang"
-                                            id="nguoimuahang">
+                                        <div id="wrapper">
+                                            <label class="form-label fw-bold">Bạn có muốn cập nhật file mới
+                                                không?</label>
+                                            <p><input type="radio" name="fileadd_yes_no" id="radY"
+                                                    value="1">Có</input></p>
+                                            <p><input type="radio" name="fileadd_yes_no" id="radN"
+                                                    value="0" checked>Không</input></p>
+                                        </div>
                                     </div>
                                 </div>
-
+                                <div class="row mb-3 mt-3">
+                                    <div class="col">
+                                        <label class="form-label fw-bold">File mới:</label>
+                                        <input class="form-control" type="file" name="filehoadon" id="filehoadon">
+                                    </div>
+                                </div>
                                 <div>
                                     <hr>
-                                    <label>Trạng thái hóa đơn:</label>
+                                    <label class="form-label fw-bold">Trạng thái hóa đơn:</label>
                                     <select name="trangthaihoadon" id="trangthaihoadon">
 
                                         <option value=0 selected>Chưa thanh toán</option>
@@ -546,12 +544,12 @@
         <div class="table-responsive">
             <table id="danhsachhoadon" class="table table-striped table-hover">
                 <tr>
-                    <th style="background: #077DCE">Hóa đơn số</th>
-                    <th style="background: #077DCE">Thuộc hợp đồng</th>
-                    <th style="background: #077DCE">Trạng thái</th>
-                    <th style="background: #077DCE">Tổng thanh toán</th>
-                    <th style="background: #077DCE">Ngày tạo hóa đơn</th>
-                    <th style="background: #077DCE">Chi tiết</th>
+                    <th style="background: #077DCE" class="text-center text-nowrap">Hóa đơn số</th>
+                    <th style="background: #077DCE" class="text-center text-nowrap">Thuộc hợp đồng</th>
+                    <th style="background: #077DCE" class="text-center text-nowrap">Trạng thái</th>
+                    <th style="background: #077DCE" class="text-center text-nowrap">Tổng thanh toán</th>
+                    <th style="background: #077DCE" class="text-center text-nowrap">Ngày tạo hóa đơn</th>
+                    <th style="background: #077DCE" class="text-center text-nowrap">Chi tiết-Cập nhật-Xóa</th>
                 </tr>
                 @foreach ($hoadons as $hdd)
                     <tr>
@@ -567,29 +565,20 @@
                         <td class="text-center w-auto">
                             <div class="d-flex justify-content-between align-items-center">
                                 <form>
-                                    {{-- <a href="/hoadon/{{ $hdd->HOADON_SO }}"
-                                    class="btn btn-success btn-icon-only" aria-label="Xem chi tiết"
-                                    title="Xem chi tiết"><i class="fas fa-file-signature"
-                                        style="color: #000000;"></i>
-                                </a> --}}
-                                    <a href="" data-id="{{ $hdd->HOADON_ID }}"
+                                    <a href="" data-id="{{ $hdd->HOADON_ID }}" title="Chi tiết hóa đơn"
                                         class="btn btn-success btn-icon-only" data-bs-toggle="modal"
                                         data-bs-target="#detailModal">
                                         <i class="fas fa-file-signature" style="color: #000000;"></i>
                                     </a>
                                 </form>
-                                {{-- <a href="/hoadon/{{ $hdd->HOADON_SO }}/edit"
-                                class="btn btn-info btn-icon-only" aria-label="Sửa"
-                                onclick="" title="Sửa hóa đơn"><i class="fas fa-edit"></i>
-                            </a> --}}
                                 <form>
-                                    <a href="" data-id="{{ $hdd->HOADON_ID }}"
+                                    <a href="" data-id="{{ $hdd->HOADON_ID }}" title="Cập nhật hóa đơn"
                                         class="btn btn-info btn-icon-only" data-bs-toggle="modal"
                                         data-bs-target="#updateModal"
                                         onclick="
-                                    var form = document.getElementById('updateHoaDonForm');
-                                    form.action = '/updateHoaDonModal/{{ $hdd->HOADON_ID }}';
-                                ">
+                                            var form = document.getElementById('updateHoaDonForm');
+                                            form.action = '/updateHoaDonModal/{{ $hdd->HOADON_ID }}';
+                                        ">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </form>
