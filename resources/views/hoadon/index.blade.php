@@ -52,6 +52,7 @@
 
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 @include('sidebar')
 @include('header2')
 <div id="main">
@@ -583,10 +584,10 @@
                                     </a>
                                 </form>
                                 <form action="/hoadon/{{ $hdd->HOADON_ID }}" method="post"
-                                    onsubmit="return confirmDelete()">
+                                    id ="deleteForm">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" id="submitDel" title="Xóa hóa đơn"
+                                    <button type="submit" id="submitDel" title="Xóa hóa đơn" data-id="{{ $hdd->HOADON_SO }}"
                                         class="btn btn-warning btn-icon-only">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -612,6 +613,50 @@
             function confirmUpdate() {
                 cal_HoaDonIndexUpdate();
             }
+            $(document).ready(function() {
+                $('[id^="deleteForm"]').on('submit', function(e) {
+                    e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+                    var button = $(e.target).find('[data-id]');
+                    var itemId = button.data('id');
+                    var form = $(this);
+
+                    Swal.fire({
+                        title: 'Xóa hóa đơn ' + itemId + "?",
+                        text: "Bạn sẽ không thể khôi phục lại hóa đơn này!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Gửi yêu cầu xóa bằng AJAX
+                            $.ajax({
+                                url: form.attr('action'), // Sử dụng action của form làm URL
+                                type: 'DELETE',
+                                data: form.serialize(),
+                                success: function(response) {
+                                    Swal.fire(
+                                        'Đã xóa!',
+                                        'Hóa đơn ' + itemId + ' đã được xóa',
+                                        'success'
+                                    ).then(() => {
+                                        location.reload();
+                                    });
+                                },
+                                error: function(xhr) {
+                                    Swal.fire(
+                                        'Lỗi!',
+                                        'Có lỗi xảy ra trong quá trình xóa hóa đơn',
+                                        'error'
+                                    );
+                                }
+                            });
+                        }
+                    });
+                });
+            });
             $(document).ready(function() {
                 $('#hoaDonForm').on('submit', function(e) {
                     e.preventDefault();

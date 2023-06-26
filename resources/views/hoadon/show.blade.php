@@ -83,6 +83,7 @@ td {
     width: 70px;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 @include('header2')
 @include('sidebar')
 <div id="main">
@@ -298,9 +299,9 @@ td {
                                 " title="Sửa hóa đơn">Cập nhật Thông tin
                     </a>
                     <br>
-                    <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post" onsubmit="return confirmDelete()">
+                    <form action="/hoadon/{{$hoadon->HOADON_ID}}" method="post" id="deleteForm">
                         @csrf
-                        @method('delete')
+                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">Xóa</button>
                     </form>
                 </div>
@@ -453,10 +454,51 @@ $(document).ready(function() {
         });
     });
 });
+$(document).ready(function() {
+    $('[id^="deleteForm"]').on('submit', function(e) {
+        e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
 
-function confirmDelete() {
-    return confirm('Bạn có chắc chắn muốn xóa hóa đơn?');
-}
+        var form = $(this);
+
+        Swal.fire({
+            title: 'Xóa hóa đơn {{$hoadon->HOADON_SO}}?',
+            text: "Bạn sẽ không thể khôi phục lại hóa đơn này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Gửi yêu cầu xóa bằng AJAX
+                $.ajax({
+                    url: form.attr('action'), // Sử dụng action của form làm URL
+                    type: 'DELETE',
+                    data: form.serialize(),
+                    success: function(response) {
+                        Swal.fire(
+                            'Đã xóa!',
+                            'Hóa đơn {{$hoadon->HOADON_SO}} đã được xóa',
+                            'success'
+                        ).then(() => {
+                            window.location.href =
+                            '/hopdong/{{$hoadon->HOPDONG_SO}}'; // Chuyển hướng về trang /
+                            
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Có lỗi xảy ra trong quá trình xóa hóa đơn',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    });
+});
 </script>
 <script>
 function calHoaDonShow() {

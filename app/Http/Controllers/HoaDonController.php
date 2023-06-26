@@ -373,7 +373,10 @@ class HoaDonController extends Controller
         $history->description = 'Xóa hóa đơn số: ' . $hoadon->HOADON_SO;
         $history->Time = Carbon::now();
         $history->save();
-        return redirect('/hoadon');
+        return response()->json([
+            'success' => true
+            // 'errors' => $validator->errors(),
+        ]);
     }
         
 
