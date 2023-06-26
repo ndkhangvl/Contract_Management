@@ -172,9 +172,9 @@ class HopDongController extends Controller
         $history = new History;
         $history->ten_nd = Session::get('infoUser.ten_nd');
         $history->action = 'Thêm';
-        $history->model_type = 'Hợp Đồng';
+        $history->model_type = 'Hợp đồng';
         $history->model_id = $hdong->HOPDONG_ID;
-        $history->description = 'Thêm mới họp đồng: ' . mb_convert_encoding($hdong->HOPDONG_SO, 'UTF-8');
+        $history->description = 'Thêm mới hợp đồng số: ' . $hdong->HOPDONG_SO;
         $history->Time = Carbon::now();
         $history->save();
 
@@ -197,8 +197,8 @@ class HopDongController extends Controller
             $history->ten_nd = Session::get('infoUser.ten_nd');
             $history->action = 'Xóa';
             $history->model_type = 'Hợp đồng';
-            $history->model_id = $hopdong->HOPDONG_SO;
-            $history->description = 'Xóa hợp đồng số: ' . mb_convert_encoding($hopdong->HOPDONG_SO, 'UTF-8');
+            $history->model_id = $hopdong->HOPDONG_ID;
+            $history->description = "Xóa hợp đồng số: $hopdong->HOPDONG_SO";
             $history->Time = Carbon::now();
             $history->save();
             return response()->json([
@@ -336,7 +336,7 @@ class HopDongController extends Controller
             $history->action = 'Sửa';
             $history->model_type = 'Hợp Đồng';
             $history->model_id = $id;
-            $history->description = 'Sửa thông tin hợp đồng số: ' . mb_convert_encoding($hopdong->HOPDONG_SO, 'UTF-8');
+            $history->description = "Sửa thông tin hợp đồng số: $hopdong->HOPDONG_SO";
             $history->Time = Carbon::now();
             $history->save();
         }

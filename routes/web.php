@@ -127,9 +127,10 @@ Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name(
 //         ->send(new ForgotPasswordMail());
 // });
 
-Route::get('/baocao', [ReportController::class, 'index'])->middleware('switchLanguage')->name('reports.index');
+Route::get('/baocao', [ReportController::class, 'index'])->middleware('isLogin','switchLanguage')->name('reports.index');
 
 Route::get('/history', [HistoryController::class, 'index'])->middleware('switchLanguage')->name('lichsu.index');
+Route::get('/searchHistory', [HistoryController::class, 'search'])->middleware('isLogin','switchLanguage');
 
 Route::get('/hoadon/{hoadon}/pdf', [HoaDonController::class, 'pdf']);
 
