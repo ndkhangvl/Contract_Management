@@ -631,6 +631,18 @@
                         cancelButtonText: 'Hủy'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            Swal.fire({
+                                title: 'Đang xử lý...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading();
+                                },
+                                onClose: () => {
+                                    Swal.hideLoading();
+                                }
+                            });
                             // Gửi yêu cầu xóa bằng AJAX
                             $.ajax({
                                 url: form.attr('action'), // Sử dụng action của form làm URL
@@ -658,30 +670,56 @@
                 });
             });
             $(document).ready(function() {
+                
                 $('#hoaDonForm').on('submit', function(e) {
                     e.preventDefault();
-                    var formData = $(this).serialize();
-                    var form = $('#hoaDonForm')[0];
-                    // Create an FormData object 
-                    var data = new FormData(form);
-
+                    var form = $(this);
+                    var formData = form.serialize();
+                    var data = new FormData(form[0]);
+                    
                     $.ajax({
-                        url: $(this).attr("action"),
+                        url: form.attr('action'),
                         type: 'POST',
                         data: data,
                         enctype: 'multipart/form-data',
-                        processData: false, // Important!
+                        processData: false,
                         contentType: false,
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Đang xử lý...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading();
+                                },
+                                onClose: () => {
+                                    Swal.hideLoading();
+                                }
+                            });
+                        },
                         success: function(success) {
+                            Swal.close();
                             if (success) {
-                                alert('Thêm mới hóa đơn thành công');
-                                $('#hoaDonForm input').val('');
-                                location.reload();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Đã thêm mới!',
+                                    text: 'Hóa đơn đã được tạo'
+                                }).then(() => {
+                                    form[0].reset();
+                                    location.reload();
+                                });
+                                
                             } else {
-                                alert('Thất bại: Số hóa đơn đã tồn tại! Vui lòng nhập lại');
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Không thể thêm hóa đơn!',
+                                    text: 'Hóa đơn không thể thêm mới'
+                                });
                             }
                         },
                         error: function(xhr) {
+                            Swal.close();
                             if (xhr.status === 422) {
                                 $('.invalid-feedback').empty();
                                 var response = JSON.parse(xhr.responseText);
@@ -693,6 +731,74 @@
                                     }
                                 }
                             }
+                        }
+                    });
+                
+                });
+
+                $('#updateHoaDonForm').on('submit', function(e) {
+                    e.preventDefault();
+                    var formData = $(this).serialize();
+                    var form = $('#updateHoaDonForm')[0];
+                    var data = new FormData(form);
+
+                    Swal.fire({
+                        title: 'Cập nhật hóa đơn?',
+                        text: "Bạn có chắc muốn cập nhật hóa đơn này không!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0d6efd',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Cập nhật',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: 'Đang xử lý...',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                onBeforeOpen: () => {
+                                    Swal.showLoading();
+                                },
+                                onClose: () => {
+                                    Swal.hideLoading();
+                                }
+                            });
+
+                            $.ajax({
+                                url: $(this).attr('action'),
+                                type: 'POST',
+                                data: data,
+                                enctype: 'multipart/form-data',
+                                processData: false,
+                                contentType: false,
+                                success: function(success) {
+                                    if (success) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Đã cập nhật!',
+                                            text: 'Hóa đơn đã được cập nhật'
+                                        }).then(() => {
+                                            $('#hoaDonForm input').val('');
+                                            location.reload();
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Không thể cập nhật!',
+                                            text: 'Hóa đơn không thể cập nhật'
+                                        });
+                                    }
+                                },
+                                error: function(xhr) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lỗi!',
+                                        text: 'Có lỗi xảy ra trong quá trình cập nhật hóa đơn'
+                                    });
+                                }
+                            });
                         }
                     });
                 });
@@ -889,31 +995,6 @@
 
                             xuathoadon.attr('href', '/hoadon' + "/" + hoadon.HOADON_ID + "/" +
                                 "pdf");
-                        }
-                    });
-                });
-
-                $('#updateHoaDonForm').on('submit', function(e) {
-                    e.preventDefault();
-                    var formData = $(this).serialize();
-                    var form = $('#updateHoaDonForm')[0];
-                    // Create an FormData object 
-                    var data = new FormData(form);
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: 'POST',
-                        data: data,
-                        enctype: 'multipart/form-data',
-                        processData: false, // Important!
-                        contentType: false,
-                        success: function(success) {
-                            if (success) {
-                                alert('Cập nhật hóa đơn thành công');
-                                $('#hoaDonForm input').val('');
-                                location.reload();
-                            } else {
-                                alert('Thất bại: cập nhật không thành công');
-                            }
                         }
                     });
                 });

@@ -433,23 +433,65 @@ $(document).ready(function() {
         e.preventDefault();
         var formData = $(this).serialize();
         var form = $('#updateHoaDonForm')[0];
-        // Create an FormData object 
         var data = new FormData(form);
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: data,
-            enctype: 'multipart/form-data',
-            processData: false, // Important!
-            contentType: false,
-            success: function(success) {
-                if (success) {
-                    alert('Cập nhật hóa đơn thành công');
-                    $('#hoaDonForm input').val('');
-                    location.reload();
-                } else {
-                    alert('Thất bại: cập nhật không thành công');
-                }
+
+        Swal.fire({
+            title: 'Cập nhật hóa đơn {{$hoadon->HOADON_SO}}?',
+            text: "Bạn có chắc muốn cập nhật hóa đơn này không!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Cập nhật',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    },
+                    onClose: () => {
+                        Swal.hideLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    success: function(success) {
+                        if (success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đã cập nhật!',
+                                text: 'Hóa đơn {{$hoadon->HOADON_SO}} đã được cập nhật'
+                            }).then(() => {
+                                $('#hoaDonForm input').val('');
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Không thể cập nhật!',
+                                text: 'Hóa đơn không thể cập nhật'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Có lỗi xảy ra trong quá trình cập nhật hóa đơn'
+                        });
+                    }
+                });
             }
         });
     });
@@ -466,11 +508,23 @@ $(document).ready(function() {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            cancelButtonColor: '#6c757d',
             confirmButtonText: 'Xóa',
             cancelButtonText: 'Hủy'
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    },
+                    onClose: () => {
+                        Swal.hideLoading();
+                    }
+                });
                 // Gửi yêu cầu xóa bằng AJAX
                 $.ajax({
                     url: form.attr('action'), // Sử dụng action của form làm URL
@@ -483,8 +537,8 @@ $(document).ready(function() {
                             'success'
                         ).then(() => {
                             window.location.href =
-                            '/hopdong/{{$hoadon->HOPDONG_SO}}'; // Chuyển hướng về trang /
-                            
+                                '/hopdong/{{$hoadon->HOPDONG_SO}}'; // Chuyển hướng về trang /
+
                         });
                     },
                     error: function(xhr) {
