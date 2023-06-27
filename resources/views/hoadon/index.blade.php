@@ -53,6 +53,7 @@
     }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 @include('sidebar')
 @include('header2')
 <div id="main">
@@ -149,7 +150,7 @@
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
-                                        <input class="form-control" type="text" name="tongtien" id="tongtien"
+                                        <input class="form-control textnumber" type="text" name="tongtien" id="tongtien"
                                             value="" readonly>
                                         <span class="invalid-feedback" id="tongtien_error"></span>
                                     </div>
@@ -157,13 +158,13 @@
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
-                                        <input class="form-control" type="text" name="tienthue" id="tienthue"
+                                        <input class="form-control textnumber" type="text" name="tienthue" id="tienthue"
                                             value="" readonly>
                                         <span class="invalid-feedback" id="tienthue_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
-                                        <input class="form-control" type="text" name="tongtiencothue"
+                                        <input class="form-control textnumber" type="text" name="tongtiencothue"
                                             id="tongtiencothue" value="" readonly>
                                         <span class="invalid-feedback" id="tongtiencothue_error"></span>
                                     </div>
@@ -283,19 +284,19 @@
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
-                                        <input class="form-control" required type="number" name="tongtien"
+                                        <input class="form-control textnumber" required type="text" name="tongtien"
                                             id="tongtien" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
-                                        <input class="form-control" required type="number" name="tienthue"
+                                        <input class="form-control textnumber" required type="text" name="tienthue"
                                             id="tienthue" readonly>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
-                                        <input class="form-control" required type="number" name="tongtiencothue"
+                                        <input class="form-control textnumber" required type="text" name="tongtiencothue"
                                             id="tongtiencothue" readonly>
                                     </div>
                                 </div>
@@ -602,14 +603,27 @@
         <div>
             {{ $hoadons->appends(request()->all())->links() }}
         </div>
+        <br>
         <!--goi js-->
         <script src="{{ asset('js/change_currency.js') }}"></script>
         <!---->
         <script>
-            function confirmDelete() {
-                return confirm('Bạn có chắc chắn muốn xóa hóa đơn?');
+            function formatNumber(number) {
+                return numeral(number).format('0,0').replace(/,/g, '.');
             }
-
+            function formatNumberInputs() {
+                var numberInputs = document.querySelectorAll('input[type="text"][class~="textnumber"]');
+                numberInputs.forEach(function(input) {
+                    input.addEventListener('input', function() {
+                        var value = this.value.replace(/\D/g, '');
+                        var formattedValue = formatNumber(value);
+                        this.value = formattedValue;
+                    });
+                });
+            };
+            window.addEventListener('DOMContentLoaded', function() {
+                formatNumberInputs();
+            });
             function confirmUpdate() {
                 cal_HoaDonIndexUpdate();
             }
@@ -672,6 +686,10 @@
             $(document).ready(function() {
                 
                 $('#hoaDonForm').on('submit', function(e) {
+                    $('.textnumber').each(function() {
+                        var value = $(this).val().replace(/\D/g, '');
+                        $(this).val(value);
+                    });
                     e.preventDefault();
                     var form = $(this);
                     var formData = form.serialize();
@@ -737,6 +755,10 @@
                 });
 
                 $('#updateHoaDonForm').on('submit', function(e) {
+                    $('.textnumber').each(function() {
+                        var value = $(this).val().replace(/\D/g, '');
+                        $(this).val(value);
+                    });
                     e.preventDefault();
                     var formData = $(this).serialize();
                     var form = $('#updateHoaDonForm')[0];
@@ -867,13 +889,13 @@
                                     '" id="stt' + i + '" value="" readonly class="inputstt"></td>' +
                                     '<td><input type="text" name="noidung' + i + '" id="noidung' +
                                     i + '" value=""></td>' +
-                                    '<td><input type="number" class="soluong inputstt" name="soluong' +
+                                    '<td><input type="text" class="soluong inputstt textnumber" name="soluong' +
                                     i + '" id="soluong' + i + '" value="" min="0"></td>' +
                                     '<td><input type="text" name="donvitinh' + i +
                                     '" id="donvitinh' + i + '" value=""></td>' +
-                                    '<td><input type="number" class="dongia" name="dongia' + i +
+                                    '<td><input type="text" class="dongia textnumber" name="dongia' + i +
                                     '" id="dongia' + i + '" value="" min="0"></td>' +
-                                    '<td><input type="number" class="thanhtien" name="thanhtien' +
+                                    '<td><input type="text" class="thanhtien textnumber" name="thanhtien' +
                                     i + '" readonly id="thanhtien' + i + '" value=""></td>' +
                                     '<td><button type="button" name="btnxoa' + i + '" id="btnxoa' +
                                     i +
@@ -911,6 +933,7 @@
                                 soluongs[i].addEventListener('input', cal_HoaDonIndexUpdate);
                                 dongias[i].addEventListener('input', cal_HoaDonIndexUpdate);
                             }
+                            formatNumberInputs();
                         }
                     });
                 });
@@ -1053,8 +1076,9 @@
                     $sluong = "soluong" + $i;
                     $dgia = "dongia" + $i;
                     $ttien = "thanhtien" + $i;
-                    $sl = modal.querySelector("#" + $sluong).value;
-                    $dg = modal.querySelector("#" + $dgia).value;
+                    $sl = modal.querySelector("#" + $sluong).value.replace(/\./g, "");
+                    $dg = modal.querySelector("#" + $dgia).value.replace(/\./g, "");
+                    console.log("soluong va dongia: " + $sl + "-" + $dg);
                     $cal = parseInt($sl) * parseInt($dg);
                     if (isNaN($cal)) $cal = 0;
                     modal.querySelector("#" + $ttien).value = $cal;
@@ -1066,6 +1090,13 @@
                 modal.querySelector("#tienthue").value = $tienthue;
                 modal.querySelector("#tongtiencothue").value = $tongtiencothue;
                 to_VNese_currency_IndexCreate();
+                var thanhtiens = modal.querySelectorAll('.textnumber');
+                for (var i =0; i < thanhtiens.length; i++){
+                    var value = thanhtiens[i].value.replace(/\D/g, '');
+                    var formattedValue = formatNumber(value);
+                    thanhtiens[i].value = formattedValue;
+                }
+                
             }
 
             function addRowIndexCreate() {
@@ -1094,11 +1125,11 @@
 
                 $cell3 = $row.insertCell(2);
                 $soluong = document.createElement('input');
-                $soluong.type = "number";
+                $soluong.type = "text";
                 $soluong.min = 0;
                 $soluong.name = "soluong" + $length;
                 $soluong.id = "soluong" + $length;
-                $soluong.className = "soluong inputstt";
+                $soluong.className = "soluong inputstt textnumber";
                 $soluong.addEventListener('input', calHoaDonIndexCreate);
                 $cell3.appendChild($soluong);
 
@@ -1111,11 +1142,11 @@
 
                 $cell5 = $row.insertCell(4);
                 $dongia = document.createElement('input');
-                $dongia.type = "number";
+                $dongia.type = "text";
                 $dongia.min = "0";
                 $dongia.name = "dongia" + $length;
                 $dongia.id = "dongia" + $length;
-                $dongia.className = "dongia";
+                $dongia.className = "dongia textnumber";
                 $dongia.addEventListener('input', calHoaDonIndexCreate);
                 $cell5.appendChild($dongia);
 
@@ -1125,6 +1156,7 @@
                 $thanhtien.type = "text";
                 $thanhtien.name = "thanhtien" + $length;
                 $thanhtien.id = "thanhtien" + $length;
+                $thanhtien.className = "thanhtien textnumber";
                 $cell6.appendChild($thanhtien);
 
                 $cell7 = $row.insertCell(6);
@@ -1140,7 +1172,7 @@
 
                 modal.querySelector("#slct").value = $length;
                 calHoaDonIndexCreate();
-
+                formatNumberInputs();
                 var soluongs = modal.querySelectorAll('.soluong');
                 var dongias = modal.querySelectorAll('.dongia');
                 for (var i = 0; i < soluongs.length; i++) {
@@ -1246,8 +1278,9 @@
                     var dgia = "dongia" + i;
                     var ttien = "thanhtien" + i;
 
-                    var sl = modal.querySelector("#" + sluong).value;
-                    var dg = modal.querySelector("#" + dgia).value;
+                    var sl = modal.querySelector("#" + sluong).value.replace(/\./g, "");
+                    var dg = modal.querySelector("#" + dgia).value.replace(/\./g, "");
+                    console.log("soluong va dongia: " + sl + "-" + dg);
 
                     var cal = parseInt(sl) * parseInt(dg);
                     if (isNaN(cal)) cal = 0;
@@ -1264,6 +1297,12 @@
                 modal.querySelector("#tongtiencothue").value = tongtiencothue;
 
                 to__VNese_currency_IndexUpdate();
+                var thanhtiens = modal.querySelectorAll('.textnumber');
+                for (var i =0; i < thanhtiens.length; i++){
+                    var value = thanhtiens[i].value.replace(/\D/g, '');
+                    var formattedValue = formatNumber(value);
+                    thanhtiens[i].value = formattedValue;
+                }
             }
 
             function add_RowIndexUpdate() {
@@ -1292,11 +1331,11 @@
 
                 var cell3 = row.insertCell(2);
                 var soluong = document.createElement('input');
-                soluong.type = "number";
+                soluong.type = "text";
                 soluong.min = 0;
                 soluong.name = "soluong" + length;
                 soluong.id = "soluong" + length;
-                soluong.className = "soluong inputstt";
+                soluong.className = "soluong inputstt textnumber";
                 soluong.addEventListener('input', cal_HoaDonIndexUpdate);
                 cell3.appendChild(soluong);
 
@@ -1309,11 +1348,11 @@
 
                 var cell5 = row.insertCell(4);
                 var dongia = document.createElement('input');
-                dongia.type = "number";
+                dongia.type = "text";
                 dongia.min = "0";
                 dongia.name = "dongia" + length;
                 dongia.id = "dongia" + length;
-                dongia.className = "dongia";
+                dongia.className = "dongia textnumber";
                 dongia.addEventListener('input', cal_HoaDonIndexUpdate);
                 cell5.appendChild(dongia);
 
@@ -1323,6 +1362,7 @@
                 thanhtien.type = "text";
                 thanhtien.name = "thanhtien" + length;
                 thanhtien.id = "thanhtien" + length;
+                thanhtien.className = "textnumber";
                 cell6.appendChild(thanhtien);
 
                 var cell7 = row.insertCell(6);

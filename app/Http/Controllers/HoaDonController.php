@@ -628,8 +628,8 @@ class HoaDonController extends Controller
             $chitiethoadon2[$i]->THANHTIEN = number_format(round($chitiethoadon2[$i]->THANHTIEN),0,'.','.');
         }
         $data = [
-            'hoadon' => $hoadon,
-            'chitiethoadon' => $chitiethoadon,
+            'hoadon' => $hoadon2,
+            'chitiethoadon' => $chitiethoadon2,
             'cntcthd' => count($chitiethoadon),
             'hoadon2' => $hoadon2,
             'chitiethoadon2' => $chitiethoadon2,
