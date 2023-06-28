@@ -437,7 +437,7 @@ $(document).ready(function() {
 
         Swal.fire({
             title: 'Cập nhật hóa đơn {{$hoadon->HOADON_SO}}?',
-            text: "Bạn có chắc muốn cập nhật hóa đơn này không!",
+            text: "Thông tin hóa đơn sẽ được cập nhật!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#0d6efd',
@@ -480,7 +480,7 @@ $(document).ready(function() {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Không thể cập nhật!',
-                                text: 'Hóa đơn không thể cập nhật'
+                                text: 'Hóa đơn không thể cập nhật, kiểm tra thông tin nhập vào'
                             });
                         }
                     },
@@ -488,7 +488,7 @@ $(document).ready(function() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Lỗi!',
-                            text: 'Có lỗi xảy ra trong quá trình cập nhật hóa đơn'
+                            text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
                         });
                     }
                 });
@@ -530,21 +530,30 @@ $(document).ready(function() {
                     url: form.attr('action'), // Sử dụng action của form làm URL
                     type: 'DELETE',
                     data: form.serialize(),
-                    success: function(response) {
-                        Swal.fire(
-                            'Đã xóa!',
-                            'Hóa đơn {{$hoadon->HOADON_SO}} đã được xóa',
-                            'success'
-                        ).then(() => {
-                            window.location.href =
-                                '/hopdong/{{$hoadon->HOPDONG_SO}}'; // Chuyển hướng về trang /
+                    success: function(success) {
+                        if(success){
+                            Swal.fire(
+                                'Đã xóa!',
+                                'Hóa đơn {{$hoadon->HOADON_SO}} đã được xóa',
+                                'success'
+                            ).then(() => {
+                                window.location.href =
+                                    '/hopdong/{{$hoadon->HOPDONG_SO}}'; // Chuyển hướng về trang /
 
-                        });
+                            });
+                        } else {
+                            Swal.fire(
+                                'Không thể xóa!',
+                                'Hóa đơn {{$hoadon->HOADON_SO}} không thể xóa',
+                                'error'
+                            );
+                        }
+                        
                     },
                     error: function(xhr) {
                         Swal.fire(
                             'Lỗi!',
-                            'Có lỗi xảy ra trong quá trình xóa hóa đơn',
+                            'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau',
                             'error'
                         );
                     }

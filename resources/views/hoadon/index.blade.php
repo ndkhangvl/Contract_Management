@@ -640,7 +640,7 @@
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
+                        cancelButtonColor: '#6c757d',
                         confirmButtonText: 'Xóa',
                         cancelButtonText: 'Hủy'
                     }).then((result) => {
@@ -662,19 +662,28 @@
                                 url: form.attr('action'), // Sử dụng action của form làm URL
                                 type: 'DELETE',
                                 data: form.serialize(),
-                                success: function(response) {
-                                    Swal.fire(
-                                        'Đã xóa!',
-                                        'Hóa đơn ' + itemId + ' đã được xóa',
-                                        'success'
-                                    ).then(() => {
-                                        location.reload();
-                                    });
+                                success: function(success) {
+                                    if(success){
+                                        Swal.fire(
+                                            'Đã xóa!',
+                                            'Hóa đơn ' + itemId + ' đã được xóa',
+                                            'success'
+                                        ).then(() => {
+                                            location.reload();
+                                        });
+                                    }
+                                    else {
+                                        Swal.fire(
+                                            'Không thể xóa!',
+                                            'Hóa đơn ' + itemId + ' không thể xóa',
+                                            'error'
+                                        );
+                                    }
                                 },
                                 error: function(xhr) {
                                     Swal.fire(
                                         'Lỗi!',
-                                        'Có lỗi xảy ra trong quá trình xóa hóa đơn',
+                                        'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau',
                                         'error'
                                     );
                                 }
@@ -686,7 +695,7 @@
             $(document).ready(function() {
                 
                 $('#hoaDonForm').on('submit', function(e) {
-                    $('.textnumber').each(function() {
+                    $('#hoaDonForm .textnumber').each(function() {
                         var value = $(this).val().replace(/\D/g, '');
                         $(this).val(value);
                     });
@@ -722,7 +731,7 @@
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Đã thêm mới!',
-                                    text: 'Hóa đơn đã được tạo'
+                                    text: 'Hóa đơn mới đã được tạo'
                                 }).then(() => {
                                     form[0].reset();
                                     location.reload();
@@ -732,12 +741,17 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Không thể thêm hóa đơn!',
-                                    text: 'Hóa đơn không thể thêm mới'
+                                    text: 'Hóa đơn không thể thêm mới, kiểm tra thông tin nhập vào'
                                 });
                             }
                         },
                         error: function(xhr) {
                             Swal.close();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
+                            });
                             if (xhr.status === 422) {
                                 $('.invalid-feedback').empty();
                                 var response = JSON.parse(xhr.responseText);
@@ -755,7 +769,7 @@
                 });
 
                 $('#updateHoaDonForm').on('submit', function(e) {
-                    $('.textnumber').each(function() {
+                    $('#updateHoaDonForm .textnumber').each(function() {
                         var value = $(this).val().replace(/\D/g, '');
                         $(this).val(value);
                     });
@@ -766,7 +780,7 @@
 
                     Swal.fire({
                         title: 'Cập nhật hóa đơn?',
-                        text: "Bạn có chắc muốn cập nhật hóa đơn này không!",
+                        text: "Thông tin hóa đơn sẽ được cập nhật!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#0d6efd',
@@ -795,29 +809,21 @@
                                 enctype: 'multipart/form-data',
                                 processData: false,
                                 contentType: false,
-                                success: function(success) {
-                                    if (success) {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Đã cập nhật!',
-                                            text: 'Hóa đơn đã được cập nhật'
-                                        }).then(() => {
-                                            $('#hoaDonForm input').val('');
-                                            location.reload();
-                                        });
-                                    } else {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Không thể cập nhật!',
-                                            text: 'Hóa đơn không thể cập nhật'
-                                        });
-                                    }
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Đã cập nhật!',
+                                        text: 'Hóa đơn đã được cập nhật'
+                                    }).then(() => {
+                                        $('#hoaDonForm input').val('');
+                                        location.reload();
+                                    });                            
                                 },
                                 error: function(xhr) {
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Lỗi!',
-                                        text: 'Có lỗi xảy ra trong quá trình cập nhật hóa đơn'
+                                        text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
                                     });
                                 }
                             });
