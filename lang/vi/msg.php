@@ -26,7 +26,7 @@ return [
     'contract' => 'Hợp Đồng',
     'bill' => 'Hóa Đơn',
     'statistical' => 'Thống Kê',
-    'history' => 'Lịch sử chỉnh sửa',
+    'history' => 'Lịch Sử Chỉnh Sửa',
     'info' => 'Thông tin',
     'english' => 'Tiếng Anh',
     'vietnamese' => 'Tiếng Việt',

@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Khách hàng</title>
+    <title>Hợp đồng</title>
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
@@ -169,8 +171,8 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 mt-3">
-                                        <label for="tgtri" class="form-label fw-bold">Tổng giá trị:</label>
-                                        <input type="number" class="form-control" id="email"
+                                        <label for="tgtri1" class="form-label fw-bold">Tổng giá trị:</label>
+                                        <input type="text" class="form-control textnumber" id="tgtri"
                                             placeholder="Nhập tổng giá trị" name="hopdong_tonggiatri">
                                         <span class="invalid-feedback" id="hopdong_tonggiatri_error"></span>
                                     </div>
@@ -202,8 +204,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="gchu" class="form-label fw-bold">Ghi chú:</label>
-                                        <input type="text" class="form-control"
-                                            placeholder="Điền vào ghi chú" name="hopdong_ghichu">
+                                        <input type="text" class="form-control" placeholder="Điền vào ghi chú"
+                                            name="hopdong_ghichu">
                                         <span class="invalid-feedback" id="hopdong_ghichu_error"></span>
                                     </div>
                                     <div class="mb-3">
@@ -302,7 +304,8 @@
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_DAIDIENBEN_A }}</td>
                             <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_DAIDIENBEN_B }}</td> --}}
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_THOIGIANTHUCHIEN }}</td> --}}
-                                <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_TONGGIATRI }}</td>
+                                <td class="w-auto text-truncate"><span
+                                        data-format="number">{{ $hopdong->HOPDONG_TONGGIATRI }}</span> VNĐ</td>
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_HINHTHUCTHANHTOAN }}</td> --}}
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_FILE }}</td> --}}
                                 {{-- <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_GHICHU }}</td> --}}
@@ -488,11 +491,12 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3 mt-3">
-                                                                    <label for="tgtri"
+                                                                    <label for="tgtri1"
                                                                         class="form-label fw-bold">Tổng giá
                                                                         trị:</label>
-                                                                    <input type="number" class="form-control"
-                                                                        id="email" placeholder="Nhập tổng giá trị"
+                                                                    <input type="text"
+                                                                        class="form-control textnumber" id="tgtri"
+                                                                        placeholder="Nhập tổng giá trị"
                                                                         name="hopdong_tonggiatri">
                                                                     <span class="invalid-feedback"
                                                                         id="hopdong_tonggiatri_error"></span>
@@ -615,38 +619,117 @@
         </div>
     </div>
     <script>
+        function formatNumber(number) {
+            return numeral(number).format('0,0').replace(/,/g, '.');
+        }
+
+        function formatNumberInputs() {
+            var numberInputs = document.querySelectorAll('input[type="text"][class~="textnumber"]');
+            numberInputs.forEach(function(input) {
+                input.addEventListener('input', function() {
+                    var value = this.value.replace(/\D/g, '');
+                    var formattedValue = formatNumber(value);
+                    this.value = formattedValue;
+                });
+            });
+        };
+
+        function formatTableCells() {
+            var cells = document.querySelectorAll('td[data-format="number"]');
+            cells.forEach(function(cell) {
+                var value = cell.textContent.trim().replace(/\D/g, '');
+                var formattedValue = formatNumber(value);
+                cell.textContent = formattedValue;
+            });
+        }
+
+        function formatSpanElements() {
+            var spans = document.querySelectorAll('span[data-format="number"]');
+            spans.forEach(function(span) {
+                var value = span.textContent.trim().replace(/\D/g, '');
+                var formattedValue = formatNumber(value);
+                span.textContent = formattedValue;
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            formatNumberInputs();
+            formatTableCells();
+            formatSpanElements();
+        });
+
         $(document).ready(function() {
             $('[id^="deleteForm"]').on('submit', function(e) {
                 e.preventDefault();
-
                 var form = $(this);
                 var url = form.attr('action');
-
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: form.serialize(),
-                    success: function(response) {
-                        if (response.success == true) {
-                            alert('Xóa hợp đồng thành công');
-                            location.reload();
-                        } else {
-                            console.log(response);
-                            alert('Không thể xóa hợp đồng');
-                        }
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(response);
-                        alert('Xóa hợp đồng thất bại');
+                var formId = form.attr('id');
+                var itemId = formId.replace('deleteForm-', '');
+                Swal.fire({
+                    title: 'Xóa hợp đồng ' + itemId + "?",
+                    text: "Bạn sẽ không thể khôi phục lại hợp đồng này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading();
+                            },
+                            onClose: () => {
+                                Swal.hideLoading();
+                            }
+                        });
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: form.serialize(),
+                            success: function(response) {
+                                if (response.success == true) {
+                                    Swal.fire(
+                                        'Đã xóa!',
+                                        'Hợp đồng ' + itemId + ' đã được xóa',
+                                        'success'
+                                    ).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Không thể xóa!',
+                                        'Hợp đồng ' + itemId + ' không thể xóa',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire(
+                                    'Lỗi!',
+                                    'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau',
+                                    'error'
+                                );
+                            }
+                        });
                     }
                 });
             });
+
         });
 
         $(document).ready(function() {
             $('#contractForm').on('submit', function(e) {
                 e.preventDefault();
+                $('#contractForm .textnumber').each(function() {
+                    var value = $(this).val().replace(/\D/g, '');
+                    $(this).val(value);
+                });
                 var formData = $(this).serialize();
                 var form = $('#contractForm')[0];
                 // Create an FormData object 
@@ -658,16 +741,46 @@
                     enctype: 'multipart/form-data',
                     processData: false, // Important!
                     contentType: false,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading();
+                            },
+                            onClose: () => {
+                                Swal.hideLoading();
+                            }
+                        });
+                    },
                     success: function(success) {
+                        Swal.close();
                         if (success) {
-                            alert('Thêm mới hợp đồng thành công');
-                            $('#contractForm input').val('');
-                            location.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đã thêm mới!',
+                                text: 'Hợp đồng mới đã được tạo'
+                            }).then(() => {
+                                $('#contractForm input').val('');
+                                location.reload();
+                            });
                         } else {
-                            alert('Thất bại');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Không thể thêm hóa đơn!',
+                                text: 'Hợp đồng không thể thêm mới, vui lòng kiểm tra lại thông tin'
+                            });
                         }
                     },
                     error: function(xhr) {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
+                        });
                         if (xhr.status === 422) {
                             $('.invalid-feedback').empty();
                             var response = JSON.parse(xhr.responseText);
@@ -694,37 +807,91 @@
         $(document).ready(function() {
             $('#contractUpdateForm').on('submit', function(e) {
                 e.preventDefault();
+                $('#contractUpdateForm .textnumber').each(function() {
+                    var value = $(this).val().replace(/\D/g, '');
+                    $(this).val(value);
+                });
                 var formData = $(this).serialize();
                 var form = $('#contractUpdateForm')[0];
                 // Create an FormData object 
                 var data = new FormData(form);
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: data,
-                    enctype: 'multipart/form-data',
-                    processData: false, // Important!
-                    contentType: false,
-                    success: function(success) {
-                        if (success) {
-                            alert('Cập nhật hợp đồng thành công');
-                            location.reload();
-                        } else {
-                            alert('Thất bại');
-                        }
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) {
-                            $('.invalid-feedback').empty();
-                            var response = JSON.parse(xhr.responseText);
-                            var errors = response.errors;
-                            for (var field in errors) {
-                                if (errors.hasOwnProperty(field)) {
-                                    var errorMessage = errors[field][0];
-                                    $('#' + field + '_error').text(errorMessage).show();
+                Swal.fire({
+                    title: 'Cập nhật hóa đơn?',
+                    text: "Thông tin hóa đơn sẽ được cập nhật!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0d6efd',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Cập nhật',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading();
+                            },
+                            onClose: () => {
+                                Swal.hideLoading();
+                            }
+                        });
+                        $.ajax({
+                            url: $(this).attr('action'),
+                            type: 'POST',
+                            data: data,
+                            enctype: 'multipart/form-data',
+                            processData: false, // Important!
+                            contentType: false,
+                            beforeSend: function() {
+                                Swal.fire({
+                                    title: 'Đang xử lý...',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                    allowEnterKey: false,
+                                    onBeforeOpen: () => {
+                                        Swal.showLoading();
+                                    },
+                                    onClose: () => {
+                                        Swal.hideLoading();
+                                    }
+                                });
+                            },
+                            success: function(success) {
+                                Swal.close();
+                                if (success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Đã cập nhật!',
+                                        text: 'Hợp đồng cập nhật thành công'
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Không thể cập nhật hợp đồng!',
+                                        text: 'Đã xảy ra lỗi, vui lòng kiểm tra lại.'
+                                    });
+                                }
+                            },
+                            error: function(xhr) {
+                                if (xhr.status === 422) {
+                                    $('.invalid-feedback').empty();
+                                    var response = JSON.parse(xhr.responseText);
+                                    var errors = response.errors;
+                                    for (var field in errors) {
+                                        if (errors.hasOwnProperty(field)) {
+                                            var errorMessage = errors[field][0];
+                                            $('#' + field + '_error').text(errorMessage)
+                                                .show();
+                                        }
+                                    }
                                 }
                             }
-                        }
+                        });
                     }
                 });
             });
@@ -781,56 +948,56 @@
 
         // Update modal
         $('#updateHopDong').on('show.bs.modal', function(event) {
-                    var button = $(event.relatedTarget);
-                    var itemId = button.data('id');
+            var button = $(event.relatedTarget);
+            var itemId = button.data('id');
 
-                    hopdong_so = document.querySelector('#updateHopDong input[name="hopdong_so"]');
-                    tenKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
-                    selectLoaiHopDong = document.querySelector('#updateHopDong select[name="loaihopdong_id"]');
-                    selectKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
-                    ngayky = document.querySelector('#updateHopDong input[name="hopdong_ngayky"]');
-                    ngayhieuluc = document.querySelector('#updateHopDong input[name="hopdong_ngayhieuluc"]');
-                    ngaykthuc = document.querySelector('#updateHopDong input[name="hopdong_ngayketthuc"]');
-                    tengoithau = document.querySelector('#updateHopDong input[name="hopdong_tengoithau"]');
-                    duan = document.querySelector('#updateHopDong input[name="hopdong_tenduan"]');
-                    noidung = document.querySelector('#updateHopDong input[name="hopdong_noidung"]');
-                    thoigianthuchien = document.querySelector('#updateHopDong input[name="hopdong_thoigianthuchien"]');
-                    ddiena = document.querySelector('#updateHopDong input[name="hopdong_daidienben_a"]');
-                    ddienb = document.querySelector('#updateHopDong input[name="hopdong_daidienben_b"]');
-                    tgiatri = document.querySelector('#updateHopDong input[name="hopdong_tonggiatri"]');
-                    htttoan = document.querySelector('#updateHopDong select[name="hopdong_hinhthucthanhtoan"');
-                    tthai = document.querySelector('#updateHopDong select[name="hopdong_trangthai"]');
-                    gchu = document.querySelector('#updateHopDong input[name="hopdong_ghichu"]');
-                    filehdlink = document.querySelector('#updateHopDong [id="filehdlink"]');
+            hopdong_so = document.querySelector('#updateHopDong input[name="hopdong_so"]');
+            tenKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
+            selectLoaiHopDong = document.querySelector('#updateHopDong select[name="loaihopdong_id"]');
+            selectKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
+            ngayky = document.querySelector('#updateHopDong input[name="hopdong_ngayky"]');
+            ngayhieuluc = document.querySelector('#updateHopDong input[name="hopdong_ngayhieuluc"]');
+            ngaykthuc = document.querySelector('#updateHopDong input[name="hopdong_ngayketthuc"]');
+            tengoithau = document.querySelector('#updateHopDong input[name="hopdong_tengoithau"]');
+            duan = document.querySelector('#updateHopDong input[name="hopdong_tenduan"]');
+            noidung = document.querySelector('#updateHopDong input[name="hopdong_noidung"]');
+            thoigianthuchien = document.querySelector('#updateHopDong input[name="hopdong_thoigianthuchien"]');
+            ddiena = document.querySelector('#updateHopDong input[name="hopdong_daidienben_a"]');
+            ddienb = document.querySelector('#updateHopDong input[name="hopdong_daidienben_b"]');
+            tgiatri = document.querySelector('#updateHopDong input[name="hopdong_tonggiatri"]');
+            htttoan = document.querySelector('#updateHopDong select[name="hopdong_hinhthucthanhtoan"');
+            tthai = document.querySelector('#updateHopDong select[name="hopdong_trangthai"]');
+            gchu = document.querySelector('#updateHopDong input[name="hopdong_ghichu"]');
+            filehdlink = document.querySelector('#updateHopDong [id="filehdlink"]');
 
-                    $.ajax({
-                        url: '/gethopdong/' + itemId,
-                        type: 'GET',
-                        success: function(response) {
-                            console.log(response);
-                            var hopdong = response.hopdong;
-                            selectLoaiHopDong.value = hopdong.LOAIHOPDONG_ID;
-                            hopdong_so.value = hopdong.HOPDONG_SO;
-                            selectKH.value = hopdong.KHACHHANG_ID;
-                            ngayky.value = hopdong.HOPDONG_NGAYKY;
-                            ngayhieuluc.value = hopdong.HOPDONG_NGAYHIEULUC;
-                            ngaykthuc.value = hopdong.HOPDONG_NGAYKETTHUC;
-                            tengoithau.value = hopdong.HOPDONG_TENGOITHAU;
-                            duan.value = hopdong.HOPDONG_TENDUAN;
-                            noidung.value = hopdong.HOPDONG_NOIDUNG;
-                            thoigianthuchien.value = hopdong.HOPDONG_THOIGIANTHUCHIEN;
-                            ddiena.value = hopdong.HOPDONG_DAIDIENBEN_A;
-                            ddienb.value = hopdong.HOPDONG_DAIDIENBEN_B;
-                            tgiatri.value = hopdong.HOPDONG_TONGGIATRI;
-                            htttoan.value = hopdong.HOPDONG_HINHTHUCTHANHTOAN;
-                            tthai.value = hopdong.HOPDONG_TRANGTHAI;
-                            gchu.value = hopdong.HOPDONG_GHICHU;
-                            console.log(hopdong.HOPDONG_FILE);
-                            filehdlink.href = '{{ asset('storage/') }}' + "/" + hopdong.HOPDONG_FILE;
-                            filehdlink.innerHTML = hopdong.HOPDONG_FILE;
-                        }
-                    })
-                });
+            $.ajax({
+                url: '/gethopdong/' + itemId,
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    var hopdong = response.hopdong;
+                    selectLoaiHopDong.value = hopdong.LOAIHOPDONG_ID;
+                    hopdong_so.value = hopdong.HOPDONG_SO;
+                    selectKH.value = hopdong.KHACHHANG_ID;
+                    ngayky.value = hopdong.HOPDONG_NGAYKY;
+                    ngayhieuluc.value = hopdong.HOPDONG_NGAYHIEULUC;
+                    ngaykthuc.value = hopdong.HOPDONG_NGAYKETTHUC;
+                    tengoithau.value = hopdong.HOPDONG_TENGOITHAU;
+                    duan.value = hopdong.HOPDONG_TENDUAN;
+                    noidung.value = hopdong.HOPDONG_NOIDUNG;
+                    thoigianthuchien.value = hopdong.HOPDONG_THOIGIANTHUCHIEN;
+                    ddiena.value = hopdong.HOPDONG_DAIDIENBEN_A;
+                    ddienb.value = hopdong.HOPDONG_DAIDIENBEN_B;
+                    tgiatri.value = hopdong.HOPDONG_TONGGIATRI;
+                    htttoan.value = hopdong.HOPDONG_HINHTHUCTHANHTOAN;
+                    tthai.value = hopdong.HOPDONG_TRANGTHAI;
+                    gchu.value = hopdong.HOPDONG_GHICHU;
+                    console.log(hopdong.HOPDONG_FILE);
+                    filehdlink.href = '{{ asset('storage/') }}' + "/" + hopdong.HOPDONG_FILE;
+                    filehdlink.innerHTML = hopdong.HOPDONG_FILE;
+                }
+            })
+        });
     </script>
     @include('footer')
 </body>

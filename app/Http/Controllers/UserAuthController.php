@@ -140,7 +140,7 @@ class UserAuthController extends Controller
             join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
             // return view('khachhang.index', compact('data'));
             // return redirect('/khachhang');
-            return response()->json(['success' => true, 'redirect' => '/khachhang']);
+            return response()->json(['success' => true, 'redirect' => '/baocao']);
         } else {
             return back()->with('fail', 'Tên đăng nhập không tồn tại.');
         }
