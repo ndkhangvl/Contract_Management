@@ -139,19 +139,46 @@
                   <script>
                     var inputs = document.getElementsByClassName('otp-input');
                     for (var i = 0; i < inputs.length; i++) {
-                      inputs[i].addEventListener('input', function() {
+                    inputs[i].addEventListener('input', function(event) {
                         var maxLength = parseInt(this.getAttribute('maxlength'));
                         var currentLength = this.value.length;
-                  
+
                         if (currentLength >= maxLength) {
-                          var nextInput = this.nextElementSibling;
-                          if (nextInput !== null) {
+                        var nextInput = this.nextElementSibling;
+                        if (nextInput !== null) {
                             nextInput.focus();
-                          }
                         }
-                      });
+                        }
+                    });
+
+                    inputs[i].addEventListener('keydown', function(event) {
+                        if (event.key === 'Backspace') {
+                        var previousInput = this.previousElementSibling;
+                        if (previousInput !== null && this.value.length === 0) {
+                            event.preventDefault();
+                            previousInput.focus();
+                            previousInput.value = '';
+                        }
+                        }
+
+                        if (event.key === 'ArrowLeft') {
+                        var previousInput = this.previousElementSibling;
+                        if (previousInput !== null) {
+                            event.preventDefault();
+                            previousInput.focus();
+                        }
+                        }
+
+                        if (event.key === 'ArrowRight') {
+                        var nextInput = this.nextElementSibling;
+                        if (nextInput !== null) {
+                            event.preventDefault();
+                            nextInput.focus();
+                        }
+                        }
+                    });
                     }
-                  </script>
+                </script>
                 </div>
               </div>
           </div>
