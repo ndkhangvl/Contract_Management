@@ -27,7 +27,7 @@
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between mb-2">
                     <div class="logo ms-5">
-                        <a href="/khachhang"><img class="logo-img"
+                        <a href="/baocao"><img class="logo-img"
                                 src="https://itvnpt.vn/wp-content/uploads/2021/11/Logo-VNPT-TP-HCM-1.png" alt="Logo"
                                 srcset=""></a>
                     </div>

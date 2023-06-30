@@ -12,13 +12,14 @@
             margin-bottom: 20px; b
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
     @include('sidebar')
     @include('header2')
     <div id="main">
-
         <div class="container bg-white shadow p-2">
             <h1>Loại khách hàng</h1>
             <div class="d-flex p-2">
@@ -68,21 +69,21 @@
                     <tbody>
                         @foreach ($loaikhachhangs as $loaikhachhang)
                       <tr id="row{{ $loaikhachhang->LOAIKHACHHANG_ID }}" class="editable-row">
-                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
-                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
-                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
-                                <td class="text-center align-middle test">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
-                                <td class="text-center align-middle">
+                                <td class="text-center align-middle text-truncate  test">{{ $loaikhachhang->LOAIKHACHHANG_ID }}</td>
+                                <td class="text-center align-middle text-truncate test">{{ $loaikhachhang->LOAIKHACHHANG_MA }}</td>
+                                <td class="text-center align-middle text-truncate test" style="max-width: 100px">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
+                                <td class="text-center align-middle text-truncate test">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
+                                <td class="text-center align-middle" style="max-width: 50px">
                                     <form action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-block mb-3 mt-3">
+                                        <button type="submit" class="btn btn-danger btn-block">
                                             <i class="fas fa-minus me-2"></i>Xóa
                                         </button>
                                     </form>
                                 </td>
-                                <td class="buttonsua">
-                                    <button type="button" class="btn btn-warning btn-block mb-3 mt-3 editButton" data-bs-toggle="modal" data-bs-target="#editloaikh">
+                                <td class="text-center align-middle buttonsua" style="max-width: 50px">
+                                    <button type="button" class="btn btn-warning btn-block editButton" data-bs-toggle="modal" data-bs-target="#editloaikh">
                                         <i class="fas fa-edit me-2"></i>Sửa
                                     </button>
                                 </td>

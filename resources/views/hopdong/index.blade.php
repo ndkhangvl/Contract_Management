@@ -128,6 +128,20 @@
                                     </div>
                                     <div class="row mb-3 mt-3">
                                         <div class="col">
+                                            <label for="bena" class="form-label fw-bold">Bên A:</label>
+                                            <input type="text" class="form-control" placeholder="Nhập tên bên A"
+                                                name="hopdong_daidienben_a">
+                                            <span class="invalid-feedback" id="hopdong_daidienben_a_error"></span>
+                                        </div>
+                                        <div class="col">
+                                            <label for="benb" class="form-label fw-bold">Bên B:</label>
+                                            <input type="text" class="form-control" placeholder="Nhập tên bên B"
+                                                name="hopdong_daidienben_b">
+                                            <span class="invalid-feedback" id="hopdong_daidienben_b_error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3 mt-3">
+                                        <div class="col">
                                             <label for="tenkhang" class="form-label fw-bold">Tên gói thầu:</label>
                                             <input type="text" class="form-control" placeholder="Nhập tên gói thầu"
                                                 name="hopdong_tengoithau">
@@ -154,20 +168,6 @@
                                                 placeholder="Nhập số thời gian, ví dụ: 1 tháng, 1 năm,.."
                                                 name="hopdong_thoigianthuchien">
                                             <span class="invalid-feedback" id="hopdong_thoigianthuchien_error"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col">
-                                            <label for="bena" class="form-label fw-bold">Bên A:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập tên bên A"
-                                                name="hopdong_daidienben_a">
-                                            <span class="invalid-feedback" id="hopdong_daidienben_a_error"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label for="benb" class="form-label fw-bold">Bên B:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập tên bên B"
-                                                name="hopdong_daidienben_b">
-                                            <span class="invalid-feedback" id="hopdong_daidienben_b_error"></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 mt-3">
@@ -429,6 +429,26 @@
                                                                 </div>
                                                                 <div class="row mb-3 mt-3">
                                                                     <div class="col">
+                                                                        <label for="bena"
+                                                                            class="form-label fw-bold">Bên A:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập tên bên A"
+                                                                            name="hopdong_daidienben_a">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_daidienben_a_error"></span>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label for="benb"
+                                                                            class="form-label fw-bold">Bên B:</label>
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập tên bên B"
+                                                                            name="hopdong_daidienben_b">
+                                                                        <span class="invalid-feedback"
+                                                                            id="hopdong_daidienben_b_error"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3 mt-3">
+                                                                    <div class="col">
                                                                         <label for="tenkhang"
                                                                             class="form-label fw-bold">Tên gói
                                                                             thầu:</label>
@@ -468,26 +488,6 @@
                                                                             name="hopdong_thoigianthuchien">
                                                                         <span class="invalid-feedback"
                                                                             id="hopdong_thoigianthuchien_error"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3 mt-3">
-                                                                    <div class="col">
-                                                                        <label for="bena"
-                                                                            class="form-label fw-bold">Bên A:</label>
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Nhập tên bên A"
-                                                                            name="hopdong_daidienben_a">
-                                                                        <span class="invalid-feedback"
-                                                                            id="hopdong_daidienben_a_error"></span>
-                                                                    </div>
-                                                                    <div class="col">
-                                                                        <label for="benb"
-                                                                            class="form-label fw-bold">Bên B:</label>
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Nhập tên bên B"
-                                                                            name="hopdong_daidienben_b">
-                                                                        <span class="invalid-feedback"
-                                                                            id="hopdong_daidienben_b_error"></span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3 mt-3">
@@ -917,7 +917,7 @@
 
 
         function resetForm() {
-            $('#cusForm')[0].reset();
+            $('#contractForm')[0].reset();
             $('.invalid-feedback').empty();
         }
 

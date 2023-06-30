@@ -105,12 +105,12 @@ class HopDongController extends Controller
     {
         //
         $request->validate([
-            'hopdong_so' => 'required',
+            'hopdong_so' => 'required|unique:hopdong',
             'loaihopdong_id' => 'required',
             'khachhang_id' => 'required',
-            'hopdong_ngayky' => 'required',
-            'hopdong_ngayhieuluc' => 'required',
-            'hopdong_ngayketthuc' => 'required',
+            'hopdong_ngayky' => 'required|before_or_equal:' . Carbon::now()->format('Y-m-d H:i:s'),
+            'hopdong_ngayhieuluc' => 'required|after_or_equal:hopdong_ngayky',
+            'hopdong_ngayketthuc' => 'required|after:hopdong_ngayhieuluc',
             'hopdong_tengoithau' => 'required',
             'hopdong_tenduan' => 'required',
             'hopdong_noidung' => 'required',
@@ -123,12 +123,16 @@ class HopDongController extends Controller
             'hopdong_ghichu' => 'required',
         ], [
             'hopdong_so.required' => 'Trường số hợp đồng là bắt buộc.',
+            'hopdong_so.unique' => 'Số hợp đồng đã tồn tại.',
             'loaihopdong_id.required' => 'Trường loại hợp đồng là bắt buộc.',
             // 'khachhang_ten.min' => 'Trường tên khách hàng phải có ít nhất :min ký tự.',
             'khachhang_id.required' => 'Trường khách hàng là bắt buộc.',
             'hopdong_ngayky.required' => 'Chọn ngày ký là bắt buộc.',
+            'hopdong_ngayky.before_or_equal' => 'Ngày ký không được lớn hơn ngày và giờ hiện tại.',
             'hopdong_ngayhieuluc.required' => 'Chọn ngày hiệu lực là bắt buộc.',
+            'hopdong_ngayhieuluc.after_or_equal' => 'Ngày hiệu lực phải bằng hoặc sau ngày ký.',
             'hopdong_ngayketthuc.required' => 'Chọn ngày kết thúc là bắt buộc.',
+            'hopdong_ngayketthuc.after' => 'Ngày kết thúc phải sau ngày hiệu lực.',
             'hopdong_tengoithau.required' => 'Trường tên gói thầu là bắt buộc.',
             'hopdong_tenduan.required' => 'Trường tên dự án là bắt buộc.',
             'hopdong_noidung.required' => 'Trường nội dung là bắt buộc.',

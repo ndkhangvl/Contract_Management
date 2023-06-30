@@ -122,11 +122,10 @@
                 <p>Trạng thái: {{ Session::get('infoUser')['trangthai'] }}<span id="userInfoTrangThai"></span></p>
             </div> --}}
                 <div class="modal-body">
-                    <p>Tên người dùng: {{ Session::get('infoUser')['ten_nd'] }}</p>
-                    <p>Mã người dùng: {{ Session::get('infoUser')['ma_nd'] }}</p>
-                    <p>Mật khẩu: {{ Session::get('infoUser')['matkhau'] }}</p>
-                    <p>Trạng thái: {{ Session::get('infoUser')['trangthai'] }}</p>
-                    <p>Email: {{ Session::get('infoUser')['nguoidung_email'] }}</p>
+                    <p><span class="text-primary fw-bold">Tên người dùng:</span> {{ Session::get('infoUser')['ten_nd'] }}</p>
+                    <p><span class="text-primary fw-bold">Mã người dùng:</span> {{ Session::get('infoUser')['ma_nd'] }}</p>
+                    <p><span class="text-primary fw-bold">Trạng thái:</span> {{ Session::get('infoUser')['trangthai'] }}</p>
+                    <p><span class="text-primary fw-bold">Email:</span> {{ Session::get('infoUser')['nguoidung_email'] }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
