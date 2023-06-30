@@ -46,6 +46,7 @@
             max-width: 100%;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -309,32 +310,58 @@
             $('#cusForm').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
+                var form = $('#cusForm')[0];
+                var data = new FormData(form);
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
                     data: formData,
+                   
+                    beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            Swal.hideLoading();
+                        }
+                    });
+                    },
                     success: function(success) {
+                        Swal.close();
                         if (success) {
-                            alert('Thêm mới khách hàng thành công');
-                            $('#cusForm input').val('');
-                            location.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đã thêm mới!',
+                                text: 'Khách hàng mới đã được tạo'
+                            }).then(() => {
+                                $('#cusForm input').val('');
+                                location.reload();
+                            });
+
                         } else {
-                            alert('Thất bại');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Không thể thêm khách hàng!',
+                                text: 'Khách hàng không thể thêm mới, kiểm tra thông tin nhập vào'
+                            });
                         }
                     },
                     error: function(xhr) {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
+                        });
                         if (xhr.status === 422) {
                             $('.invalid-feedback').empty();
                             var response = JSON.parse(xhr.responseText);
                             var errors = response.errors;
-                            // console.log(response);
-                            // console.log(errors);
-                            // console.log($('#khachhang_diachi_error'));
-                            // if (errors.hasOwnProperty('khachhang_diachi')) {
-                            //     var errorMessage = errors['khachhang_diachi'][0];
-                            //     console.log(errorMessage);
-                            //     $('#khachhang_diachi_error').text(errorMessage).show();
-                            // }
                             for (var field in errors) {
                                 if (errors.hasOwnProperty(field)) {
                                     var errorMessage = errors[field][0];
@@ -342,7 +369,7 @@
                                 }
                             }
                         }
-                    }
+                        }
                 });
             });
         });

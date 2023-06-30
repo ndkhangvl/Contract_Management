@@ -169,7 +169,11 @@ class KhachHangController extends Controller
                 $history->Time = Carbon::now();
                 $history->save();
 
-        return redirect('/khachhang');
+        // return redirect('/khachhang');
+        return response()->json([
+            'success' => true
+            // 'errors' => $validator->errors(),
+        ]);
     }
 
     public function destroy($id)
@@ -178,8 +182,7 @@ class KhachHangController extends Controller
         $hopdong = HopDong::where('KHACHHANG_ID', $khachhang->KHACHHANG_ID)->first();
 
         if ($hopdong) {
-            session()->flash('error', 'Không thể xóa khách hàng vì có hợp đồng.');
-            return back();
+            return;
         }
 
         $khachhang->delete();
@@ -192,9 +195,10 @@ class KhachHangController extends Controller
         $history->description = "Xóa thông tin khách hàng: " . $id . "";
         $history->Time = Carbon::now();
         $history->save();
-
-        session()->flash('success', 'Xóa khách hàng thành công.');
-        return redirect()->route('khachhang.index');
+        return response()->json([
+            'success' => true
+            // 'errors' => $validator->errors(),
+        ]);
     }
 
 

@@ -401,6 +401,7 @@
         formatNumberInputs();
         formatSpanElements();
     });
+
     $(document).ready(function() {
 
         $('#hoaDonForm').on('submit', function(e) {
@@ -474,7 +475,6 @@
                     }
                 }
             });
-
         });
         $('#createModal').on('show.bs.modal', function(event) {
             $('#createModal #tablechitiet tr').slice(1).remove();

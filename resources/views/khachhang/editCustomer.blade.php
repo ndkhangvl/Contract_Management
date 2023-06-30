@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <style>
@@ -15,6 +16,7 @@
             border: 1px solid #ccc;
         };
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
     @include('header2')
@@ -182,5 +184,75 @@ function getData() {
       form.appendChild(targetInput);
       //form.submit();
 }
+</script>
+<script>
+    $(document).ready(function() {
+    $('#cusForm').on('submit', function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        var form = $('#cusForm')[0];
+        var data = new FormData(form);
+
+        Swal.fire({
+            title: 'Cập nhật khách hàng {{$khhang->KHACHHANG_TEN}}?',
+            text: "Thông tin khách hàng sẽ được cập nhật!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Cập nhật',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
+                    },
+                    onClose: () => {
+                        Swal.hideLoading();
+                    }
+                });
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    success: function(success) {
+                        if (success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đã cập nhật!',
+                                text: 'Khách hàng {{$khhang->KHACHHANG_TEN}} đã được cập nhật'
+                            }).then(() => {
+                                $('#hoaDonForm input').val('');
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Không thể cập nhật!',
+                                text: 'Khách hàng không thể cập nhật, kiểm tra thông tin nhập vào'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
+                        });
+                    }
+                });
+            }
+        });
+    });
+});
 </script>
 </html>

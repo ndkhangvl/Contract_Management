@@ -73,6 +73,7 @@
         color: gray;
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <div id="main">
     <div class="container bg-white shadow">
 
@@ -91,8 +92,7 @@
         </script>
 
         @foreach ($khachhang as $khachhang)
-            <form action="{{ route('idkhachhang.destroy', ['id' => $khachhang->KHACHHANG_ID]) }}" method="POST"
-                onsubmit="return confirmDelete()" id="xoaKH">
+            <form action="{{ route('idkhachhang.destroy', ['id' => $khachhang->KHACHHANG_ID]) }}" method="POST" id="xoaKH">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">
@@ -391,51 +391,70 @@
     </div>
 </div>
 <script>
-            $(document).ready(function() {
-            $('#contractForm').on('submit', function(e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                var form = $('#contractForm')[0];
-                // Create an FormData object 
-                var data = new FormData(form);
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: data,
-                    enctype: 'multipart/form-data',
-                    processData: false, // Important!
-                    contentType: false,
-                    success: function(success) {
-                        if (success) {
-                            alert('Thêm mới hợp đồng thành công');
-                            $('#contractForm input').val('');
-                            location.reload();
-                        } else {
-                            alert('Thất bại');
-                        }
+$(document).ready(function() {
+    $('[id^="xoaKH"]').on('submit', function(e) {
+        e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+
+        var form = $(this);
+
+        Swal.fire({
+            title: 'Xóa khách hàng {{$khachhang->KHACHHANG_TEN}}?',
+            text: "Bạn sẽ không thể khôi phục lại khách hàng này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Đang xử lý...',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    onBeforeOpen: () => {
+                        Swal.showLoading();
                     },
-                    error: function(xhr) {
-                        if (xhr.status === 422) {
-                            $('.invalid-feedback').empty();
-                            var response = JSON.parse(xhr.responseText);
-                            var errors = response.errors;
-                            // console.log(response);
-                            // console.log(errors);
-                            // console.log($('#khachhang_diachi_error'));
-                            // if (errors.hasOwnProperty('khachhang_diachi')) {
-                            //     var errorMessage = errors['khachhang_diachi'][0];
-                            //     console.log(errorMessage);
-                            //     $('#khachhang_diachi_error').text(errorMessage).show();
-                            // }
-                            for (var field in errors) {
-                                if (errors.hasOwnProperty(field)) {
-                                    var errorMessage = errors[field][0];
-                                    $('#' + field + '_error').text(errorMessage).show();
-                                }
-                            }
-                        }
+                    onClose: () => {
+                        Swal.hideLoading();
                     }
                 });
-            });
+                // Gửi yêu cầu xóa bằng AJAX
+                $.ajax({
+                    url: form.attr('action'), // Sử dụng action của form làm URL
+                    type: 'DELETE',
+                    data: form.serialize(),
+                    success: function(success) {
+                        if(success){
+                            Swal.fire(
+                                'Đã xóa!',
+                                'Khách hàng {{$khachhang->KHACHHANG_TEN}} đã được xóa',
+                                'success'
+                            ).then(() => {
+                                window.location.href =
+                                    '/khachhang'; // Chuyển hướng về trang /
+
+                            });
+                        } else {
+                            Swal.fire(
+                                'Không thể xóa!',
+                                'Khách hàng {{$khachhang->KHACHHANG_TEN}} không thể xóa. Vì có họp đồng',
+                                'error'
+                            );
+                        }
+                        
+                    },
+                    error: function(xhr) {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau',
+                            'error'
+                        );
+                    }
+                });
+            }
         });
+    });
+});
 </script>
