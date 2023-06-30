@@ -106,17 +106,10 @@ Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
 // Route::resource('/hoadon', HoaDonController::class)->middleware('isLogin', 'switchLanguage');
 Route::get('/ExportHoaDon', [HoaDonController::class, 'exportInvoices']);
 
-/* Danh cho loai khach hang
-Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database');
-Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert');
-Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete');
-Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update');
-*/
+// Danh cho loai khach hang
 Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin', 'switchLanguage');
-Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('testconnect.insert')->middleware('isLogin', 'switchLanguage');
-//Route::post('/delete', [LoaiKhachHangController::class, 'delete'])->name('testconnect.delete')->middleware('isLogin', 'switchLanguage');
-Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('testconnect.update')->middleware('isLogin', 'switchLanguage');
-//Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->middleware('isLogin', 'switchLanguage');
+Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('loaikhachhang.insert')->middleware('isLogin', 'switchLanguage');
+Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('loaikhachhang.update')->middleware('isLogin', 'switchLanguage');
 Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name('id.delete');
 
 

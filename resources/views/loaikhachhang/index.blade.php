@@ -4,49 +4,8 @@
 <head>
     <title>Danh mục loại khách hàng</title>
     <style>
-        /* body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .header {
-            text-align: center;
-            padding: 10px;
-            background-color: #f2f2f2;
-        }
-
-        .content {
-            flex: 1;
-            overflow: auto;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            white-space: nowrap;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-
-        hr {
-            border: 1px solid black;
-            margin: 20px 0;
-        }
-
-        table {
-            cursor: pointer;
-        } */
-
         .selected {
             background-color: #077DCE;
-            /* color: white; */
         }
 
         #infoForm select {
@@ -59,38 +18,7 @@
     @include('sidebar')
     @include('header2')
     <div id="main">
-        <!--Modal-->
-        <div class="modal fade" id="addloaikh">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="updatePasswdLabel">Đổi mật khẩu</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" id="updatePass" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="passwd_new" class="form-label">Mật khẩu mới:</label>
-                                <input type="password" class="form-control" id="passwd_new" placeholder="Nhập vào mật khẩu mới"
-                                    name="passwd_new">
-                                <span class="invalid-feedback" id="passwd_new_error"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label for="pwd" class="form-label">Nhập lại mật khẩu:</label>
-                                <input type="password" class="form-control" id="confirm_passwd_new"
-                                    placeholder="Xác nhận mật khẩu" name="confirm_passwd_new">
-                                <span class="invalid-feedback" id="confirm_passwd_new_error"></span>
-                            </div>
-                            <div class="mb-3 mt-3 pb-2 text-center">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!------->
+
         <div class="container bg-white shadow p-2">
             <h1>Loại khách hàng</h1>
             <div class="d-flex p-2">
@@ -125,31 +53,6 @@
             <hr />
             <div id="data-container">
                 <div id="formTab" style="display: none;">
-                    <form id="infoForm" action="{{ route('testconnect.insert') }}" method="POST">
-                        @csrf
-                        <div class="mb-3 mt-3">
-                            <label for="id" class="form-label fw-bold">ID: </label>
-                            <input type="text" class="form-control" id="id" name="loaikhachhangid">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="code" class="form-label fw-bold">Mã: </label>
-                            <input type="text" class="form-control" id="code" name="loaikhachhangma">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="name" class="form-label fw-bold">Tên loại khách hàng: </label>
-                            <input type="text" class="form-control" id="name" name="loaikhachhangten">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="cssid" class="form-label fw-bold">ID CSS: </label>
-                            <input type="text" class="form-control" id="cssId" name="loaikhachhangidcss">
-                        </div>
-
-    
-                        <div class="text-center">
-                            <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i
-                                    class="fas fa-plus me-2"></i>Thêm mới</button>
-                        </div>
-                    </form>
                 </div>
                 <table class="table table-striped table-hover" id="dataTable">
                     <thead>
@@ -179,7 +82,7 @@
                                     </form>
                                 </td>
                                 <td class="buttonsua">
-                                    <button type="button" class="btn btn-warning btn-block mb-3 mt-3 editButton">
+                                    <button type="button" class="btn btn-warning btn-block mb-3 mt-3 editButton" data-bs-toggle="modal" data-bs-target="#editloaikh">
                                         <i class="fas fa-edit me-2"></i>Sửa
                                     </button>
                                 </td>
@@ -194,8 +97,87 @@
                 {{ $loaikhachhangs->appends(request()->all())->links() }}
             </div>
         </div>
+                <!--Modal cho them loại khach hang-->
+                <div class="modal fade" id="addloaikh">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addnewcustype">Thêm Loại Khách Hàng</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="infoForm" action="{{ route('loaikhachhang.insert') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3 mt-3">
+                                        <label for="id" class="form-label fw-bold">ID loại khách hàng: </label>
+                                        <input type="text" class="form-control" id="id" name="loaikhachhangid">
+                                    </div>
+                                    <div class="mb-3 mt-3">
+                                        <label for="code" class="form-label fw-bold">Mã loại khách hàng: </label>
+                                        <input type="text" class="form-control" id="code" name="loaikhachhangma">
+                                    </div>
+                                    <div class="mb-3 mt-3">
+                                        <label for="name" class="form-label fw-bold">Tên loại khách hàng: </label>
+                                        <input type="text" class="form-control" id="name" name="loaikhachhangten">
+                                    </div>
+                                    <div class="mb-3 mt-3">
+                                        <label for="cssid" class="form-label fw-bold">ID CSS: </label>
+                                        <input type="text" class="form-control" id="cssId" name="loaikhachhangidcss">
+                                    </div>
+            
+                                    
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="submit" id="insert" class="btn btn-success btn-block mb-3 mt-3"><i
+                                                class="fas fa-plus me-2"></i>Thêm mới</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!------->
+        <!--Modal cho sua loại khach hang-->
+        <div class="modal fade" id="editloaikh">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updatenewcustype">Sửa Loại Khách Hàng</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="infoForm" action="{{ route('loaikhachhang.update') }}" method="POST">
+                            @csrf
+                            <div class="mb-3 mt-3">
+                                <label for="id" class="form-label fw-bold">ID loại khách hàng cần sửa: </label>
+                                <input type="text" class="form-control" id="idsua" name="loaikhachhangid">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="code" class="form-label fw-bold">Mã loại khách hàng: </label>
+                                <input type="text" class="form-control" id="codesua" name="loaikhachhangma">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="name" class="form-label fw-bold">Tên loại khách hàng: </label>
+                                <input type="text" class="form-control" id="namesua" name="loaikhachhangten">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="cssid" class="form-label fw-bold">ID CSS: </label>
+                                <input type="text" class="form-control" id="cssIdsua" name="loaikhachhangidcss">
+                            </div>
+    
+                            
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" id="edit" class="btn btn-warning btn-block mb-3 mt-3 "><i
+                                        class="fas fa-edit me-2"></i>Sửa</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+        
             $(document).ready(function() {
                 let selectedRow = null;
 
@@ -230,10 +212,10 @@
                     const name = selectedRow.find('td:nth-child(3)').text();
                     const cssId = selectedRow.find('td:nth-child(4)').text();
 
-                    $('#id').val(id);
-                    $('#code').val(code);
-                    $('#name').val(name);
-                    $('#cssId').val(cssId);
+                    $('#idsua').val(id);
+                    $('#codesua').val(code);
+                    $('#namesua').val(name);
+                    $('#cssIdsua').val(cssId);
                 }
 
                 function clearForm() {
@@ -298,7 +280,22 @@
             function confirmDelete() {
                     return confirm('Bạn có chắc chắn muốn xóa loại khách hàng?');
                 }
-        </script>
+                $(document).ready(function() {
+  $('.editButton').click(function() {
+    // Get the row data
+    var id = $(this).closest('tr').find('.test:eq(0)').text();
+    var code = $(this).closest('tr').find('.test:eq(1)').text();
+    var name = $(this).closest('tr').find('.test:eq(2)').text();
+    var cssId = $(this).closest('tr').find('.test:eq(3)').text();
+
+    // Set the modal input values
+    $('#idsua').val(id);
+    $('#codesua').val(code);
+    $('#namesua').val(name);
+    $('#cssIdsua').val(cssId);
+  });
+});
+  </script>
         </div>
     @include('footer')
 </body>

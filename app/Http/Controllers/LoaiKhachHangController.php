@@ -73,16 +73,22 @@ class LoaiKhachHangController extends Controller
             'loaikhachhangten' => 'required',
             'loaikhachhangidcss' => 'required',
         ]);
-
+    
         $loaikhachhangid = $request->input('loaikhachhangid');
         $loaikhachhangma = $request->input('loaikhachhangma');
         $loaikhachhangten = $request->input('loaikhachhangten');
         $loaikhachhangidcss = $request->input('loaikhachhangidcss');
-
-        DB::update('UPDATE [LOAI_KHACHHANG] SET [LOAIKHACHHANG_MA] = ?,
-            [LOAIKHACHHANG_TEN] = ?,
-            [LOAIKHACHHANG_ID_CSS] = ?
-            WHERE [LOAIKHACHHANG_ID] = ?;', [$loaikhachhangma, $loaikhachhangten, $loaikhachhangidcss, $loaikhachhangid]);
+    
+        DB::table('LOAI_KHACHHANG')
+            ->where('LOAIKHACHHANG_ID', $loaikhachhangid)
+            ->update([
+                'LOAIKHACHHANG_MA' => $loaikhachhangma,
+                'LOAIKHACHHANG_TEN' => $loaikhachhangten,
+                'LOAIKHACHHANG_ID_CSS' => $loaikhachhangidcss,
+            ]);
+    
+        return redirect('/')->with('success', 'Cập nhật loại khách hàng thành công');
     }
+    
 
 }
