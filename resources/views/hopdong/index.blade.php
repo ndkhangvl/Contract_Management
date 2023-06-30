@@ -769,7 +769,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Không thể thêm hóa đơn!',
+                                title: 'Không thể thêm hợp đồng!',
                                 text: 'Hợp đồng không thể thêm mới, vui lòng kiểm tra lại thông tin'
                             });
                         }
@@ -816,8 +816,8 @@
                 // Create an FormData object 
                 var data = new FormData(form);
                 Swal.fire({
-                    title: 'Cập nhật hóa đơn?',
-                    text: "Thông tin hóa đơn sẽ được cập nhật!",
+                    title: 'Cập nhật hợp đồng?',
+                    text: "Thông tin hợp đồng sẽ được cập nhật!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#0d6efd',
