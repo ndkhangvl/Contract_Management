@@ -237,12 +237,9 @@ class HoaDonController extends Controller
         );
         
         $hopdongs = DB::select("select * from HOPDONG");
-        $dssohoadon = DB::select("select HOADON_SO from hoadon;");
         return view('hoadon.index', [
             'hoadons' => $hoadons,
-            'hopdongs' => $hopdongs,
-            'dssohoadon' => $dssohoadon,
-            'cnt' => count($dssohoadon)
+            'hopdongs' => $hopdongs
         ]);
         
     }
@@ -390,7 +387,7 @@ class HoaDonController extends Controller
     {
         $request->validate([
             'sohopdong' => 'required',
-            'sohoadon' => 'required',
+            'sohoadon' => 'required|unique:hoadon,HOADON_SO',
             //'filehoadon' => 'required',
             'thuesuat' => 'required',
             'tongtien' => 'required',
@@ -410,6 +407,7 @@ class HoaDonController extends Controller
             'sotienbangchu.required' => 'Trường số tiền bằng chữ là bắt buộc.',
             'nguoitao.required' => 'Trường người tạo là bắt buộc.',
             'nguoimuahang.required' => 'Trường người mua hàng là bắt buộc.',
+            'sohoadon.unique' => 'Số hóa đơn này đã tồn tại.',
         ]);
 
         //

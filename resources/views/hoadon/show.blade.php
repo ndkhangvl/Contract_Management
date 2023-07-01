@@ -119,18 +119,21 @@ td {
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Người tạo:</label>
-                                        <input class="form-control" required type="text" name="nguoitao">
+                                        <input class="form-control" type="text" name="nguoitao">
+                                        <span class="invalid-feedback" id="nguoitao_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Người mua hàng:</label>
-                                        <input class="form-control" required type="text" name="nguoimuahang">
+                                        <input class="form-control" type="text" name="nguoimuahang">
+                                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Thuế (%):</label>
-                                        <input class="form-control" id="thuesuat" required type="number" name="thuesuat"
+                                        <input class="form-control" id="thuesuat" type="number" name="thuesuat"
                                             min="0">
+                                        <span class="invalid-feedback" id="thuesuat_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
@@ -473,7 +476,7 @@ $(document).ready(function() {
                                 title: 'Đã cập nhật!',
                                 text: 'Hóa đơn {{$hoadon->HOADON_SO}} đã được cập nhật'
                             }).then(() => {
-                                $('#hoaDonForm input').val('');
+                                $('#updateHoaDonForm input').val('');
                                 location.reload();
                             });
                         } else {
@@ -490,6 +493,17 @@ $(document).ready(function() {
                             title: 'Lỗi!',
                             text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
                         });
+                        if (xhr.status === 422) {
+                            $('.invalid-feedback').empty();
+                            var response = JSON.parse(xhr.responseText);
+                            var errors = response.errors;
+                            for (var field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    var errorMessage = errors[field][0];
+                                    $('#updateHoaDonForm #' + field + '_error').text(errorMessage).show();
+                                }
+                            }
+                        }
                     }
                 });
             }

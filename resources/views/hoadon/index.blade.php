@@ -57,12 +57,7 @@
 @include('sidebar')
 @include('header2')
 <div id="main">
-    <div style="display: none">
-        Danh sách số hóa đơn đã có
-        @for ($i = 0; $i < $cnt; $i++)
-            <div class="shdexists" id="{{ $dssohoadon[$i]->HOADON_SO }}">{{ $dssohoadon[$i]->HOADON_SO }}</div>
-        @endfor
-    </div>
+   
     <div class="container shadow bg-white">
         <div class="content p-3">
             <label>Chọn hợp đồng cần tạo hóa đơn</label>
@@ -253,12 +248,12 @@
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Hợp đồng:</label>
-                                        <input class="form-control" type="text" name="sohopdong" required readonly
+                                        <input class="form-control" type="text" name="sohopdong" readonly
                                             id="getSohopdong">
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Hóa đơn số:</label>
-                                        <input class="form-control" type="text" name="sohoadon" required readonly
+                                        <input class="form-control" type="text" name="sohoadon" readonly
                                             id="inputsohoadon" oninput="this.value = this.value.toUpperCase()">
                                         <span class="invalid-feedback" id="sohoadon_error"></span>
                                         <div class="alert alert-danger" id="error_" style="display: none"></div>
@@ -267,43 +262,46 @@
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Người tạo:</label>
-                                        <input class="form-control" required type="text" name="nguoitao"
+                                        <input class="form-control" type="text" name="nguoitao"
                                             id="nguoitao">
+                                        <span class="invalid-feedback" id="nguoitao_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Người mua hàng:</label>
-                                        <input class="form-control" required type="text" name="nguoimuahang"
+                                        <input class="form-control" type="text" name="nguoimuahang"
                                             id="nguoimuahang">
+                                        <span class="invalid-feedback" id="nguoimuahang_error"></span>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Thuế (%):</label>
-                                        <input class="form-control" id="thuesuat" required type="number"
+                                        <input class="form-control" id="thuesuat" type="number"
                                             name="thuesuat" min="0">
+                                        <span class="invalid-feedback" id="thuesuat_error"></span>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền (VNĐ):</label>
-                                        <input class="form-control textnumber" required type="text" name="tongtien"
+                                        <input class="form-control textnumber" type="text" name="tongtien"
                                             id="tongtien" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Tiền thuế (VNĐ):</label>
-                                        <input class="form-control textnumber" required type="text" name="tienthue"
+                                        <input class="form-control textnumber" type="text" name="tienthue"
                                             id="tienthue" readonly>
                                     </div>
                                     <div class="col">
                                         <label class="form-label fw-bold">Tổng tiền có thuế (VNĐ):</label>
-                                        <input class="form-control textnumber" required type="text" name="tongtiencothue"
+                                        <input class="form-control textnumber" type="text" name="tongtiencothue"
                                             id="tongtiencothue" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-3">
                                     <div class="col">
                                         <label class="form-label fw-bold">Số tiền (bằng chữ):</label>
-                                        <input class="form-control" required type="text" id="sotienbangchu"
+                                        <input class="form-control" type="text" id="sotienbangchu"
                                             name="sotienbangchu" readonly>
                                     </div>
                                 </div>
@@ -759,7 +757,7 @@
                                 for (var field in errors) {
                                     if (errors.hasOwnProperty(field)) {
                                         var errorMessage = errors[field][0];
-                                        $('#' + field + '_error').text(errorMessage).show();
+                                        $('#hoaDonForm #' + field + '_error').text(errorMessage).show();
                                     }
                                 }
                             }
@@ -825,6 +823,17 @@
                                         title: 'Lỗi!',
                                         text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
                                     });
+                                    if (xhr.status === 422) {
+                                        $('#updateHoaDonForm .invalid-feedback').empty();
+                                        var response = JSON.parse(xhr.responseText);
+                                        var errors = response.errors;
+                                        for (var field in errors) {
+                                            if (errors.hasOwnProperty(field)) {
+                                                var errorMessage = errors[field][0];
+                                                $('#updateHoaDonForm #' + field + '_error').text(errorMessage).show();
+                                            }
+                                        }
+                                    }
                                 }
                             });
                         }
@@ -834,7 +843,6 @@
                     $('#createModal #tablechitiet tr').slice(1).remove();
                     $('#slct').val(0);
                     $("#createModal #thuesuat").on('input', calHoaDonIndexCreate);
-                    $('#createModal').on('input', '#inputsohoadon', checkSHDExistsIndexCreate);
                     $('#createModal').on('keyup', '[id=inputsohoadon]', function() {
                         var obj = $(this);
                         obj.val(convert_vi_to_en(obj.val()).toUpperCase().replace(/ /g, "-"));
@@ -1249,24 +1257,6 @@
                 str = str.replace(/  +/g, ' ');
                 return str;
             }
-
-
-            function checkSHDExistsIndexCreate() {
-                var hoadontontai = document.getElementsByClassName('shdexists');
-                var modal = document.getElementById("createModal");
-                $shd = modal.querySelector("#inputsohoadon").value;
-                modal.querySelector("#error_").setAttribute('style', 'display: none');
-                modal.querySelector("#error_").innerHTML = "";
-                modal.querySelector("#btnsubmithd").removeAttribute('disabled', 'true');
-                for (var i = 0; i < hoadontontai.length; i++) {
-                    if ($shd == hoadontontai[i].id) {
-                        modal.querySelector("#error_").removeAttribute('style', 'display: none');
-                        modal.querySelector("#error_").innerHTML = "Số hóa đơn đã tồn tại, vui lòng nhập lại!";
-                        modal.querySelector("#btnsubmithd").setAttribute('disabled', 'true');
-                    }
-                }
-            }
-
 
             ///////////////////////////////////////////////////////////////////////////////////////////
             //////////////////////Phan nay cua Modal UPDATE........lam gon lai sau huhu////////////////
