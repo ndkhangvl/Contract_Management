@@ -107,7 +107,7 @@ Route::middleware(['isLogin', 'switchLanguage'])->group(function () {
 Route::get('/ExportHoaDon', [HoaDonController::class, 'exportInvoices']);
 
 // Danh cho loai khach hang
-Route::get('/', [LoaiKhachHangController::class, 'index'])->name('database')->middleware('isLogin', 'switchLanguage');
+Route::get('/', [ReportController::class, 'index'])->name('database')->middleware('isLogin', 'switchLanguage');
 Route::post('/', [LoaiKhachHangController::class, 'insert'])->name('loaikhachhang.insert')->middleware('isLogin', 'switchLanguage');
 Route::post('/update', [LoaiKhachHangController::class, 'update'])->name('loaikhachhang.update')->middleware('isLogin', 'switchLanguage');
 Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name('id.delete');
