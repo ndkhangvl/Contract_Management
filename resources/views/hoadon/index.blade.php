@@ -813,7 +813,7 @@
                                         title: 'Đã cập nhật!',
                                         text: 'Hóa đơn đã được cập nhật'
                                     }).then(() => {
-                                        $('#hoaDonForm input').val('');
+                                        $('#updateHoaDonForm input').val('');
                                         location.reload();
                                     });                            
                                 },
