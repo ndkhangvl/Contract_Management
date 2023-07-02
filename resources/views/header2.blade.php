@@ -122,10 +122,20 @@
                 <p>Trạng thái: {{ Session::get('infoUser')['trangthai'] }}<span id="userInfoTrangThai"></span></p>
             </div> --}}
                 <div class="modal-body">
-                    <p><span class="text-primary fw-bold">Tên người dùng:</span> {{ Session::get('infoUser')['ten_nd'] }}</p>
-                    <p><span class="text-primary fw-bold">Mã người dùng:</span> {{ Session::get('infoUser')['ma_nd'] }}</p>
-                    <p><span class="text-primary fw-bold">Trạng thái:</span> {{ Session::get('infoUser')['trangthai'] }}</p>
-                    <p><span class="text-primary fw-bold">Email:</span> {{ Session::get('infoUser')['nguoidung_email'] }}</p>
+                    <p><span class="text-primary fw-bold">Tên người dùng:</span>
+                        {{ Session::get('infoUser')['ten_nd'] }}</p>
+                    <p><span class="text-primary fw-bold">Mã người dùng:</span> {{ Session::get('infoUser')['ma_nd'] }}
+                    </p>
+                    <p><span class="text-primary fw-bold">Trạng thái:</span> @php
+                        $trangthai = Session::get('infoUser')['trangthai'];
+                    @endphp @if ($trangthai == 1)
+                            <span class="fw-bold text-success">Đang hoạt động</span>
+                            @else 
+                            <span class="fw-bold text-danger">Không hoạt động</span>
+                        @endif
+                    </p>
+                    <p><span class="text-primary fw-bold">Email:</span>
+                        {{ Session::get('infoUser')['nguoidung_email'] }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -145,8 +155,8 @@
                         @csrf
                         <div class="mb-3">
                             <label for="passwd_new" class="form-label">Mật khẩu mới:</label>
-                            <input type="password" class="form-control" id="passwd_new" placeholder="Nhập vào mật khẩu mới"
-                                name="passwd_new">
+                            <input type="password" class="form-control" id="passwd_new"
+                                placeholder="Nhập vào mật khẩu mới" name="passwd_new">
                             <span class="invalid-feedback" id="passwd_new_error"></span>
                         </div>
                         <div class="mb-3">
@@ -193,9 +203,9 @@
         $('#updatePass').on('submit', function(e) {
             e.preventDefault();
             var formupdateData = $(this).serialize();
-                var form = $('#updatePass')[0];
-                // Create an FormData object 
-                var data = new FormData(form);
+            var form = $('#updatePass')[0];
+            // Create an FormData object 
+            var data = new FormData(form);
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url: "/updatePassWd",

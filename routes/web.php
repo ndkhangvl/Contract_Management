@@ -91,6 +91,7 @@ Route::get('/hopdong', [HopDongController::class, 'index'])->middleware('isLogin
 Route::get('/hopdong/{id}', [HopDongController::class, 'show'])->middleware('isLogin', 'switchLanguage');
 Route::put('/updateHopDong/{id}', [HopDongController::class, 'update'])->middleware('isLogin', 'switchLanguage');
 Route::post('/hopdong', [HopDongController::class, 'store'])->middleware('isLogin', 'switchLanguage');
+Route::get('/searchHopDong', [HopDongController::class, 'search'])->middleware('isLogin','switchLanguage');
 Route::get('/gethopdong/{id}', [HopDongController::class, 'getHopDong'])->middleware('isLogin', 'switchLanguage');
 Route::delete('/hopdong/delete/{id}', [HopDongController::class, 'delete'])->middleware('isLogin', 'switchLanguage');
 
@@ -122,8 +123,8 @@ Route::delete('/delete/{id}', [LoaiKhachHangController::class, 'delete'])->name(
 
 Route::get('/baocao', [ReportController::class, 'index'])->middleware('isLogin','switchLanguage')->name('reports.index');
 
-Route::get('/history', [HistoryController::class, 'index'])->middleware('switchLanguage')->name('lichsu.index');
-Route::get('/searchHistory', [HistoryController::class, 'search'])->middleware('isLogin','switchLanguage');
+Route::get('/history', [HistoryController::class, 'index'])->middleware('switchLanguage');
+Route::get('/history/searchHistory', [HistoryController::class, 'search'])->middleware('isLogin','switchLanguage');
 
 Route::get('/hoadon/{hoadon}/pdf', [HoaDonController::class, 'pdf']);
 

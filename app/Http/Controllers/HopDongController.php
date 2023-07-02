@@ -27,7 +27,7 @@ class HopDongController extends Controller
             ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
             ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
             ->orderBy('HOPDONG_ID', 'asc')->get();
-        ;
+        // dd($hopdongs);
         return view('hopdong.index', [
             'hopdongs' => $hopdongs,
             'trangthaihopdongs' => $trangthaihopdongs,
@@ -100,6 +100,23 @@ class HopDongController extends Controller
         return substr($path, strlen('public/'));
     }
 
+    public function search(Request $request)
+    {
+        if($request->ajax()) {
+            $trangthaihopdongs = DB::select('select * from TRANGTHAI_HOPDONG');
+            $khachhangs = DB::select('select * from KHACHHANG where KHACHHANG_TRANGTHAI != 4');
+            $hopdongs = DB::table('hopdong')->join('LOAI_HOPDONG', 'HOPDONG.LOAIHOPDONG_ID', '=', 'LOAI_HOPDONG.LOAIHOPDONG_ID')
+            ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
+            ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
+            ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+            ->where('hopdong_so', 'LIKE', '%' . $request->search . '%')->paginate(10);
+        //$histories->appends($request->all());
+        // return response()->json([
+        //     'histories' => $histories,
+        // ]); 
+        return view('hopdong.hopdong_data', compact('trangthaihopdongs', 'khachhangs', 'hopdongs'))->render();
+        }
+    }
 
     public function store(Request $request)
     {

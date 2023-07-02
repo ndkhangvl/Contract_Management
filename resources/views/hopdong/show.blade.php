@@ -338,7 +338,7 @@
         <h1 style="color: blue;">Danh sách hóa đơn</h1>
         <hr>
 
-        <button type="button" class="btn btn-info btn-icon-only p-2 mb-2" aria-label="Sửa" data-bs-toggle="modal"
+        <button type="button" class="btn text-white btn-icon-only p-2 mb-2" style="background-color: #435EBE;" aria-label="Sửa" data-bs-toggle="modal"
             data-bs-target="#createModal">
             Thêm mới hóa đơn
         </button>
@@ -363,7 +363,7 @@
                     <td>{{ $hdd->HOADON_NGAYTAO }}</td>
                     <td>
                         <a href="/hoadon/{{ $hdd->HOADON_SO }}">
-                            <button type="button" class="btn btn-info">
+                            <button type="button" class="btn text-white" style="background-color: #435EBE;">
                                 Chi tiết
                             </button>
                         </a>

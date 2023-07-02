@@ -108,7 +108,7 @@
             </script>
 
             <a href="/khachhang/{{ $khachhang->KHACHHANG_ID }}/edit">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn text-white mb-2" style="background-color: #435EBE;">
                     Cập nhật Thông tin
                 </button>
             </a>

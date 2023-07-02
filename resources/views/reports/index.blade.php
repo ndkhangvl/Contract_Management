@@ -41,14 +41,14 @@
     .clear {
         clear: both;
     }
-    .btn {
+    /* .btn {
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         color: #fff;
         font-size: 16px;
-    }
+    } */
 
     .btn-primary {
         background-color: #007bff;
@@ -89,7 +89,7 @@
         font-size: 14px;
     }
 
-    button {
+    /* button {
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
@@ -97,15 +97,15 @@
         color: #fff;
         font-size: 16px;
         background-color: #007bff;
-    }
+    } */
 
     button:hover {
         background-color: #0056b3;
     }
-    .modal-body {
+    /* .modal-body {
         height: 200px;
         overflow-y: ;
-    }
+    } */
     .hovercard {
         transition: transform 0.3s;
     }

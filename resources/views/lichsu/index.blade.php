@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($histories)
+                        {{-- @if ($histories)
                             @foreach ($histories as $history)
                                 <tr>
                                     <td class="text-center align-middle">{{ $history->ten_nd }}</td>
@@ -43,51 +43,46 @@
                                     <td class="text-center align-middle">{{ $history->Time }}</td>
                                 </tr>
                             @endforeach
-                        @endif
+                        @endif --}}
+                        @include('lichsu.history_data')
                     </tbody>
                 </table>
+                <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                 {{-- @if (empty($request->search))
                     {{ $histories->links() }}
                 @endif --}}
             </div>
         </div>
         <script>
-            $('#searchHistory').on('keyup', function() {
-                $value = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/searchHistory',
-                    data: {
-                        'search': $value
-                    },
-                    success: function(response) {
-                        var html = '';
-                        $.each(response.histories, function(index, history) {
-                            html += '<tr>';
-                            html += '<td class="text-center align-middle">' + history.ten_nd +
-                                '</td>';
-                            html += '<td class="text-center align-middle">' + history.action +
-                                '</td>';
-                            html += '<td class="text-center align-middle">' + history.model_type +
-                                '</td>';
-                            html += '<td class="text-center align-middle">' + history.description +
-                                '</td>';
-                            html += '<td class="text-center align-middle">' + history.Time +
-                                '</td>';
-                            html += '</tr>';
-                        });
-                        $('#search-results tbody').html(html);
+            $(document).ready(function() {
+                function searchHistory(page, query) {
+                    $.ajax({
+                        // type: 'GET',
+                        url: 'history/searchHistory?page=' + page + '&search=' + query,
+                        success: function(histories) {
+                            $('tbody').html('');
+                            $('tbody').html(histories);
+                        }
+                    });
+                }
 
-                        // var pagination = '';
-                        // for (var i = 1; i <= response.histories.last_page; i++) {
-                        //     pagination += '<li class="page-item ' + (response.histories.current_page == i ?
-                        //             'active' : '') + '"><a class="page-link" href="?page=' + i + '">' + i +
-                        //         '</a></li>';
-                        // }
-                        // $('#pagination').html(pagination);
-                    }
+                $('#searchHistory').on('keyup', function() {
+                    var value = $('#searchHistory').val();
+                    var page = $('#hidden_page').val();
+                    searchHistory(page, value);
                 });
-            })
+
+                $(document).on('click', '.pagination a', function(event) {
+                    event.preventDefault();
+                    var page = $(this).attr('href').split('page=')[1];
+                    $('#hidden_page').val(page);
+
+                    var query = $('#searchHistory').val();
+                    $('li').removeClass('active');
+                    $(this).parent().addClass('active');
+                    searchHistory(page, query);
+                });
+            });
 
             window.addEventListener('DOMContentLoaded', (event) => {
                 var w = window.innerWidth;
