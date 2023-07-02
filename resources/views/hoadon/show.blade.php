@@ -348,7 +348,11 @@ td {
                             </tr>
                             <tr>
                                 <td class="info-td col-4">Khách hàng</td>
-                                <td class="info-td col-8 fw-bold">{{$hoadon->KHACHHANG_TEN}}</td>
+                                <td class="info-td col-8 fw-bold">
+                                    <a href="/khachhang/{{$hoadon->KHACHHANG_ID}}">
+                                    {{$hoadon->KHACHHANG_TEN}}
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="info-td col-4">Điện thoại</td>

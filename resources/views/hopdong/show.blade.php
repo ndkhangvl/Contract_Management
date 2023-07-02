@@ -244,7 +244,9 @@
                     <div class="row">
                         <div class="col subheading">
                             <span class="form-label fw-bold">Khách hàng:</span>
-                            {{ $hopdong->KHACHHANG_TEN }}
+                            <a href="/khachhang/{{$hopdong->KHACHHANG_ID}}">
+                                {{ $hopdong->KHACHHANG_TEN }}
+                            </a>
                             <hr>
                         </div>
                         <div class="col subheading">

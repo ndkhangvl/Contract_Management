@@ -415,7 +415,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="info-td col-4">Khách hàng</td>
-                                                <td class="info-td col-8 fw-bold" id="dtkhachhang"></td>
+                                                <td class="info-td col-8 fw-bold"><a id="dtkhachhang" href=""></td>
                                             </tr>
                                             <tr>
                                                 <td class="info-td col-4">Điện thoại</td>
@@ -997,6 +997,7 @@
                             filelink.attr('href', '{{ asset('storage/') }}' + "/" + hoadon
                                 .HOADON_FILE);
                             filelink.text(hoadon.HOADON_FILE);
+                            khachhang.attr('href','khachhang' + "/"+ hoadon.KHACHHANG_ID);
                             khachhang.text(hoadon.KHACHHANG_TEN);
                             dienthoai.text(hoadon.KHACHHANG_SDT);
                             diachi.text(hoadon.KHACHHANG_DIACHI);
