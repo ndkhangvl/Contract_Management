@@ -1,5 +1,6 @@
 {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<title>Chi tiết khách hàng</title>
 @include('header2')
 @include('sidebar')
 <style>
@@ -92,7 +93,8 @@
         </script>
 
         @foreach ($khachhang as $khachhang)
-            <form action="{{ route('idkhachhang.destroy', ['id' => $khachhang->KHACHHANG_ID]) }}" method="POST" id="xoaKH">
+            <form action="{{ route('idkhachhang.destroy', ['id' => $khachhang->KHACHHANG_ID]) }}" method="POST"
+                id="xoaKH">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">
@@ -189,12 +191,12 @@
                 </div>
             </div>
             {{-- Modal Add --}}
-            <div class="modal fade" id="hoadonModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                aria-labelledby="hoadonModalLabel" aria-hidden="true">
+            <div class="modal fade" id="hopdongModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                aria-labelledby="hopdongModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="hoadonModalLabel">Thêm hợp đồng</h5>
+                            <h5 class="modal-title" id="hopdongModalLabel">Thêm hợp đồng</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -222,7 +224,8 @@
                                     </div>
                                     {{-- <label style="display: none;" for="owner" class="form-label fw-bold">Khách hàng:</label> --}}
                                     <div style="display: none;">
-                                        <input type="text" class="form-control" name="khachhang_id" value="{{ $khachhang->KHACHHANG_ID }}">
+                                        <input type="text" class="form-control" name="khachhang_id"
+                                            value="{{ $khachhang->KHACHHANG_ID }}">
                                         {{-- <select id="tenKH" name="khachhang_id" style="width: 100%;"
                                             class="js-example-placeholder-single js-states form-control form-select form-select-sm">
                                             @foreach ($khachhangs as $khachhang)
@@ -359,8 +362,8 @@
         @endforeach
         <hr>
         <h1>Danh sách Hợp đồng</h1>
-        <button type="button" class="btn text-white" style="background-color: #435EBE;" data-bs-toggle="modal"
-            data-bs-target="#hoadonModal">
+        <button type="button" id="addHopDong" class="btn text-white" style="background-color: #435EBE;"
+            data-bs-toggle="modal" data-bs-target="#hopdongModal">
             <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
         </button>
         <hr>
@@ -391,70 +394,168 @@
     </div>
 </div>
 <script>
-$(document).ready(function() {
-    $('[id^="xoaKH"]').on('submit', function(e) {
-        e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
-
-        var form = $(this);
-
-        Swal.fire({
-            title: 'Xóa khách hàng {{$khachhang->KHACHHANG_TEN}}?',
-            text: "Bạn sẽ không thể khôi phục lại khách hàng này!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Xóa',
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Đang xử lý...',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    allowEnterKey: false,
-                    onBeforeOpen: () => {
-                        Swal.showLoading();
-                    },
-                    onClose: () => {
-                        Swal.hideLoading();
+    $(document).ready(function() {
+        $('#contractForm').on('submit', function(e) {
+            e.preventDefault();
+            $('#contractForm .textnumber').each(function() {
+                var value = $(this).val().replace(/\D/g, '');
+                $(this).val(value);
+            });
+            var formData = $(this).serialize();
+            var form = $('#contractForm')[0];
+            // Create an FormData object 
+            var data = new FormData(form);
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: data,
+                enctype: 'multipart/form-data',
+                processData: false, // Important!
+                contentType: false,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            Swal.hideLoading();
+                        }
+                    });
+                },
+                success: function(success) {
+                    Swal.close();
+                    if (success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã thêm mới!',
+                            text: 'Hợp đồng mới đã được tạo'
+                        }).then(() => {
+                            $('#contractForm input').val('');
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Không thể thêm hợp đồng!',
+                            text: 'Hợp đồng không thể thêm mới, vui lòng kiểm tra lại thông tin'
+                        });
                     }
-                });
-                // Gửi yêu cầu xóa bằng AJAX
-                $.ajax({
-                    url: form.attr('action'), // Sử dụng action của form làm URL
-                    type: 'DELETE',
-                    data: form.serialize(),
-                    success: function(success) {
-                        if(success){
-                            Swal.fire(
-                                'Đã xóa!',
-                                'Khách hàng {{$khachhang->KHACHHANG_TEN}} đã được xóa',
-                                'success'
-                            ).then(() => {
-                                window.location.href =
-                                    '/khachhang'; // Chuyển hướng về trang /
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
+                    });
+                    if (xhr.status === 422) {
+                        $('.invalid-feedback').empty();
+                        var response = JSON.parse(xhr.responseText);
+                        var errors = response.errors;
+                        // console.log(response);
+                        // console.log(errors);
+                        // console.log($('#khachhang_diachi_error'));
+                        // if (errors.hasOwnProperty('khachhang_diachi')) {
+                        //     var errorMessage = errors['khachhang_diachi'][0];
+                        //     console.log(errorMessage);
+                        //     $('#khachhang_diachi_error').text(errorMessage).show();
+                        // }
+                        for (var field in errors) {
+                            if (errors.hasOwnProperty(field)) {
+                                var errorMessage = errors[field][0];
+                                $('#' + field + '_error').text(errorMessage).show();
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    });
 
-                            });
-                        } else {
+    $('#hopdongModal').on('show.bs.modal', function(e) {
+        var button = e.relatedTarget;
+        var trangThaiTen = "<?php echo $khachhang->TRANGTHAI_TEN; ?>";
+
+        if (trangThaiTen !== "Đang hoạt động") {
+            e.preventDefault();
+            e.stopPropagation();
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Bạn không thể thêm hợp đồng khi trạng thái khác "Đang hoạt động"'
+            });
+        }
+    });
+
+    $(document).ready(function() {
+        $('[id^="xoaKH"]').on('submit', function(e) {
+            e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+
+            var form = $(this);
+
+            Swal.fire({
+                title: 'Xóa khách hàng {{ $khachhang->KHACHHANG_TEN }}?',
+                text: "Bạn sẽ không thể khôi phục lại khách hàng này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            Swal.hideLoading();
+                        }
+                    });
+                    // Gửi yêu cầu xóa bằng AJAX
+                    $.ajax({
+                        url: form.attr('action'), // Sử dụng action của form làm URL
+                        type: 'DELETE',
+                        data: form.serialize(),
+                        success: function(success) {
+                            if (success) {
+                                Swal.fire(
+                                    'Đã xóa!',
+                                    'Khách hàng {{ $khachhang->KHACHHANG_TEN }} đã được xóa',
+                                    'success'
+                                ).then(() => {
+                                    window.location.href =
+                                        '/khachhang'; // Chuyển hướng về trang /
+
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Không thể xóa!',
+                                    'Khách hàng {{ $khachhang->KHACHHANG_TEN }} không thể xóa. Vì có họp đồng',
+                                    'error'
+                                );
+                            }
+
+                        },
+                        error: function(xhr) {
                             Swal.fire(
-                                'Không thể xóa!',
-                                'Khách hàng {{$khachhang->KHACHHANG_TEN}} không thể xóa. Vì có họp đồng',
+                                'Lỗi!',
+                                'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau',
                                 'error'
                             );
                         }
-                        
-                    },
-                    error: function(xhr) {
-                        Swal.fire(
-                            'Lỗi!',
-                            'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau',
-                            'error'
-                        );
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     });
-});
 </script>

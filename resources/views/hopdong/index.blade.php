@@ -41,6 +41,15 @@
             max-width: 100%;
         }
 
+        .select2-results__option {
+            font-weight: normal !important;
+            font-size: 15px;
+        }
+
+        .select2-search--dropdown .select2-search__field {
+            font-size: 15px;
+        }
+
         /* .select2-dropdown {
       max-width: 100%;
       overflow: auto;
@@ -107,6 +116,21 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#tenKH').select2({
+                                                placeholder: "Chọn tên khách hàng",
+                                                dropdownParent: $("#hoadonModalLabel"),
+                                                matcher: matchCustom,
+                                                allowClear: true,
+                                                language: {
+                                                    noResults: function() {
+                                                        return "Không tìm thấy kết quả";
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    </script>
                                     <div class="row mb-3 mt-3">
                                         <div class="col">
                                             <label for="ngaysinh" class="form-label fw-bold">Ngày ký:</label>
@@ -143,8 +167,8 @@
                                     <div class="row mb-3 mt-3">
                                         <div class="col">
                                             <label for="tenkhang" class="form-label fw-bold">Tên gói thầu:</label>
-                                            <input type="text" class="form-control" placeholder="Nhập tên gói thầu"
-                                                name="hopdong_tengoithau">
+                                            <input type="text" class="form-control"
+                                                placeholder="Nhập tên gói thầu" name="hopdong_tengoithau">
                                             <span class="invalid-feedback" id="hopdong_tengoithau_error"></span>
                                         </div>
                                         <div class="col">
@@ -618,6 +642,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/select2_all.js') }}"></script>
     <script>
         function formatNumber(number) {
             return numeral(number).format('0,0').replace(/,/g, '.');

@@ -21,7 +21,7 @@ class HopDongController extends Controller
     public function index()
     {
         $trangthaihopdongs = DB::select('select * from TRANGTHAI_HOPDONG');
-        $khachhangs = DB::select('select * from KHACHHANG');
+        $khachhangs = DB::select('select * from KHACHHANG where KHACHHANG_TRANGTHAI != 4');
         $hopdongs = DB::table('HOPDONG')->join('LOAI_HOPDONG', 'HOPDONG.LOAIHOPDONG_ID', '=', 'LOAI_HOPDONG.LOAIHOPDONG_ID')
             ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
             ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
