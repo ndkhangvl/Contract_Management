@@ -24,11 +24,18 @@ class HopDongController extends Controller
     {
         $trangthaihopdongs = DB::select('select * from TRANGTHAI_HOPDONG');
         $khachhangs = DB::select('select * from KHACHHANG where KHACHHANG_TRANGTHAI != 4');
-        $hopdongs = DB::table('HOPDONG')->join('LOAI_HOPDONG', 'HOPDONG.LOAIHOPDONG_ID', '=', 'LOAI_HOPDONG.LOAIHOPDONG_ID')
+        $hopdongs = DB::table('HOPDONG')
+            ->join('LOAI_HOPDONG', 'HOPDONG.LOAIHOPDONG_ID', '=', 'LOAI_HOPDONG.LOAIHOPDONG_ID')
             ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
             ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
             ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-            ->orderBy('HOPDONG_ID', 'asc')->get();
+            ->orderBy('HOPDONG_ID', 'asc')
+            ->select('HOPDONG.*','TAIKHOAN.ten_nd')
+            ->distinct()
+            ->paginate(5);
+        // $hopdongs = DB::select('select HOPDONG.* from HOPDONG join LOAI_HOPDONG on hopdong.LOAIHOPDONG_ID = LOAI_HOPDONG.LOAIHOPDONG_ID join taikhoan on hopdong.HOPDONG_NGUOILAP = TAIKHOAN.nguoidung_id
+        // join KHACHHANG on HOPDONG.KHACHHANG_ID = KHACHHANG.KHACHHANG_ID join TRANGTHAI_HOPDONG on HOPDONG.HOPDONG_TRANGTHAI = TRANGTHAI_HOPDONG.TRANGTHAI_ID
+        // order by HOPDONG_ID asc;')->paginate(5);
         // dd($hopdongs);
         return view('hopdong.index', [
             'hopdongs' => $hopdongs,
@@ -121,7 +128,11 @@ class HopDongController extends Controller
             ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
             ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
             ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-            ->where('hopdong_so', 'LIKE', '%' . $request->search . '%')->paginate(10);
+            ->where('hopdong_so', 'LIKE', '%' . $request->search . '%')
+            ->orderBy('HOPDONG_ID', 'asc')
+            ->select('HOPDONG.*','TAIKHOAN.ten_nd')
+            ->distinct()
+            ->paginate(5);
         //$histories->appends($request->all());
         // return response()->json([
         //     'histories' => $histories,

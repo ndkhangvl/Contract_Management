@@ -265,6 +265,13 @@
                                 {{ $khachhang->TRANGTHAI_TEN }}</td> --}}
     </tr>
 @endforeach
+<tr class="bg-white">
+    <td class="align-middle" colspan="8">
+        <div class="d-flex justify-content-center">
+            {{ $hopdongs->links() }}
+        </div>
+    </td>
+</tr>
 <script>
     $(document).ready(function() {
         $('[id^="deleteForm"]').on('submit', function(e) {
