@@ -11,6 +11,8 @@ use App\Models\HopDong;
 use Carbon\Carbon;
 use App\Models\History;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Pagination\LengthAwarePaginator;
+use PgSql\Result;
 
 //use App\Http\Requests\CreateValidationRequest;
 
@@ -18,13 +20,39 @@ class KhachHangController extends Controller
 {
     
     public function index() {
+        $perPage = 10;
+        $currentPage = request()->get('page', 1);
+        $keyfind ='';
+
         $loaikhachhang = LoaiKhachHang::orderBy('LOAIKHACHHANG_TEN', 'asc')->get();
-        $khachhangs = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
+        $results = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
         join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID;");
+
+        if($keyfind = request() -> key_find_KH){
+            $results = DB::select("select * from KHACHHANG join LOAI_KHACHHANG on KHACHHANG.LOAIKHACHHANG_ID=LOAI_KHACHHANG.LOAIKHACHHANG_ID
+            join TRANGTHAI_KHACHHANG on KHACHHANG.KHACHHANG_TRANGTHAI=TRANGTHAI_KHACHHANG.TRANGTHAI_ID
+            where KHACHHANG_SDT like '%'+'$keyfind'+'%' or KHACHHANG_CMND like '%'+'$keyfind'+'%' or KHACHHANG_EMAIL like '%'+'$keyfind'+'%'");
+        }
+        
+        $total = count($results);
+        $offset = ($currentPage - 1) * $perPage;
+        $results = array_slice($results, $offset, $perPage);
+        $khachhangs = new LengthAwarePaginator(
+            $results,
+            $total,
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+
         return view('khachhang.index', [
             'khachhangs' => $khachhangs,
             'loaikhachhang' => $loaikhachhang,
         ]); 
+
     }
 
     public function show($id) {

@@ -14,6 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <style>
+        .pagination {
+        justify-content: center;
+         }
         table,
         th,
         td {
@@ -68,20 +71,18 @@
                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
                     </button>
+                </div>  
+                <div class="mb-3 ms-2">
+                    <form>
+                        <div class="content">
+                            <label>Nhập thông tin cần tìm: </label>
+                            <input class="" name="key_find_KH" id="key_find_KH" placeholder="Số điện thoại, email, CMND/CCCD"
+                                value="{{ request()->input('key_find_KH') }}">
+                            <button style="margin-bottom: 5px" type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            {{-- }@if (session('success'))
-                <div id="success-alert" class="alert alert-success">
-                    {{ session('success') }}
-                    <button type="button" class="close" onclick="closeAlert()">&times;</button>
-                </div>
-            @endif
-
-            <script>
-                function closeAlert() {
-                    document.getElementById('success-alert').style.display = 'none';
-                }
-            </script>--}}
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -95,14 +96,6 @@
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <form action="/khachhang" method="POST" id="cusForm">
-                                    {{-- @if ($errors->any())
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-                    @endif --}}
                                     @csrf
                                     <label for="owner" class="form-label fw-bold">Loại KH:</label>
                                     <div>
@@ -278,19 +271,10 @@
                                 </form>
                             </div>
                         </div>
-                        {{-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" onclick="getData()" class="btn btn-success btn-block mb-3 mt-3"><i class="fas fa-plus me-2"></i>Thêm mới</button>
-            <button type="reset" class="btn btn-secondary btn-block mb-3 mt-3"><i class="fas fa-redo me-2"></i>Soạn lại</button>
-        </div> --}}
                     </div>
                 </div>
             </div>
-            {{-- <a href="/khachhang/create">
-    <button  type="button" class="btn btn-primary">
-        Thêm mới
-    </button>
-</a> --}}
+
 
             <hr />
             <div class="table-responsive">
@@ -328,7 +312,10 @@
                                 {{ $khachhang->TRANGTHAI_TEN }}</td>
                         </tr>
                     @endforeach
-                </table>
+                </table> 
+            </div>
+            <div>
+                {{ $khachhangs->appends(request()->all())->links() }}
             </div>
         </div>
         {{-- @include('footer') --}}

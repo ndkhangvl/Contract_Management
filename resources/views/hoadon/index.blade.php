@@ -88,7 +88,7 @@
                 đơn</button>
             <a href="/ExportHoaDon">
                 <button type="button" class="btn btn-info">
-                    Tải về Excel
+                    Dowload tất cả hóa đơn (Excel)
                 </button>
             </a>
             <div id="errorsohopdong"></div>

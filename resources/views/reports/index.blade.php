@@ -288,7 +288,7 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <b><h3>Danh sách hợp đồng</h3></b>
+                    <b><h3>Hợp đồng mới tạo</h3></b>
                 </div>
                 <div class="modal-body" style="height: 500px; overflow-y: auto;">
                     @foreach ($ThongtinHD as $hopDong)
@@ -315,7 +315,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">Danh sách hợp đồng</h3>
+                        <h3 class="modal-title">Hợp đồng nghiệm thu</h3>
                     </div>
                     <div class="modal-body" style="height: 500px; overflow-y: auto;">
                         @foreach ($ThongtinHD as $hopDong)
@@ -342,7 +342,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title">Danh sách hợp đồng</h3>
+                            <h3 class="modal-title">Hợp đồng xuất hóa đơn</h3>
                         </div>
                         <div class="modal-body" style="height: 500px; overflow-y: auto;">
                             @foreach ($ThongtinHD as $hopDong)
@@ -369,7 +369,7 @@
                         <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content">
                             <div class="modal-header">
-                                <h3 class="modal-title">Danh sách hợp đồng</h3>
+                                <h3 class="modal-title">Hợp đồng thanh lý</h3>
                             </div>
                             <div class="modal-body" style="height: 500px; overflow-y: auto;">
                                 @foreach ($ThongtinHD as $hopDong)
@@ -396,7 +396,7 @@
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                    <h3 class="modal-title">Danh sách hợp đồng</h3>
+                                    <h3 class="modal-title">Tổng các hợp đồng</h3>
                                 </div>
                                 <div class="modal-body" style="height: 500px; overflow-y: auto;">
                                     @foreach ($ThongtinHD as $hopDong)
