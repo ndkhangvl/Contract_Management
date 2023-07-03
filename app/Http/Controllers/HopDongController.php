@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Models\LoaiHopDong;
@@ -99,7 +101,17 @@ class HopDongController extends Controller
         $path = $request->file('filehopdong')->storeAs('public/HopDong', $fileName);
         return substr($path, strlen('public/'));
     }
-
+    protected function deleteImage(Request $request) {
+        $sohoadon = $request->get('hopdong_so');
+        $files = Storage::files('public/HopDong');
+    
+        foreach ($files as $file) {
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            if ($filename == $sohoadon) {
+                Storage::delete($file);
+            }
+        }
+    }
     public function search(Request $request)
     {
         if($request->ajax()) {
@@ -214,6 +226,10 @@ class HopDongController extends Controller
         $message = $results[0]->message;
 
         if ($message === 'Deleted') {
+            $request2 = new Request(['hopdong_so' => $hopdong->HOPDONG_SO]);
+            if ($request2) {
+                $this->deleteImage($request2);
+            }
             $history = new History;
             $history->ten_nd = Session::get('infoUser.ten_nd');
             $history->action = 'Xóa';
@@ -321,6 +337,10 @@ class HopDongController extends Controller
             );
         } else if ($request->fileadd_yes_no == "1") {
             $fileUrl = "";
+            $request2 = new Request(['hopdong_so' => $request->hopdong_so]);
+            if ($request2) {
+                $this->deleteImage($request2);
+            }
             if ($request->file('filehopdong')) {
                 $imageUrl = $this->storeImage($request);
                 $fileUrl = $imageUrl;

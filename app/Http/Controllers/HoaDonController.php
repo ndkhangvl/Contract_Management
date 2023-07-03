@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Models\ChiTietHoaDon;
 use App\Models\HoaDon;
@@ -82,8 +84,18 @@ class HoaDonController extends Controller
         $fileName = $request->get('sohoadon') . '.' . $request->file('filehoadon')->extension();        
         $path = $request->file('filehoadon')->storeAs('public/HoaDon', $fileName);
         return substr($path, strlen('public/'));
-      }
-
+    }
+    protected function deleteImage(Request $request) {
+        $sohoadon = $request->get('sohoadon');
+        $files = Storage::files('public/HoaDon');
+    
+        foreach ($files as $file) {
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            if ($filename == $sohoadon) {
+                Storage::delete($file);
+            }
+        }
+    }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -296,6 +308,10 @@ class HoaDonController extends Controller
         //$request->validated();
         
         $fileUrl = "";
+        $request2 = new Request(['sohoadon' => $request->sohoadon]);
+        if ($request2) {
+            $this->deleteImage($request2);
+        }
         if ($request->file('filehoadon')){
             $imageUrl = $this->storeImage($request);
             $fileUrl = $imageUrl;
@@ -361,6 +377,8 @@ class HoaDonController extends Controller
     public function destroy($id)
     {
         $hoadon = HoaDon::find($id);
+        $request2 = new Request(['sohoadon' => $hoadon->HOADON_SO]);
+        $this->deleteImage($request2);
         DB::update('exec deleteHoaDon ?', [$id]);
         $history = new History;
         $history->ten_nd = Session::get('infoUser.ten_nd');
@@ -556,6 +574,10 @@ class HoaDonController extends Controller
         }
         else if ($request->fileadd_yes_no == "1") {
             $fileUrl = "";
+            $request2 = new Request(['sohoadon' => $request->sohoadon]);
+            if ($request2) {
+                $this->deleteImage($request2);
+            }
             if ($request->file('filehoadon')) {
                 $imageUrl = $this->storeImage($request);
                 $fileUrl = $imageUrl;
