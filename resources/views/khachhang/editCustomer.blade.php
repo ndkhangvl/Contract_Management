@@ -259,8 +259,9 @@ function getData() {
                                 text: 'Khách hàng {{$khhang->KHACHHANG_TEN}} đã được cập nhật'
                             }).then(() => {
                                 $('#hoaDonForm input').val('');
-                                history.go(-1);
-                                // location.reload();
+                                //history.go(-1);
+                                //location.reload();
+                                window.location.replace('/khachhang/{{$khhang->KHACHHANG_ID}}');
                             });
                         } else {
                             Swal.fire({

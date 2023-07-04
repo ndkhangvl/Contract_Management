@@ -107,7 +107,7 @@
                 }
             </script>
 
-            <a href="/khachhang/{{ $khachhang->KHACHHANG_ID }}/edit">
+            <a href="/khachhang/{{ $khachhang->KHACHHANG_ID }}/edit" onclick="moveToNewPage(event)">
                 <button type="button" class="btn text-white mb-2" style="background-color: #435EBE;">
                     Cập nhật Thông tin
                 </button>
@@ -533,9 +533,7 @@
                                     'Khách hàng {{ $khachhang->KHACHHANG_TEN }} đã được xóa',
                                     'success'
                                 ).then(() => {
-                                    window.location.href =
-                                        '/khachhang'; // Chuyển hướng về trang /
-
+                                    window.location.replace('/khachhang');
                                 });
                             } else {
                                 Swal.fire(
@@ -558,4 +556,11 @@
             });
         });
     });
+</script>
+<script>
+    function moveToNewPage(event) {
+        event.preventDefault();
+        const newPageURL = event.target.getAttribute('href');
+        window.location.replace('/khachhang/{{$khachhang->KHACHHANG_ID}}/edit');
+    }
 </script>
