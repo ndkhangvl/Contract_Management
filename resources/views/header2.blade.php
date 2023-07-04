@@ -176,6 +176,7 @@
     </div>
 </header>
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     function changeLanguage(culture) {
         var jsondata = {
@@ -217,14 +218,30 @@
                 processData: false, // Important!
                 contentType: false,
                 success: function(success) {
+                    Swal.close();
                     if (success) {
-                        alert('Đổi mật khẩu thành công');
-                        location.reload();
-                    } else {
-                        alert('Thất bại');
-                    }
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thay đổi mật khẩu!',
+                                text: 'Đổi mật khẩu thành công'
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Thay đổi mật khẩu!',
+                                text: 'Đã xảy ra lỗi, không thể đổi mật khẩu'
+                            });
+                        }
                 },
                 error: function(xhr) {
+                    Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Có lỗi xảy ra trong quá trình xử lý, vui lòng thực hiện lại sau'
+                        });
                     if (xhr.status === 422) {
                         $('.invalid-feedback').empty();
                         var response = JSON.parse(xhr.responseText);
@@ -252,19 +269,19 @@
         }
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var closeButton = document.querySelector('#infoModal .modal-footer button[data-dismiss="modal"]');
-        closeButton.addEventListener('click', function() {
-            var body = document.getElementsByTagName('body')[0];
-            body.classList.remove('modal-open');
-            var modalBackdrop = document.getElementsByClassName('modal-backdrop');
-            while (modalBackdrop[0]) {
-                modalBackdrop[0].parentNode.removeChild(modalBackdrop[0]);
-            }
-            var infoModal = document.getElementById('infoModal');
-            var infoModalInstance = bootstrap.Modal.getInstance(infoModal);
-            infoModalInstance.hide();
-        });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     var closeButton = document.querySelector('#infoModal .modal-footer button[data-dismiss="modal"]');
+    //     closeButton.addEventListener('click', function() {
+    //         var body = document.getElementsByTagName('body')[0];
+    //         body.classList.remove('modal-open');
+    //         var modalBackdrop = document.getElementsByClassName('modal-backdrop');
+    //         while (modalBackdrop[0]) {
+    //             modalBackdrop[0].parentNode.removeChild(modalBackdrop[0]);
+    //         }
+    //         var infoModal = document.getElementById('infoModal');
+    //         var infoModalInstance = bootstrap.Modal.getInstance(infoModal);
+    //         infoModalInstance.hide();
+    //     });
 
-    });
+    // });
 </script>

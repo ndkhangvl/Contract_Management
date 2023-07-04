@@ -79,7 +79,7 @@
             </div>
 
             <!-- Modal 1 -->
-            <div class="modal fade" id="hoadonModal" data-bs-backdrop="static" data-bs-keyboard="false"
+            <div class="modal fade" id="hoadonModal" data-bs-keyboard="false"
                 aria-labelledby="hoadonModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                     <div class="modal-content">
@@ -273,7 +273,7 @@
 
             <hr />
 
-            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -386,7 +386,7 @@
             $(document).on('click', '.pagination a', function(event) {
                 event.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                $('#hidden_page').val(page);
+                //$('#hidden_page').val(page);
 
                 var query = $('#searchHopDong').val();
                 $('li').removeClass('active');

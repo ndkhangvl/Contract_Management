@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +15,42 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <style>
+        .customActive {
+            opacity: 1;
+            color: #046c4e;
+            line-height: 1.25;
+            border-radius: 9999px;
+            background-color: #def7ec;
+        }
+
+        .customLock {
+            opacity: 1;
+            color: #c81e1e;
+            line-height: 1.25;
+            border-radius: 9999px;
+            background-color: #fde8e8;
+        }
+
+        .customNotActive {
+            opacity: 1;
+            color: #24262d;
+            line-height: 1.25;
+            border-radius: 9999px;
+            background-color: #feecdc;
+        }
+
+        .customDel {
+            opacity: 1;
+            color: #24262d;
+            line-height: 1.25;
+            border-radius: 9999px;
+            background-color: #f4f5f7;
+        }
+
         .pagination {
-        justify-content: center;
-         }
+            justify-content: center;
+        }
+
         table,
         th,
         td {
@@ -71,14 +105,16 @@
                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
                     </button>
-                </div>  
+                </div>
                 <div class="mb-3 ms-2">
                     <form>
                         <div class="content">
                             <label>Nhập thông tin cần tìm: </label>
-                            <input class="" name="key_find_KH" id="key_find_KH" placeholder="Số điện thoại, email, CMND/CCCD"
+                            <input class="" name="key_find_KH" id="key_find_KH"
+                                placeholder="Số điện thoại, email, CMND/CCCD"
                                 value="{{ request()->input('key_find_KH') }}">
-                            <button style="margin-bottom: 5px" type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                            <button style="margin-bottom: 5px" type="submit" class="btn btn-primary"><i
+                                    class="fas fa-search"></i></button>
                         </div>
                     </form>
                 </div>
@@ -126,8 +162,8 @@
                                     </script>
                                     <div class="mb-3 mt-3">
                                         <label for="owner" class="form-label fw-bold">Chủ sỡ hữu:</label>
-                                        <input type="text" class="form-control"
-                                            placeholder="Nhập vào chủ sỡ hữu" name="khachhang_chusohuu">
+                                        <input type="text" class="form-control" placeholder="Nhập vào chủ sỡ hữu"
+                                            name="khachhang_chusohuu">
                                         <span class="invalid-feedback" id="khachhang_chusohuu_error"></span>
                                     </div>
                                     <div class="row mb-3 mt-3">
@@ -208,46 +244,45 @@
                                                 <script>
                                                     var inputs = document.getElementsByClassName('otp-input');
                                                     for (var i = 0; i < inputs.length; i++) {
-                                                    inputs[i].addEventListener('input', function(event) {
-                                                        var maxLength = parseInt(this.getAttribute('maxlength'));
-                                                        var currentLength = this.value.length;
+                                                        inputs[i].addEventListener('input', function(event) {
+                                                            var maxLength = parseInt(this.getAttribute('maxlength'));
+                                                            var currentLength = this.value.length;
 
-                                                        if (currentLength >= maxLength) {
-                                                        var nextInput = this.nextElementSibling;
-                                                        if (nextInput !== null) {
-                                                            nextInput.focus();
-                                                        }
-                                                        }
-                                                    });
+                                                            if (currentLength >= maxLength) {
+                                                                var nextInput = this.nextElementSibling;
+                                                                if (nextInput !== null) {
+                                                                    nextInput.focus();
+                                                                }
+                                                            }
+                                                        });
 
-                                                    inputs[i].addEventListener('keydown', function(event) {
-                                                        if (event.key === 'Backspace') {
-                                                        var previousInput = this.previousElementSibling;
-                                                        if (previousInput !== null && this.value.length === 0) {
-                                                            event.preventDefault();
-                                                            previousInput.focus();
-                                                            previousInput.value = '';
-                                                        }
-                                                        }
+                                                        inputs[i].addEventListener('keydown', function(event) {
+                                                            if (event.key === 'Backspace') {
+                                                                var previousInput = this.previousElementSibling;
+                                                                if (previousInput !== null && this.value.length === 0) {
+                                                                    event.preventDefault();
+                                                                    previousInput.focus();
+                                                                    previousInput.value = '';
+                                                                }
+                                                            }
 
-                                                        if (event.key === 'ArrowLeft') {
-                                                        var previousInput = this.previousElementSibling;
-                                                        if (previousInput !== null) {
-                                                            event.preventDefault();
-                                                            previousInput.focus();
-                                                        }
-                                                        }
+                                                            if (event.key === 'ArrowLeft') {
+                                                                var previousInput = this.previousElementSibling;
+                                                                if (previousInput !== null) {
+                                                                    event.preventDefault();
+                                                                    previousInput.focus();
+                                                                }
+                                                            }
 
-                                                        if (event.key === 'ArrowRight') {
-                                                        var nextInput = this.nextElementSibling;
-                                                        if (nextInput !== null) {
-                                                            event.preventDefault();
-                                                            nextInput.focus();
-                                                        }
-                                                        }
-                                                    });
+                                                            if (event.key === 'ArrowRight') {
+                                                                var nextInput = this.nextElementSibling;
+                                                                if (nextInput !== null) {
+                                                                    event.preventDefault();
+                                                                    nextInput.focus();
+                                                                }
+                                                            }
+                                                        });
                                                     }
-
                                                 </script>
                                             </div>
                                         </div>
@@ -296,8 +331,10 @@
                             <td class="text-center align-middle w-auto">{{ $khachhang->KHACHHANG_ID }}</td>
                             <td class="align-middle text-truncate" style="max-width: 200px;">
                                 {{ $khachhang->LOAIKHACHHANG_TEN }}</td>
-                            <td class="w-auto text-truncate" style="max-width: 200px;">{{ $khachhang->KHACHHANG_TEN }}</td>
-                            <td class="w-auto text-truncate" style="max-width: 100px;">{{ $khachhang->KHACHHANG_DIACHI }}</td>
+                            <td class="w-auto text-truncate" style="max-width: 200px;">{{ $khachhang->KHACHHANG_TEN }}
+                            </td>
+                            <td class="w-auto text-truncate" style="max-width: 100px;">
+                                {{ $khachhang->KHACHHANG_DIACHI }}</td>
                             <td class="w-auto">{{ $khachhang->KHACHHANG_SDT }}</td>
                             {{-- <td class="w-auto">{{ $khachhang->KHACHHANG_EMAIL }}</td> --}}
                             <td class="text-center w-auto">
@@ -307,14 +344,18 @@
                                     </button>
                                 </a>
                             </td>
-                            <td
-                                class="@if ($khachhang->TRANGTHAI_TEN == 'Đang hoạt động') text-success @elseif($khachhang->TRANGTHAI_TEN == 'Bị khóa') text-danger @elseif($khachhang->TRANGTHAI_TEN == 'Tạm ngưng hoạt động') text-warning @elseif($khachhang->TRANGTHAI_TEN == 'Đã giải thể') text-gray-500 @endif fw-bold text-nowrap text-center w-auto">
-                                {{ $khachhang->TRANGTHAI_TEN }}</td>
+                            <td class="px-4 py-3 text-xs d-flex justify-content-center"><span
+                                    class="@if ($khachhang->TRANGTHAI_TEN == 'Đang hoạt động') customActive
+                                            @elseif($khachhang->TRANGTHAI_TEN == 'Bị khóa') customLock
+                                            @elseif($khachhang->TRANGTHAI_TEN == 'Tạm ngưng hoạt động') customNotActive
+                                            @elseif($khachhang->TRANGTHAI_TEN == 'Đã giải thể') customDel
+                                            @endif px-2 py-1 fw-bold" style="font-size: .75rem;">{{ $khachhang->TRANGTHAI_TEN }}</span>
+                            </td>
                         </tr>
                     @endforeach
-                </table> 
+                </table>
             </div>
-            <div>
+            <div class="p-2">
                 {{ $khachhangs->appends(request()->all())->links() }}
             </div>
         </div>
@@ -331,20 +372,20 @@
                     url: $(this).attr('action'),
                     type: 'POST',
                     data: formData,
-                   
+
                     beforeSend: function() {
-                    Swal.fire({
-                        title: 'Đang xử lý...',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        allowEnterKey: false,
-                        onBeforeOpen: () => {
-                            Swal.showLoading();
-                        },
-                        onClose: () => {
-                            Swal.hideLoading();
-                        }
-                    });
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            onBeforeOpen: () => {
+                                Swal.showLoading();
+                            },
+                            onClose: () => {
+                                Swal.hideLoading();
+                            }
+                        });
                     },
                     success: function(success) {
                         Swal.close();
@@ -384,7 +425,7 @@
                                 }
                             }
                         }
-                        }
+                    }
                 });
             });
         });
@@ -486,6 +527,7 @@
 
         })
     </script>
-@include('footer')
+    @include('footer')
 </body>
+
 </html>

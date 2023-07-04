@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="{{ asset('js/change_currency.js') }}"></script>
+<title>Chi tiết hợp đồng</title>
 @include('header2')
 @include('sidebar')
 
@@ -32,10 +33,10 @@
         border-bottom: 1px solid #ddd;
     }
 
-    .container {
+    /* .container {
         padding: 20px;
         margin-top: 20px;
-    }
+    } */
 
     h1 {
         font-size: 24px;
@@ -84,6 +85,15 @@
 </style>
 <div id="main">
     <div class="container bg-white shadow">
+        <button type="button" class="btn text-white btn-icon-only p-2 m-2" style="background-color: #435EBE;"
+            onclick="goBack()">
+            Trở về trang trước
+        </button>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
         <hr>
         <!--Modal create-->
         <div class="modal fade" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -244,7 +254,7 @@
                     <div class="row">
                         <div class="col subheading">
                             <span class="form-label fw-bold">Khách hàng:</span>
-                            <a href="/khachhang/{{$hopdong->KHACHHANG_ID}}">
+                            <a href="/khachhang/{{ $hopdong->KHACHHANG_ID }}">
                                 {{ $hopdong->KHACHHANG_TEN }}
                             </a>
                             <hr>
@@ -258,12 +268,12 @@
                     <div class="row">
                         <div class="col subheading">
                             <span class="form-label fw-bold">Ngày hiệu lực:</span>
-                            {{ $hopdong->HOPDONG_NGAYHIEULUC }}
+                            {{ date('d-m-Y', strtotime($hopdong->HOPDONG_NGAYHIEULUC)) }}
                             <hr>
                         </div>
                         <div class="col subheading">
                             <span class="form-label fw-bold">Ngày kết thúc:</span>
-                            {{ $hopdong->HOPDONG_NGAYKETTHUC }}
+                            {{ date('d-m-Y', strtotime($hopdong->HOPDONG_NGAYKETTHUC)) }}
                             <hr>
                         </div>
                     </div>
@@ -274,7 +284,7 @@
                             <hr>
                         </div>
                         <div class="col subheading">
-                            <span class="form-label fw-bold textnumber" >Tổng giá trị:</span>
+                            <span class="form-label fw-bold textnumber">Tổng giá trị:</span>
                             <span data-format="number">{{ $hopdong->HOPDONG_TONGGIATRI }}</span> VNĐ
                             <hr>
                         </div>
@@ -338,8 +348,8 @@
         <h1 style="color: blue;">Danh sách hóa đơn</h1>
         <hr>
 
-        <button type="button" class="btn text-white btn-icon-only p-2 mb-2" style="background-color: #435EBE;" aria-label="Sửa" data-bs-toggle="modal"
-            data-bs-target="#createModal">
+        <button type="button" class="btn text-white btn-icon-only p-2 mb-2" style="background-color: #435EBE;"
+            aria-label="Sửa" data-bs-toggle="modal" data-bs-target="#createModal">
             Thêm mới hóa đơn
         </button>
 
@@ -360,7 +370,7 @@
                         <td>Chưa thanh toán</td>
                     @endif
                     <td><span data-format="number">{{ $hdd->HOADON_TONGTIEN_COTHUE }}</span> VNĐ</td>
-                    <td>{{ $hdd->HOADON_NGAYTAO }}</td>
+                    <td>{{ date('d-m-Y', strtotime($hdd->HOADON_NGAYTAO)) }}</td>
                     <td>
                         <a href="/hoadon/{{ $hdd->HOADON_SO }}">
                             <button type="button" class="btn text-white" style="background-color: #435EBE;">
@@ -391,12 +401,12 @@
     };
 
     function formatSpanElements() {
-      var spans = document.querySelectorAll('span[data-format="number"]');
-      spans.forEach(function(span) {
-        var value = span.textContent.trim().replace(/\D/g, '');
-        var formattedValue = formatNumber(value);
-        span.textContent = formattedValue;
-      });
+        var spans = document.querySelectorAll('span[data-format="number"]');
+        spans.forEach(function(span) {
+            var value = span.textContent.trim().replace(/\D/g, '');
+            var formattedValue = formatNumber(value);
+            span.textContent = formattedValue;
+        });
     }
 
     window.addEventListener('DOMContentLoaded', function() {

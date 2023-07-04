@@ -30,9 +30,12 @@ class HopDongController extends Controller
             ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
             ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
             ->orderBy('HOPDONG_ID', 'asc')
-            ->select('HOPDONG.*','TAIKHOAN.ten_nd')
+            ->select('HOPDONG.*', 'TAIKHOAN.ten_nd')
             ->distinct()
             ->paginate(5);
+        for ($i = 0; $i < count($hopdongs); $i++) {
+            $hopdongs[$i]->HOPDONG_TONGGIATRI = number_format(round($hopdongs[$i]->HOPDONG_TONGGIATRI), 0, '.', '.');
+        }
         // $hopdongs = DB::select('select HOPDONG.* from HOPDONG join LOAI_HOPDONG on hopdong.LOAIHOPDONG_ID = LOAI_HOPDONG.LOAIHOPDONG_ID join taikhoan on hopdong.HOPDONG_NGUOILAP = TAIKHOAN.nguoidung_id
         // join KHACHHANG on HOPDONG.KHACHHANG_ID = KHACHHANG.KHACHHANG_ID join TRANGTHAI_HOPDONG on HOPDONG.HOPDONG_TRANGTHAI = TRANGTHAI_HOPDONG.TRANGTHAI_ID
         // order by HOPDONG_ID asc;')->paginate(5);
@@ -64,6 +67,7 @@ class HopDongController extends Controller
                 'id' => $hopdong->HOPDONG_ID,
             ]
         );
+        $hopdong->HOPDONG_TONGGIATRI = number_format(round($hopdong->HOPDONG_TONGGIATRI), 0, '.', '.');
         return view('hopdong.show', [
             'hopdong' => $hopdong,
             'hoadons' => $hoadons,
@@ -85,7 +89,7 @@ class HopDongController extends Controller
                 'id' => $id,
             ]
         )[0];
-
+        $hopdong->HOPDONG_TONGGIATRI = number_format(round($hopdong->HOPDONG_TONGGIATRI), 0, '.', '.');
         $hoadons = DB::select(
             "select * from hoadon where HOPDONG_ID=:id order by HOADON_ID desc;",
             [
@@ -108,10 +112,11 @@ class HopDongController extends Controller
         $path = $request->file('filehopdong')->storeAs('public/HopDong', $fileName);
         return substr($path, strlen('public/'));
     }
-    protected function deleteImage(Request $request) {
+    protected function deleteImage(Request $request)
+    {
         $sohoadon = $request->get('hopdong_so');
         $files = Storage::files('public/HopDong');
-    
+
         foreach ($files as $file) {
             $filename = pathinfo($file, PATHINFO_FILENAME);
             if ($filename == $sohoadon) {
@@ -121,23 +126,26 @@ class HopDongController extends Controller
     }
     public function search(Request $request)
     {
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $trangthaihopdongs = DB::select('select * from TRANGTHAI_HOPDONG');
             $khachhangs = DB::select('select * from KHACHHANG where KHACHHANG_TRANGTHAI != 4');
             $hopdongs = DB::table('hopdong')->join('LOAI_HOPDONG', 'HOPDONG.LOAIHOPDONG_ID', '=', 'LOAI_HOPDONG.LOAIHOPDONG_ID')
-            ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
-            ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
-            ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
-            ->where('hopdong_so', 'LIKE', '%' . $request->search . '%')
-            ->orderBy('HOPDONG_ID', 'asc')
-            ->select('HOPDONG.*','TAIKHOAN.ten_nd')
-            ->distinct()
-            ->paginate(5);
-        //$histories->appends($request->all());
-        // return response()->json([
-        //     'histories' => $histories,
-        // ]); 
-        return view('hopdong.hopdong_data', compact('trangthaihopdongs', 'khachhangs', 'hopdongs'))->render();
+                ->join('TAIKHOAN', 'HOPDONG.HOPDONG_NGUOILAP', '=', 'TAIKHOAN.nguoidung_id')
+                ->join('KHACHHANG', 'HOPDONG.KHACHHANG_ID', '=', 'KHACHHANG.KHACHHANG_ID')
+                ->join('TRANGTHAI_HOPDONG', 'HOPDONG.HOPDONG_TRANGTHAI', '=', 'TRANGTHAI_HOPDONG.TRANGTHAI_ID')
+                ->where('hopdong_so', 'LIKE', '%' . $request->search . '%')
+                ->orderBy('HOPDONG_ID', 'asc')
+                ->select('HOPDONG.*', 'TAIKHOAN.ten_nd')
+                ->distinct()
+                ->paginate(5);
+            for ($i = 0; $i < count($hopdongs); $i++) {
+                $hopdongs[$i]->HOPDONG_TONGGIATRI = number_format(round($hopdongs[$i]->HOPDONG_TONGGIATRI), 0, '.', '.');
+            }
+            //$histories->appends($request->all());
+            // return response()->json([
+            //     'histories' => $histories,
+            // ]); 
+            return view('hopdong.hopdong_data', compact('trangthaihopdongs', 'khachhangs', 'hopdongs'))->render();
         }
     }
 
@@ -380,7 +388,7 @@ class HopDongController extends Controller
             );
 
         }
-        
+
         $hopdong = HopDong::find($id);
         if ($hopdong) {
             $history = new History;

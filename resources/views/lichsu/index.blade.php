@@ -75,7 +75,7 @@
                 $(document).on('click', '.pagination a', function(event) {
                     event.preventDefault();
                     var page = $(this).attr('href').split('page=')[1];
-                    $('#hidden_page').val(page);
+                    //$('#hidden_page').val(page);
 
                     var query = $('#searchHistory').val();
                     $('li').removeClass('active');

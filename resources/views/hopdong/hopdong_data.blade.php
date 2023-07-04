@@ -4,8 +4,8 @@
         </td>
         <td class="align-middle text-truncate" style="max-width: 100px">
             {{ $hopdong->HOPDONG_SO }}</td>
-        <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_NGAYKY }}</td>
-        <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_NGAYHIEULUC }}</td>
+        <td class="w-auto text-truncate">{{ date('d-m-Y', strtotime($hopdong->HOPDONG_NGAYKY)) }}</td>
+        <td class="w-auto text-truncate">{{ date('d-m-Y', strtotime($hopdong->HOPDONG_NGAYHIEULUC)) }}</td>
         {{-- <td class="w-auto text-truncate" style="max-width: 100px;">
                                     {{ $hopdong->HOPDONG_TENGOITHAU }}</td> --}}
         <td class="w-auto text-truncate">{{ $hopdong->HOPDONG_TENDUAN }}</td>
@@ -273,6 +273,21 @@
     </td>
 </tr>
 <script>
+    function formatNumberInputs() {
+        var numberInputs = document.querySelectorAll('input[type="text"][class~="textnumber"]');
+        numberInputs.forEach(function(input) {
+            input.addEventListener('input', function() {
+                var value = this.value.replace(/\D/g, '');
+                var formattedValue = formatNumber(value);
+                this.value = formattedValue;
+            });
+        });
+    };
+
+    window.addEventListener('DOMContentLoaded', function() {
+        formatNumberInputs();
+    });
+
     $(document).ready(function() {
         $('[id^="deleteForm"]').on('submit', function(e) {
             e.preventDefault();
@@ -432,55 +447,54 @@
     });
 
     $('#updateHopDong').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var itemId = button.data('id');
+        var button = $(event.relatedTarget);
+        var itemId = button.data('id');
 
-            hopdong_so = document.querySelector('#updateHopDong input[name="hopdong_so"]');
-            tenKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
-            selectLoaiHopDong = document.querySelector('#updateHopDong select[name="loaihopdong_id"]');
-            selectKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
-            ngayky = document.querySelector('#updateHopDong input[name="hopdong_ngayky"]');
-            ngayhieuluc = document.querySelector('#updateHopDong input[name="hopdong_ngayhieuluc"]');
-            ngaykthuc = document.querySelector('#updateHopDong input[name="hopdong_ngayketthuc"]');
-            tengoithau = document.querySelector('#updateHopDong input[name="hopdong_tengoithau"]');
-            duan = document.querySelector('#updateHopDong input[name="hopdong_tenduan"]');
-            noidung = document.querySelector('#updateHopDong input[name="hopdong_noidung"]');
-            thoigianthuchien = document.querySelector('#updateHopDong input[name="hopdong_thoigianthuchien"]');
-            ddiena = document.querySelector('#updateHopDong input[name="hopdong_daidienben_a"]');
-            ddienb = document.querySelector('#updateHopDong input[name="hopdong_daidienben_b"]');
-            tgiatri = document.querySelector('#updateHopDong input[name="hopdong_tonggiatri"]');
-            htttoan = document.querySelector('#updateHopDong select[name="hopdong_hinhthucthanhtoan"');
-            tthai = document.querySelector('#updateHopDong select[name="hopdong_trangthai"]');
-            gchu = document.querySelector('#updateHopDong input[name="hopdong_ghichu"]');
-            filehdlink = document.querySelector('#updateHopDong [id="filehdlink"]');
+        hopdong_so = document.querySelector('#updateHopDong input[name="hopdong_so"]');
+        tenKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
+        selectLoaiHopDong = document.querySelector('#updateHopDong select[name="loaihopdong_id"]');
+        selectKH = document.querySelector('#updateHopDong select[name="khachhang_id"]');
+        ngayky = document.querySelector('#updateHopDong input[name="hopdong_ngayky"]');
+        ngayhieuluc = document.querySelector('#updateHopDong input[name="hopdong_ngayhieuluc"]');
+        ngaykthuc = document.querySelector('#updateHopDong input[name="hopdong_ngayketthuc"]');
+        tengoithau = document.querySelector('#updateHopDong input[name="hopdong_tengoithau"]');
+        duan = document.querySelector('#updateHopDong input[name="hopdong_tenduan"]');
+        noidung = document.querySelector('#updateHopDong input[name="hopdong_noidung"]');
+        thoigianthuchien = document.querySelector('#updateHopDong input[name="hopdong_thoigianthuchien"]');
+        ddiena = document.querySelector('#updateHopDong input[name="hopdong_daidienben_a"]');
+        ddienb = document.querySelector('#updateHopDong input[name="hopdong_daidienben_b"]');
+        tgiatri = document.querySelector('#updateHopDong input[name="hopdong_tonggiatri"]');
+        htttoan = document.querySelector('#updateHopDong select[name="hopdong_hinhthucthanhtoan"');
+        tthai = document.querySelector('#updateHopDong select[name="hopdong_trangthai"]');
+        gchu = document.querySelector('#updateHopDong input[name="hopdong_ghichu"]');
+        filehdlink = document.querySelector('#updateHopDong [id="filehdlink"]');
 
-            $.ajax({
-                url: '/gethopdong/' + itemId,
-                type: 'GET',
-                success: function(response) {
-                    console.log(response);
-                    var hopdong = response.hopdong;
-                    selectLoaiHopDong.value = hopdong.LOAIHOPDONG_ID;
-                    hopdong_so.value = hopdong.HOPDONG_SO;
-                    selectKH.value = hopdong.KHACHHANG_ID;
-                    ngayky.value = hopdong.HOPDONG_NGAYKY;
-                    ngayhieuluc.value = hopdong.HOPDONG_NGAYHIEULUC;
-                    ngaykthuc.value = hopdong.HOPDONG_NGAYKETTHUC;
-                    tengoithau.value = hopdong.HOPDONG_TENGOITHAU;
-                    duan.value = hopdong.HOPDONG_TENDUAN;
-                    noidung.value = hopdong.HOPDONG_NOIDUNG;
-                    thoigianthuchien.value = hopdong.HOPDONG_THOIGIANTHUCHIEN;
-                    ddiena.value = hopdong.HOPDONG_DAIDIENBEN_A;
-                    ddienb.value = hopdong.HOPDONG_DAIDIENBEN_B;
-                    tgiatri.value = hopdong.HOPDONG_TONGGIATRI;
-                    htttoan.value = hopdong.HOPDONG_HINHTHUCTHANHTOAN;
-                    tthai.value = hopdong.HOPDONG_TRANGTHAI;
-                    gchu.value = hopdong.HOPDONG_GHICHU;
-                    console.log(hopdong.HOPDONG_FILE);
-                    filehdlink.href = '{{ asset('storage/') }}' + "/" + hopdong.HOPDONG_FILE;
-                    filehdlink.innerHTML = hopdong.HOPDONG_FILE;
-                }
-            })
-        });
+        $.ajax({
+            url: '/gethopdong/' + itemId,
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                var hopdong = response.hopdong;
+                selectLoaiHopDong.value = hopdong.LOAIHOPDONG_ID;
+                hopdong_so.value = hopdong.HOPDONG_SO;
+                selectKH.value = hopdong.KHACHHANG_ID;
+                ngayky.value = hopdong.HOPDONG_NGAYKY;
+                ngayhieuluc.value = hopdong.HOPDONG_NGAYHIEULUC;
+                ngaykthuc.value = hopdong.HOPDONG_NGAYKETTHUC;
+                tengoithau.value = hopdong.HOPDONG_TENGOITHAU;
+                duan.value = hopdong.HOPDONG_TENDUAN;
+                noidung.value = hopdong.HOPDONG_NOIDUNG;
+                thoigianthuchien.value = hopdong.HOPDONG_THOIGIANTHUCHIEN;
+                ddiena.value = hopdong.HOPDONG_DAIDIENBEN_A;
+                ddienb.value = hopdong.HOPDONG_DAIDIENBEN_B;
+                tgiatri.value = hopdong.HOPDONG_TONGGIATRI;
+                htttoan.value = hopdong.HOPDONG_HINHTHUCTHANHTOAN;
+                tthai.value = hopdong.HOPDONG_TRANGTHAI;
+                gchu.value = hopdong.HOPDONG_GHICHU;
+                console.log(hopdong.HOPDONG_FILE);
+                filehdlink.href = '{{ asset('storage/') }}' + "/" + hopdong.HOPDONG_FILE;
+                filehdlink.innerHTML = hopdong.HOPDONG_FILE;
+            }
+        })
+    });
 </script>
-
