@@ -368,7 +368,7 @@ class HoaDonController extends Controller
         $history->action = 'Sửa';
         $history->model_type = 'Hóa đơn';
         $history->model_id = $id;
-        $history->description = 'Cập nhật hóa đơn số: ' . $request->sohoadon;
+        $history->description = 'Sửa hóa đơn số: ' . $request->sohoadon;
         $history->Time = Carbon::now();
         $history->save();
         return redirect('/hoadon/'.$request->sohoadon);
@@ -621,7 +621,7 @@ class HoaDonController extends Controller
         $history->action = 'Sửa';
         $history->model_type = 'Hóa đơn';
         $history->model_id = $id;
-        $history->description = 'Cập nhật hóa đơn số: ' . $request->sohoadon;
+        $history->description = 'Sửa hóa đơn số: ' . $request->sohoadon;
         $history->Time = Carbon::now();
         $history->save();
         return response()->json([

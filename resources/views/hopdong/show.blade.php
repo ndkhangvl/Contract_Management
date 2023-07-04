@@ -246,7 +246,7 @@
 
                     <hr style="border-top: 2px dashed black;" />
                     <div class="text-start">
-                        <b>Ngày ký: </b>{{ $hopdong->HOPDONG_NGAYKY }}<br>
+                        <b>Ngày ký: </b>{{ date('d-m-Y', strtotime($hopdong->HOPDONG_NGAYKY)) }}<br>
                         <b>Hợp đồng số: </b><b style="color: red">{{ $hopdong->HOPDONG_SO }}</b><br>
                         <b>Trạng thái: </b>{{ $hopdong->TRANGTHAI_TEN }}
                     </div>

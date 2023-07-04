@@ -9,7 +9,14 @@
             <td class="text-center align-middle">{{ $history->action }}</td>
             <td class="text-center align-middle">{{ $history->model_type }}</td>
             <td class="text-center align-middle">{{ $history->description }}</td>
-            <td class="text-center align-middle">{{ $history->Time }}</td>
+            <td class="text-center align-middle">
+                <?php
+                    $dateTime = strtotime($history->Time);
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    $formattedDateTime = date('d-m-Y H:i:s', $dateTime);
+                    echo date('d-m-Y H:i:s', $dateTime);
+                ?>
+            </td>
         </tr>
     @endforeach
     <tr class="bg-white">

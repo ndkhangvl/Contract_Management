@@ -165,7 +165,7 @@
                                 &nbsp;<br>
                                 &nbsp;<br>
                                 <span class="form-label fw-bold">Ngày hoạt động:</span>
-                                {{ $khachhang->KHACHHANG_NGAYHOATDONG }}
+                                {{ date('d-m-Y', strtotime($khachhang->KHACHHANG_NGAYHOATDONG)) }}
                                 <hr>
                             </div>
                             <div class="col subheading">
@@ -174,16 +174,16 @@
                                 <span class="form-label fw-bold">CMND/CCCD:</span>
                                 {{ $khachhang->KHACHHANG_CMND }}<br>
                                 <span class="form-label fw-bold">Ngày cấp CMND:</span>
-                                {{ $khachhang->KHACHHANG_NGAYCAPCMND }}<br>
+                                {{ date('d-m-Y', strtotime($khachhang->KHACHHANG_NGAYCAPCMND)) }}<br>
                                 <span class="form-label fw-bold">Ngày sinh:</span>
-                                {{ $khachhang->KHACHHANG_NGAYSINHNDD }}
+                                {{ date('d-m-Y', strtotime($khachhang->KHACHHANG_NGAYSINHNDD)) }}
                                 <hr>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col subheading">
                                 <span class="form-label fw-bold">Ngày tạo lập:</span>
-                                {{ $khachhang->NGAYTAOLAP }}
+                                {{ date('d-m-Y', strtotime($khachhang->NGAYTAOLAP)) }}
                                 <hr>
                             </div>
                         </div>
