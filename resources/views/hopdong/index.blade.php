@@ -72,7 +72,7 @@
                         <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
                     </button>
                 </div>
-                <div class="form-group p-2 d-flex justify-content-end mb-2 ms-1">
+                <div class="p-2 d-flex justify-content-end mb-2 ms-1">
                     <input type="text" class="border" id="searchHopDong" name="searchHopDong"
                         placeholder="Nhập vào tìm kiếm"></input>
                 </div>
@@ -83,8 +83,8 @@
                 aria-labelledby="hoadonModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="hoadonModalLabel">Thêm hợp đồng</h5>
+                        <div class="modal-header text-white bg-primary">
+                            <h5 class="modal-title justify-content-center" id="hoadonModalLabel">Thêm hợp đồng</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>

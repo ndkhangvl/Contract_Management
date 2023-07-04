@@ -68,6 +68,7 @@
         </div>
     </div> --}}
 <header class="bg-white d-flex justify-content-between">
+    {{-- <header class="bg-white d-flex justify-content-between" style="position: fixed; top: 0; left: 0; right:0; z-index: 9999"> --}}
     <div class="d-inline-block mr-2 m-2 text-center">
         <a href="#" class="burger-btn mt-2">
             <i class="fas fa-bars" style="display: inline-block; font-size: 40px;"></i>
