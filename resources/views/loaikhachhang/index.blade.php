@@ -74,7 +74,7 @@
                                 <td class="text-center align-middle text-truncate test" style="max-width: 100px">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
                                 <td class="text-center align-middle text-truncate test">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
                                 <td class="text-center align-middle" style="max-width: 50px">
-                                    <form action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST" onsubmit="return confirmDelete()">
+                                    <form id="deleteform" action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST" onsubmit="return confirmDelete()">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-block">
@@ -145,7 +145,7 @@
                         <h5 class="modal-title" id="updatenewcustype">Sửa Loại Khách Hàng</h5>
                     </div>
                     <div class="modal-body">
-                        <form id="infoForm" action="{{ route('loaikhachhang.update') }}" method="POST">
+                        <form id="editForm" action="{{ route('loaikhachhang.update') }}" method="POST">
                             @csrf
                             <div class="mb-3 mt-3">
                                 <label for="id" class="form-label fw-bold">ID loại khách hàng cần sửa: </label>
@@ -179,6 +179,188 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
         
+        $(document).ready(function() {
+            $('#infoForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var form = $('#infoForm')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                   
+                    beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            Swal.hideLoading();
+                        }
+                    });
+                    },
+                    success: function(success) {
+                        Swal.close();
+                        if (success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đã thêm mới!',
+                                text: 'Loại khách hàng mới đã được tạo'
+                            }).then(() => {
+                                $('#infoForm').val('');
+                                location.reload();
+                            });
+
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Vui lòng kiểm tra kỹ thông tin nhập vào, hoặc loại khách hàng đã tồn tại'
+                        });
+                        if (xhr.status === 422) {
+                            $('.invalid-feedback').empty();
+                            var response = JSON.parse(xhr.responseText);
+                            var errors = response.errors;
+                            for (var field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    var errorMessage = errors[field][0];
+                                    $('#' + field + '_error').text(errorMessage).show();
+                                }
+                            }
+                        }
+                        }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#deleteform').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var form = $('#deleteform')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                   
+                    beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            Swal.hideLoading();
+                        }
+                    });
+                    },
+                    success: function(success) {
+                        Swal.close();
+                        if (success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đã Xóa',
+                                text: 'Loại khách hàng đã xóa thành công'
+                            }).then(() => {
+                                $('#deleteform').val('');
+                                location.reload();
+                            });
+
+                        }},
+                    error: function(xhr) {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Không thể xóa Loại Khách Hàng vì có Khách Hàng mang loại này'
+                        });
+                        if (xhr.status === 422) {
+                            $('.invalid-feedback').empty();
+                            var response = JSON.parse(xhr.responseText);
+                            var errors = response.errors;
+                            for (var field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    var errorMessage = errors[field][0];
+                                    $('#' + field + '_error').text(errorMessage).show();
+                                }
+                            }
+                        }
+                        }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#editForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var form = $('#editForm')[0];
+                var data = new FormData(form);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                   
+                    beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                        onClose: () => {
+                            Swal.hideLoading();
+                        }
+                    });
+                    },
+                    success: function(success) {
+                        Swal.close();
+                        if (success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công',
+                                text: 'Chỉnh loại khách hàng thành công'
+                            }).then(() => {
+                                $('#editForm').val('');
+                                location.reload();
+                            });
+
+                        }},
+                    error: function(xhr) {
+                        Swal.close();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Chỉnh loại khách hàng không thành công'
+                        });
+                        if (xhr.status === 422) {
+                            $('.invalid-feedback').empty();
+                            var response = JSON.parse(xhr.responseText);
+                            var errors = response.errors;
+                            for (var field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    var errorMessage = errors[field][0];
+                                    $('#' + field + '_error').text(errorMessage).show();
+                                }
+                            }
+                        }
+                        }
+                });
+            });
+        });
+
             $(document).ready(function() {
                 let selectedRow = null;
 
