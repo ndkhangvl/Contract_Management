@@ -15,10 +15,10 @@
     @include('sidebar')
     @include('header2')
     <div id="main">
-        <h1>Lịch sử chỉnh sửa</h1>
-        <div class="container bg-white shadow">
+        <h1 class="">Lịch sử chỉnh sửa</h1>
+        <div class="container bg-white shadow rounded">
             <div class="form-group p-2 d-flex justify-content-end">
-                <input type="text" class="border" id="searchHistory" name="searchHistory"
+                <input type="text" class="border form-control" id="searchHistory" name="searchHistory"
                     placeholder="Nhập vào tìm kiếm"></input>
             </div>
             <div class="table-responsive">
@@ -65,11 +65,15 @@
                         }
                     });
                 }
-
+                var timeout = null;
                 $('#searchHistory').on('keyup', function() {
                     var value = $('#searchHistory').val();
                     var page = $('#hidden_page').val();
-                    searchHistory(page, value);
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        searchHistory(page, value);
+                    }, 600);
+                    // searchHistory(page, value);
                 });
 
                 $(document).on('click', '.pagination a', function(event) {

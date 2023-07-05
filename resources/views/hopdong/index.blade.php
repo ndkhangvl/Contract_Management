@@ -46,8 +46,13 @@
             font-size: 15px;
         }
 
+        span.select2-dropdown {
+            color: black;
+        }
+
         .select2-search--dropdown .select2-search__field {
             font-size: 15px;
+            color: black;
         }
 
         /* .select2-dropdown {
@@ -65,15 +70,15 @@
     @include('header2')
     <div id="main">
         <div class="container bg-white shadow rounded-1">
-            <div class="d-flex p-2">
+            <div class="d-flex p-2 justify-content-between">
                 <div class="mb-2 ms-1">
                     <button type="button" class="btn text-white" style="background-color: #435EBE;"
                         data-bs-toggle="modal" data-bs-target="#hoadonModal">
                         <i class="fas fa-plus" style="margin-right: 5px;"></i>Thêm mới
                     </button>
                 </div>
-                <div class="p-2 d-flex justify-content-end mb-2 ms-1">
-                    <input type="text" class="border" id="searchHopDong" name="searchHopDong"
+                <div class="mb-2 me-1 d-flex justify-content-end">
+                    <input type="text" class="border form-control" id="searchHopDong" name="searchHopDong"
                         placeholder="Nhập vào tìm kiếm"></input>
                 </div>
             </div>
@@ -83,8 +88,8 @@
                 aria-labelledby="hoadonModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                     <div class="modal-content">
-                        <div class="modal-header text-white bg-primary">
-                            <h5 class="modal-title justify-content-center" id="hoadonModalLabel">Thêm hợp đồng</h5>
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title justify-content-center text-white" id="hoadonModalLabel">Thêm hợp đồng</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -113,7 +118,8 @@
                                     <label for="owner" class="form-label fw-bold">Khách hàng:</label>
                                     <div>
                                         <select id="tenKH" name="khachhang_id" style="width: 100%;"
-                                            class="js-example-placeholder-single js-states form-control form-select form-select-sm">
+                                            class="text-dark js-example-responsive form-control form-select form-select-sm">
+                                            <option value=""></option>
                                             @foreach ($khachhangs as $khachhang)
                                                 <option value="{{ $khachhang->KHACHHANG_ID }}">
                                                     {{ $khachhang->KHACHHANG_TEN }}
@@ -127,7 +133,8 @@
                                                 placeholder: "Chọn tên khách hàng",
                                                 dropdownParent: $("#hoadonModalLabel"),
                                                 matcher: matchCustom,
-                                                allowClear: true,
+                                                // allowClear: true,
+                                                cache: false,
                                                 language: {
                                                     noResults: function() {
                                                         return "Không tìm thấy kết quả";
@@ -271,7 +278,7 @@
     </button>
 </a> --}}
 
-            <hr />
+            <hr style="margin: 5px;"/>
 
             <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
                 aria-hidden="true">
@@ -376,11 +383,15 @@
                     }
                 });
             }
-
+            var timeout = null;
             $('#searchHopDong').on('keyup', function() {
                 var value = $('#searchHopDong').val();
                 var page = $('#hidden_page').val();
-                searchHopDong(page, value);
+                // searchHopDong(page, value);
+                clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        searchHopDong(page, value);
+                    }, 600);
             });
 
             $(document).on('click', '.pagination a', function(event) {
@@ -808,6 +819,7 @@
 
         function resetForm() {
             $('#contractForm')[0].reset();
+            $('#tenKH').val(null).trigger('change');
             $('.invalid-feedback').empty();
         }
 
