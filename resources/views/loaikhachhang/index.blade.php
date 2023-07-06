@@ -21,7 +21,7 @@
     @include('header2')
     <div id="main">
         <div class="container bg-white shadow p-2">
-            <h1>Loại khách hàng</h1>
+            <h2>Loại khách hàng</h2>
             <div class="d-flex p-2">
                 <div class="me-1">
                     <a href="/khachhang" class="btn text-white" style="background-color: #435EBE;">

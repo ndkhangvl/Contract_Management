@@ -502,7 +502,7 @@
         </div>
         <!--end modal detail-->
         <hr />
-        <h1>Danh sách Hóa đơn</h1>
+        <h2>Danh sách Hóa đơn</h2>
         <hr />
         <form>
             <div class="content">

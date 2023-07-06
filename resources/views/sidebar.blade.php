@@ -37,7 +37,7 @@
                 </div>
             </div>
             <h3 class="text-center text-white fw-bold" style="font-size: 25px">{{ trans('msg.title-login') }}</h3>
-            <hr class="text-white bg-white" style="height: 3px; background-color: white !important;">
+            <hr class="text-white bg-white" style="height: 3px; background-color: white !important; opacity: 1;">
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-item {{ Str::startsWith(request()->path(), 'baocao') ? 'active' : '' }} ">
