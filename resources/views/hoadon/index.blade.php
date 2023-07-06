@@ -61,9 +61,8 @@
     <div class="container shadow bg-white">
         <div class="content p-3">
             <label>Chọn hợp đồng cần tạo hóa đơn</label>
-            <span id="selecthopdong" onclick="selectHopDong()">
-                <select name="sohopdongsl" id="sohopdongsl" class="js-example-placeholder-single js-states"
-                    style="width: 20%;">
+            <span id="selecthopdong">
+                <select name="sohopdongsl" id="sohopdongsl" class="js-example-placeholder-single js-states" style="width: 20%;">
                     @foreach ($hopdongs as $hd)
                         <option value="{{ $hd->HOPDONG_SO }}">{{ $hd->HOPDONG_SO }}</option>
                     @endforeach
@@ -74,7 +73,7 @@
                     $('#sohopdongsl').select2({
                         placeholder: "Chọn loại hợp đồng",
                         matcher: matchCustom,
-                        allowClear: true,
+                        allowClear: false,
                         language: {
                             noResults: function() {
                                 return "Không tìm thấy kết quả";
@@ -84,13 +83,9 @@
                 });
             </script>
             {{-- <button type="button" class="btn btn-primary" onclick="moveToCreate()">Thêm mới (trang mới)</button> --}}
-            <button type="button" class="btn btn-primary" id="btnCreateHDon" onclick="openCreateHDon()">Thêm mới hóa
+            <button type="button" class="btn btn-primary" id="btnCreateHDon" data-bs-toggle="modal"
+                data-bs-target="#createModal" onclick="openCreateHDon()">Thêm mới hóa
                 đơn</button>
-            <a href="/ExportHoaDon">
-                <button type="button" class="btn btn-info">
-                    Dowload tất cả hóa đơn (Excel)
-                </button>
-            </a>
             <div id="errorsohopdong"></div>
         </div>
         <!--Modal create-->
@@ -506,6 +501,9 @@
         <hr />
         <h1>Danh sách Hóa đơn</h1>
         <hr />
+        <a href="/ExportHoaDon" class="btn btn-info">
+            Dowload tất cả hóa đơn (Excel)
+        </a>
         <form>
             <div class="content">
                 <h5>Nhập số hợp đồng/hóa đơn cần tìm</h5>
@@ -1064,6 +1062,7 @@
                     modal.querySelector("#sohopdong").value = "";
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-toggle", "");
                     document.getElementById("btnCreateHDon").setAttribute("data-bs-target", "");
+                    document.getElementById("errorsohopdong").innerHTML = 'Chưa chọn hợp đồng cần tạo hóa đơn';
                 } else {
                     var modal = document.getElementById("createModal");
                     modal.querySelector("#sohopdong").value = document.getElementById("sohopdongsl").value;
@@ -1075,9 +1074,6 @@
 
             function openCreateHDon() {
                 selectHopDong();
-                if (document.getElementById("sohopdongsl").value == "-1") {
-                    document.getElementById("errorsohopdong").innerHTML = 'Chưa chọn hợp đồng cần tạo hóa đơn';
-                }
             }
 
             function calHoaDonIndexCreate() {
