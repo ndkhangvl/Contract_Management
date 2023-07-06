@@ -86,6 +86,9 @@
             <button type="button" class="btn btn-primary" id="btnCreateHDon" data-bs-toggle="modal"
                 data-bs-target="#createModal" onclick="openCreateHDon()">Thêm mới hóa
                 đơn</button>
+            <a href="/ExportHoaDon" class="btn btn-info">
+                Dowload tất cả hóa đơn (Excel)
+            </a>
             <div id="errorsohopdong"></div>
         </div>
         <!--Modal create-->
@@ -501,9 +504,6 @@
         <hr />
         <h1>Danh sách Hóa đơn</h1>
         <hr />
-        <a href="/ExportHoaDon" class="btn btn-info">
-            Dowload tất cả hóa đơn (Excel)
-        </a>
         <form>
             <div class="content">
                 <h5>Nhập số hợp đồng/hóa đơn cần tìm</h5>
