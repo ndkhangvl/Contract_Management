@@ -155,20 +155,20 @@
                     <form action="#" id="updatePass" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="passwd_new" class="form-label">Mật khẩu mới:</label>
+                            <label for="passwd_new" class="form-label fw-bold">Mật khẩu mới:</label>
                             <input type="password" class="form-control" id="passwd_new"
                                 placeholder="Nhập vào mật khẩu mới" name="passwd_new">
                             <span class="invalid-feedback" id="passwd_new_error"></span>
                         </div>
                         <div class="mb-3">
-                            <label for="pwd" class="form-label">Nhập lại mật khẩu:</label>
+                            <label for="pwd" class="form-label fw-bold">Nhập lại mật khẩu:</label>
                             <input type="password" class="form-control" id="confirm_passwd_new"
                                 placeholder="Xác nhận mật khẩu" name="confirm_passwd_new">
                             <span class="invalid-feedback" id="confirm_passwd_new_error"></span>
                         </div>
                         <div class="mb-3 mt-3 pb-2 text-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Gửi</button>
                         </div>
                     </form>
                 </div>
