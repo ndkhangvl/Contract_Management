@@ -312,7 +312,7 @@
                                     <b>
                                         <p>Hợp đồng số:
                                     </b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
-                                    <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY }}</p>
+                                    <p>Ngày ký: {{ date('d-m-Y', strtotime($hopDong->HOPDONG_NGAYKY)) }}</p>
                                     <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
                                     <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
                                     <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
@@ -341,7 +341,7 @@
                                     <b>
                                         <p>Hợp đồng số:
                                     </b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
-                                    <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY }}</p>
+                                    <p>Ngày ký: {{ date('d-m-Y', strtotime($hopDong->HOPDONG_NGAYKY)) }}</p>
                                     <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
                                     <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
                                     <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
@@ -370,7 +370,7 @@
                                     <b>
                                         <p>Hợp đồng số:
                                     </b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
-                                    <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY }}</p>
+                                    <p>Ngày ký: {{ date('d-m-Y', strtotime($hopDong->HOPDONG_NGAYKY)) }}</p>
                                     <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
                                     <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
                                     <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
@@ -399,7 +399,7 @@
                                     <b>
                                         <p>Hợp đồng số:
                                     </b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
-                                    <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY }}</p>
+                                    <p>Ngày ký: {{ date('d-m-Y', strtotime($hopDong->HOPDONG_NGAYKY)) }}</p>
                                     <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
                                     <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
                                     <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
@@ -427,7 +427,7 @@
                                 <b>
                                     <p>Hợp đồng số:
                                 </b> <b style="color: #007bff">{{ $hopDong->HOPDONG_SO }}</b></p>
-                                <p>Ngày ký: {{ $hopDong->HOPDONG_NGAYKY }}</p>
+                                <p>Ngày ký: {{ date('d-m-Y', strtotime($hopDong->HOPDONG_NGAYKY)) }}</p>
                                 <p>Tên gói thầu: {{ $hopDong->HOPDONG_TENGOITHAU }}</p>
                                 <p>Tên dự án: {{ $hopDong->HOPDONG_TENDUAN }}</p>
                                 <p>Đai diện bên A: {{ $hopDong->HOPDONG_DAIDIENBEN_A }}</p>
@@ -454,7 +454,7 @@
                                 <b>
                                     <p>Hóa đơn số:
                                 </b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
-                                <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO }}</p>
+                                <p>Ngày tạo hóa đơn: {{ date('d-m-Y', strtotime($hoadon->HOADON_NGAYTAO)) }}</p>
                                 <p>Thuộc về họp đồng số: {{ $hoadon->HOPDONG_SO }}
                                 <p>Tổng tiền chưa thuế:
                                     {{ $hoadon->HOADON_TONGTIEN = number_format($hoadon->HOADON_TONGTIEN, 0, '.', '.') }}
@@ -486,7 +486,7 @@
                                 <b>
                                     <p>Hóa đơn số:
                                 </b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
-                                <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO }}</p>
+                                <p>Ngày tạo hóa đơn: {{ date('d-m-Y', strtotime($hoadon->HOADON_NGAYTAO)) }}</p>
                                 <p>Người tạo hóa đơn: {{ $hoadon->HOADON_NGUOITAO }}</p>
                                 <p>Người mua hàng: {{ $hoadon->HOADON_NGUOIMUAHANG }}</p>
                                 <p>Thành tiền: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
@@ -511,7 +511,7 @@
                                     <b>
                                         <p>Hóa đơn số:
                                     </b> <b style="color: #007bff">{{ $hoadon->HOADON_SO }}</b></p>
-                                    <p>Ngày tạo hóa đơn: {{ $hoadon->HOADON_NGAYTAO }}</p>
+                                    <p>Ngày tạo hóa đơn: {{ date('d-m-Y', strtotime($hoadon->HOADON_NGAYTAO)) }}</p>
                                     <p>Người tạo hóa đơn: {{ $hoadon->HOADON_NGUOITAO }}</p>
                                     <p>Người mua hàng {{ $hoadon->HOADON_NGUOIMUAHANG }}</p>
                                     <p>Tổng tiền: {{ $hoadon->HOADON_TONGTIEN_COTHUE }} VNĐ</p>
