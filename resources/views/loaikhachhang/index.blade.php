@@ -74,7 +74,7 @@
                                 <td class="text-center align-middle text-truncate test" style="max-width: 100px">{{ $loaikhachhang->LOAIKHACHHANG_TEN }}</td>
                                 <td class="text-center align-middle text-truncate test">{{ $loaikhachhang->LOAIKHACHHANG_ID_CSS }}</td>
                                 <td class="text-center align-middle" style="max-width: 50px">
-                                    <form id="deleteform" action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST" onsubmit="return confirmDelete()">
+                                    <form class="deleteform" action="{{ route('id.delete', ['id' => $loaikhachhang->LOAIKHACHHANG_ID]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-block">
@@ -241,10 +241,10 @@
             });
         });
         $(document).ready(function() {
-            $('#deleteform').on('submit', function(e) {
+            $('.deleteform').on('submit', function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
-                var form = $('#deleteform')[0];
+                var form = $('.deleteform')[0];
                 var data = new FormData(form);
                 $.ajax({
                     url: $(this).attr('action'),
@@ -265,19 +265,27 @@
                         }
                     });
                     },
-                    success: function(success) {
+                    success: function(response) {
                         Swal.close();
-                        if (success) {
+                        if (response) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Đã Xóa',
                                 text: 'Loại khách hàng đã xóa thành công'
                             }).then(() => {
-                                $('#deleteform').val('');
+                                $('.deleteform').val('');
                                 location.reload();
                             });
 
-                        }},
+                        } else {
+                            Swal.close();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: 'Không thể xóa Loại Khách Hàng vì có Khách Hàng mang loại này'
+                            });
+                        }
+                    },
                     error: function(xhr) {
                         Swal.close();
                         Swal.fire({

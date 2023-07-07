@@ -46,15 +46,13 @@ class LoaiKhachHangController extends Controller
         $khachHangCount = DB::table('KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->count();
 
         if ($khachHangCount > 0) {
+            return;
+        } else {
+            DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->delete();
             return response()->json([
-                'error' => $validator->errors()
+                'success' => true
             ]);
         }
-
-        DB::table('LOAI_KHACHHANG')->where('LOAIKHACHHANG_ID', $loaikhachhangid)->delete();
-        return response()->json([
-            'success' => true
-        ]);
     }
 
     public function update(Request $request)
