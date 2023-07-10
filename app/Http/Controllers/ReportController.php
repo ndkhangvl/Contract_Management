@@ -12,6 +12,7 @@ class ReportController extends Controller
 {
     public function index()
     {
+        $perPage = 10;
         $startDate = null;
         $endDate = null;
         if ($startDate = request()->start_date) {
@@ -63,12 +64,12 @@ class ReportController extends Controller
                     'HOPDONG_NGAYKY')
                 ->get();
 
-
+            
             $ThongtinHoaDon = DB::table('HOADON')
                 ->join('HOPDONG', 'HOPDONG.HOPDONG_ID', '=', 'HOADON.HOPDONG_ID')
                 ->select('HOADON.HOADON_SO', 'HOADON.HOADON_TRANGTHAI', 'HOADON.HOADON_TONGTIEN', 'HOADON.HOADON_TIENTHUE', 'HOADON.HOADON_THUESUAT', 'HOADON.HOADON_TONGTIEN_COTHUE', 'HOADON.HOADON_NGAYTAO', 'HOPDONG.HOPDONG_SO','HOADON_NGUOITAO','HOADON_NGUOIMUAHANG')
                 ->get();
-
+            
 
             $TongHopDong = DB::table('hopdong')->count();
             $TongThuHoaDon = DB::table('hoadon')->sum('HOADON_TONGTIEN_COTHUE');
